@@ -1,0 +1,25 @@
+# Created by https://www.toptal.com/developers/gitignore/api/netbeans,java
+# Edit at https://www.toptal.com/developers/gitignore?templates=netbeans,java
+
+### NetBeans ###
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+### Class Files ###
+# Complied class file #
+*.class
+
+# Log file #
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.ear
