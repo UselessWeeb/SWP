@@ -17,11 +17,13 @@ public class User {
     private int role;
     private String gender;
     private int point;
+    private String state;
+    private String password;
 
     public User() {
     }
 
-    public User(int idUser, String fullname, String email, String diaChi, String phoneNum, int role, String gender, int point) {
+    public User(int idUser, String fullname, String email, String diaChi, String phoneNum, int role, String gender, int point, String state, String password) {
         this.idUser = idUser;
         this.fullname = fullname;
         this.email = email;
@@ -30,6 +32,8 @@ public class User {
         this.role = role;
         this.gender = gender;
         this.point = point;
+        this.state = state;
+        this.password = password;
     }
 
     public int getIdUser() {
@@ -95,6 +99,25 @@ public class User {
     public void setPoint(int point) {
         this.point = point;
     }
-    
-    
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "idUser=" + idUser + ", fullname=" + fullname + ", email=" + email + ", diaChi=" + diaChi + ", phoneNum=" + phoneNum + ", role=" + role + ", gender=" + gender + ", point=" + point + ", state=" + state + ", password=" + password + '}';
+    }
 }
