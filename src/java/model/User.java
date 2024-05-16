@@ -17,11 +17,12 @@ public class User {
     private int role;
     private String gender;
     private int point;
+    private String password;
 
     public User() {
     }
 
-    public User(int idUser, String fullname, String email, String diaChi, String phoneNum, int role, String gender, int point) {
+    public User(int idUser, String fullname, String email, String diaChi, String phoneNum, int role, String gender, int point, String password) {
         this.idUser = idUser;
         this.fullname = fullname;
         this.email = email;
@@ -30,7 +31,8 @@ public class User {
         this.role = role;
         this.gender = gender;
         this.point = point;
-    }
+        this.password = password;
+    }   
 
     public int getIdUser() {
         return idUser;
@@ -94,6 +96,14 @@ public class User {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     

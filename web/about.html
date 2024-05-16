@@ -63,6 +63,9 @@
       <symbol xmlns="http://www.w3.org/2000/svg" id="star-half" viewBox="0 0 16 16">
         <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
       </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="play" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd" d="M7.238 3.044C5.652 2.182 3.75 3.32 3.75 5.033v13.934c0 1.714 1.902 2.851 3.488 1.989l12.812-6.967c1.6-.87 1.6-3.108 0-3.977zM2.25 5.033c0-2.905 3.167-4.687 5.705-3.306l12.812 6.967c2.644 1.438 2.644 5.174 0 6.612L7.955 22.273c-2.538 1.38-5.705-.4-5.705-3.306z" clip-rule="evenodd" />
+      </symbol>
       <symbol xmlns="http://www.w3.org/2000/svg" id="quote" viewBox="0 0 24 24">
         <path fill="currentColor" d="m15 17l2-4h-4V6h7v7l-2 4h-3Zm-9 0l2-4H4V6h7v7l-2 4H6Z" />
       </symbol>
@@ -173,10 +176,10 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link me-4 active" href="index.html">Home</a>
+                                <a class="nav-link me-4" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="about.html">About</a>
+                                <a class="nav-link me-4 active" href="about.html">About</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="shop.html">Shop</a>
@@ -188,7 +191,7 @@
                                 <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
                                 <ul class="dropdown-menu animate slide border">
                                     <li>
-                                        <a href="about.html" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
+                                        <a href="about.html" class="dropdown-item active fw-light">About <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
                                         <a href="shop.html" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
@@ -382,70 +385,17 @@
 
     </header>
 
-    <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray" style="background-image: url(images/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center;">
-        <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
-            <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-          <use xlink:href="#alt-arrow-right-outline"></use>
-        </svg>
-        </div>
-        <div class="position-absolute start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev main-slider-button-prev">
-            <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-          <use xlink:href="#alt-arrow-left-outline"></use>
-        </svg>
-        </div>
-        <div class="swiper main-swiper">
-            <div class="swiper-wrapper d-flex align-items-center">
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                            <div class="col-md-5 offset-md-1">
-                                <div class="banner-content">
-                                    <h2>GoPro hero9 Black</h2>
-                                    <p>Limited stocks available. Grab it now!</p>
-                                    <a href="shop.html" class="btn mt-3">Shop Collection</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <div class="image-holder">
-                                    <img src="images/banner-image.png" class="img-fluid" alt="banner">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                            <div class="col-md-5 offset-md-1">
-                                <div class="banner-content">
-                                    <h2>Iphone 15 Pro Max</h2>
-                                    <p>Discount available. Grab it now!</p>
-                                    <a href="shop.html" class="btn mt-3">Shop Product</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <div class="image-holder">
-                                    <img src="images/banner-image1.png" class="img-fluid" alt="banner">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                            <div class="col-md-5 offset-md-1">
-                                <div class="banner-content">
-                                    <h2>Macbook Collection</h2>
-                                    <p>Limited stocks available. Grab it now!</p>
-                                    <a href="shop.html" class="btn mt-3">Shop Collection</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <div class="image-holder">
-                                    <img src="images/banner-image2.png" class="img-fluid" alt="banner">
-                                </div>
-                            </div>
+    <section class="hero-section position-relative bg-light-gray padding-medium">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center">
+                        <h1>About Us</h1>
+                        <div class="breadcrumbs">
+                            <span class="item">
+                  <a href="index.html">Home > </a>
+                </span>
+                            <span class="item text-decoration-underline">About Us</span>
                         </div>
                     </div>
                 </div>
@@ -512,462 +462,31 @@
         </div>
     </section>
 
-    <section id="categories">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Categories</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item1.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Phones</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item2.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">PlayStations</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item3.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Digital watches</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item4.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Joysticks</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item5.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">EarPods</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item6.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Laptops</a></h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="best-selling-items" class="position-relative padding-large">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Best selling items</h3>
-            </div>
-            <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next product-slider-button-next">
-                <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-            <use xlink:href="#alt-arrow-right-outline"></use>
-          </svg>
-            </div>
-            <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev product-slider-button-prev">
-                <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-            <use xlink:href="#alt-arrow-left-outline"></use>
-          </svg>
-            </div>
-            <div class="swiper product-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item1.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">IPad (9th Gen)</a></h5>
-                            <span class="price text-primary fw-light mb-2">$870</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </button>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item2.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Drone With Camera</a></h5>
-                            <span class="price text-primary fw-light mb-2">$600</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item3.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Apple Watch (2nd Gen)</a></h5>
-                            <span class="price text-primary fw-light mb-2">$400</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item4.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Ultra HD TV</a></h5>
-                            <span class="price text-primary fw-light mb-2">$2000</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item5.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Bluetooth Speaker</a></h5>
-                            <span class="price text-primary fw-light mb-2">$75</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item6.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">White Headset</a></h5>
-                            <span class="price text-primary fw-light mb-2">$99</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item7.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Black Bluetooth Speaker</a></h5>
-                            <span class="price text-primary fw-light mb-2">$80</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item8.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Large Speaker</a></h5>
-                            <span class="price text-primary fw-light mb-2">$450</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item9.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">White EarPods</a></h5>
-                            <span class="price text-primary fw-light mb-2">$600</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item10.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Laptop</a></h5>
-                            <span class="price text-primary fw-light mb-2">$1200</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="limited-offer" class="bg-light padding-large">
-        <div class="container">
-            <div class="row d-flex align-items-center">
-                <div class="col-md-6 text-center">
-                    <div class="image-holder">
-                        <img src="images/banner-image3.png" class="img-fluid" alt="banner">
-                    </div>
-                </div>
-                <div class="col-md-5 offset-md-1">
-                    <h2>30% Discount on apple collection</h2>
-                    <div id="countdown-clock" class="text-dark d-flex align-items-center my-3">
-                        <div class="time d-grid pe-3">
-                            <span class="days fs-1 fw-normal"></span>
-                            <small>Days</small>
-                        </div>
-                        <span class="fs-1 text-primary">:</span>
-                        <div class="time d-grid pe-3 ps-3">
-                            <span class="hours fs-1 fw-normal"></span>
-                            <small>Hrs</small>
-                        </div>
-                        <span class="fs-1 text-primary">:</span>
-                        <div class="time d-grid pe-3 ps-3">
-                            <span class="minutes fs-1 fw-normal"></span>
-                            <small>Min</small>
-                        </div>
-                        <span class="fs-1 text-primary">:</span>
-                        <div class="time d-grid ps-3">
-                            <span class="seconds fs-1 fw-normal"></span>
-                            <small>Sec</small>
-                        </div>
-                    </div>
-                    <a href="shop.html" class="btn mt-3">Shop Collection</a>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-
-    <section id="items-listing" class="padding-large">
+    <section id="about-us" class="padding-large pt-0">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="featured border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Featured</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image1.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Wireless headset</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$500</span>
-                                </div>
+                <div class="col-md-6">
+                    <div class="image-holder position-relative mb-4 d-flex align-items-center justify-content-center">
+                        <a type="button" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/l4MOE3hZATA" data-bs-target="#myModal" class="play-btn position-absolute">
+                            <div class="play-icon border border-2 border-dark rounded-pill p-5">
+                                <svg class="search" width="40" height="40">
+                    <use xlink:href="#play"></use>
+                  </svg>
                             </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image2.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone x Pro Max</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$820</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image3.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone 11 Pro</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$960</span>
-                                </div>
-                            </div>
+                        </a>
+                        <div class="image">
+                            <img src="images/single-image-about.jpg" alt="single" class="img-fluid rounded-3 single-image">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="latest-items border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Latest items</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image4.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Apple airPod</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$450</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image5.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Screen touch watch</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$750</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image6.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Digital watch</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$660</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="best-reviewed border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Best reviewed</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image7.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Wireless Joysticks</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$350</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image8.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Apple White AirPod</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$330</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image9.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Gimbal stabilizer</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$920</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="on-sale border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">On sale</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image10.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone 15 pro max</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$1666</s> $999</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image11.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">White AirPods</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$500</s> $410</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image12.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">CCTV camera</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$600</s> $500</span>
-                                </div>
-                            </div>
+                <div class="col-md-6">
+                    <div class="detail ps-md-5 mt-5">
+                        <div class="display-header">
+                            <h3 class="mb-3">Best Digital Store BasicStore</h3>
+                            <p class="pb-1">Risus augue curabitur diam senectus congue velit et. Sed vitae metus nibh sit era. Nulla adipiscing pharetra pellentesque maecenas odio eros at. Et libero vulputate amet duis erat volutpat vitae eget. Sed vitae metus nibh sit
+                                era. Nulla adipiscing pharetra eros at.
+                                <p>Nulla adipiscing pharetra pellentesque maecenas odio eros at. Et libero vulputate amet duis erat volutpat vitae eget. Quam libero etiam et in ac at quis. Risus augue curabitur diam senectus congue velit et. </p>
+                                <a href="shop.html" class="btn mt-3">Go to shop</a>
                         </div>
                     </div>
                 </div>
@@ -1394,6 +913,23 @@
         </div>
     </div>
 
+    <!-- Video Popup -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><svg class="bi" width="40" height="40"><use xlink:href="#close-sharp"></use></svg></button>
+                    <div class="ratio ratio-16x9">
+                        <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
