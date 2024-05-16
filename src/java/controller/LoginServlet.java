@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.User;
 
 /**
@@ -50,10 +51,16 @@ public class LoginServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         User u = userDAO.Login(email, password);
         if (u == null){
+            System.out.println(email);
+            System.out.println(password);
             request.setAttribute("err", "Incorrect Username/Password");
             response.sendRedirect(referer);
         } else {
-            
+            //create session for said user
+            HttpSession session = request.getSession(false);
+            session.setAttribute("user", u);
+            System.out.println("login success");
+            response.sendRedirect(referer);
         }
     }
 

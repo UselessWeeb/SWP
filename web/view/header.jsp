@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <body>
@@ -217,30 +219,38 @@
                                         <use xlink:href="#user"></use>
                                         </svg>
                                     </a>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header border-bottom-0">
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="tabs-listing">
-                                                        <nav>
-                                                            <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                                                                <button class="nav-link text-uppercase active" id="nav-sign-in-tab" data-bs-toggle="tab" data-bs-target="#nav-sign-in" type="button" role="tab" aria-controls="nav-sign-in" aria-selected="true">Sign In</button>
-                                                                <button class="nav-link text-uppercase" id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">Register</button>
+                                    <c:set var = "user" value = "${sessionScope.user}"/>
+                                    <c:choose>
+                                        <c:when test="${empty user}">
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header border-bottom-0">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="tabs-listing">
+                                                                <nav>
+                                                                    <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+                                                                        <button class="nav-link text-uppercase active" id="nav-sign-in-tab" data-bs-toggle="tab" data-bs-target="#nav-sign-in" type="button" role="tab" aria-controls="nav-sign-in" aria-selected="true">Sign In</button>
+                                                                        <button class="nav-link text-uppercase" id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">Register</button>
+                                                                    </div>
+                                                                </nav>
+                                                                <div class="tab-content" id="nav-tabContent">
+                                                                    <%@include file = "login.jsp" %>
+                                                                    <%@include file = "register.jsp" %>
+                                                                </div>
                                                             </div>
-                                                        </nav>
-                                                        <div class="tab-content" id="nav-tabContent">
-                                                            <%@include file = "login.jsp" %>
-                                                            <%@include file = "register.jsp" %>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </c:when>
+                                        <c:otherwise>
+
+                                        </c:otherwise>
+                                    </c:choose>
                                 </li>
                                 <li class="wishlist-dropdown dropdown pe-3">
                                     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">

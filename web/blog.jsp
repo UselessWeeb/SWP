@@ -140,67 +140,67 @@
                     </div>
                     <div class="row post-contents">
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
                             <img src="images/post-item1.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
                             <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Phones</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
                             <img src="images/post-item2.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Eco-Friendly Innovations Making a Difference</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
                             <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Tech</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
                             <img src="images/post-item3.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">The Future of Wearable Tech: Trends to Watch</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
                             <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
                             <img src="images/post-item4.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
                             <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Phones</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
                             <img src="images/post-item5.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Eco-Friendly Innovations Making a Difference</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
                             <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Tech</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
                             <img src="images/post-item6.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">The Future of Wearable Tech: Trends to Watch</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
                             <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
                             <img src="images/post-item7.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
                             <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Phones</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
                             <img src="images/post-item8.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Eco-Friendly Innovations Making a Difference</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
                             <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                         <div class="col-lg-4 col-md-6 posts mb-4">
-                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Tech</a>
+                            <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
                             <img src="images/post-item9.jpg" alt="post image" class="img-fluid">
-                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">The Future of Wearable Tech: Trends to Watch</a></h4>
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
                             <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
-                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                            <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
                         </div>
                     </div>
                     <nav class="py-5" aria-label="Page navigation">

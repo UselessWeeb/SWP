@@ -901,7 +901,6 @@
             </div>
         </div>
     </section>
-
     <%@include file = "view/footer.jsp" %>
     <hr>
     <div id="footer-bottom" class="mb-2">
