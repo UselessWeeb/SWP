@@ -16,7 +16,8 @@ public class Fruit {
     public Fruit() {
     }
 
-    public Fruit(int id, String name, Date date, String origin, int number, int price, String description, String category, String image) {
+    public Fruit(int id, String name, Date date, String origin, int number, 
+            int price, String description, String category, String image) {
         this.id = id;
         this.name = name;
         this.date = date;
