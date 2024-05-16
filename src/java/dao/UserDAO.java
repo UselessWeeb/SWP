@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -10,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import model.User;
 
-/**
- *
- * @author M7510
- */
+import dao.EntityDAO;
+
+import model.User;
+
 public class UserDAO extends EntityDAO {
 
     public User Login(String email, String password) {
@@ -52,13 +53,13 @@ public class UserDAO extends EntityDAO {
     public User findByEmail(String email) {
         String strSelect = "Select * from [User] where email = ?";
         User u = null;
-        
+
         try {
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, email);
-            
+
             rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 u = (User) this.createEntity(rs);
             }
@@ -75,9 +76,9 @@ public class UserDAO extends EntityDAO {
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, email);
-            
+
             rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 userID = rs.getInt("user_id");
             }
@@ -86,25 +87,25 @@ public class UserDAO extends EntityDAO {
         }
         return userID;
     }
-    
+
     public List<User> getAllUser() {
         String sql = "Select * from [User]";
         List<User> userList = new ArrayList<>();
-        
+
         try {
             stm = connection.prepareStatement(sql);
-            
+
             rs = stm.executeQuery();
-            
+
             while (rs.next()) {
                 userList.add((User) this.createEntity(rs));
             }
-            
+
             return userList;
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return null;
     }
 
@@ -142,7 +143,7 @@ public class UserDAO extends EntityDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-           System.out.println(e);
+            System.out.println(e);
         }
     }
 
@@ -188,5 +189,32 @@ public class UserDAO extends EntityDAO {
                 rs.getString("state"),
                 rs.getInt("role_id")
         );
+    }
+
+    public int editUser(User user) {
+        int n = 0;
+        String sql = "UPDATE user\n"
+                + "SET fullName = ?,\n"
+                + "    email = ?,\n"
+                + "    diaChi = ?,\n"
+                + "    phoneNum = ?,\n"
+                + "    gender = ?,\n"
+                + "    password = ?,\n"
+                + "WHERE idUser = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getFullname());
+            stm.setString(2, user.getEmail());
+            stm.setString(3, user.getDiaChi());
+            stm.setString(4, user.getPhoneNum());
+            stm.setString(5, user.getGender());
+            stm.setString(6, user.getPassword());
+            stm.setInt(7, user.getIdUser());
+
+            n = stm.executeUpdate();
+        } catch (SQLException ex) {
+        }
+        return n;
+
     }
 }
