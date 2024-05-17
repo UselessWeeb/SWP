@@ -37,4 +37,29 @@ public class UserDAO extends EntityDAO{
         }
         return null;
     }
+
+    public User findById(String userId) {
+        try {
+            String strSelect = "Select * from [user] where idUser = ?";
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, userId);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                User u = new User(rs.getInt("idUser"), 
+                        rs.getString("fullname"), 
+                        rs.getString("email"), 
+                        rs.getString("diachi"), 
+                        rs.getString("phoneNum"), 
+                        rs.getInt("role"), 
+                        rs.getString("gender"), 
+                        rs.getInt("point"), 
+                        rs.getString("state"), 
+                        rs.getString("password"));
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }

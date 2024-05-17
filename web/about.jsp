@@ -421,34 +421,6 @@
         </div>
     </section>
     <%@include file = "view/footer.jsp" %>
-    <hr>
-    <div id="footer-bottom" class="mb-2">
-        <div class="container">
-            <div class="d-flex flex-wrap justify-content-between">
-                <div class="ship-and-payment d-flex gap-md-5 flex-wrap">
-                    <div class="shipping d-flex">
-                        <p>We ship with:</p>
-                        <div class="card-wrap ps-2">
-                            <img src="images/dhl.png" alt="visa">
-                            <img src="images/shippingcard.png" alt="mastercard">
-                        </div>
-                    </div>
-                    <div class="payment-method d-flex">
-                        <p>Payment options:</p>
-                        <div class="card-wrap ps-2">
-                            <img src="images/visa.jpg" alt="visa">
-                            <img src="images/mastercard.jpg" alt="mastercard">
-                            <img src="images/paypal.jpg" alt="paypal">
-                        </div>
-                    </div>
-                </div>
-                <div class="copyright">
-                    <p>© Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Video Popup -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -462,9 +434,7 @@
                         <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always" allow="autoplay"></iframe>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
     <script src="js/jquery-1.11.0.min.js"></script>
