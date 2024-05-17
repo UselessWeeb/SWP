@@ -6,14 +6,17 @@ package util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author phamn
  */
 public class HashUtil {
-//TODO CHECK WITH LONGND WHETHER MD5 SHOULD BE IN HEX OR BASE64
+
     public String md5hash(String input) {
+
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());
@@ -22,7 +25,10 @@ public class HashUtil {
                 sb.append(String.format("%02x", b));
             }
             return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(HashUtil.class.getName())
+                    .log(Level.SEVERE, "Exception was thrown while hashing", ex);
         }
         return null;
     }

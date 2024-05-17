@@ -21,38 +21,62 @@ import util.HashUtil;
 public class RegisterServlet extends HttpServlet {
 
     /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet -specific error occurs
+     * @throws IOException if an I /O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("view/register.jsp").forward(request, response);
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param rq servlet rq
-     * @param rs servlet rs
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest rq, HttpServletResponse rs)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        rs.setContentType("text/html");
-        PrintWriter pw = rs.getWriter();
+        response.setContentType("text/html");
+        PrintWriter pw = response.getWriter();
         User regUser = new User();
         UserDAO userDAO = new UserDAO();
         HashUtil hash = new HashUtil();
-        
+
         try {
-            regUser.setFullname(rq.getParameter("fullName"));
-            regUser.setEmail(rq.getParameter("email"));
-            regUser.setDiaChi(rq.getParameter("address"));
-            regUser.setPhoneNum(rq.getParameter("phoneNum"));
+            regUser.setFullname(request.getParameter("fullName"));
+            regUser.setEmail(request.getParameter("email"));
+            regUser.setDiaChi(request.getParameter("address"));
+            regUser.setPhoneNum(request.getParameter("phoneNum"));
             regUser.setRole(1);
-            regUser.setGender(rq.getParameter("gender"));
+            regUser.setGender(request.getParameter("gender"));
             regUser.setPoint(0);
             regUser.setState("Not Verified");
-            regUser.setPassword(hash.md5hash(rq.getParameter("password")));
-            
+            regUser.setPassword(hash.md5hash(request.getParameter("password")));
+
             userDAO.registerUser(regUser);
-            
+
             //TODO: SEND VERIFY MAIL TO USER HERE
-        } catch(Exception e) {
-            
+        } catch (Exception e) {
+
         }
     }
+
+    /**
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }
+
 }

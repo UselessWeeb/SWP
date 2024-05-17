@@ -6,6 +6,8 @@ package dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.User;
 
 /**
@@ -59,7 +61,8 @@ public class UserDAO extends EntityDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
+            Logger.getLogger(TokenDAO.class.getName())
+                    .log(Level.SEVERE, "Exception thrown while adding user", e);
         }
     }
 }
