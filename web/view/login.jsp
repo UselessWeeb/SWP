@@ -18,7 +18,7 @@
                 <input type="password" minlength="2" name="password" placeholder="Your Password" class="form-control w-100 rounded-3 p-3" required>
             </div>
             <label class="py-3">
-                <input type="checkbox" required="" class="d-inline">
+                <input type="checkbox" name = "session" value = "yes" class="d-inline">
                 <span class="label-body">Remember me</span>
                 <span class="label-body"><a href="#" class="fw-bold">Forgot Password</a></span>
             </label>

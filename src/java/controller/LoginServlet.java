@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller;
 
 import dao.UserDAO;
@@ -23,8 +22,9 @@ import model.User;
 public class LoginServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -32,12 +32,13 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         request.getRequestDispatcher("view/login.jsp").forward(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -45,35 +46,40 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String referer = request.getHeader("referer");
         UserDAO userDAO = new UserDAO();
         User u = userDAO.Login(email, password);
-        if (u == null){
+        if (u == null) {
             System.out.println(email);
             System.out.println(password);
             request.setAttribute("err", "Incorrect Username/Password");
             response.sendRedirect(referer);
         } else {
             //create session for said user
+            //if user choose "remember me, create a cookie and session for said user, otherwise, don't"
             HttpSession session = request.getSession(false);
             session.setAttribute("user", u);
             System.out.println("login success");
             //create cookie as well
-            Cookie userid = new Cookie("userid", String.valueOf(u.getIdUser()));
-            
-            userid.setMaxAge(60 * 60); // one hour
-            userid.setPath("/"); // root path
-            
-            response.addCookie(userid);
+            if (request.getParameter("session") != null) {
+                Cookie userid = new Cookie("userid", String.valueOf(u.getIdUser()));
+
+                userid.setMaxAge(60 * 60); // one hour
+                userid.setPath("/"); // root path
+
+                response.addCookie(userid);
+                
+            }
             response.sendRedirect(referer);
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
