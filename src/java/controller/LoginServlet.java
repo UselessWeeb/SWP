@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println("login success");
             //create cookie as well
             if (request.getParameter("session") != null) {
-                Cookie userid = new Cookie("userid", String.valueOf(u.getIdUser()));
+                Cookie userid = new Cookie("userid", String.valueOf(u.getUserId()));
 
                 userid.setMaxAge(60 * 60); // one hour
                 userid.setPath("/"); // root path

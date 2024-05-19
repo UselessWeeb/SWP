@@ -1,113 +1,144 @@
-DROP DATABASE FruitShop
+USE [master];
+GO
 
-CREATE DATABASE FruitShop;
+DROP DATABASE IF EXISTS LaptopShop;
+GO
 
+CREATE DATABASE LaptopShop;
+GO
 
-Use [FruitShop];
+USE LaptopShop;
+GO
 
-CREATE TABLE fruit
+CREATE TABLE Role
 (
-  idFruit INT NOT NULL IDENTITY(1,1),
-  name NVARCHAR(150) NOT NULL,
-  date DATETIME NOT NULL,
-  origin NVARCHAR(250) NOT NULL,
-  number INT NOT NULL,
-  giaGoc INT NOT NULL,
+  role_id INT NOT NULL IDENTITY(1,1),
+  role_purpose VARCHAR(200) NOT NULL,
+  PRIMARY KEY (role_id),
+);
+
+CREATE TABLE [User]
+(
+  user_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  avatar VARCHAR(100) NOT NULL,
+  full_name VARCHAR(100) NOT NULL,
+  gender VARCHAR(100) NOT NULL,
+  address VARCHAR(MAX) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  phone_number VARCHAR(20) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  state VARCHAR(100) NOT NULL,
+  role_id INT NOT NULL,
+  FOREIGN KEY (role_id) REFERENCES [Role]
+);
+GO
+
+CREATE TABLE Laptop
+(
+  laptop_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  title VARCHAR(200) NOT NULL,
+  category VARCHAR(200) NOT NULL,
+  image VARCHAR(MAX) NOT NULL,
+  original_price FLOAT NOT NULL,
+  products_detail VARCHAR(MAX) NOT NULL,
+  sale_price FLOAT NOT NULL,
   status INT NOT NULL,
-  description NVARCHAR(MAX) NOT NULL,
-  phanLoai NVARCHAR(250) NOT NULL,
-  image NVARCHAR(250) NOT NULL,
-  PRIMARY KEY (idFruit)
 );
+GO
 
-CREATE TABLE [user]
+CREATE TABLE Order_Information
 (
-  idUser INT NOT NULL IDENTITY(1,1),
-  fullName NVARCHAR(250) NOT NULL,
-  email NVARCHAR(250) NOT NULL,
-  diaChi NVARCHAR(250) NOT NULL,
-  phoneNum NVARCHAR(15) NOT NULL,
-  role INT NOT NULL,
-  gender NVARCHAR(50) NOT NULL,
-  point INT NOT NULL,
-  PRIMARY KEY (idUser),
+  information_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES [User]
 );
+GO
 
-CREATE TABLE [order]
+CREATE TABLE [Order]
 (
-  orderID INT NOT NULL IDENTITY(1,1),
-  idUser INT NOT NULL,
-  idFruit INT NOT NULL,
-  num INT NOT NULL,
+  order_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  order_date DATETIME NOT NULL,
+  order_name VARCHAR(100) NOT NULL,
+  total_price FLOAT NOT NULL,
   status INT NOT NULL,
-  totalPrice INT NOT NULL,
-  diaChi NVARCHAR(250) NOT NULL,
-  phoneNum NVARCHAR(15) NOT NULL,
-  orderDate DATETIME NOT NULL,
-  PRIMARY KEY (orderID),
-  FOREIGN KEY (idUser) REFERENCES [user],
-  FOREIGN KEY (idFruit) REFERENCES fruit(idFruit)
+  quantity INT NOT NULL,
+  user_id INT NOT NULL,
+  laptop_id INT NOT NULL,
+  information_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES [User],
+  FOREIGN KEY (laptop_id) REFERENCES [Laptop],
+  FOREIGN KEY (information_id) REFERENCES Order_Information(information_id)
 );
+GO
 
-CREATE TABLE cart
+CREATE TABLE Cart
 (
-  idUser INT NOT NULL,
-  idCart INT NOT NULL IDENTITY(1,1),
-  date DATETIME NOT NULL,
-  totalPrice INT NOT NULL,
-  orderID INT NOT NULL,
-  PRIMARY KEY (idCart),
-  FOREIGN KEY (idUser) REFERENCES [user]
+  cart_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  title VARCHAR(100) NOT NULL,
+  price FLOAT NOT NULL,
+  quantity INT NOT NULL,
+  total_cost FLOAT NOT NULL,
+  user_id INT NOT NULL,
+  order_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES [User],
+  FOREIGN KEY (order_id) REFERENCES [Order]
 );
+GO
 
-CREATE TABLE orderDetail
+CREATE TABLE token
 (
-	detailID INT NOT NULL,
-	orderID INT NOT NULL,
-	HoaDon INT NOT NULL,
-	Price INT NOT NULL,
-	number INT NOT NULL,
-	quality INT NOT NULL,
-	PRIMARY KEY (detailID),
-	FOREIGN KEY (orderID) REFERENCES [order]
+  token_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  userid INT NOT NULL,
+  tokenString VARCHAR(64) NOT NULL,
+  expireDate DATETIME NOT NULL,
+  purpose INT NOT NULL
 );
-
-CREATE TABLE Refund
-(
-  orderID INT NOT NULL,
-  idRefund INT NOT NULL,
-  PRIMARY KEY (idRefund),
-  FOREIGN KEY (orderID) REFERENCES [order]
-);
+GO
 
 CREATE TABLE Feedback
 (
-  idUser INT NOT NULL,
-  idFruit INT NOT NULL,
-  orderID INT NOT NULL,
-  description NVARCHAR(MAX) NOT NULL,
-  feedbackID INT NOT NULL  IDENTITY(1,1),
-  PRIMARY KEY (feedbackID),
-  FOREIGN KEY (idUser) REFERENCES [user],
-  FOREIGN KEY (idFruit) REFERENCES fruit(idFruit),
-  FOREIGN KEY (orderID) REFERENCES [order]
+  feedback_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  user_id INT NOT NULL,
+  order_id INT NOT NULL,
+  rated_star FLOAT NOT NULL,
+  feedback VARCHAR(MAX) NOT NULL,
+  images VARCHAR(MAX) NOT NULL,
+  status INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES [User],
+  FOREIGN KEY (order_id) REFERENCES [Order]
 );
+GO
 
 CREATE TABLE Blog
 (
-  idBlog INT NOT NULL  IDENTITY(1,1),
-  idUser INT NOT NULL,
-  header NVARCHAR(250) NOT NULL,
-  description NVARCHAR(MAX) NOT NULL,
-  date DATETIME NOT NULL,
+  blog_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  thumbnail VARCHAR(200) NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  updated_date DATETIME NOT NULL,
+  category VARCHAR(200) NOT NULL,
+  blog_content VARCHAR(MAX) NOT NULL,
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES [User]
+);
+GO
+
+CREATE TABLE Slider
+(
+  slider_id INT NOT NULL IDENTITY(1,1),
+  title VARCHAR(100) NOT NULL,
+  images VARCHAR(MAX) NOT NULL,
+  backlink VARCHAR(200) NOT NULL,
   status INT NOT NULL,
-  PRIMARY KEY (idBlog),
-  FOREIGN KEY (idUser) REFERENCES [user]
+  user_id INT NOT NULL,
+  PRIMARY KEY (slider_id),
+  FOREIGN KEY (user_id) REFERENCES [User](user_id)
 );
 
-alter table [user] add password NVARCHAR(100)
-alter table [user] add [state] NVARCHAR(60)
-
-select * from [user]
-
-insert into [user] values ('Loel', 'sansunderswap2004@gmail.com', 'Somewhere', '0123456789', '1', 'Attack Helicopter', '30', '1234567', 'Unvertified');
+CREATE TABLE Score
+(
+  score_id INT NOT NULL IDENTITY(1,1),
+  score INT NOT NULL,
+  user_id INT NOT NULL,
+  PRIMARY KEY (score_id),
+  FOREIGN KEY (user_id) REFERENCES [User](user_id)
+);

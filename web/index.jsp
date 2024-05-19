@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ShopLite - Simple eCommerce Website Template</title>
+        <title>ShopLite - Simple eCommerce Website</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -766,15 +766,17 @@
                 <h3 class="d-flex align-items-center">Latest posts</h3>
             </div>
             <div class="row">
-                <c:set var="bloglists" value = "${requestScope.blogList}"/>
+                <c:set var="bloglists" value="${requestScope.blogList}" />
                 <c:choose>
                     <c:when test="${not empty bloglists}">
-                        <c:forEach items= "${bloglists}" var = "blog">
+                        <c:forEach items="${bloglists}" var="blog">
                             <div class="col-md-3 posts mb-4">
-                                <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
-                                <img src="images/post-item1.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
-                                <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
+                                <a href="blog.html" class="btn rounded-0 py-0 px-2">${blog.category}</a>
+                                <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
+                                    <a href="single-post.html">${blog.title}</a>
+                                </h4>
+                                <p class="mb-2">${blog.blogContent}</p>
                                 <a class="text-decoration-underline" href="single-post.html">Read More</a>
                             </div>
                         </c:forEach>

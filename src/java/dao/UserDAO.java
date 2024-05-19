@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.User;
 
@@ -11,55 +12,54 @@ import model.User;
  *
  * @author M7510
  */
-public class UserDAO extends EntityDAO{
-    public User Login(String email, String password){
+public class UserDAO extends EntityDAO {
+    public User Login(String email, String password) {
+        User u = null;
         try {
-            String strSelect = "Select * from [user] where email = ? and password = ?";
+            String strSelect = "SELECT * FROM [User] WHERE email = ? AND password = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, email);
             stm.setString(2, password);
             rs = stm.executeQuery();
-            while (rs.next()) {
-                User u = new User(rs.getInt("idUser"), 
-                        rs.getString("fullname"), 
-                        rs.getString("email"), 
-                        rs.getString("diachi"), 
-                        rs.getString("phoneNum"), 
-                        rs.getInt("role"), 
-                        rs.getString("gender"), 
-                        rs.getInt("point"), 
-                        rs.getString("state"), 
-                        rs.getString("password"));
-                return u;
+            if (rs.next()) {
+                u = (User)this.createEntity(rs);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
+        return u;
     }
 
     public User findById(String userId) {
+        User u = null;
         try {
             String strSelect = "Select * from [user] where idUser = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, userId);
             rs = stm.executeQuery();
-            while (rs.next()) {
-                User u = new User(rs.getInt("idUser"), 
-                        rs.getString("fullname"), 
-                        rs.getString("email"), 
-                        rs.getString("diachi"), 
-                        rs.getString("phoneNum"), 
-                        rs.getInt("role"), 
-                        rs.getString("gender"), 
-                        rs.getInt("point"), 
-                        rs.getString("state"), 
-                        rs.getString("password"));
-                return u;
+            if (rs.next()) {
+                u = (User)this.createEntity(rs);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
+        return u;
+    }
+    
+    @Override
+    public Object createEntity(ResultSet rs) throws SQLException{
+        User u = new User(
+                    rs.getInt("user_id"),
+                    rs.getString("avatar"),
+                    rs.getString("full_name"),
+                    rs.getString("gender"),
+                    rs.getString("address"),
+                    rs.getString("email"),
+                    rs.getString("phone_number"),
+                    rs.getString("password"),
+                    rs.getString("state"),
+                    rs.getInt("role_id")
+                );
+        return u;
     }
 }
