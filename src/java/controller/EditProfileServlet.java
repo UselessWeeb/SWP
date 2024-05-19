@@ -63,17 +63,18 @@ public class EditProfileServlet extends HttpServlet {
         processRequest(request, response);
         UserDAO dao = new UserDAO();
         HttpSession session = request.getSession();
-        int id = Integer.parseInt(request.getParameter("idUser"));
-        String fname = request.getParameter("fullname");
-        String email = request.getParameter("email");
-        String address = request.getParameter("diaChi");
-        String phone = request.getParameter("phuneNum"); 
-        int role = Integer.parseInt(request.getParameter("role"));
+        int id = Integer.parseInt(request.getParameter("userId"));
+        String image = request.getParameter("avatar");
+        String fname = request.getParameter("fullName");
         String sex = request.getParameter("gender");
-        int point = Integer.parseInt(request.getParameter("point"));
-        String password = request.getParameter("password");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phoneNumber"); 
+        String pass = request.getParameter("password");
+        String state = request.getParameter("state");
+        int role = Integer.parseInt(request.getParameter("roleId"));
 
-        User u = new User(id, fname, email, address, phone, role, sex, point, password);
+        User u = new User(id, image, fname, sex, address, email, phone, pass, state, role);
         int n = dao.editUser(u);
         if (n > 0) {
             session.setAttribute("successMsg", "Update User Successfully");
