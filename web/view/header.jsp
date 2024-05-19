@@ -115,7 +115,6 @@
                     <a href="#" title="Memory Cards">Memory Cards</a>
                 </li>
             </ul>
-
         </div>
     </div>
 
@@ -248,7 +247,6 @@
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-
                                         </c:otherwise>
                                     </c:choose>
                                 </li>
@@ -342,6 +340,17 @@
                 </div>
             </div>
         </nav>
+        <c:if test = "${user.state == 'unvertified'}">
+            <div class="top-info border-bottom d-none d-md-block">
+                <div class="container-fluid">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <p class="fs-6 my-2 text-center">Your account is unverified, please confirm your email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
     </header>
 </body>
 </html>

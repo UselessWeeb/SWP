@@ -38,60 +38,26 @@
             </div>
             <div class="swiper main-swiper">
                 <div class="swiper-wrapper d-flex align-items-center">
-                    <div class="swiper-slide">
-                        <div class="container">
-                            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                                <div class="col-md-5 offset-md-1">
-                                    <div class="banner-content">
-                                        <h2>GoPro hero9 Black</h2>
-                                        <p>Limited stocks available. Grab it now!</p>
-                                        <a href="shop.html" class="btn mt-3">Shop Collection</a>
+                    <c:forEach items="${sliderList}" var="slider">
+                        <div class="swiper-slide">
+                            <div class="container">
+                                <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
+                                    <div class="col-md-5 offset-md-1">
+                                        <div class="banner-content">
+                                            <h2>${slider.title}</h2>
+                                            <p>${slider.details}</p>
+                                            <a href="${slider.backlink}" class="btn mt-3">Shop Collection</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 text-center">
-                                    <div class="image-holder">
-                                        <img src="images/banner-image.png" class="img-fluid" alt="banner">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="container">
-                            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                                <div class="col-md-5 offset-md-1">
-                                    <div class="banner-content">
-                                        <h2>Iphone 15 Pro Max</h2>
-                                        <p>Discount available. Grab it now!</p>
-                                        <a href="shop.html" class="btn mt-3">Shop Product</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 text-center">
-                                    <div class="image-holder">
-                                        <img src="images/banner-image1.png" class="img-fluid" alt="banner">
+                                    <div class="col-md-6 text-center">
+                                        <div class="image-holder">
+                                            <img src="${slider.images}" class="img-fluid" alt="banner">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="container">
-                            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                                <div class="col-md-5 offset-md-1">
-                                    <div class="banner-content">
-                                        <h2>Macbook Collection</h2>
-                                        <p>Limited stocks available. Grab it now!</p>
-                                        <a href="shop.html" class="btn mt-3">Shop Collection</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 text-center">
-                                    <div class="image-holder">
-                                        <img src="images/banner-image2.png" class="img-fluid" alt="banner">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </section>
@@ -230,216 +196,29 @@
                 </div>
                 <div class="swiper product-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item1.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">IPad (9th Gen)</a></h5>
-                                <span class="price text-primary fw-light mb-2">$870</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </button>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
+                        <c:forEach items="${laptopList}" var="laptop">
+                            <div class="swiper-slide">
+                                <div class="card position-relative text-center py-4 border rounded-3">
+                                    <img src="${laptop.image}" class="img-fluid" alt="product item">
+                                    <h5 class="mt-2"><a href="single-product.html">${laptop.title}</a></h5>
+                                    <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
+                                    <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
+                                        <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+                                            <svg class="cart">
+                                            <use xlink:href="#cart"></use>
                                             </svg>
-                                        </span>
-                                    </a>
+                                        </button>
+                                        <a href="#" class="btn btn-dark">
+                                            <span>
+                                                <svg class="wishlist">
+                                                <use xlink:href="#heart"></use>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item2.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Drone With Camera</a></h5>
-                                <span class="price text-primary fw-light mb-2">$600</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item3.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Apple Watch (2nd Gen)</a></h5>
-                                <span class="price text-primary fw-light mb-2">$400</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item4.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Ultra HD TV</a></h5>
-                                <span class="price text-primary fw-light mb-2">$2000</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item5.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Bluetooth Speaker</a></h5>
-                                <span class="price text-primary fw-light mb-2">$75</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item6.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">White Headset</a></h5>
-                                <span class="price text-primary fw-light mb-2">$99</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item7.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Black Bluetooth Speaker</a></h5>
-                                <span class="price text-primary fw-light mb-2">$80</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item8.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Large Speaker</a></h5>
-                                <span class="price text-primary fw-light mb-2">$450</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item9.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">White EarPods</a></h5>
-                                <span class="price text-primary fw-light mb-2">$600</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card position-relative text-center py-4 border rounded-3">
-                                <img src="images/product-item10.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Laptop</a></h5>
-                                <span class="price text-primary fw-light mb-2">$1200</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg>
-                                    </a>
-                                    <a href="#" class="btn btn-dark">
-                                        <span>
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

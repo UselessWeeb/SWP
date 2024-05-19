@@ -24,8 +24,8 @@ CREATE TABLE [User]
   full_name VARCHAR(100) NOT NULL,
   gender VARCHAR(100) NOT NULL,
   address VARCHAR(MAX) NOT NULL,
-  email VARCHAR(100) NOT NULL,
-  phone_number VARCHAR(20) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  phone_number VARCHAR(20) NOT NULL UNIQUE,
   password VARCHAR(100) NOT NULL,
   state VARCHAR(100) NOT NULL,
   role_id INT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Laptop
   laptop_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   title VARCHAR(200) NOT NULL,
   category VARCHAR(200) NOT NULL,
-  image VARCHAR(MAX) NOT NULL,
+  image VARCHAR(200) NOT NULL,
   original_price FLOAT NOT NULL,
   products_detail VARCHAR(MAX) NOT NULL,
   sale_price FLOAT NOT NULL,
@@ -85,11 +85,10 @@ CREATE TABLE Cart
 );
 GO
 
-CREATE TABLE token
+CREATE TABLE Token
 (
-  token_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   userid INT NOT NULL,
-  tokenString VARCHAR(64) NOT NULL,
+  tokenString VARCHAR(64) NOT NULL PRIMARY KEY,
   expireDate DATETIME NOT NULL,
   purpose INT NOT NULL
 );
@@ -126,7 +125,8 @@ CREATE TABLE Slider
 (
   slider_id INT NOT NULL IDENTITY(1,1),
   title VARCHAR(100) NOT NULL,
-  images VARCHAR(MAX) NOT NULL,
+  images VARCHAR(200) NOT NULL,
+  details VARCHAR (200) NOT NULL,
   backlink VARCHAR(200) NOT NULL,
   status INT NOT NULL,
   user_id INT NOT NULL,

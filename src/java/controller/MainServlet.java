@@ -5,6 +5,8 @@
 package controller;
 
 import dao.BlogDAO;
+import dao.LaptopDAO;
+import dao.SliderDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -31,6 +33,14 @@ public class MainServlet extends HttpServlet {
         //fetch sth sth
         BlogDAO blogList = new BlogDAO();
         request.setAttribute("blogList", blogList.findAll());
+        
+        //
+        LaptopDAO laptopList = new LaptopDAO();
+        request.setAttribute("laptopList", laptopList.findAll());
+        
+        //
+        SliderDAO sliderList = new SliderDAO();
+        request.setAttribute("sliderList", sliderList.findAll());
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
