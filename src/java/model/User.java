@@ -9,7 +9,10 @@ package model;
  * @author vudai
  */
 public class User {
+<<<<<<< HEAD
 
+=======
+>>>>>>> c770540 (Update full model and function EditProfile)
     private int userId;
     private String avatar;
     private String fullName;
@@ -22,9 +25,7 @@ public class User {
     private int roleId;
 
     // Constructor, Getters, and Setters
-    public User(int userId, String avatar, String fullName, String gender, 
-            String address, String email, String phoneNumber, String password, 
-            String state, int roleId) {
+    public User(int userId, String avatar, String fullName, String gender, String address, String email, String phoneNumber, String password, String state, int roleId) {
         this.userId = userId;
         this.avatar = avatar;
         this.fullName = fullName;
@@ -39,7 +40,7 @@ public class User {
 
     public User() {
     }
-    
+
     public int getUserId() {
         return userId;
     }

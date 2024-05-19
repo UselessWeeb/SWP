@@ -4,65 +4,68 @@
  */
 package model;
 
-/**
- *
- * @author M7510
- */
 import java.util.Date;
 
+/**
+ *
+ * @author vudai
+ */
 public class Order {
-    private int orderID;
-    private int idUser;
-    private int idFruit;
-    private int num;
+    private int order_id;
+    private Date order_date;
+    private String order_name;
+    private float total_price;
     private int status;
-    private int totalPrice;
-    private String diaChi;
-    private String phoneNum;
-    private Date orderDate;
+    private int quality;
+    private int user_id;
+    private int information_id;
+    private int laptop_id;
 
-    public Order(int orderID, int idUser, int idFruit, int num, int status, int totalPrice, String diaChi, String phoneNum, Date orderDate) {
-        this.orderID = orderID;
-        this.idUser = idUser;
-        this.idFruit = idFruit;
-        this.num = num;
+    public Order() {
+    }
+
+    public Order(int order_id, Date order_date, String order_name, float total_price, int status, int quality, int user_id, int information_id, int laptop_id) {
+        this.order_id = order_id;
+        this.order_date = order_date;
+        this.order_name = order_name;
+        this.total_price = total_price;
         this.status = status;
-        this.totalPrice = totalPrice;
-        this.diaChi = diaChi;
-        this.phoneNum = phoneNum;
-        this.orderDate = orderDate;
+        this.quality = quality;
+        this.user_id = user_id;
+        this.information_id = information_id;
+        this.laptop_id = laptop_id;
     }
 
-    public int getOrderID() {
-        return orderID;
+    public int getOrder_id() {
+        return order_id;
     }
 
-    public void setOrderID(int orderID) {
-        this.orderID = orderID;
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public Date getOrder_date() {
+        return order_date;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setOrder_date(Date order_date) {
+        this.order_date = order_date;
     }
 
-    public int getIdFruit() {
-        return idFruit;
+    public String getOrder_name() {
+        return order_name;
     }
 
-    public void setIdFruit(int idFruit) {
-        this.idFruit = idFruit;
+    public void setOrder_name(String order_name) {
+        this.order_name = order_name;
     }
 
-    public int getNum() {
-        return num;
+    public float getTotal_price() {
+        return total_price;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setTotal_price(float total_price) {
+        this.total_price = total_price;
     }
 
     public int getStatus() {
@@ -73,50 +76,36 @@ public class Order {
         this.status = status;
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
+    public int getQuality() {
+        return quality;
     }
 
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setQuality(int quality) {
+        this.quality = quality;
     }
 
-    public String getDiaChi() {
-        return diaChi;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public String getPhoneNum() {
-        return phoneNum;
+    public int getInformation_id() {
+        return information_id;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setInformation_id(int information_id) {
+        this.information_id = information_id;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
+    public int getLaptop_id() {
+        return laptop_id;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setLaptop_id(int laptop_id) {
+        this.laptop_id = laptop_id;
     }
     
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderID=" + orderID +
-                ", idUser=" + idUser +
-                ", idFruit=" + idFruit +
-                ", num=" + num +
-                ", status=" + status +
-                ", totalPrice=" + totalPrice +
-                ", diaChi='" + diaChi + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", orderDate=" + orderDate +
-                '}';
-    }
 }

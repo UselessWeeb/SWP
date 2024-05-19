@@ -193,14 +193,16 @@ public class UserDAO extends EntityDAO {
 
     public int editUser(User user) {
         int n = 0;
-        String sql = "UPDATE user\n"
-                + "SET fullName = ?,\n"
-                + "    email = ?,\n"
-                + "    diaChi = ?,\n"
-                + "    phoneNum = ?,\n"
+        String sql = "UPDATE [User]\n"
+                + "SET full_name = ?,\n"
                 + "    gender = ?,\n"
+                + "    address = ?,\n"
+                + "    email = ?,\n"
+                + "    phone_number = ?,\n"
                 + "    password = ?,\n"
-                + "WHERE idUser = ?";
+                + "    state = ?,\n"
+                + "    avatar = ?,\n"
+                + "WHERE user_id = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, user.getFullname());
