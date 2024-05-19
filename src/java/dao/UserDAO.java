@@ -4,8 +4,8 @@
  */
 package dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.User;
@@ -17,52 +17,117 @@ import model.User;
 public class UserDAO extends EntityDAO {
 
     public User Login(String email, String password) {
+        User u = null;
         try {
-            String strSelect = "Select * from [user] where email = ? and password = ?";
+            String strSelect = "SELECT * FROM [User] WHERE email = ? AND password = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, email);
             stm.setString(2, password);
             rs = stm.executeQuery();
-            while (rs.next()) {
-                User u = new User(rs.getInt("idUser"),
-                        rs.getString("fullname"),
-                        rs.getString("email"),
-                        rs.getString("diachi"),
-                        rs.getString("phoneNum"),
-                        rs.getInt("role"),
-                        rs.getString("gender"),
-                        rs.getInt("point"),
-                        rs.getString("state"),
-                        rs.getString("password"));
-                return u;
+            if (rs.next()) {
+                u = (User) this.createEntity(rs);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            Logger.getLogger(UserDAO.class.getName())
+                    .log(Level.SEVERE,
+                            "Exception thrown while user login", e);
         }
-        return null;
+        return u;
+    }
+
+    public User findById(String userId) {
+        User u = null;
+        try {
+            String strSelect = "Select * from [user] where idUser = ?";
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, userId);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                u = (User) this.createEntity(rs);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(UserDAO.class.getName())
+                    .log(Level.SEVERE,
+                            "Exception thrown while searching user by ID", e);
+        }
+        return u;
+    }
+
+    public boolean checkIfUserExist(String userEmail) {
+        String sql = "Select 1 from [User] where email = ?";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, userEmail);
+
+            rs = stm.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName())
+                    .log(Level.SEVERE,
+                            "Exception thrown while check if token exist", ex);
+        }
+
+        return false;
     }
 
     public void registerUser(User inputUser) {
-        String sql = "insert into [user] values(?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert into [User] values(?,?,?,?,?,?,?,?,?)";
 
         try {
             stm = connection.prepareStatement(sql);
             rs = stm.executeQuery();
 
-            stm.setString(1, inputUser.getFullname());
-            stm.setString(2, inputUser.getEmail());
-            stm.setString(3, inputUser.getDiaChi());
-            stm.setString(4, inputUser.getPhoneNum());
-            stm.setInt(5, inputUser.getRole());
-            stm.setString(6, inputUser.getGender());
-            stm.setInt(7, inputUser.getPoint());
+            stm.setString(1, inputUser.getAvatar());
+            stm.setString(2, inputUser.getFullName());
+            stm.setString(3, inputUser.getGender());
+            stm.setString(4, inputUser.getAddress());
+            stm.setString(5, inputUser.getEmail());
+            stm.setString(6, inputUser.getPhoneNumber());
+            stm.setString(7, inputUser.getPassword());
             stm.setString(8, inputUser.getState());
-            stm.setString(9, inputUser.getPassword());
+            stm.setInt(9, inputUser.getRoleId());
+            
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(UserDAO.class.getName())
+                    .log(Level.SEVERE, 
+                            "Exception thrown while register user", e);
+        }
+    }
+
+    //TODO: CHECK AND FIX THIS IF NEEDED
+    public void updateUserPassword(int userID, String password) {
+        String sql = "Update [User] Set password = ? Where user_id = ?";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+
+            stm.setInt(1, userID);
+            stm.setString(2, password);
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(TokenDAO.class.getName())
-                    .log(Level.SEVERE, "Exception thrown while adding user", e);
+            Logger.getLogger(UserDAO.class.getName())
+                    .log(Level.SEVERE,
+                            "Exception thrown while update user password", e);
         }
+    }
+
+    @Override
+    public Object createEntity(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("user_id"),
+                rs.getString("avatar"),
+                rs.getString("full_name"),
+                rs.getString("gender"),
+                rs.getString("address"),
+                rs.getString("email"),
+                rs.getString("phone_number"),
+                rs.getString("password"),
+                rs.getString("state"),
+                rs.getInt("role_id")
+        );
     }
 }

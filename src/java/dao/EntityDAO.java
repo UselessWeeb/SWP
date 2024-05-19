@@ -7,12 +7,16 @@ package dao;
 import dal.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author M7510
  */
-public abstract class EntityDAO extends DBContext{
+public abstract class EntityDAO extends DBContext {
+
     public PreparedStatement stm;
     public ResultSet rs;
+
+    public abstract Object createEntity(ResultSet rs) throws SQLException;
 }

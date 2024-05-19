@@ -52,13 +52,12 @@ public class RegisterServlet extends HttpServlet {
         HashUtil hash = new HashUtil();
 
         try {
-            regUser.setFullname(request.getParameter("fullName"));
+            regUser.setFullName(request.getParameter("fullName"));
             regUser.setEmail(request.getParameter("email"));
-            regUser.setDiaChi(request.getParameter("address"));
-            regUser.setPhoneNum(request.getParameter("phoneNum"));
-            regUser.setRole(1);
+            regUser.setAddress(request.getParameter("address"));
+            regUser.setPhoneNumber(request.getParameter("phoneNum"));
+            regUser.setRoleId(1);
             regUser.setGender(request.getParameter("gender"));
-            regUser.setPoint(0);
             regUser.setState("Not Verified");
             regUser.setPassword(hash.md5hash(request.getParameter("password")));
 
