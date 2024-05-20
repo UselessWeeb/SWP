@@ -9,10 +9,6 @@ package model;
  * @author vudai
  */
 public class User {
-<<<<<<< HEAD
-
-=======
->>>>>>> c770540 (Update full model and function EditProfile)
     private int userId;
     private String avatar;
     private String fullName;

@@ -1,17 +1,14 @@
-<<<<<<< HEAD
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.User;
 
 import dao.EntityDAO;
+import java.sql.PreparedStatement;
 
 import model.User;
 
@@ -190,33 +187,29 @@ public class UserDAO extends EntityDAO {
                 rs.getInt("role_id")
         );
     }
-
-    public int editUser(User user) {
+    
+    public int editCustomer(User u) {
         int n = 0;
         String sql = "UPDATE [User]\n"
-                + "SET full_name = ?,\n"
+                + "SET avatar = ?,\n"
+                + "    full_name = ?,\n"
                 + "    gender = ?,\n"
                 + "    address = ?,\n"
-                + "    email = ?,\n"
-                + "    phone_number = ?,\n"
-                + "    password = ?,\n"
-                + "    state = ?,\n"
-                + "    avatar = ?,\n"
+                + "    phone_number = ? \n"
                 + "WHERE user_id = ?";
         try {
             stm = connection.prepareStatement(sql);
-            stm.setString(1, user.getFullname());
-            stm.setString(2, user.getEmail());
-            stm.setString(3, user.getDiaChi());
-            stm.setString(4, user.getPhoneNum());
-            stm.setString(5, user.getGender());
-            stm.setString(6, user.getPassword());
-            stm.setInt(7, user.getIdUser());
-
+            stm.setString(1, u.getAvatar());
+            stm.setString(2, u.getFullName());
+            stm.setString(3, u.getGender());
+            stm.setString(4, u.getAddress());
+            stm.setString(5, u.getPhoneNumber());
+            stm.setInt(6, u.getUserId());
             n = stm.executeUpdate();
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
-        return n;
 
+        return n;
     }
 }
