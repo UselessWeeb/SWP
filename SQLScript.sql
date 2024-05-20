@@ -40,6 +40,7 @@ CREATE TABLE Laptop
   category VARCHAR(200) NOT NULL,
   image VARCHAR(200) NOT NULL,
   original_price FLOAT NOT NULL,
+  stock INT NOT NULL,
   products_detail VARCHAR(MAX) NOT NULL,
   sale_price FLOAT NOT NULL,
   status INT NOT NULL,
@@ -121,6 +122,19 @@ CREATE TABLE Blog
   FOREIGN KEY (user_id) REFERENCES [User]
 );
 GO
+
+CREATE TABLE Post(
+	post_id INT NOT NULL IDENTITY(1,1),
+	post_header VARCHAR(200) NOT NULL,
+	post_content VARCHAR(MAX) NOT NULL,
+	thumbnail VARCHAR(200) NOT NULL,
+	category VARCHAR(200) NOT NULL, 
+	is_feature INT NOT NULL,
+	info VARCHAR(200) NOT NULL,
+	status INT NOT NULL,
+	user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES [User]
+)
 
 CREATE TABLE Slider
 (
