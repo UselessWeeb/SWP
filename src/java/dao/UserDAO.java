@@ -13,6 +13,7 @@ import model.User;
  * @author M7510
  */
 public class UserDAO extends EntityDAO {
+
     public User Login(String email, String password) {
         User u = null;
         try {
@@ -22,7 +23,7 @@ public class UserDAO extends EntityDAO {
             stm.setString(2, password);
             rs = stm.executeQuery();
             if (rs.next()) {
-                u = (User)this.createEntity(rs);
+                u = (User) this.createEntity(rs);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -38,28 +39,27 @@ public class UserDAO extends EntityDAO {
             stm.setString(1, userId);
             rs = stm.executeQuery();
             if (rs.next()) {
-                u = (User)this.createEntity(rs);
+                u = (User) this.createEntity(rs);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return u;
     }
-    
+
     @Override
-    public Object createEntity(ResultSet rs) throws SQLException{
-        User u = new User(
-                    rs.getInt("user_id"),
-                    rs.getString("avatar"),
-                    rs.getString("full_name"),
-                    rs.getString("gender"),
-                    rs.getString("address"),
-                    rs.getString("email"),
-                    rs.getString("phone_number"),
-                    rs.getString("password"),
-                    rs.getString("state"),
-                    rs.getInt("role_id")
-                );
-        return u;
+    public Object createEntity(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("user_id"),
+                rs.getString("avatar"),
+                rs.getString("full_name"),
+                rs.getString("gender"),
+                rs.getString("address"),
+                rs.getString("email"),
+                rs.getString("phone_number"),
+                rs.getString("password"),
+                rs.getString("state"),
+                rs.getInt("role_id")
+        );
     }
 }

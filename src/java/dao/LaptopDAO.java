@@ -33,7 +33,7 @@ public class LaptopDAO extends EntityDAO {
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
-        Laptop laptop = new Laptop(
+        return new Laptop(
                 rs.getInt("laptop_id"),
                 rs.getString("title"),
                 rs.getString("category"),
@@ -43,6 +43,5 @@ public class LaptopDAO extends EntityDAO {
                 rs.getFloat("sale_price"),
                 rs.getInt("status")
         );
-        return laptop;
     }
 }

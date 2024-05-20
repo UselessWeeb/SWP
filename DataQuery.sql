@@ -17,8 +17,8 @@ GO
 
 --blog
 delete from [Blog]
-INSERT INTO Blog (title, thumbnail, updated_date, category, blog_content, user_id) 
-VALUES ('DELL Inspiron 1101', 'images/thumbnail/1.jpg', GETDATE(), 'DELL', 'The computer is one of the...', 3);
+INSERT INTO Blog (title, thumbnail, updated_date, category, blog_content, is_featured, user_id) 
+VALUES ('DELL Inspiron 1101', 'images/thumbnail/1.jpg', GETDATE(), 'DELL', '1', 'The computer is one of the...', 3);
 GO
 
 --product

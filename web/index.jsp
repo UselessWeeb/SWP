@@ -179,7 +179,7 @@
             </div>
         </section>
 
-        <section id="best-selling-items" class="position-relative padding-large">
+        <section id="best-selling-items" class="position-relative padding-top-medium padding-bottom-small">
             <div class="container">
                 <div class="section-title overflow-hidden mb-4">
                     <h3 class="d-flex align-items-center">Best selling items</h3>
@@ -201,7 +201,12 @@
                                 <div class="card position-relative text-center py-4 border rounded-3">
                                     <img src="${laptop.image}" class="img-fluid" alt="product item">
                                     <h5 class="mt-2"><a href="single-product.html">${laptop.title}</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
+                                    <span class="price text-primary fw-light mb-2">
+                                        <c:if test = "${laptop.salePrice != laptop.originalPrice}">
+                                            <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
+                                            </c:if>
+                                        $${laptop.salePrice}
+                                    </span>
                                     <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
                                         <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
                                             <svg class="cart">
@@ -223,460 +228,324 @@
                 </div>
             </div>
         </section>
-
-        <section id="limited-offer" class="bg-light padding-large">
+        <section id="items-listing" class="padding-medium">
             <div class="container">
-                <div class="row d-flex align-items-center">
-                    <div class="col-md-6 text-center">
-                        <div class="image-holder">
-                            <img src="images/banner-image3.png" class="img-fluid" alt="banner">
+                <div class="row">
+                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <div class="featured border rounded-3 p-4">
+                            <div class="section-title overflow-hidden mb-4 mt-2">
+                                <h3 class="d-flex flex-column mb-0">Featured</h3>
+                            </div>
+                            <div class="items-lists">
+                                <div class="item d-flex">
+                                    <img src="images/item-image1.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Wireless headset</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$500</span>
+                                    </div>
+                                </div>
+                                <hr class="gray-400">
+                                <div class="item d-flex">
+                                    <img src="images/item-image2.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Iphone x Pro Max</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$820</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="item d-flex">
+                                    <img src="images/item-image3.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Iphone 11 Pro</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$960</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-5 offset-md-1">
-                        <h2>30% Discount on apple collection</h2>
-                        <div id="countdown-clock" class="text-dark d-flex align-items-center my-3">
-                            <div class="time d-grid pe-3">
-                                <span class="days fs-1 fw-normal"></span>
-                                <small>Days</small>
+                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <div class="latest-items border rounded-3 p-4">
+                            <div class="section-title overflow-hidden mb-4 mt-2">
+                                <h3 class="d-flex flex-column mb-0">Latest items</h3>
                             </div>
-                            <span class="fs-1 text-primary">:</span>
-                            <div class="time d-grid pe-3 ps-3">
-                                <span class="hours fs-1 fw-normal"></span>
-                                <small>Hrs</small>
-                            </div>
-                            <span class="fs-1 text-primary">:</span>
-                            <div class="time d-grid pe-3 ps-3">
-                                <span class="minutes fs-1 fw-normal"></span>
-                                <small>Min</small>
-                            </div>
-                            <span class="fs-1 text-primary">:</span>
-                            <div class="time d-grid ps-3">
-                                <span class="seconds fs-1 fw-normal"></span>
-                                <small>Sec</small>
+                            <div class="items-lists">
+                                <div class="item d-flex">
+                                    <img src="images/item-image4.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Apple airPod</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$450</span>
+                                    </div>
+                                </div>
+                                <hr class="gray-400">
+                                <div class="item d-flex">
+                                    <img src="images/item-image5.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Screen touch watch</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$750</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="item d-flex">
+                                    <img src="images/item-image6.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Digital watch</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$660</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <a href="shop.html" class="btn mt-3">Shop Collection</a>
+                    </div>
+                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <div class="best-reviewed border rounded-3 p-4">
+                            <div class="section-title overflow-hidden mb-4 mt-2">
+                                <h3 class="d-flex flex-column mb-0">Best reviewed</h3>
+                            </div>
+                            <div class="items-lists">
+                                <div class="item d-flex">
+                                    <img src="images/item-image7.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Wireless Joysticks</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$350</span>
+                                    </div>
+                                </div>
+                                <hr class="gray-400">
+                                <div class="item d-flex">
+                                    <img src="images/item-image8.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Apple White AirPod</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$330</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="item d-flex">
+                                    <img src="images/item-image9.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Gimbal stabilizer</a></h5>
+                                        <span class="price text-primary fw-light mb-2">$920</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
+                        <div class="on-sale border rounded-3 p-4">
+                            <div class="section-title overflow-hidden mb-4 mt-2">
+                                <h3 class="d-flex flex-column mb-0">On sale</h3>
+                            </div>
+                            <div class="items-lists">
+                                <div class="item d-flex">
+                                    <img src="images/item-image10.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">Iphone 15 pro max</a></h5>
+                                        <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$1666</s> $999</span>
+                                    </div>
+                                </div>
+                                <hr class="gray-400">
+                                <div class="item d-flex">
+                                    <img src="images/item-image11.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">White AirPods</a></h5>
+                                        <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$500</s> $410</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="item d-flex">
+                                    <img src="images/item-image12.jpg" class="img-fluid rounded-3" alt="product item">
+                                    <div class="item-content ms-3">
+                                        <h5 class="mt-2"><a href="single-product.html">CCTV camera</a></h5>
+                                        <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$600</s> $500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="items-listing" class="padding-large">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="featured border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Featured</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image1.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Wireless headset</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$500</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image2.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone x Pro Max</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$820</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image3.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone 11 Pro</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$960</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <section id="hot-posts" class="padding-large">
+            <div class="container">
+                <div class="section-title overflow-hidden mb-4">
+                    <h3 class="d-flex align-items-center">Hot posts</h3>
                 </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="latest-items border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Latest items</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image4.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Apple airPod</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$450</span>
+                <div class="row">
+                    <c:set var="bloglists" value="${requestScope.blogFeatured}" />
+                    <c:choose>
+                        <c:when test="${not empty bloglists}">
+                            <c:forEach items="${bloglists}" var="blog">
+                                <div class="col-md-3 posts mb-4">
+                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">${blog.category}</a>
+                                    <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
+                                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
+                                        <a href="single-post.jsp">${blog.title}</a>
+                                    </h4>
+                                    <p class="mb-2">${blog.blogContent}</p>
+                                    <a class="text-decoration-underline" href="single-post.html">Read More</a>
                                 </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image5.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Screen touch watch</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$750</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image6.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Digital watch</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$660</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="best-reviewed border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Best reviewed</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image7.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Wireless Joysticks</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$350</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image8.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Apple White AirPod</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$330</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image9.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Gimbal stabilizer</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$920</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="on-sale border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">On sale</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image10.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone 15 pro max</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$1666</s> $999</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image11.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">White AirPods</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$500</s> $410</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image12.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">CCTV camera</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$600</s> $500</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <h5 class="d-flex align-items-center">Currently no post to display, please come back later</h5>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="customers-reviews" class="position-relative">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Customers reviews</h3>
-            </div>
-            <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
-                <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-                <use xlink:href="#alt-arrow-right-outline"></use>
-                </svg>
-            </div>
-            <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
-                <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-                <use xlink:href="#alt-arrow-left-outline"></use>
-                </svg>
-            </div>
-            <div class="swiper testimonial-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
-                                you won't regret shopping here!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Thomas John</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
-                                me find the perfect fit for my lifestyle.”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Stevin</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                                <svg class="star star-fill">
-                                <use xlink:href="#star-fill"></use>
-                                </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Roman</h5>
-                        </div>
-                    </div>
+        <section id="latest-posts" class="padding-large">
+            <div class="container">
+                <div class="section-title overflow-hidden mb-4">
+                    <h3 class="d-flex align-items-center">Latest posts</h3>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="latest-posts" class="padding-large">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Latest posts</h3>
+                <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray" style="background-image: url(images/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center;">
+                    <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
+                        <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+                        <use xlink:href="#alt-arrow-right-outline"></use>
+                        </svg>
+                    </div>
+                    <div class="position-absolute start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev main-slider-button-prev">
+                        <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+                        <use xlink:href="#alt-arrow-left-outline"></use>
+                        </svg>
+                    </div>
+                    <div class="swiper main-swiper">
+                        <div class="swiper-wrapper d-flex align-items-center">
+                            <c:forEach items="${bloglists}" var="blog">
+                                <div class="swiper-slide">
+                                    <div class="container">
+                                        <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
+                                            <div class="col-md-5 offset-md-1">
+                                                <div class="banner-content">
+                                                    <h2>${blog.title}</h2>
+                                                    <p>${blog.blogContent}</p>
+                                                    <a href="single-post.jsp" class="btn mt-3">Read</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <div class="image-holder">
+                                                    <img src="${blog.thumbnail}" class="img-fluid" alt="banner">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div class="row">
-                <c:set var="bloglists" value="${requestScope.blogList}" />
-                <c:choose>
-                    <c:when test="${not empty bloglists}">
-                        <c:forEach items="${bloglists}" var="blog">
-                            <div class="col-md-3 posts mb-4">
-                                <a href="blog.html" class="btn rounded-0 py-0 px-2">${blog.category}</a>
-                                <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
-                                    <a href="single-post.html">${blog.title}</a>
-                                </h4>
-                                <p class="mb-2">${blog.blogContent}</p>
-                                <a class="text-decoration-underline" href="single-post.html">Read More</a>
-                            </div>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <h5 class="d-flex align-items-center">Currently no post to display, please come back later</h5>
-                    </c:otherwise>
-                </c:choose>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="brands" class="py-5 border-top border-bottom">
-        <div class="container">
-            <div class="brand-images my-5 d-flex align-items-center justify-content-between flex-wrap">
-                <a href="#" class="brand">
-                    <img src="images/brand1.png" alt="brand" class="img-fluid">
-                </a>
-                <a href="#" class="brand">
-                    <img src="images/brand2.png" alt="brand" class="img-fluid">
-                </a>
-                <a href="#" class="brand">
-                    <img src="images/brand3.png" alt="brand" class="img-fluid">
-                </a>
-                <a href="#" class="brand">
-                    <img src="images/brand4.png" alt="brand" class="img-fluid">
-                </a>
-                <a href="#" class="brand">
-                    <img src="images/brand5.png" alt="brand" class="img-fluid">
-                </a>
+        <section id="brands" class="py-5 border-top border-bottom">
+            <div class="container">
+                <div class="brand-images my-5 d-flex align-items-center justify-content-between flex-wrap">
+                    <a href="#" class="brand">
+                        <img src="images/brand1.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand2.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand3.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand4.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand5.png" alt="brand" class="img-fluid">
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="instagram" class="padding-large">
-        <div class="container">
-            <div class="text-center mb-4">
-                <h3>Instagram #shoplite</h3>
+        <section id="instagram" class="padding-large">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h3>Instagram #shoplite</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item1.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item2.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item3.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item4.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item5.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item6.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <figure class="instagram-item position-relative rounded-3">
-                        <a href="https://templatesjungle.com/" class="image-link position-relative">
-                            <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                <use xlink:href="#instagram"></use>
-                                </svg>
-                            </div>
-                            <img src="images/insta-item1.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
-                        </a>
-                    </figure>
-                </div>
-                <div class="col-md-2">
-                    <figure class="instagram-item position-relative rounded-3">
-                        <a href="https://templatesjungle.com/" class="image-link position-relative">
-                            <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                <use xlink:href="#instagram"></use>
-                                </svg>
-                            </div>
-                            <img src="images/insta-item2.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
-                        </a>
-                    </figure>
-                </div>
-                <div class="col-md-2">
-                    <figure class="instagram-item position-relative rounded-3">
-                        <a href="https://templatesjungle.com/" class="image-link position-relative">
-                            <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                <use xlink:href="#instagram"></use>
-                                </svg>
-                            </div>
-                            <img src="images/insta-item3.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
-                        </a>
-                    </figure>
-                </div>
-                <div class="col-md-2">
-                    <figure class="instagram-item position-relative rounded-3">
-                        <a href="https://templatesjungle.com/" class="image-link position-relative">
-                            <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                <use xlink:href="#instagram"></use>
-                                </svg>
-                            </div>
-                            <img src="images/insta-item4.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
-                        </a>
-                    </figure>
-                </div>
-                <div class="col-md-2">
-                    <figure class="instagram-item position-relative rounded-3">
-                        <a href="https://templatesjungle.com/" class="image-link position-relative">
-                            <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                <use xlink:href="#instagram"></use>
-                                </svg>
-                            </div>
-                            <img src="images/insta-item5.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
-                        </a>
-                    </figure>
-                </div>
-                <div class="col-md-2">
-                    <figure class="instagram-item position-relative rounded-3">
-                        <a href="https://templatesjungle.com/" class="image-link position-relative">
-                            <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                                <use xlink:href="#instagram"></use>
-                                </svg>
-                            </div>
-                            <img src="images/insta-item6.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
-                        </a>
-                    </figure>
-                </div>
-            </div>
-        </div>
-    </section>
-    <%@include file = "view/footer.jsp" %>
+        </section>
+        <%@include file = "view/footer.jsp" %>
 
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-</body>
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
 
 </html>

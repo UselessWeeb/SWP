@@ -34,7 +34,7 @@ public class SliderDAO extends EntityDAO {
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
-        Slider slider = new Slider(
+        return new Slider(
                 rs.getInt("slider_id"),
                 rs.getString("title"),
                 rs.getString("details"),
@@ -43,6 +43,5 @@ public class SliderDAO extends EntityDAO {
                 rs.getInt("status"),
                 rs.getInt("user_id")
         );
-        return slider;
     }
 }

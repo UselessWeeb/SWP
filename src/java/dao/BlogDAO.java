@@ -17,7 +17,7 @@ import model.Blog;
 public class BlogDAO extends EntityDAO {
 
     //for now, if changes are needed, fix this
-    public List<Blog> findAll() {
+    public List<Blog> findLatest() {
         List<Blog> blogs = new ArrayList<>();
         try {
             String strSelect = "SELECT * FROM Blog ORDER BY updated_date";
@@ -33,17 +33,33 @@ public class BlogDAO extends EntityDAO {
         return blogs;
     }
 
+    public List<Blog> findFeatured() {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String strSelect = "SELECT * FROM Blog WHERE is_featured = 1";
+            stm = connection.prepareStatement(strSelect);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Blog blog = (Blog) this.createEntity(rs);
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return blogs;
+    }
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
-        Blog blog = new Blog(
+        return new Blog(
                 rs.getInt("blog_id"),
                 rs.getString("thumbnail"),
                 rs.getString("title"),
                 rs.getTimestamp("updated_date"),
                 rs.getString("category"),
                 rs.getString("blog_content"),
+                rs.getInt("is_featured"),
                 rs.getInt("user_id")
         );
-        return blog;
     }
 }

@@ -116,6 +116,7 @@ CREATE TABLE Blog
   updated_date DATETIME NOT NULL,
   category VARCHAR(200) NOT NULL,
   blog_content VARCHAR(MAX) NOT NULL,
+  is_featured INT NOT NULL,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES [User]
 );

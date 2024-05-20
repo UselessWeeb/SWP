@@ -199,9 +199,6 @@
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="contact.jsp">Contact</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-decoration-underline me-4" href="https://templatesjungle.gumroad.com/l/shoplite-simple-ecommerce-bootstrap-html-css-website-template" target="_blank">Get Pro</a>
-                            </li>
                         </ul>
                         <div class="user-items d-flex">
                             <ul class="d-flex justify-content-end list-unstyled mb-0">
@@ -212,15 +209,15 @@
                                         </svg>
                                     </a>
                                 </li>
-                                <li class="pe-3">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <svg class="user">
-                                        <use xlink:href="#user"></use>
-                                        </svg>
-                                    </a>
+                                <li class="wishlist-dropdown dropdown pe-3">
                                     <c:set var = "user" value = "${sessionScope.user}"/>
                                     <c:choose>
                                         <c:when test="${empty user}">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <svg class="user">
+                                                <use xlink:href="#user"></use>
+                                                </svg>
+                                            </a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -247,93 +244,124 @@
                                             </div>
                                         </c:when>
                                         <c:otherwise>
+                                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                                <svg class="user">
+                                                <use xlink:href="#user"></use>
+                                                </svg>
+                                            </a>
+                                            <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
+                                                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                                    <span class="text-primary">${user.fullName}</span>
+                                                </h4>
+                                                <ul class="list-group mb-3">
+                                                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                        <div>
+                                                            <h5>
+                                                                <a href="#">Profile</a>
+                                                            </h5>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                        <div>
+                                                            <h5>
+                                                                <a href="#">Setting</a>
+                                                            </h5>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="d-flex flex-wrap justify-content-center">
+                                                    <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
+                                                </div>
+                                            </div>
                                         </c:otherwise>
                                     </c:choose>
                                 </li>
-                                <li class="wishlist-dropdown dropdown pe-3">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                        <svg class="wishlist">
-                                        <use xlink:href="#heart"></use>
-                                        </svg>
-                                    </a>
-                                    <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
-                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                            <span class="text-primary">Your wishlist</span>
-                                            <span class="badge bg-primary rounded-pill">2</span>
-                                        </h4>
-                                        <ul class="list-group mb-3">
-                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                <div>
-                                                    <h5>
-                                                        <a href="single-product.jsp">Iphone 15 pro max</a>
-                                                    </h5>
-                                                    <small>Special discounted price.</small>
-                                                    <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
-                                                </div>
-                                                <span class="text-primary">$2000</span>
-                                            </li>
-                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                <div>
-                                                    <h5>
-                                                        <a href="single-product.jsp">Apple Watch (2nd Gen)</a>
-                                                    </h5>
-                                                    <small>Professional apple watch.</small>
-                                                    <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
-                                                </div>
-                                                <span class="text-primary">$400</span>
-                                            </li>
-                                            <li class="list-group-item bg-transparent d-flex justify-content-between">
-                                                <span class="text-uppercase"><b>Total (USD)</b></span>
-                                                <strong>$1470</strong>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex flex-wrap justify-content-center">
-                                            <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Add all to cart</a>
-                                            <a href="cart.jsp" class="w-100 btn btn-primary" type="submit">View cart</a>
+                                <c:if test="${not empty user}">
+                                    <li class="wishlist-dropdown dropdown pe-3">
+                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                            <svg class="wishlist">
+                                            <use xlink:href="#heart"></use>
+                                            </svg>
+                                        </a>
+                                        <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
+                                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                                <span class="text-primary">Your wishlist</span>
+                                                <span class="badge bg-primary rounded-pill">2</span>
+                                            </h4>
+                                            <ul class="list-group mb-3">
+                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                    <div>
+                                                        <h5>
+                                                            <a href="single-product.jsp">Iphone 15 pro max</a>
+                                                        </h5>
+                                                        <small>Special discounted price.</small>
+                                                        <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
+                                                    </div>
+                                                    <span class="text-primary">$2000</span>
+                                                </li>
+                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                    <div>
+                                                        <h5>
+                                                            <a href="single-product.jsp">Apple Watch (2nd Gen)</a>
+                                                        </h5>
+                                                        <small>Professional apple watch.</small>
+                                                        <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
+                                                    </div>
+                                                    <span class="text-primary">$400</span>
+                                                </li>
+                                                <li class="list-group-item bg-transparent d-flex justify-content-between">
+                                                    <span class="text-uppercase"><b>Total (USD)</b></span>
+                                                    <strong>$1470</strong>
+                                                </li>
+                                            </ul>
+                                            <div class="d-flex flex-wrap justify-content-center">
+                                                <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Add all to cart</a>
+                                                <a href="cart.jsp" class="w-100 btn btn-primary" type="submit">View cart</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="cart-dropdown dropdown">
-                                    <a href="cart.jsp" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                        <svg class="cart">
-                                        <use xlink:href="#cart"></use>
-                                        </svg><span class="fs-6 fw-light">(02)</span>
-                                    </a>
-                                    <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
-                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                            <span class="text-primary">Your cart</span>
-                                            <span class="badge bg-primary rounded-pill">2</span>
-                                        </h4>
-                                        <ul class="list-group mb-3">
-                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                <div>
-                                                    <h5>
-                                                        <a href="single-product.jsp">IPad (9th Gen)</a>
-                                                    </h5>
-                                                    <small>High quality in good price.</small>
-                                                </div>
-                                                <span class="text-primary">$870</span>
-                                            </li>
-                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                <div>
-                                                    <h5>
-                                                        <a href="single-product.jsp">Drone with camera</a>
-                                                    </h5>
-                                                    <small>Professional drone with camera.</small>
-                                                </div>
-                                                <span class="text-primary">$600</span>
-                                            </li>
-                                            <li class="list-group-item bg-transparent d-flex justify-content-between">
-                                                <span class="text-uppercase"><b>Total (USD)</b></span>
-                                                <strong>$1470</strong>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex flex-wrap justify-content-center">
-                                            <a href="cart.jsp" class="w-100 btn btn-dark mb-1" type="submit">View Cart</a>
-                                            <a href="checkout.jsp" class="w-100 btn btn-primary" type="submit">Go to checkout</a>
+                                    </li>
+                                    <li class="cart-dropdown dropdown">
+                                        <a href="cart.jsp" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                            <svg class="cart">
+                                            <use xlink:href="#cart"></use>
+                                            </svg><span class="fs-6 fw-light">(02)</span>
+                                        </a>
+                                        <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
+                                            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                                <span class="text-primary">Your cart</span>
+                                                <span class="badge bg-primary rounded-pill">2</span>
+                                            </h4>
+                                            <ul class="list-group mb-3">
+                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                    <div>
+                                                        <h5>
+                                                            <a href="single-product.jsp">IPad (9th Gen)</a>
+                                                        </h5>
+                                                        <small>High quality in good price.</small>
+                                                    </div>
+                                                    <span class="text-primary">$870</span>
+                                                </li>
+                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                    <div>
+                                                        <h5>
+                                                            <a href="single-product.jsp">Drone with camera</a>
+                                                        </h5>
+                                                        <small>Professional drone with camera.</small>
+                                                    </div>
+                                                    <span class="text-primary">$600</span>
+                                                </li>
+                                                <li class="list-group-item bg-transparent d-flex justify-content-between">
+                                                    <span class="text-uppercase"><b>Total (USD)</b></span>
+                                                    <strong>$1470</strong>
+                                                </li>
+                                            </ul>
+                                            <div class="d-flex flex-wrap justify-content-center">
+                                                <a href="cart.jsp" class="w-100 btn btn-dark mb-1" type="submit">View Cart</a>
+                                                <a href="checkout.jsp" class="w-100 btn btn-primary" type="submit">Go to checkout</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                </c:if>
                             </ul>
                         </div>
                     </div>
@@ -341,11 +369,11 @@
             </div>
         </nav>
         <c:if test = "${user.state == 'unvertified'}">
-            <div class="top-info border-bottom d-none d-md-block">
+            <div class="top-info border-bottom d-none d-md-block bg-danger">
                 <div class="container-fluid">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <p class="fs-6 my-2 text-center">Your account is unverified, please confirm your email</p>
+                            <p class="fs-6 my-2 text-center text-white">Your account is unverified, please confirm your email</p>
                         </div>
                     </div>
                 </div>
