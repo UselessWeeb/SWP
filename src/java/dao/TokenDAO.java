@@ -16,7 +16,7 @@ import model.Token;
  */
 public class TokenDAO extends EntityDAO {
 
-    public Token getByToken(String token) {
+    public Token getToken(String token) {
         String sql = "SELECT * FROM [Token] WHERE tokenString = ?";
         Token newToken = null;
 

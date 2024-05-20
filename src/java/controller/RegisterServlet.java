@@ -5,14 +5,18 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import dao.UserDAO;
+import dao.TokenDAO;
 import model.User;
+import model.Token;
+import email.EmailService;
 import util.HashUtil;
+import util.RandomString;
 
 /**
  *
@@ -20,6 +24,7 @@ import util.HashUtil;
  */
 public class RegisterServlet extends HttpServlet {
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -45,37 +50,85 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter pw = response.getWriter();
-        User regUser = new User();
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDao = new UserDAO();
+        TokenDAO tokenDao = new TokenDAO();
+        EmailService emailService = new EmailService();
         HashUtil hash = new HashUtil();
+        RandomString random = new RandomString();
 
-        try {
-            regUser.setFullName(request.getParameter("fullName"));
-            regUser.setEmail(request.getParameter("email"));
-            regUser.setAddress(request.getParameter("address"));
-            regUser.setPhoneNumber(request.getParameter("phoneNum"));
-            regUser.setRoleId(1);
-            regUser.setGender(request.getParameter("gender"));
-            regUser.setState("Not Verified");
-            regUser.setPassword(hash.md5hash(request.getParameter("password")));
+        String referer = request.getHeader("referer");
+        String email = request.getParameter("email");
+        String token;
 
-            userDAO.registerUser(regUser);
+        if (userDao.checkIfUserExist(email)) {
+            request.setAttribute("err", "Email already exist!");
+            response.sendRedirect(referer);
+        } else {
+            User newUser = new User();
 
-            //TODO: SEND VERIFY MAIL TO USER HERE
-        } catch (Exception e) {
+            newUser.setAvatar("images/avatar/default.jpg");
+            newUser.setFullName(request.getParameter("fullName"));
+            newUser.setGender(request.getParameter("gender"));
+            newUser.setAddress(request.getParameter("address"));
+            newUser.setEmail(email);
+            newUser.setPassword(hash.md5hash(request.getParameter("password")));
+            newUser.setState("Not Verified"); //NOTE should confirm with team about state
+            newUser.setRoleId(0); //NOTE should confirm with team about role id for each role
 
+            userDao.registerUser(newUser);
+
+            while (true) {
+                token = random.generateRandomString(32);
+
+                if (!tokenDao.checkIfTokenExist(token)) {
+                    break;
+                }
+            }
+
+            tokenDao.addNewToken(new Token(
+                    token,
+                    userDao.getUserIdByEmail(email),
+                    LocalDateTime.now(),
+                    0
+            ));
+            
+            String link = generateVerificationLink(request, token);
+
+            emailService.sendVerificationEmail(token, email, link);
+
+            //TODO OPEN POP UP TELL USER TO CONFIRM EMAIL
+            response.sendRedirect(referer);
         }
+    }
+
+    private String generateVerificationLink(HttpServletRequest request, String token) {
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+        String contextPath = request.getContextPath();
+
+        String verificationPath = "/verify?token=" + token;
+
+        StringBuilder url = new StringBuilder();
+        url.append(scheme).append("://").append(serverName);
+
+        // Append port if not default
+        if (serverPort != 80 && serverPort != 443) {
+            url.append(":").append(serverPort);
+        }
+
+        url.append(contextPath).append(verificationPath);
+
+        return url.toString();
     }
 
     /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
-
+    } // </editor-fold>
 }

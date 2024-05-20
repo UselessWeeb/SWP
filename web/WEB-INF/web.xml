@@ -16,28 +16,36 @@
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>controller.MainServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetUserPasswordServlet</servlet-name>
+        <servlet-class>controller.ResetPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyServlet</servlet-name>
+        <servlet-class>controller.VerifyServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern/>
     </servlet-mapping>
-	<servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>controller.RegisterServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ResetUserPasswordServlet</servlet-name>
-        <servlet-class>controller.ResetUserPasswordServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/RegisterServlet</url-pattern>
+        <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResetUserPasswordServlet</servlet-name>
-        <url-pattern>/ResetUserPasswordServlet</url-pattern>
+        <url-pattern>/ResetPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyServlet</servlet-name>
+        <url-pattern>/Verify</url-pattern>
     </servlet-mapping>
 </web-app>

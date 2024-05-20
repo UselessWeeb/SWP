@@ -21,23 +21,32 @@ public class EmailService {
             .withTransportStrategy(TransportStrategy.SMTP_TLS)
             .buildMailer();
 
-    public void sendVerifyEmail(String name, String userMail, String token) {
+    public void sendVerificationEmail(String name, String userMail, String link) {
         Email email = EmailBuilder.startingBlank()
                 .from("FROM MAIL", "phamnguyenquocanh833@gmail.com")
                 .to(name, userMail)
-                .withSubject("Xác thực tài khoản của bạn trên trang....") //TODO ADD WEBSITE NAME HERE
-                .withPlainText("") //TODO ADD MAIL MESSSAGE + TOKEN LINK
+                .withSubject("Xác thực tài khoản của bạn trên trang ") //TODO ADD WEBSITE NAME HERE
+                .withPlainText("") //TODO ADD MAIL MESSSAGE + LINK
                 .buildEmail();
 
         mailer.sendMail(email);
     }
     
-    public void sendResetPassEmail(String name, String userMail, String token) {
+    public void sendResetPassEmail(String name, String userMail, String link) {
+        String message = "Xin chào " 
+                + name 
+                + ", chúng tôi xin được gửi cho quý khách link đổi mật khẩu. "
+                + "Quý khách vui lòng truy cập vào link được đính kèm trong 30 phút" 
+                + " từ khi nhận được thư này. "
+                + "Nếu bạn không yêu cầu đổi mật khẩu, bạn có thể an tâm bỏ qua thư này."
+                + "\n\nLink đổi mật khẩu: ";
+        
+        
         Email email = EmailBuilder.startingBlank()
                 .from("FROM MAIL", "phamnguyenquocanh833@gmail.com")
                 .to(name, userMail)
-                .withSubject("Xác thực tài khoản của bạn trên trang....") //TODO ADD WEBSITE NAME HERE
-                .withPlainText("") //TODO ADD MAIL MESSSAGE + TOKEN LINK
+                .withSubject("Yêu cầu đổi mật khẩu") //TODO ADD WEBSITE NAME HERE
+                .withPlainText(message) //TODO ADD MAIL MESSSAGE + TOKEN LINK
                 .buildEmail();
 
         mailer.sendMail(email);
