@@ -63,6 +63,9 @@
       <symbol xmlns="http://www.w3.org/2000/svg" id="star-half" viewBox="0 0 16 16">
         <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z" />
       </symbol>
+      <symbol xmlns="http://www.w3.org/2000/svg" id="play" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd" d="M7.238 3.044C5.652 2.182 3.75 3.32 3.75 5.033v13.934c0 1.714 1.902 2.851 3.488 1.989l12.812-6.967c1.6-.87 1.6-3.108 0-3.977zM2.25 5.033c0-2.905 3.167-4.687 5.705-3.306l12.812 6.967c2.644 1.438 2.644 5.174 0 6.612L7.955 22.273c-2.538 1.38-5.705-.4-5.705-3.306z" clip-rule="evenodd" />
+      </symbol>
       <symbol xmlns="http://www.w3.org/2000/svg" id="quote" viewBox="0 0 24 24">
         <path fill="currentColor" d="m15 17l2-4h-4V6h7v7l-2 4h-3Zm-9 0l2-4H4V6h7v7l-2 4H6Z" />
       </symbol>
@@ -89,18 +92,6 @@
       </symbol>
       <symbol xmlns="http://www.w3.org/2000/svg" id="navbar-icon" viewBox="0 0 16 16">
         <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
-      </symbol>      
-      <symbol xmlns="http://www.w3.org/2000/svg" id="plus" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z"/>
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="minus" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M19 11H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2Z"/>
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="alt-arrow-left-bold" viewBox="0 0 24 24">
-        <path fill="currentColor" d="m8.165 11.63l6.63-6.43C15.21 4.799 16 5.042 16 5.57v12.86c0 .528-.79.771-1.205.37l-6.63-6.43a.499.499 0 0 1 0-.74" />
-      </symbol>
-      <symbol xmlns="http://www.w3.org/2000/svg" id="alt-arrow-right-bold" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M15.835 11.63L9.205 5.2C8.79 4.799 8 5.042 8 5.57v12.86c0 .528.79.771 1.205.37l6.63-6.43a.498.498 0 0 0 0-.74" />
       </symbol>
     </svg>
 
@@ -188,7 +179,7 @@
                                 <a class="nav-link me-4" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="about.html">About</a>
+                                <a class="nav-link me-4 active" href="about.html">About</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="shop.html">Shop</a>
@@ -200,7 +191,7 @@
                                 <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
                                 <ul class="dropdown-menu animate slide border">
                                     <li>
-                                        <a href="about.html" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
+                                        <a href="about.html" class="dropdown-item active fw-light">About <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
                                         <a href="shop.html" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
@@ -218,7 +209,7 @@
                                         <a href="blog.html" class="dropdown-item fw-light">Blog <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-                                        <a href="single-post.html" class="dropdown-item active fw-light">Single Post <span class="badge bg-primary">Pro</span></a>
+                                        <a href="single-post.html" class="dropdown-item fw-light">Single Post <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
                                         <a href="contact.html" class="dropdown-item fw-light">Contact <span class="badge bg-primary">Pro</span></a>
@@ -394,224 +385,261 @@
 
     </header>
 
-    <div class="post-wrap padding-large overflow-hidden">
-        <div class="container">
-            <div class="row">
-                <main class="post-grid">
-                    <div class="row">
-                        <article class="post-item">
-                            <div class="post-content">
-                                <div class="hero-image col-lg-12">
-                                    <img src="images/single-post.jpg" alt="single-post" class="img-fluid">
-                                </div>
-                                <div class="post-meta mt-4">
-                                    <span class="post-category">Feb 22, 2023 </span> - <span class="meta-date"><a href="blog.html">Technology</a></span>
-                                </div>
-                                <h1 class="post-title mt-4">5 Must-Have Gadgets for the Modern Home</h1>
-                                <div class="post-description review-item mt-4">
-                                    <p>
-                                        <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur facilisis vivamus massa magna. Blandit mauris libero condimentum commodo morbi consectetur sociis convallis sit. Magna diam amet justo sed vel dolor et volutpat integer. Iaculis sit sapien hac odio elementum egestas neque. Adipiscing purus euismod orci sem amet, et. Turpis erat ornare nisi laoreet est euismod.</strong>
-                                    </p>
-                                    <p>Sit suscipit tortor turpis sed fringilla lectus facilisis amet. Ipsum, amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut vivamus sit imperdiet enim, lacus, vel. Morbi arcu amet, nulla fermentum
-                                        vitae mattis arcu mi convallis. Urna in sollicitudin in vestibulum erat. Turpis faucibus augue ipsum, at aliquam. Cras sagittis tellus nunc integer vitae neque bibendum eget. Tempus malesuada et pellentesque maecenas.
-                                        Sociis porttitor elit tincidunt tellus sit ornare. Purus ut quis sed venenatis eget ut ipsum, enim lacus. Praesent imperdiet vitae eu, eu tincidunt nunc integer sit.</p>
-                                    <blockquote class="fs-1">“Sit suscipit tortor turpis sed fringilla lectus facilisis amet. Ipsum, amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut vivamus sit imperdiet enim, lacus, vel.</blockquote>
-                                    <h3 class="mt-3">Is This Great?</h3>
-                                    <ul style="list-style-type:disc;" class="inner-list">
-                                        <li>Blandit mauris libero condimentum commodo sociis convallis sit.</li>
-                                        <li>Magna diam amet justo sed vel dolor et volutpat integer.</li>
-                                        <li>Laculis sit sapien hac odio elementum egestas neque.</li>
-                                    </ul>
-                                    <p>Morbi arcu amet, nulla fermentum vitae mattis arcu mi convallis. Urna in sollicitudin in vestibulum erat. Turpis faucibus augue ipsum, at aliquam. Cras sagittis tellus nunc integer vitae neque bibendum eget. Tempus
-                                        malesuada et pellentesque maecenas. Sociis porttitor elit tincidunt tellus sit ornare. Purus ut ipsum, enim lacus. Praesent imperdiet vitae eu, eu tincidunt nunc integer sit.</p>
-                                    <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                        nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus. Nunc tempus feugiat massa laoreet ultrices diam magna quam. Congue auctor
-                                        auctor luctus neque. Enim lorem ultrices diam donec. Sed id placerat consectetur faucibus.</p>
-                                    <img src="images/post-img.jpg" alt="post-image" class="img-fluid float-start rounded-4 me-3 mb-3 col-md-5">
-                                    <h3 class="mt-3">Velit, praesent pharetra malesuada</h3>
-                                    <p>Id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget lectus. Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget ullamcorper urna, elit ac diam tellus viverra lacus.</p>
-                                    <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                        nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-                                    <p>Velit, praesent pharetra malesuada id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget lectus. Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget ullamcorper urna, elit
-                                        ac diam tellus viverra lacus.</p>
-                                    <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                        nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-                                    <p>Praesent pharetra malesuada id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget lectus. Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget ullamcorper urna, elit ac diam
-                                        tellus viverra lacus.</p>
-                                    <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                        nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-                                    <div class="post-bottom-link d-flex justify-content-between mt-2">
-                                        <div class="block-tag">
-                                            <ul class="list-unstyled d-flex">
-                                                <li class="pe-3">
-                                                    <a href="#">Tech</a>
-                                                </li>
-                                                <li class="pe-3">
-                                                    <a href="#">Tips</a>
-                                                </li>
-                                                <li class="pe-3">
-                                                    <a href="#">Gadgets</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="social-links d-flex">
-                                            <div class="element-title pe-2">Share:</div>
-                                            <ul class="d-flex list-unstyled">
-                                                <li>
-                                                    <a href="#">
-                              <svg class="facebook">
-                                <use xlink:href="#facebook"></use>
-                              </svg>
-                            </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                              <svg class="instagram">
-                                <use xlink:href="#instagram"></use>
-                              </svg>
-                            </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                              <svg class="twitter">
-                                <use xlink:href="#twitter"></use>
-                              </svg>
-                            </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                              <svg class="linkedin">
-                                <use xlink:href="#linkedin"></use>
-                              </svg>
-                            </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                              <svg class="youtube">
-                                <use xlink:href="#youtube"></use>
-                              </svg>
-                            </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="single-post-navigation" class="mt-3">
-                                    <div class="post-navigation d-flex flex-wrap align-items-center justify-content-between">
-                                        <a itemprop="url" class="post-prev d-flex align-items-center" href="#">
-                        <svg class="alt-arrow-left-bold" width="44" height="44">
-                          <use xlink:href="#alt-arrow-left-bold"></use>
-                        </svg>
-                        <h4 class="card-title text-uppercase text-dark">Best digital watches to buy in this year</h4>
-                      </a>
-                                        <a itemprop="url" class="post-next d-flex align-items-center" href="#">
-                                            <h4 class="card-title text-uppercase text-dark">Best airpod that you must get it</h4>
-                                            <svg class="alt-arrow-right-bold" width="44" height="44">
-                          <use xlink:href="#alt-arrow-right-bold"></use>
-                        </svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <section id="post-comment" class="padding-medium pb-0">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="comments-wrap">
-                                            <h3 class="mb-3">3 Comments</h3>
-                                            <div class="comment-list padding-small">
-                                                <article class="comment-item d-flex flex-wrap mb-3">
-                                                    <div class="col-lg-1 col-sm-3 me-4 mb-3">
-                                                        <img src="images/commentor-item1.jpg" alt="default" class="img-fluid rounded-3">
-                                                    </div>
-                                                    <div class="col-lg-10 col-sm-9 author-wrap">
-                                                        <div class="author-post">
-                                                            <div class="comment-meta d-flex">
-                                                                <div class="author-name fw-medium pe-1">Sam Smith</div>
-                                                                <span class="meta-date">Jul 10</span>
-                                                            </div>
-                                                            <p class="no-margin">Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus. Tortor diam dignissim amet, in interdum aliquet. Nascetur libero elementum
-                                                                adipiscing mauris maecenas et magna.</p>
-                                                            <div class="comments-reply">
-                                                                <a href="#" class="text-primary">Reply Now</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </article>
-                                                <article class="comment-item d-flex child-comments flex-wrap ps-5 mb-3">
-                                                    <div class="col-lg-1 col-sm-3 me-4 mb-3">
-                                                        <img src="images/commentor-item2.jpg" alt="default" class="img-fluid rounded-3">
-                                                    </div>
-                                                    <div class="col-lg-10 col-sm-9 author-wrap">
-                                                        <div class="author-post">
-                                                            <div class="comment-meta d-flex">
-                                                                <div class="author-name fw-medium pe-1">Santie Mary</div>
-                                                                <span class="meta-date">Jul 10</span>
-                                                            </div>
-                                                            <p class="no-margin">Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.</p>
-                                                            <div class="comments-reply">
-                                                                <a href="#" class="text-primary">Reply Now</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </article>
-                                                <article class="comment-item d-flex flex-wrap">
-                                                    <div class="col-lg-1 col-sm-3 me-4 mb-3">
-                                                        <img src="images/commentor-item3.jpg" alt="default" class="img-fluid rounded-3">
-                                                    </div>
-                                                    <div class="col-lg-10 col-sm-9 author-wrap">
-                                                        <div class="author-post">
-                                                            <div class="comment-meta d-flex">
-                                                                <div class="author-name fw-medium pe-1">Analisa Nora</div>
-                                                                <span class="meta-date">Jul 10</span>
-                                                            </div>
-                                                            <p class="no-margin">Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.</p>
-                                                            <div class="comments-reply">
-                                                                <a href="#" class="text-primary">Reply Now</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </article>
-                                            </div>
-                                        </div>
-
-                                        <div class="comment-respond">
-                                            <h3>Leave a Comment</h3>
-                                            <p>Your email address will not be published. Required fields are marked *</p>
-                                            <form id="form" class="d-flex gap-3 flex-wrap">
-                                                <div class="w-100 d-flex gap-3">
-                                                    <div class="w-50">
-                                                        <input type="text" name="name" placeholder="Write your name here *" class="form-control w-100">
-                                                    </div>
-                                                    <div class="w-50">
-                                                        <input type="text" name="email" placeholder="Write your email here *" class="form-control w-100">
-                                                    </div>
-                                                </div>
-                                                <div class="w-100">
-                                                    <textarea placeholder="Write your comment here *" class="form-control w-100"></textarea>
-                                                </div>
-                                                <label class="w-100">
-                            <input type="checkbox" required="" class="d-inline">
-                            <span>Save my name, email, and website in this browser for the next time.</span>
-                          </label>
-                                                <button type="submit" name="submit" class="btn my-3">Post Comment</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+    <section class="hero-section position-relative bg-light-gray padding-medium">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center">
+                        <h1>About Us</h1>
+                        <div class="breadcrumbs">
+                            <span class="item">
+                  <a href="index.html">Home > </a>
+                </span>
+                            <span class="item text-decoration-underline">About Us</span>
+                        </div>
                     </div>
-                </main>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <section id="related-posts">
+    <section id="company-services" class="padding-large">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+                    <div class="icon-box d-flex">
+                        <div class="icon-box-icon pe-3 pb-3">
+                            <svg class="cart-outline">
+                  <use xlink:href="#cart-outline" />
+                </svg>
+                        </div>
+                        <div class="icon-box-content">
+                            <h4 class="card-title mb-1 text-uppercase text-dark">Free delivery</h4>
+                            <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+                    <div class="icon-box d-flex">
+                        <div class="icon-box-icon pe-3 pb-3">
+                            <svg class="quality">
+                  <use xlink:href="#quality" />
+                </svg>
+                        </div>
+                        <div class="icon-box-content">
+                            <h4 class="card-title mb-1 text-uppercase text-dark">Quality guarantee</h4>
+                            <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+                    <div class="icon-box d-flex">
+                        <div class="icon-box-icon pe-3 pb-3">
+                            <svg class="price-tag">
+                  <use xlink:href="#price-tag" />
+                </svg>
+                        </div>
+                        <div class="icon-box-content">
+                            <h4 class="card-title mb-1 text-uppercase text-dark">Daily offers</h4>
+                            <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+                    <div class="icon-box d-flex">
+                        <div class="icon-box-icon pe-3 pb-3">
+                            <svg class="shield-plus">
+                  <use xlink:href="#shield-plus" />
+                </svg>
+                        </div>
+                        <div class="icon-box-content">
+                            <h4 class="card-title mb-1 text-uppercase text-dark">100% secure payment</h4>
+                            <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-us" class="padding-large pt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="image-holder position-relative mb-4 d-flex align-items-center justify-content-center">
+                        <a type="button" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/l4MOE3hZATA" data-bs-target="#myModal" class="play-btn position-absolute">
+                            <div class="play-icon border border-2 border-dark rounded-pill p-5">
+                                <svg class="search" width="40" height="40">
+                    <use xlink:href="#play"></use>
+                  </svg>
+                            </div>
+                        </a>
+                        <div class="image">
+                            <img src="images/single-image-about.jpg" alt="single" class="img-fluid rounded-3 single-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="detail ps-md-5 mt-5">
+                        <div class="display-header">
+                            <h3 class="mb-3">Best Digital Store BasicStore</h3>
+                            <p class="pb-1">Risus augue curabitur diam senectus congue velit et. Sed vitae metus nibh sit era. Nulla adipiscing pharetra pellentesque maecenas odio eros at. Et libero vulputate amet duis erat volutpat vitae eget. Sed vitae metus nibh sit
+                                era. Nulla adipiscing pharetra eros at.
+                                <p>Nulla adipiscing pharetra pellentesque maecenas odio eros at. Et libero vulputate amet duis erat volutpat vitae eget. Quam libero etiam et in ac at quis. Risus augue curabitur diam senectus congue velit et. </p>
+                                <a href="shop.html" class="btn mt-3">Go to shop</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="customers-reviews" class="position-relative">
         <div class="container">
             <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Related posts</h3>
+                <h3 class="d-flex align-items-center">Customers reviews</h3>
+            </div>
+            <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
+                <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+            <use xlink:href="#alt-arrow-right-outline"></use>
+          </svg>
+            </div>
+            <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
+                <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+            <use xlink:href="#alt-arrow-left-outline"></use>
+          </svg>
+            </div>
+            <div class="swiper testimonial-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="card position-relative text-left p-5 border rounded-3">
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
+                            <div class="rating text-primary">
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                            </div>
+                            <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card position-relative text-left p-5 border rounded-3">
+                            <blockquote>?This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
+                                you won't regret shopping here!?</blockquote>
+                            <div class="rating text-primary">
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                            </div>
+                            <h5 class="mt-1 fw-normal">Thomas John</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card position-relative text-left p-5 border rounded-3">
+                            <blockquote>?I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
+                                me find the perfect fit for my lifestyle.?</blockquote>
+                            <div class="rating text-primary">
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                            </div>
+                            <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card position-relative text-left p-5 border rounded-3">
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
+                            <div class="rating text-primary">
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                            </div>
+                            <h5 class="mt-1 fw-normal">Stevin</h5>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="card position-relative text-left p-5 border rounded-3">
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
+                            <div class="rating text-primary">
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                                <svg class="star star-fill">
+                    <use xlink:href="#star-fill"></use>
+                  </svg>
+                            </div>
+                            <h5 class="mt-1 fw-normal">Roman</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="latest-posts" class="padding-large">
+        <div class="container">
+            <div class="section-title overflow-hidden mb-4">
+                <h3 class="d-flex align-items-center">Latest posts</h3>
             </div>
             <div class="row">
                 <div class="col-md-3 posts mb-4">
@@ -641,148 +669,6 @@
                     <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Top Apps and Tools for Remote Work</a></h4>
                     <p class="mb-2">In today's remote work environment, productivity is key. Discover the top apps and tools that can help you stay</p>
                     <a class="text-decoration-underline" href="single-post.html">Read More</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="customers-reviews" class="position-relative margin-large">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Customers reviews</h3>
-            </div>
-            <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
-                <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-            <use xlink:href="#alt-arrow-right-outline"></use>
-          </svg>
-            </div>
-            <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
-                <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-            <use xlink:href="#alt-arrow-left-outline"></use>
-          </svg>
-            </div>
-            <div class="swiper testimonial-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
-                                you won't regret shopping here!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Thomas John</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
-                                me find the perfect fit for my lifestyle.”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Stevin</h5>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
-                            <div class="rating text-primary">
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                                <svg class="star star-fill">
-                    <use xlink:href="#star-fill"></use>
-                  </svg>
-                            </div>
-                            <h5 class="mt-1 fw-normal">Roman</h5>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1020,13 +906,30 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    <p>© Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
+                    <p>� Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Video Popup -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><svg class="bi" width="40" height="40"><use xlink:href="#close-sharp"></use></svg></button>
+                    <div class="ratio ratio-16x9">
+                        <iframe class="embed-responsive-item" src="" id="video" allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>

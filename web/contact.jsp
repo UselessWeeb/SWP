@@ -179,7 +179,7 @@
                                 <a class="nav-link me-4" href="about.html">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4 active" href="shop.html">Shop</a>
+                                <a class="nav-link me-4" href="shop.html">Shop</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="blog.html">Blogs</a>
@@ -191,7 +191,7 @@
                                         <a href="about.html" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-                                        <a href="shop.html" class="dropdown-item active fw-light">Shop <span class="badge bg-primary">Pro</span></a>
+                                        <a href="shop.html" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
                                         <a href="single-product.html" class="dropdown-item fw-light">Single Product <span class="badge bg-primary">Pro</span></a>
@@ -209,12 +209,12 @@
                                         <a href="single-post.html" class="dropdown-item fw-light">Single Post <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-                                        <a href="contact.html" class="dropdown-item fw-light">Contact <span class="badge bg-primary">Pro</span></a>
+                                        <a href="contact.html" class="dropdown-item active fw-light">Contact <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="contact.html">Contact</a>
+                                <a class="nav-link active me-4" href="contact.html">Contact</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-decoration-underline me-4" href="https://templatesjungle.gumroad.com/l/shoplite-simple-ecommerce-bootstrap-html-css-website-template" target="_blank">Get Pro</a>
@@ -387,12 +387,12 @@
             <div class="container">
                 <div class="row">
                     <div class="text-center">
-                        <h1>Shop</h1>
+                        <h1>Contact</h1>
                         <div class="breadcrumbs">
                             <span class="item">
                   <a href="index.html">Home > </a>
                 </span>
-                            <span class="item text-decoration-underline">Shop</span>
+                            <span class="item text-decoration-underline">Contact</span>
                         </div>
                     </div>
                 </div>
@@ -400,396 +400,143 @@
         </div>
     </section>
 
-    <div class="shopify-grid padding-large">
+    <div class="contact-us padding-large">
         <div class="container">
             <div class="row">
-                <main class="col-md-9">
-                    <div class="filter-shop d-flex flex-wrap justify-content-between">
-                        <div class="showing-product">
-                            <p>Showing 1–9 of 55 results</p>
-                        </div>
-                        <div class="sort-by">
-                            <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="">
-                  <option value="">Default sorting</option>
-                  <option value="">Name (A - Z)</option>
-                  <option value="">Name (Z - A)</option>
-                  <option value="">Price (Low-High)</option>
-                  <option value="">Price (High-Low)</option>
-                  <option value="">Rating (Highest)</option>
-                  <option value="">Rating (Lowest)</option>
-                  <option value="">Model (A - Z)</option>
-                  <option value="">Model (Z - A)</option>   
-                </select>
-                        </div>
-                    </div>
-                    <div class="row product-content product-store">
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item1.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">IPad (9th Gen)</a></h5>
-                                <span class="price text-primary fw-light mb-2">$870</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </button>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
+                <div class="contact-info col-lg-6 pb-3">
+                    <h3>Contact info</h3>
+                    <p class="mb-5">Tortor dignissim convallis aenean et tortor at risus viverra adipiscing.</p>
+                    <div class="page-content d-flex flex-wrap">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="content-box text-dark pe-4 mb-5">
+                                <h3>Office</h3>
+                                <div class="contact-address pt-3">
+                                    <p>730 Glenstone Ave 65802, Springfield, US</p>
+                                </div>
+                                <div class="contact-number">
+                                    <p>
+                                        <a href="#">+123 987 321</a>
+                                    </p>
+                                    <p>
+                                        <a href="#">+123 123 654</a>
+                                    </p>
+                                </div>
+                                <div class="email-address">
+                                    <p>
+                                        <a href="#">info@yourinfo.com</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item2.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Drone With Camera</a></h5>
-                                <span class="price text-primary fw-light mb-2">$600</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="content-box">
+                                <h3>Management</h3>
+                                <div class="contact-address pt-3">
+                                    <p>730 Glenstone Ave 65802, Springfield, US</p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item3.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Apple Watch (2nd Gen)</a></h5>
-                                <span class="price text-primary fw-light mb-2">$400</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
+                                <div class="contact-number">
+                                    <p>
+                                        <a href="#">+123 987 321</a>
+                                    </p>
+                                    <p>
+                                        <a href="#">+123 123 654</a>
+                                    </p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item4.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Ultra HD TV</a></h5>
-                                <span class="price text-primary fw-light mb-2">$2000</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item5.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Bluetooth Speaker</a></h5>
-                                <span class="price text-primary fw-light mb-2">$75</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item6.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">White Headset</a></h5>
-                                <span class="price text-primary fw-light mb-2">$99</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item7.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Black Bluetooth Speaker</a></h5>
-                                <span class="price text-primary fw-light mb-2">$80</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item8.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Large Speaker</a></h5>
-                                <span class="price text-primary fw-light mb-2">$450</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item9.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">White EarPods</a></h5>
-                                <span class="price text-primary fw-light mb-2">$600</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item10.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Laptop</a></h5>
-                                <span class="price text-primary fw-light mb-2">$1200</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item11.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Iphone 13 Pro</a></h5>
-                                <span class="price text-primary fw-light mb-2">$1200</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                <img src="images/product-item12.png" class="img-fluid" alt="product item">
-                                <h5 class="mt-2"><a href="single-product.html">Digital Watch</a></h5>
-                                <span class="price text-primary fw-light mb-2">$860</span>
-                                <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                    <a href="#" class="btn btn-dark">
-                      <svg class="cart">
-                        <use xlink:href="#cart"></use>
-                      </svg>
-                    </a>
-                                    <a href="#" class="btn btn-dark">
-                      <span>
-                        <svg class="wishlist">
-                          <use xlink:href="#heart"></use>
-                        </svg>
-                      </span>
-                    </a>
+                                <div class="email-address">
+                                    <p>
+                                        <a href="#">info@yourinfo.com</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <nav class="py-5" aria-label="Page navigation">
-                        <ul class="pagination justify-content-center gap-4">
-                            <li class="page-item disabled">
-                                <a class="page-link">Prev</a>
-                            </li>
-                            <li class="page-item active" aria-current="page">
-                                <span class="page-link">1</span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </main>
-                <aside class="col-md-3">
-                    <div class="sidebar ps-lg-5">
-                        <div class="widget-menu">
-                            <div class="widget-search-bar">
-                                <form class="d-flex border rounded-3 p-2" role="search">
-                                    <input class="form-control border-0 me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
-                      <svg class="search text-light" width="18" height="18">
-                        <use xlink:href="#search"></use>
-                      </svg>
-                    </button>
-                                </form>
+                </div>
+                <div class="inquiry-item col-lg-6">
+                    <h3>Any questions?</h3>
+                    <p class="mb-5">Use the form below to get in touch with us.</p>
+
+                    <form id="form" class="d-flex gap-3 flex-wrap">
+                        <div class="w-100 d-flex gap-3">
+                            <div class="w-50">
+                                <input type="text" name="name" placeholder="Write your name here *" class="form-control w-100">
+                            </div>
+                            <div class="w-50">
+                                <input type="text" name="email" placeholder="Write your email here *" class="form-control w-100">
                             </div>
                         </div>
-                        <div class="widget-product-categories pt-5">
-                            <div class="section-title overflow-hidden mb-2">
-                                <h3 class="d-flex flex-column mb-0">Categories</h3>
-                            </div>
-                            <ul class="product-categories mb-0 sidebar-list list-unstyled">
-                                <li class="cat-item">
-                                    <a href="/collections/categories">All</a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#">Phones</a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#">Accessories</a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#">Tablets</a>
-                                </li>
-                                <li class="cat-item">
-                                    <a href="#">Watches</a>
-                                </li>
-                            </ul>
+                        <div class="w-100">
+                            <input type="text" name="phone" placeholder="Phone number" class="form-control w-100">
                         </div>
-                        <div class="widget-product-tags pt-5">
-                            <div class="section-title overflow-hidden mb-2">
-                                <h3 class="d-flex flex-column mb-0">Tags</h3>
-                            </div>
-                            <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                <li class="tags-item">
-                                    <a href="#">White</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">Cheap</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">Mobile</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">Modern</a>
-                                </li>
-                            </ul>
+                        <div class="w-100">
+                            <input type="text" name="subject" placeholder="Write your subject here" class="form-control w-100">
                         </div>
-                        <div class="widget-product-brands pt-5">
-                            <div class="section-title overflow-hidden mb-2">
-                                <h3 class="d-flex flex-column mb-0">Brands</h3>
-                            </div>
-                            <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                <li class="tags-item">
-                                    <a href="#">Apple</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">Samsung</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">Huwai</a>
-                                </li>
-                            </ul>
+                        <div class="w-100">
+                            <textarea placeholder="Write your message here *" class="form-control w-100"></textarea>
                         </div>
-                        <div class="widget-price-filter pt-5">
-                            <div class="section-title overflow-hidden mb-2">
-                                <h3 class="d-flex flex-column mb-0">Filter by price</h3>
-                            </div>
-                            <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                <li class="tags-item">
-                                    <a href="#">Less than $10</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">$10- $20</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">$20- $30</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">$30- $40</a>
-                                </li>
-                                <li class="tags-item">
-                                    <a href="#">$40- $50</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </aside>
+                        <button type="submit" name="submit" class="btn my-3">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    <section id="our-store" class="padding-large pt-0">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-lg-6">
+                    <div class="image-holder mb-5">
+                        <img src="images/single-image2.jpg" alt="our-store" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="locations-wrap ms-lg-5">
+                        <div class="display-header">
+                            <h3>Our stores</h3>
+                            <p class="mb-5">You can also directly buy products from our stores.</p>
+                        </div>
+                        <div class="location-content d-flex flex-wrap">
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="content-box text-dark pe-4 mb-5">
+                                    <h3>USA</h3>
+                                    <div class="contact-address pt-3">
+                                        <p>730 Glenstone Ave 65802, US</p>
+                                    </div>
+                                    <div class="contact-number">
+                                        <p>
+                                            <a href="#">+123 666 777 88</a>
+                                        </p>
+                                    </div>
+                                    <div class="email-address">
+                                        <p>
+                                            <a href="#">info@yourinfo.com</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="content-box">
+                                    <h3>France</h3>
+                                    <div class="contact-address pt-3">
+                                        <p>13 Rue Montmartre 75001, Paris, France</p>
+                                    </div>
+                                    <div class="contact-number">
+                                        <p>
+                                            <a href="#">+123 222 333 44</a>
+                                        </p>
+                                    </div>
+                                    <div class="email-address">
+                                        <p>
+                                            <a href="#">info@yourinfo.com</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="customers-reviews" class="position-relative">
         <div class="container">
@@ -810,8 +557,8 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -834,8 +581,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
-                                you won't regret shopping here!”</blockquote>
+                            <blockquote>?This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
+                                you won't regret shopping here!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -858,8 +605,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
-                                me find the perfect fit for my lifestyle.”</blockquote>
+                            <blockquote>?I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
+                                me find the perfect fit for my lifestyle.?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -882,8 +629,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -906,8 +653,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -1203,7 +950,7 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    <p>© Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
+                    <p>� Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
                     </p>
                 </div>
             </div>

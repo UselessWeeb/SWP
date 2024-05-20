@@ -11,15 +11,13 @@ package model;
 public class Order_Information {
     private int information_id;
     private int user_id;
-    private int order_id;
 
     public Order_Information() {
     }
 
-    public Order_Information(int information_id, int user_id, int order_id) {
+    public Order_Information(int information_id, int user_id) {
         this.information_id = information_id;
         this.user_id = user_id;
-        this.order_id = order_id;
     }
 
     public int getInformation_id() {
@@ -36,15 +34,5 @@ public class Order_Information {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
-    }
-
-    public int getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
-    }
-    
-    
+    }   
 }

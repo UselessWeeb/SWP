@@ -173,7 +173,7 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link me-4 active" href="index.html">Home</a>
+                                <a class="nav-link me-4" href="index.html">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="about.html">About</a>
@@ -182,7 +182,7 @@
                                 <a class="nav-link me-4" href="shop.html">Shop</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="blog.html">Blogs</a>
+                                <a class="nav-link me-4 active" href="blog.html">Blogs</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
@@ -203,7 +203,7 @@
                                         <a href="checkout.html" class="dropdown-item fw-light">Checkout <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-                                        <a href="blog.html" class="dropdown-item fw-light">Blog <span class="badge bg-primary">Pro</span></a>
+                                        <a href="blog.html" class="dropdown-item active fw-light">Blog <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
                                         <a href="single-post.html" class="dropdown-item fw-light">Single Post <span class="badge bg-primary">Pro</span></a>
@@ -382,70 +382,17 @@
 
     </header>
 
-    <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray" style="background-image: url(images/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center;">
-        <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
-            <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-          <use xlink:href="#alt-arrow-right-outline"></use>
-        </svg>
-        </div>
-        <div class="position-absolute start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev main-slider-button-prev">
-            <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-          <use xlink:href="#alt-arrow-left-outline"></use>
-        </svg>
-        </div>
-        <div class="swiper main-swiper">
-            <div class="swiper-wrapper d-flex align-items-center">
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                            <div class="col-md-5 offset-md-1">
-                                <div class="banner-content">
-                                    <h2>GoPro hero9 Black</h2>
-                                    <p>Limited stocks available. Grab it now!</p>
-                                    <a href="shop.html" class="btn mt-3">Shop Collection</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <div class="image-holder">
-                                    <img src="images/banner-image.png" class="img-fluid" alt="banner">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                            <div class="col-md-5 offset-md-1">
-                                <div class="banner-content">
-                                    <h2>Iphone 15 Pro Max</h2>
-                                    <p>Discount available. Grab it now!</p>
-                                    <a href="shop.html" class="btn mt-3">Shop Product</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <div class="image-holder">
-                                    <img src="images/banner-image1.png" class="img-fluid" alt="banner">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="container">
-                        <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-                            <div class="col-md-5 offset-md-1">
-                                <div class="banner-content">
-                                    <h2>Macbook Collection</h2>
-                                    <p>Limited stocks available. Grab it now!</p>
-                                    <a href="shop.html" class="btn mt-3">Shop Collection</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <div class="image-holder">
-                                    <img src="images/banner-image2.png" class="img-fluid" alt="banner">
-                                </div>
-                            </div>
+    <section class="hero-section position-relative bg-light-gray padding-medium">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center">
+                        <h1>Blog</h1>
+                        <div class="breadcrumbs">
+                            <span class="item">
+                  <a href="index.html">Home > </a>
+                </span>
+                            <span class="item text-decoration-underline">Blog</span>
                         </div>
                     </div>
                 </div>
@@ -453,529 +400,191 @@
         </div>
     </section>
 
-    <section id="company-services" class="padding-large">
+    <div class="padding-large">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="cart-outline">
-                  <use xlink:href="#cart-outline" />
-                </svg>
+                <aside class="col-md-3">
+                    <div class="sidebar pe-lg-5 mb-3">
+                        <div class="widget-menu">
+                            <div class="widget-search-bar">
+                                <form class="d-flex border rounded-3 p-2 " role="search">
+                                    <input class="form-control border-0 me-2" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
+                      <svg class="search text-light" width="18" height="18">
+                        <use xlink:href="#search"></use>
+                      </svg>
+                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="icon-box-content">
-                            <h4 class="card-title mb-1 text-uppercase text-dark">Free delivery</h4>
-                            <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
+                        <div class="widget-product-categories pt-5">
+                            <div class="section-title overflow-hidden mb-2">
+                                <h3 class="d-flex flex-column mb-0">Categories</h3>
+                            </div>
+                            <ul class="product-categories mb-0 sidebar-list list-unstyled">
+                                <li class="cat-item">
+                                    <a href="/collections/categories">All</a>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Phones</a>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Accessories</a>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Tablets</a>
+                                </li>
+                                <li class="cat-item">
+                                    <a href="#">Watches</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="widget-product-tags pt-5">
+                            <div class="section-title overflow-hidden mb-2">
+                                <h3 class="d-flex flex-column mb-0">Tags</h3>
+                            </div>
+                            <ul class="product-tags mb-0 sidebar-list list-unstyled">
+                                <li class="tags-item">
+                                    <a href="#">White</a>
+                                </li>
+                                <li class="tags-item">
+                                    <a href="#">Cheap</a>
+                                </li>
+                                <li class="tags-item">
+                                    <a href="#">Mobile</a>
+                                </li>
+                                <li class="tags-item">
+                                    <a href="#">Modern</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="widget-social-links pt-5">
+                            <div class="section-title overflow-hidden mb-2">
+                                <h3 class="d-flex flex-column mb-0">Social Links</h3>
+                            </div>
+                            <ul class="social-links mb-0 sidebar-list list-unstyled">
+                                <li class="links">
+                                    <a href="#">Facebook</a>
+                                </li>
+                                <li class="links">
+                                    <a href="#">Instagram</a>
+                                </li>
+                                <li class="links">
+                                    <a href="#">Twitter</a>
+                                </li>
+                                <li class="links">
+                                    <a href="#">Youtube</a>
+                                </li>
+                                <li class="links">
+                                    <a href="#">Pinterest</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="quality">
-                  <use xlink:href="#quality" />
-                </svg>
+                </aside>
+                <main class="col-md-9">
+                    <div class="filter-blog d-flex flex-wrap justify-content-between">
+                        <div class="showing-product">
+                            <p>Showing 1-9 of 55 results</p>
                         </div>
-                        <div class="icon-box-content">
-                            <h4 class="card-title mb-1 text-uppercase text-dark">Quality guarantee</h4>
-                            <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="price-tag">
-                  <use xlink:href="#price-tag" />
-                </svg>
-                        </div>
-                        <div class="icon-box-content">
-                            <h4 class="card-title mb-1 text-uppercase text-dark">Daily offers</h4>
-                            <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
+                        <div class="sort-by">
+                            <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="">
+                  <option value="">Latest to oldest</option>
+                  <option value="">Oldest to latest</option>
+                  <option value="">Popular</option>
+                  <option value="">Name (A - Z)</option>
+                  <option value="">Name (Z - A)</option>
+                  <option value="">Model (A - Z)</option>
+                  <option value="">Model (Z - A)</option>   
+                </select>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                    <div class="icon-box d-flex">
-                        <div class="icon-box-icon pe-3 pb-3">
-                            <svg class="shield-plus">
-                  <use xlink:href="#shield-plus" />
-                </svg>
+                    <div class="row post-contents">
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                            <img src="images/post-item1.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
+                            <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
                         </div>
-                        <div class="icon-box-content">
-                            <h4 class="card-title mb-1 text-uppercase text-dark">100% secure payment</h4>
-                            <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Phones</a>
+                            <img src="images/post-item2.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Eco-Friendly Innovations Making a Difference</a></h4>
+                            <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Tech</a>
+                            <img src="images/post-item3.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">The Future of Wearable Tech: Trends to Watch</a></h4>
+                            <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                            <img src="images/post-item4.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
+                            <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Phones</a>
+                            <img src="images/post-item5.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Eco-Friendly Innovations Making a Difference</a></h4>
+                            <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Tech</a>
+                            <img src="images/post-item6.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">The Future of Wearable Tech: Trends to Watch</a></h4>
+                            <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                            <img src="images/post-item7.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
+                            <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Phones</a>
+                            <img src="images/post-item8.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Eco-Friendly Innovations Making a Difference</a></h4>
+                            <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 posts mb-4">
+                            <a href="blog.html" class="btn rounded-0 py-0 px-2">Tech</a>
+                            <img src="images/post-item9.jpg" alt="post image" class="img-fluid">
+                            <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">The Future of Wearable Tech: Trends to Watch</a></h4>
+                            <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
+                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
                         </div>
                     </div>
-                </div>
+                    <nav class="py-5" aria-label="Page navigation">
+                        <ul class="pagination justify-content-center gap-4">
+                            <li class="page-item disabled">
+                                <a class="page-link">Prev</a>
+                            </li>
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">1</span>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </main>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="categories">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Categories</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item1.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Phones</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item2.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">PlayStations</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item3.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Digital watches</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item4.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Joysticks</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item5.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">EarPods</a></h5>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="card text-center py-4 mb-3 border rounded-3">
-                        <a href="shop.html">
-                <img src="images/cat-item6.png" class="img-fluid" alt="cart item">
-                <h5 class="mt-2"><a href="shop.html">Laptops</a></h5>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="best-selling-items" class="position-relative padding-large">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Best selling items</h3>
-            </div>
-            <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next product-slider-button-next">
-                <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-            <use xlink:href="#alt-arrow-right-outline"></use>
-          </svg>
-            </div>
-            <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev product-slider-button-prev">
-                <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
-            <use xlink:href="#alt-arrow-left-outline"></use>
-          </svg>
-            </div>
-            <div class="swiper product-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item1.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">IPad (9th Gen)</a></h5>
-                            <span class="price text-primary fw-light mb-2">$870</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </button>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item2.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Drone With Camera</a></h5>
-                            <span class="price text-primary fw-light mb-2">$600</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item3.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Apple Watch (2nd Gen)</a></h5>
-                            <span class="price text-primary fw-light mb-2">$400</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item4.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Ultra HD TV</a></h5>
-                            <span class="price text-primary fw-light mb-2">$2000</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item5.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Bluetooth Speaker</a></h5>
-                            <span class="price text-primary fw-light mb-2">$75</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item6.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">White Headset</a></h5>
-                            <span class="price text-primary fw-light mb-2">$99</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item7.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Black Bluetooth Speaker</a></h5>
-                            <span class="price text-primary fw-light mb-2">$80</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item8.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Large Speaker</a></h5>
-                            <span class="price text-primary fw-light mb-2">$450</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item9.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">White EarPods</a></h5>
-                            <span class="price text-primary fw-light mb-2">$600</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card position-relative text-center py-4 border rounded-3">
-                            <img src="images/product-item10.png" class="img-fluid" alt="product item">
-                            <h5 class="mt-2"><a href="single-product.html">Laptop</a></h5>
-                            <span class="price text-primary fw-light mb-2">$1200</span>
-                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                <a href="#" class="btn btn-dark">
-                    <svg class="cart">
-                      <use xlink:href="#cart"></use>
-                    </svg>
-                  </a>
-                                <a href="#" class="btn btn-dark">
-                    <span>
-                      <svg class="wishlist">
-                        <use xlink:href="#heart"></use>
-                      </svg>
-                    </span>
-                  </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="limited-offer" class="bg-light padding-large">
-        <div class="container">
-            <div class="row d-flex align-items-center">
-                <div class="col-md-6 text-center">
-                    <div class="image-holder">
-                        <img src="images/banner-image3.png" class="img-fluid" alt="banner">
-                    </div>
-                </div>
-                <div class="col-md-5 offset-md-1">
-                    <h2>30% Discount on apple collection</h2>
-                    <div id="countdown-clock" class="text-dark d-flex align-items-center my-3">
-                        <div class="time d-grid pe-3">
-                            <span class="days fs-1 fw-normal"></span>
-                            <small>Days</small>
-                        </div>
-                        <span class="fs-1 text-primary">:</span>
-                        <div class="time d-grid pe-3 ps-3">
-                            <span class="hours fs-1 fw-normal"></span>
-                            <small>Hrs</small>
-                        </div>
-                        <span class="fs-1 text-primary">:</span>
-                        <div class="time d-grid pe-3 ps-3">
-                            <span class="minutes fs-1 fw-normal"></span>
-                            <small>Min</small>
-                        </div>
-                        <span class="fs-1 text-primary">:</span>
-                        <div class="time d-grid ps-3">
-                            <span class="seconds fs-1 fw-normal"></span>
-                            <small>Sec</small>
-                        </div>
-                    </div>
-                    <a href="shop.html" class="btn mt-3">Shop Collection</a>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-
-    <section id="items-listing" class="padding-large">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="featured border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Featured</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image1.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Wireless headset</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$500</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image2.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone x Pro Max</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$820</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image3.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone 11 Pro</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$960</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="latest-items border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Latest items</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image4.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Apple airPod</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$450</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image5.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Screen touch watch</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$750</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image6.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Digital watch</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$660</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="best-reviewed border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">Best reviewed</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image7.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Wireless Joysticks</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$350</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image8.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Apple White AirPod</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$330</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image9.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Gimbal stabilizer</a></h5>
-                                    <span class="price text-primary fw-light mb-2">$920</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                    <div class="on-sale border rounded-3 p-4">
-                        <div class="section-title overflow-hidden mb-4 mt-2">
-                            <h3 class="d-flex flex-column mb-0">On sale</h3>
-                        </div>
-                        <div class="items-lists">
-                            <div class="item d-flex">
-                                <img src="images/item-image10.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">Iphone 15 pro max</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$1666</s> $999</span>
-                                </div>
-                            </div>
-                            <hr class="gray-400">
-                            <div class="item d-flex">
-                                <img src="images/item-image11.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">White AirPods</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$500</s> $410</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="item d-flex">
-                                <img src="images/item-image12.jpg" class="img-fluid rounded-3" alt="product item">
-                                <div class="item-content ms-3">
-                                    <h5 class="mt-2"><a href="single-product.html">CCTV camera</a></h5>
-                                    <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$600</s> $500</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="customers-reviews" class="position-relative">
+    <section id="customers-reviews" class="position-relative margin-large mt-0">
         <div class="container">
             <div class="section-title overflow-hidden mb-4">
                 <h3 class="d-flex align-items-center">Customers reviews</h3>
@@ -994,8 +603,8 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -1018,8 +627,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
-                                you won't regret shopping here!”</blockquote>
+                            <blockquote>?This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
+                                you won't regret shopping here!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -1042,8 +651,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
-                                me find the perfect fit for my lifestyle.”</blockquote>
+                            <blockquote>?I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
+                                me find the perfect fit for my lifestyle.?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -1066,8 +675,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -1090,8 +699,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -1112,44 +721,6 @@
                             <h5 class="mt-1 fw-normal">Roman</h5>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="latest-posts" class="padding-large">
-        <div class="container">
-            <div class="section-title overflow-hidden mb-4">
-                <h3 class="d-flex align-items-center">Latest posts</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-3 posts mb-4">
-                    <a href="blog.html" class="btn rounded-0 py-0 px-2">Gadgets</a>
-                    <img src="images/post-item1.jpg" alt="post image" class="img-fluid">
-                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">5 Must-Have Gadgets for the Modern Home</a></h4>
-                    <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
-                    <a class="text-decoration-underline" href="single-post.html">Read More</a>
-                </div>
-                <div class="col-md-3 posts mb-4">
-                    <a href="blog.html" class="btn rounded-0 py-0 px-2">Phones</a>
-                    <img src="images/post-item2.jpg" alt="post image" class="img-fluid">
-                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Eco-Friendly Innovations Making a Difference</a></h4>
-                    <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
-                    <a class="text-decoration-underline" href="single-post.html">Read More</a>
-                </div>
-                <div class="col-md-3 posts mb-4">
-                    <a href="blog.html" class="btn rounded-0 py-0 px-2">Tech</a>
-                    <img src="images/post-item3.jpg" alt="post image" class="img-fluid">
-                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">The Future of Wearable Tech: Trends to Watch</a></h4>
-                    <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
-                    <a class="text-decoration-underline" href="single-post.html">Read More</a>
-                </div>
-                <div class="col-md-3 posts mb-4">
-                    <a href="blog.html" class="btn rounded-0 py-0 px-2">Digital Watch</a>
-                    <img src="images/post-item4.jpg" alt="post image" class="img-fluid">
-                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.html">Top Apps and Tools for Remote Work</a></h4>
-                    <p class="mb-2">In today's remote work environment, productivity is key. Discover the top apps and tools that can help you stay</p>
-                    <a class="text-decoration-underline" href="single-post.html">Read More</a>
                 </div>
             </div>
         </div>
@@ -1387,7 +958,7 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    <p>© Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
+                    <p>� Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
                     </p>
                 </div>
             </div>

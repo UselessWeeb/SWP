@@ -207,10 +207,10 @@
                                         <a href="single-product.html" class="dropdown-item fw-light">Single Product <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-                                        <a href="cart.html" class="dropdown-item fw-light">Cart <span class="badge bg-primary">Pro</span></a>
+                                        <a href="cart.html" class="dropdown-item active fw-light">Cart <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-                                        <a href="checkout.html" class="dropdown-item active fw-light">Checkout <span class="badge bg-primary">Pro</span></a>
+                                        <a href="checkout.html" class="dropdown-item fw-light">Checkout <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
                                         <a href="blog.html" class="dropdown-item fw-light">Blog <span class="badge bg-primary">Pro</span></a>
@@ -397,12 +397,12 @@
             <div class="container">
                 <div class="row">
                     <div class="text-center">
-                        <h1>Checkout</h1>
+                        <h1>Cart</h1>
                         <div class="breadcrumbs">
                             <span class="item">
                   <a href="index.html">Home > </a>
                 </span>
-                            <span class="item text-decoration-underline">Checkout</span>
+                            <span class="item text-decoration-underline">Cart</span>
                         </div>
                     </div>
                 </div>
@@ -410,118 +410,165 @@
         </div>
     </section>
 
-    <section class="checkout-wrap padding-large">
+    <section class="cart padding-large">
         <div class="container">
-            <form class="form-group">
-                <div class="row d-flex flex-wrap">
-                    <div class="col-lg-6">
-                        <h3 class="mb-3">Billing Details</h3>
-                        <div class="billing-details">
-                            <label for="fname">First Name*</label>
-                            <input type="text" id="fname" name="firstname" class="form-control mt-2 mb-4 ps-3">
-                            <label for="lname">Last Name*</label>
-                            <input type="text" id="lname" name="lastname" class="form-control mt-2 mb-4 ps-3">
-                            <label for="cname">Company Name(optional)*</label>
-                            <input type="text" id="cname" name="companyname" class="form-control mt-2 mb-4">
-                            <label for="cname">Country / Region*</label>
-                            <select class="form-select form-control mt-2 mb-4" aria-label="Default select example">
-                  <option selected="" hidden="">United States</option>
-                  <option value="1">UK</option>
-                  <option value="2">Australia</option>
-                  <option value="3">Canada</option>
-                </select>
-                            <label for="address">Street Address*</label>
-                            <input type="text" id="adr" name="address" placeholder="House number and street name" class="form-control mt-3 ps-3 mb-3">
-                            <input type="text" id="adr" name="address" placeholder="Appartments, suite, etc." class="form-control ps-3 mb-4">
-                            <label for="city">Town / City *</label>
-                            <input type="text" id="city" name="city" class="form-control mt-3 ps-3 mb-4">
-                            <label for="state">State *</label>
-                            <select class="form-select form-control mt-2 mb-4" aria-label="Default select example">
-                  <option selected="" hidden="">Florida</option>
-                  <option value="1">New York</option>
-                  <option value="2">Chicago</option>
-                  <option value="3">Texas</option>
-                  <option value="3">San Jose</option>
-                  <option value="3">Houston</option>
-                </select>
-                            <label for="zip">Zip Code *</label>
-                            <input type="text" id="zip" name="zip" class="form-control mt-2 mb-4 ps-3">
-                            <label for="email">Phone *</label>
-                            <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3">
-                            <label for="email">Email address *</label>
-                            <input type="text" id="email" name="email" class="form-control mt-2 mb-4 ps-3">
+            <div class="row">
+                <div class="cart-table">
+                    <div class="cart-header">
+                        <div class="row d-flex text-uppercase">
+                            <h4 class="col-lg-4 pb-3">Product</h4>
+                            <h4 class="col-lg-3 pb-3">Quantity</h4>
+                            <h4 class="col-lg-4 pb-3">Subtotal</h4>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <h3 class="mb-3">Additional Information</h3>
-                        <div class="billing-details">
-                            <label for="fname">Order notes (optional)</label>
-                            <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
+                    <div class="slash-divider"></div>
+                    <div class="cart-item border-bottom padding-small">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-3">
+                                <div class="cart-info d-flex gap-2 flex-wrap align-items-center">
+                                    <div class="col-lg-5">
+                                        <div class="card-image">
+                                            <img src="images/cart-item1.png" alt="cart-img" class="img-fluid border rounded-3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="card-detail">
+                                            <h5 class="mt-2"><a href="single-product.html">Iphone 15 pro max</a></h5>
+                                            <div class="card-price">
+                                                <span class="price text-primary fw-light" data-currency-usd="$2000.00">$2000.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-7">
+                                <div class="row d-flex">
+                                    <div class="col-md-6">
+                                        <div class="product-quantity my-2 my-2">
+                                            <div class="input-group product-qty align-items-center" style="max-width: 150px;">
+                                                <span class="input-group-btn">
+                            <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-minus" data-type="minus" data-field="">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                          </span>
+                                                <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required>
+                                                <span class="input-group-btn">
+                            <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-right-plus" data-type="plus" data-field="">
+                              <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                          </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="total-price">
+                                            <span class="money fs-2 fw-light text-primary">$2000.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-2">
+                                <div class="cart-cross-outline">
+                                    <a href="#">
+                      <svg class="cart-cross-outline" width="38" height="38">
+                        <use xlink:href="#cart-cross-outline"></use>
+                      </svg>
+                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="cart-totals padding-medium pb-0">
-                        <h3 class="mb-3">Cart Totals</h3>
-                        <div class="total-price pb-3">
-                            <table cellspacing="0" class="table text-uppercase">
-                                <tbody>
-                                    <tr class="subtotal pt-2 pb-2 border-top border-bottom">
-                                        <th>Subtotal</th>
-                                        <td data-title="Subtotal">
-                                            <span class="price-amount amount text-primary ps-5 fw-light">
-                          <bdi>
-                            <span class="price-currency-symbol">$</span>2,400.00
-                                            </bdi>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="order-total pt-2 pb-2 border-bottom">
-                                        <th>Total</th>
-                                        <td data-title="Total">
-                                            <span class="price-amount amount text-primary ps-5 fw-light">
-                          <bdi>
-                            <span class="price-currency-symbol">$</span>2,400.00</bdi>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="list-group">
-                            <label class="list-group-item d-flex gap-2 border-0">
-                  <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios1" value="" checked>
-                  <span>
-                    <p class="mb-1">Direct bank transfer</p>
-                    <small>Make your payment directly into our bank account. Please use your Order ID. Your order will shipped after funds have cleared in our account.</small>
-                  </span>
-                </label>
-                            <label class="list-group-item d-flex gap-2 border-0">
-                  <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios2" value="">
-                  <span>
-                    <p class="mb-1">Check payments</p>
-                    <small>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</small>
-                  </span>
-                </label>
-                            <label class="list-group-item d-flex gap-2 border-0">
-                  <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios3" value="">
-                  <span>
-                    <p class="mb-1">Cash on delivery</p>
-                    <small>Pay with cash upon delivery.</small>
-                  </span>
-                </label>
-                            <label class="list-group-item d-flex gap-2 border-0">
-                  <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios3" value="">
-                  <span>
-                    <p class="mb-1">Paypal</p>
-                    <small>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</small>
-                  </span>
-                </label>
-                        </div>
-                        <div class="button-wrap mt-3">
-                            <button type="submit" name="submit" class="btn">Place an order</button>
+                    <div class="cart-item border-bottom padding-small">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-3">
+                                <div class="cart-info d-flex gap-2 flex-wrap align-items-center">
+                                    <div class="col-lg-5">
+                                        <div class="card-image">
+                                            <img src="images/cart-item2.png" alt="cart-img" class="img-fluid border rounded-3">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="card-detail">
+                                            <h5 class="mt-2"><a href="single-product.html">Apple Watch (2nd Gen)</a></h5>
+                                            <div class="card-price">
+                                                <span class="price text-primary fw-light" data-currency-usd="$2000.00">$400.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-7">
+                                <div class="row d-flex">
+                                    <div class="col-lg-6">
+                                        <div class="product-quantity my-2">
+                                            <div class="input-group product-qty align-items-center" style="max-width: 150px;">
+                                                <span class="input-group-btn">
+                            <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-minus" data-type="minus" data-field="">
+                              <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                            </button>
+                          </span>
+                                                <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required>
+                                                <span class="input-group-btn">
+                            <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-right-plus" data-type="plus" data-field="">
+                              <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                            </button>
+                          </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="total-price">
+                                            <span class="money fs-2 fw-light text-primary">$400.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-md-2">
+                                <div class="cart-cross-outline">
+                                    <a href="#">
+                      <svg class="cart-cross-outline" width="38" height="38">
+                        <use xlink:href="#cart-cross-outline"></use>
+                      </svg>
+                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </form>
+                <div class="cart-totals padding-medium pb-0">
+                    <h3 class="mb-3">Cart Totals</h3>
+                    <div class="total-price pb-3">
+                        <table cellspacing="0" class="table text-uppercase">
+                            <tbody>
+                                <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                                    <th>Subtotal</th>
+                                    <td data-title="Subtotal">
+                                        <span class="price-amount amount text-primary ps-5 fw-light">
+                        <bdi>
+                          <span class="price-currency-symbol">$</span>2,400.00
+                                        </bdi>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="order-total pt-2 pb-2 border-bottom">
+                                    <th>Total</th>
+                                    <td data-title="Total">
+                                        <span class="price-amount amount text-primary ps-5 fw-light">
+                        <bdi>
+                          <span class="price-currency-symbol">$</span>2,400.00</bdi>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="button-wrap d-flex flex-wrap gap-3">
+                        <button class="btn">Update Cart</button>
+                        <button class="btn">Continue Shopping</button>
+                        <button class="btn">Proceed to checkout</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -544,8 +591,8 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -568,8 +615,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
-                                you won't regret shopping here!”</blockquote>
+                            <blockquote>?This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
+                                you won't regret shopping here!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -592,8 +639,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
-                                me find the perfect fit for my lifestyle.”</blockquote>
+                            <blockquote>?I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
+                                me find the perfect fit for my lifestyle.?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -616,8 +663,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -640,8 +687,8 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
-                            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
-                                needs. Highly recommended!”</blockquote>
+                            <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                needs. Highly recommended!?</blockquote>
                             <div class="rating text-primary">
                                 <svg class="star star-fill">
                     <use xlink:href="#star-fill"></use>
@@ -937,7 +984,7 @@
                     </div>
                 </div>
                 <div class="copyright">
-                    <p>© Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
+                    <p>� Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
                     </p>
                 </div>
             </div>

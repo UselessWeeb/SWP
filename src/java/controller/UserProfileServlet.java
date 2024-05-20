@@ -19,8 +19,8 @@ import model.User;
  *
  * @author vudai
  */
-@WebServlet(name = "EditProfileServlet", urlPatterns = {"/EditProfileServlet"})
-public class EditProfileServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/userProfile"})
+public class UserProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,28 +61,7 @@ public class EditProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        UserDAO dao = new UserDAO();
-        HttpSession session = request.getSession();
-        int id = Integer.parseInt(request.getParameter("userId"));
-        String image = request.getParameter("avatar");
-        String fname = request.getParameter("fullName");
-        String sex = request.getParameter("gender");
-        String address = request.getParameter("address");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phoneNumber"); 
-        String pass = request.getParameter("password");
-        String state = request.getParameter("state");
-        int role = Integer.parseInt(request.getParameter("roleId"));
-
-        User u = new User(id, image, fname, sex, address, email, phone, pass, state, role);
-        int n = dao.editUser(u);
-        if (n > 0) {
-            session.setAttribute("successMsg", "Update User Successfully");
-            response.sendRedirect("admin/manageuser.jsp");
-        } else {
-            session.setAttribute("failedMsg", "Something wrong on server");
-            response.sendRedirect("admin/manageuser.jsp");
-        }
+        
     }
 
     /**
@@ -97,6 +76,28 @@ public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        HttpSession session = request.getSession();
+        int id = Integer.parseInt(request.getParameter("id"));
+        String image = request.getParameter("image");
+        String fname = request.getParameter("fname");
+        String sex = request.getParameter("sex");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone"); 
+        String pass = request.getParameter("pass");
+        String state = request.getParameter("state");
+        int role = Integer.parseInt(request.getParameter("role"));
+
+        User u = new User(id, image, fname, sex, address, email, phone, pass, state, role);
+        UserDAO dao = new UserDAO();
+        int n = dao.editUser(u);
+        if (n > 0) {
+            session.setAttribute("successMsg", "Update User Successfully");
+            response.sendRedirect("editProfile.jsp");
+        } else {
+            session.setAttribute("failedMsg", "Something wrong on server");
+            response.sendRedirect("editProfile.jsp");
+        }
     }
 
     /**

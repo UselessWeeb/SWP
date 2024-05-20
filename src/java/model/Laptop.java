@@ -16,14 +16,12 @@ public class Laptop {
     private float original_price;
     private String product_detail;
     private float sale_price;
-    private int is_featuring;
     private int status;
-    private int order_id;
 
     public Laptop() {
     }
 
-    public Laptop(int laptop_id, String title, String category, String images, float original_price, String product_detail, float sale_price, int is_featuring, int status, int order_id) {
+    public Laptop(int laptop_id, String title, String category, String images, float original_price, String product_detail, float sale_price, int status) {
         this.laptop_id = laptop_id;
         this.title = title;
         this.category = category;
@@ -31,9 +29,7 @@ public class Laptop {
         this.original_price = original_price;
         this.product_detail = product_detail;
         this.sale_price = sale_price;
-        this.is_featuring = is_featuring;
         this.status = status;
-        this.order_id = order_id;
     }
 
     public int getLaptop_id() {
@@ -92,14 +88,6 @@ public class Laptop {
         this.sale_price = sale_price;
     }
 
-    public int getIs_featuring() {
-        return is_featuring;
-    }
-
-    public void setIs_featuring(int is_featuring) {
-        this.is_featuring = is_featuring;
-    }
-
     public int getStatus() {
         return status;
     }
@@ -107,14 +95,5 @@ public class Laptop {
     public void setStatus(int status) {
         this.status = status;
     }
-
-    public int getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
-    }
-    
-    
+        
 }

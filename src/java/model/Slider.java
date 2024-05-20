@@ -6,34 +6,38 @@ package model;
 
 /**
  *
- * @author vudai
+ * @author M7510
  */
 public class Slider {
-    private int slider_id;
+
+    private int sliderId;
     private String title;
     private String images;
+    private String details;
     private String backlink;
     private int status;
-    private int user_id;
+    private int userId;
+
+    // Constructor, Getters, and Setters
+    public Slider(int sliderId, String title, String details, String images, String backlink, int status, int userId) {
+        this.sliderId = sliderId;
+        this.title = title;
+        this.details = details;
+        this.images = images;
+        this.backlink = backlink;
+        this.status = status;
+        this.userId = userId;
+    }
 
     public Slider() {
     }
 
-    public Slider(int slider_id, String title, String images, String backlink, int status, int user_id) {
-        this.slider_id = slider_id;
-        this.title = title;
-        this.images = images;
-        this.backlink = backlink;
-        this.status = status;
-        this.user_id = user_id;
+    public int getSliderId() {
+        return sliderId;
     }
 
-    public int getSlider_id() {
-        return slider_id;
-    }
-
-    public void setSlider_id(int slider_id) {
-        this.slider_id = slider_id;
+    public void setSliderId(int sliderId) {
+        this.sliderId = sliderId;
     }
 
     public String getTitle() {
@@ -68,13 +72,24 @@ public class Slider {
         this.status = status;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
-    
-    
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "Slider{" + "sliderId=" + sliderId + ", title=" + title + ", images=" + images + ", details=" + details + ", backlink=" + backlink + ", status=" + status + ", userId=" + userId + '}';
+    }
 }
