@@ -14,7 +14,6 @@ import java.sql.SQLException;
  * @author M7510
  */
 public abstract class EntityDAO extends DBContext {
-
     public PreparedStatement stm;
     public ResultSet rs;
 
