@@ -4,19 +4,19 @@
  */
 package controller;
 
-import dao.BlogDAO;
 import dao.LaptopDAO;
-import dao.SliderDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author M7510
  */
-public class MainServlet extends HttpServlet {
+public class ProductListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,19 +30,38 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //fetch sth sth
-        BlogDAO blogList = new BlogDAO();
-        request.setAttribute("blogLatestList", blogList.findLatest());
-        System.out.println(blogList.findLatest());
-        request.setAttribute("blogFeatured", blogList.findFeatured());
-        //
-        LaptopDAO laptopList = new LaptopDAO();
-        request.setAttribute("laptopList", laptopList.findAll());
-        
-        //
-        SliderDAO sliderList = new SliderDAO();
-        request.setAttribute("sliderList", sliderList.findAll());
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            LaptopDAO laptopDAO = new LaptopDAO();
+
+            String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
+            String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
+
+            final int totalPerPage = 12;
+            int totalProducts = (searchQuery.isBlank() ? laptopDAO.findAll().size() : laptopDAO.findByName("%" + searchQuery + "%").size());
+            int totalPage = (int) Math.ceil((double) totalProducts / totalPerPage);
+
+            int currentPage;
+            try {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+                if (currentPage < 0 || currentPage >= totalPage) {
+                    currentPage = 0; 
+                }
+            } catch (NumberFormatException e) {
+                currentPage = 0; 
+            }
+            
+            request.setAttribute("searchQuery", searchQuery);
+            request.setAttribute("laptopList", laptopDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%"));
+            request.setAttribute("totalPage", totalPage);
+            request.setAttribute("totalProducts", totalProducts);
+            request.setAttribute("totalPerPage", totalPerPage);
+            request.setAttribute("currentPage", currentPage);
+            
+            //lastly, show latest products
+            request.setAttribute("latestProducts", laptopDAO.findLatest());
+
+            request.getRequestDispatcher("shop.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

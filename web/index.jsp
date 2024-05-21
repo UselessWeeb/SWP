@@ -184,25 +184,26 @@
                 <div class="section-title overflow-hidden mb-4">
                     <h3 class="d-flex align-items-center">Best selling items</h3>
                 </div>
-                <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next product-slider-button-next">
+                <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
                     <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                     <use xlink:href="#alt-arrow-right-outline"></use>
                     </svg>
                 </div>
-                <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev product-slider-button-prev">
+                <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
                     <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                     <use xlink:href="#alt-arrow-left-outline"></use>
                     </svg>
                 </div>
-                <div class="swiper product-swiper">
-                    <div class="swiper-wrapper">
+                
+                <div class="swiper testimonial-swiper">
+                    <div class="swiper-wrapper d-flex">
                         <c:forEach items="${laptopList}" var="laptop">
                             <div class="swiper-slide">
                                 <div class="card position-relative text-center py-4 border rounded-3">
-                                    <img src="${laptop.image}" class="img-fluid" alt="product item">
+                                    <img src="${laptop.mainImage}" class="img-fluid" alt="product item" style="max-height: 350px; width: 100%;">
                                     <h5 class="mt-2"><a href="single-product.html">${laptop.title}</a></h5>
                                     <span class="price text-primary fw-light mb-2">
-                                        <c:if test = "${laptop.salePrice != laptop.originalPrice}">
+                                        <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                             <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
                                             </c:if>
                                         $${laptop.salePrice}
@@ -228,6 +229,7 @@
                 </div>
             </div>
         </section>
+        
         <section id="items-listing" class="padding-medium">
             <div class="container">
                 <div class="row">
@@ -374,7 +376,12 @@
                         <c:when test="${not empty bloglists}">
                             <c:forEach items="${bloglists}" var="blog">
                                 <div class="col-md-3 posts mb-4">
-                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">${blog.category}</a>
+                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">
+                                        <c:forEach items = "${category}" var = "blog.category">
+                                            ${category} 
+                                        </c:forEach>
+
+                                    </a>
                                     <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
                                     <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
                                         <a href="single-post.jsp">${blog.title}</a>

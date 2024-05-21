@@ -148,7 +148,7 @@
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
                     <div class="offcanvas-header px-4 pb-0">
-                        <a class="navbar-brand" href="index.jsp">
+                        <a class="navbar-brand" href="/Base/">
                             <img src="images/main-logo.png" class="logo">
                         </a>
                         <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -156,13 +156,13 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link me-4 active" href="index.jsp">Home</a>
+                                <a class="nav-link me-4 active" href="/Base/">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="about.jsp">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="shop.jsp">Shop</a>
+                                <a class="nav-link me-4" href="productList">Shop</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="blog.jsp">Blogs</a>
@@ -174,7 +174,7 @@
                                         <a href="about.jsp" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-                                        <a href="shop.jsp" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
+                                        <a href="productList" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
                                         <a href="single-product.jsp" class="dropdown-item fw-light">Single Product <span class="badge bg-primary">Pro</span></a>

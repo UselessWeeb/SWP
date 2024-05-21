@@ -70,8 +70,7 @@ public class LoginServlet extends HttpServlet {
                 userid.setMaxAge(60 * 60); // one hour
                 userid.setPath("/"); // root path
 
-                response.addCookie(userid);
-                
+                response.addCookie(userid);    
             }
             response.sendRedirect(referer);
         }
