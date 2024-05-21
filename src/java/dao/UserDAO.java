@@ -16,37 +16,48 @@ public class UserDAO extends EntityDAO {
     public int editUser(User user) {
         int n = 0;
         PreparedStatement pre;
-        String sql = "UPDATE [User]\n"
-                + "SET full_name = ?,\n"
-                + "    gender = ?,\n"
-                + "    address = ?,\n"
-                + "    email = ?,\n"
-                + "    phone_number = ?,\n"
-                + "    password = ?,\n"
-                + "    state = ?,\n"
-                + "    avatar = ?,\n"
-                + "    role_id = ?,\n"
-                + "WHERE user_id = ?";
+        String sql = "UPDATE [User] SET full_name = ?, gender = ?, address = ?, phone_number = ?, avatar = ? WHERE user_id = ?";
         try {
             pre = connection.prepareStatement(sql);
             pre.setString(1, user.getFullName());
             pre.setString(2, user.getGender());
             pre.setString(3, user.getAddress());
-            pre.setString(4, user.getEmail());
-            pre.setString(5, user.getPhoneNumber());
-            pre.setString(6, user.getPassword());
-            pre.setString(7, user.getState());
-            pre.setString(8, user.getAvatar());
-            pre.setInt(9, user.getRoleId());
-            pre.setInt(10, user.getUserId());
-
+            pre.setString(4, user.getPhoneNumber());
+            pre.setString(5, user.getAvatar());
+            pre.setInt(6, user.getUserId());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(LaptopDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return n;
     }
     
+    public int editCustomer(String avatar, String full_name, String gender, String address, String phoneNumber, int userId) {
+        int n = 0;
+        PreparedStatement pre;
+        String sql = "UPDATE [User]\n"
+                + "SET avatar = ?,\n"
+                + "    full_name = ?,\n"
+                + "    gender = ?,\n"
+                + "    address = ?,\n"
+                + "    phone_number = ? \n"
+                + "WHERE user_id = ?";
+        try {
+            pre = connection.prepareStatement(sql);
+            pre.setString(1, avatar);
+            pre.setString(2, full_name);
+            pre.setString(3, gender);
+            pre.setString(4, address);
+            pre.setString(5, phoneNumber);
+            pre.setInt(6, userId);
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return n;
+    }
+
     public User Login(String email, String password) {
         User u = null;
         try {
@@ -67,7 +78,7 @@ public class UserDAO extends EntityDAO {
     public User findById(String userId) {
         User u = null;
         try {
-            String strSelect = "Select * from [user] where idUser = ?";
+            String strSelect = "Select * from [user] where user_id = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, userId);
             rs = stm.executeQuery();

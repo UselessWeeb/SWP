@@ -252,14 +252,14 @@
                                                     <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                                                         <div>
                                                             <h5>
-                                                                <a href="editProfile.jsp">Profile</a>
+                                                                <a href="userProfile.jsp">Profile</a>
                                                             </h5>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                                                         <div>
                                                             <h5>
-                                                                <a href="#">Setting</a>
+                                                                <a href="displayOrder.jsp">My Order</a>
                                                             </h5>
                                                         </div>
                                                     </li>
