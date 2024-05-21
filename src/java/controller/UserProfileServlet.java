@@ -15,8 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
-import java.io.File;
 import java.util.List;
 import model.Order;
 import model.User;
@@ -48,8 +46,8 @@ public class UserProfileServlet extends HttpServlet {
 
             String fullName = request.getParameter("fname");
             String gender = request.getParameter("sex");
-            String phoneNumber = request.getParameter("phone");
             String address = request.getParameter("loca");
+            String phoneNumber = request.getParameter("phone");
             HttpSession session = request.getSession();
             String filename = "images/aa";
             System.out.println(filename + fullName + gender + phoneNumber + address + userId);
