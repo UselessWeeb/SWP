@@ -35,6 +35,19 @@ public class Order {
         this.information_id = information_id;
         this.laptop_id = laptop_id;
     }
+    
+    public Order(int order_id, Date order_date, String order_name, float total_price, int quality, int user_id, int information_id, int laptop_id) {
+        this.order_id = order_id;
+        this.order_date = order_date;
+        this.order_name = order_name;
+        this.total_price = total_price;
+        this.quality = quality;
+        this.user_id = user_id;
+        this.information_id = information_id;
+        this.laptop_id = laptop_id;
+    }
+    
+    
 
     public int getOrder_id() {
         return order_id;
@@ -107,5 +120,9 @@ public class Order {
     public void setLaptop_id(int laptop_id) {
         this.laptop_id = laptop_id;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", order_name=" + order_name + ", total_price=" + total_price + ", status=" + status + ", quality=" + quality + ", user_id=" + user_id + ", information_id=" + information_id + ", laptop_id=" + laptop_id + '}';
+    }
 }

@@ -4,21 +4,28 @@
  */
 package controller;
 
+import dao.OrderDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.util.List;
+import model.Order;
 import model.User;
 
 /**
  *
  * @author vudai
  */
+@MultipartConfig
 @WebServlet(urlPatterns = {"/userProfile"})
 public class UserProfileServlet extends HttpServlet {
 
@@ -35,20 +42,35 @@ public class UserProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditProfileServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditProfileServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            int userId = Integer.parseInt(request.getParameter("id"));
+//            Part part = request.getPart("img");
+//            String filename = part.getSubmittedFileName();
+
+            String fullName = request.getParameter("fname");
+            String gender = request.getParameter("sex");
+            String phoneNumber = request.getParameter("phone");
+            String address = request.getParameter("loca");
+            HttpSession session = request.getSession();
+            String filename = "images/aa";
+            System.out.println(filename + fullName + gender + phoneNumber + address + userId);
+            UserDAO dao = new UserDAO();
+            User u = new User( userId, filename, fullName, gender, address, "", phoneNumber, "", "0", 0);
+            int n = dao.editCustomer(u);
+            if (n > 0) {
+                String path = getServletContext().getRealPath("") + "book";
+//                File file = new File(path);
+//                part.write(path + File.separator + filename);
+                session.setAttribute("success", "Cập nhật tài khoản thành công !");
+                response.sendRedirect("userProfile.jsp");
+            } else {
+                session.setAttribute("error", "Lỗi khi cập nhật !");
+                response.sendRedirect("userProfile.jsp");
+            }
         }
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -60,8 +82,13 @@ public class UserProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
+        HttpSession session = request.getSession(false);
+        User u = (User) session.getAttribute("user");
+        OrderDAO dao = new OrderDAO();
+        // Perform the database query
+        List<Order> orderList = dao.getOrderUser(u.getUserId());
+        request.setAttribute("orderList", orderList);
+        request.getRequestDispatcher("displayOrder.jsp").forward(request, response);
     }
 
     /**
@@ -75,7 +102,6 @@ public class UserProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         HttpSession session = request.getSession();
         int id = Integer.parseInt(request.getParameter("id"));
         String image = request.getParameter("image");

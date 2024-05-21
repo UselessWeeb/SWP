@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+
+<%@page import="java.util.Vector,model.User" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="java.util.Vector,model.User" %>
+
+<!doctype html>
 <html>
 
     <head>
@@ -32,7 +34,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="text-center text-primary">Edit Profile</h4>
-                            <form action="UserProfile" method="post">
+                            <form action="userProfile" method="POST">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">
                                         Email</label>
@@ -54,29 +56,10 @@
                                            value="${user.fullName}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">
-                                        Gender:</label>
-                                    <input type="radio"
-                                           id="exampleInputEmail1" 
-                                           aria-describedby="emailHelp"
-                                           required="required"
-                                           name="sex"
-                                           value="${user.gender}" checked>
-                                    <label for="male">Male</label>
-                                    <input type="radio"
-                                           id="exampleInputEmail1" 
-                                           aria-describedby="emailHelp"
-                                           required="required"
-                                           name="sex"
-                                           value="${user.gender}" checked>
-                                    <label for="female">Female</label>
-                                    <input type="radio"
-                                           id="exampleInputEmail1" 
-                                           aria-describedby="emailHelp"
-                                           required="required"
-                                           name="sex"
-                                           value="${user.gender}" checked>
-                                    <label for="others">Others</label>
+                                    <label for="gender">Gender:</label><br>
+                                    <input type="radio" id="male" name="sex" value="Male" ${user.gender == 'Male' ? 'checked' : ''}> Male
+                                    <input type="radio" id="female" name="sex" value="Female" ${user.gender == 'Female' ? 'checked' : ''}> Female
+                                    <input type="radio" id="other" name="sex" value="Other" ${user.gender == 'Other' ? 'checked' : ''}> Other
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">
@@ -95,9 +78,12 @@
                                            id="exampleInputPassword1" 
                                            aria-describedby="emailHelp"
                                            required="required"
-                                           name="address"
+                                           name="loca"
                                            value="${user.address}">
                                 </div>
+                                <input type="hidden" name="id" value="${user.userId}">
+                                <input type="hidden" name="state" value="${user.state}">
+                                <input type="hidden" name="role" value="${user.roleId}">
                                 <br>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block">
@@ -107,12 +93,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4>Welcome, <b>${user.fullName}</b></h4>
-                        </div>  
-                    </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <form action="editProfile.jsp" method="post" enctype="multipart/form-data">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="${user.avatar}" alt="${user.fullName}"><br>
+                                <input type="file" id="image" name="img" accept=".jpeg, .png">
+                                <div class="save-button">
+                                    <button type="submit">Save</button>
+                                </div>  
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

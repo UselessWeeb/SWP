@@ -281,17 +281,21 @@
                                                         <div>
                                                             <h5>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                                 <a href="#">Profile</a>
 =======
                                                                 <a href="editProfile.jsp">Profile</a>
 >>>>>>> f8475dc (Update frontend for UserProfile)
+=======
+                                                                <a href="userProfile.jsp">Profile</a>
+>>>>>>> 895eca9 (Complete function Order List and Edit Profile)
                                                             </h5>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                                                         <div>
                                                             <h5>
-                                                                <a href="#">Setting</a>
+                                                                <a href="displayOrder.jsp">My Order</a>
                                                             </h5>
                                                         </div>
                                                     </li>
