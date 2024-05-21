@@ -4,56 +4,37 @@
  */
 package quanvn;
 
+import java.util.List;
+
 /**
  *
  * @author quant
  */
 public class orderList {
-    public int orderId;
-    public int quantity;
-    public String hoaDon;
-    public double price;
-    public int rollNum;
+    // List of orders
+    private List<Order> orders;
 
-    public int getOrderId() {
-        return orderId;
+    // Function to show the list of orders pagination
+    public void showOrderList(int page, int pageSize, String sortBy, boolean ascending) {
+        // Implement pagination and sorting logic
+        // Based on the provided parameters
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    // Function to filter orders
+    public void filterOrders(String orderDate, String customerName, String status) {
+        // Implement filtering logic
+        // based on the provided parameters
     }
 
-    public int getQuantity() {
-        return quantity;
+    // Function to search orders
+    public void searchOrders(String orderId, String customerName) {
+        // Implement search logic
+        // based on the provided parameters
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    // Function to redirect to order details page
+    public void viewOrderDetails(String orderId) {
+        // Redirect to the order details page
+        // with the provided order ID
     }
-
-    public String getHoaDon() {
-        return hoaDon;
-    }
-
-    public void setHoaDon(String hoaDon) {
-        this.hoaDon = hoaDon;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getRollNum() {
-        return rollNum;
-    }
-
-    public void setRollNum(int rollNum) {
-        this.rollNum = rollNum;
-    }
-    
-    
 }

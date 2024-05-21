@@ -9,6 +9,8 @@ package quanvn.slide;
  * @author quant
  */
 public class Slider {
+
+    //khai bao
     private int id;
     private String title;
     private String image;
@@ -17,18 +19,17 @@ public class Slider {
     private String notes;
 
     public Slider(int id, String title, String image, String backlink, boolean status, String notes) {
+        //constructor
         this.id = id;
         this.title = title;
         this.image = image;
         this.backlink = backlink;
         this.status = status;
         this.notes = notes;
-        
-        
+
     }
 
-    
-
+    //getter &setter
     public int getId() {
         return id;
     }
@@ -77,5 +78,4 @@ public class Slider {
         this.notes = notes;
     }
 
-    
 }
