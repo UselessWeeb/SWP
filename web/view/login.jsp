@@ -20,7 +20,7 @@
             <label class="py-3">
                 <input type="checkbox" name = "session" value = "yes" class="d-inline">
                 <span class="label-body">Remember me</span>
-                <span class="label-body"><a href="#" class="fw-bold">Forgot Password</a></span>
+                <span class="label-body"><a href="/forgot-password.jsp" class="fw-bold">Forgot Password</a></span>
             </label>
             <button type="submit" name="submit" class="btn btn-dark w-100 my-3">Login</button>
         </form>

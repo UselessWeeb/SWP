@@ -6,8 +6,8 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import model.User;
 
 /**
@@ -28,9 +28,7 @@ public class UserDAO extends EntityDAO {
                 u = (User) this.createEntity(rs);
             }
         } catch (SQLException e) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while user login", e);
+            System.out.println(e);
         }
         return u;
     }
@@ -38,7 +36,7 @@ public class UserDAO extends EntityDAO {
     public User findById(String userId) {
         User u = null;
         try {
-            String strSelect = "Select * from [user] where idUser = ?";
+            String strSelect = "Select * from [User] where user_id = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, userId);
             rs = stm.executeQuery();
@@ -46,48 +44,68 @@ public class UserDAO extends EntityDAO {
                 u = (User) this.createEntity(rs);
             }
         } catch (SQLException e) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while getting user by ID", e);
+            System.out.println(e);
         }
         return u;
     }
 
     public User findByEmail(String email) {
+        String strSelect = "Select * from [User] where email = ?";
         User u = null;
+        
         try {
-            String strSelect = "Select * from [user] where idUser = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, email);
+            
             rs = stm.executeQuery();
+            
             if (rs.next()) {
                 u = (User) this.createEntity(rs);
             }
         } catch (SQLException e) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while getting user by email", e);
+            System.out.println(e);
         }
         return u;
     }
 
     public int getUserIdByEmail(String email) {
+        String sql = "Select * from [User] where email = ?";
         int userID = -1;
 
         try {
-            String strSelect = "Select * from [user] where idUser = ?";
-            stm = connection.prepareStatement(strSelect);
+            stm = connection.prepareStatement(sql);
             stm.setString(1, email);
+            
             rs = stm.executeQuery();
+            
             if (rs.next()) {
                 userID = rs.getInt("user_id");
             }
         } catch (SQLException e) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while getting user ID by email", e);
+            System.out.println(e);
         }
         return userID;
+    }
+    
+    public List<User> getAllUser() {
+        String sql = "Select * from [User]";
+        List<User> userList = new ArrayList<>();
+        
+        try {
+            stm = connection.prepareStatement(sql);
+            
+            rs = stm.executeQuery();
+            
+            while (rs.next()) {
+                userList.add((User) this.createEntity(rs));
+            }
+            
+            return userList;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return null;
     }
 
     public boolean checkIfUserExist(String userEmail) {
@@ -99,10 +117,8 @@ public class UserDAO extends EntityDAO {
 
             rs = stm.executeQuery();
             return rs.next();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while check if token exist", ex);
+        } catch (SQLException e) {
+            System.out.println(e);
         }
 
         return false;
@@ -113,7 +129,6 @@ public class UserDAO extends EntityDAO {
 
         try {
             stm = connection.prepareStatement(sql);
-            rs = stm.executeQuery();
 
             stm.setString(1, inputUser.getAvatar());
             stm.setString(2, inputUser.getFullName());
@@ -127,28 +142,21 @@ public class UserDAO extends EntityDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while register user", e);
+           System.out.println(e);
         }
     }
 
-    //TODO: CHECK AND FIX THIS IF NEEDED
     public void updateUserPassword(int userID, String password) {
         String sql = "Update [User] Set password = ? Where user_id = ?";
 
         try {
             stm = connection.prepareStatement(sql);
-            rs = stm.executeQuery();
-
             stm.setInt(1, userID);
             stm.setString(2, password);
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while update user password", e);
+            System.out.println(e);
         }
     }
 
@@ -157,16 +165,12 @@ public class UserDAO extends EntityDAO {
 
         try {
             stm = connection.prepareStatement(sql);
-            rs = stm.executeQuery();
-
             stm.setInt(1, userID);
             stm.setString(2, state);
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(UserDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while update user password", e);
+            System.out.println(e);
         }
     }
 

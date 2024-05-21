@@ -57,7 +57,7 @@ public class RegisterServlet extends HttpServlet {
         RandomString random = new RandomString();
 
         String referer = request.getHeader("referer");
-        String email = request.getParameter("email");
+        String email = request.getParameter("username");
         String token;
 
         if (userDao.checkIfUserExist(email)) {
@@ -67,13 +67,14 @@ public class RegisterServlet extends HttpServlet {
             User newUser = new User();
 
             newUser.setAvatar("images/avatar/default.jpg");
-            newUser.setFullName(request.getParameter("fullName"));
+            newUser.setFullName(request.getParameter("fullname"));
             newUser.setGender(request.getParameter("gender"));
             newUser.setAddress(request.getParameter("address"));
             newUser.setEmail(email);
+            newUser.setPhoneNumber(request.getParameter("phonenumber"));
             newUser.setPassword(hash.md5hash(request.getParameter("password")));
-            newUser.setState("Not Verified"); //NOTE should confirm with team about state
-            newUser.setRoleId(0); //NOTE should confirm with team about role id for each role
+            newUser.setState("Not Verified");
+            newUser.setRoleId(6);
 
             userDao.registerUser(newUser);
 

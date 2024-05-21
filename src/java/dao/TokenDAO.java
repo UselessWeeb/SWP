@@ -6,8 +6,6 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Token;
 
 /**
@@ -29,8 +27,7 @@ public class TokenDAO extends EntityDAO {
                 newToken = (Token) this.createEntity(rs);
             }
         } catch (SQLException e) {
-            Logger.getLogger(TokenDAO.class.getName())
-                    .log(Level.SEVERE, "Exception thrown while getting token", e);
+            System.out.println(e);
         }
 
         return newToken;
@@ -45,9 +42,7 @@ public class TokenDAO extends EntityDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(TokenDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while deleting token", e);
+            System.out.println(e);
         }
     }
 
@@ -56,17 +51,14 @@ public class TokenDAO extends EntityDAO {
 
         try {
             stm = connection.prepareStatement(sql);
-
             stm.setInt(1, inputToken.getUserID());
             stm.setString(2, inputToken.getTokenString());
             stm.setTimestamp(3, inputToken.getExpireDateAsSqlTimestamp());
             stm.setInt(4, inputToken.getPurpose());
 
             stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(TokenDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while adding token", ex);
+        } catch (SQLException e) {
+            System.out.println(e);
         }
     }
 
@@ -78,11 +70,10 @@ public class TokenDAO extends EntityDAO {
             stm.setString(1, inputToken);
 
             rs = stm.executeQuery();
+            
             return rs.next();
-        } catch (SQLException ex) {
-            Logger.getLogger(TokenDAO.class.getName())
-                    .log(Level.SEVERE,
-                            "Exception thrown while check if token exist", ex);
+        } catch (SQLException e) {
+            System.out.println(e);
         }
 
         return false;
@@ -92,7 +83,7 @@ public class TokenDAO extends EntityDAO {
     public Object createEntity(ResultSet rs) throws SQLException {
         return new Token(
                 rs.getString("tokenString"),
-                rs.getInt(""),
+                rs.getInt("userid"),
                 rs.getTimestamp("expireDate").toLocalDateTime(),
                 rs.getInt("purpose")
         );

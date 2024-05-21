@@ -38,17 +38,19 @@ public class VerifyServlet extends HttpServlet {
 
         if (token == null || token.length() != 32) {
             response.sendRedirect("index.jsp");
+            return;
         } else {
             Token retrievedToken = tokenDao.getToken(token);
 
             if (retrievedToken != null && retrievedToken.getPurpose() == 0) {
                 if (!retrievedToken.isExpired()) {
                     userDao.updateUserState(retrievedToken.getUserID(), "Verified");
+                    request.setAttribute("message", "Verification successful!");
                 }
 
                 tokenDao.deleteToken(token);
             } else {
-                request.setAttribute("message", "Invalid or expired token. Please try again.");
+                request.setAttribute("message", "Invalid or expired token.");
             }
         }
 

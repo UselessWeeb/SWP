@@ -38,14 +38,14 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/Register</url-pattern>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResetUserPasswordServlet</servlet-name>
-        <url-pattern>/ResetPassword</url-pattern>
+        <url-pattern>/resetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyServlet</servlet-name>
-        <url-pattern>/Verify</url-pattern>
+        <url-pattern>/verify</url-pattern>
     </servlet-mapping>
 </web-app>
