@@ -62,16 +62,6 @@
                                     <input type="radio" id="other" name="sex" value="Other" ${user.gender == 'Other' ? 'checked' : ''}> Other
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">
-                                        Phone Number</label>
-                                    <input type="text" class="form-control" 
-                                           id="exampleInputEmail1" 
-                                           aria-describedby="emailHelp"
-                                           required="required"
-                                           name="phone"
-                                           value="${user.phoneNumber}">
-                                </div>
-                                <div class="form-group">
                                     <label for="exampleInputPassword1">
                                         Address</label>
                                     <input type="text" class="form-control" 
@@ -81,13 +71,25 @@
                                            name="loca"
                                            value="${user.address}">
                                 </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">
+                                        Phone Number</label>
+                                    <input type="text" class="form-control" 
+                                           id="exampleInputEmail1" 
+                                           aria-describedby="emailHelp"
+                                           required="required"
+                                           name="phone"
+                                           value="${user.phoneNumber}">
+                                </div>
                                 <input type="hidden" name="id" value="${user.userId}">
                                 <input type="hidden" name="state" value="${user.state}">
                                 <input type="hidden" name="role" value="${user.roleId}">
+                                
                                 <br>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block">
                                         Update</button>
+                                    <a href="changePassword.jsp">Change Password</a>
                                 </div>
                             </form>
                         </div>

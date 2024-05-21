@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
             <url>web/displayOrder.jsp</url>
             <bookmark id="1">
@@ -11,6 +11,10 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/src/java/controller/ChangePasswordServlet.java</file>
+            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/web/changePassword.jsp</file>
+            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/src/java/dao/UserDAO.java</file>
+        </group>
     </open-files>
 </project-private>

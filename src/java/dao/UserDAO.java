@@ -13,25 +13,6 @@ import model.User;
  */
 public class UserDAO extends EntityDAO {
 
-    public int editUser(User user) {
-        int n = 0;
-        PreparedStatement pre;
-        String sql = "UPDATE [User] SET full_name = ?, gender = ?, address = ?, phone_number = ?, avatar = ? WHERE user_id = ?";
-        try {
-            pre = connection.prepareStatement(sql);
-            pre.setString(1, user.getFullName());
-            pre.setString(2, user.getGender());
-            pre.setString(3, user.getAddress());
-            pre.setString(4, user.getPhoneNumber());
-            pre.setString(5, user.getAvatar());
-            pre.setInt(6, user.getUserId());
-            n = pre.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return n;
-    }
-    
     public int editCustomer(String avatar, String full_name, String gender, String address, String phoneNumber, int userId) {
         int n = 0;
         PreparedStatement pre;
@@ -55,6 +36,42 @@ public class UserDAO extends EntityDAO {
             System.out.println(ex.getMessage());
         }
 
+        return n;
+    }
+
+    public int changePassword(int userId, String new_pass1) {
+        int n = 0;
+        try {
+            String sql = "UPDATE [User]\n"
+                    + "   SET \n"
+                    + "      password = ?\n"
+                    + " WHERE user_id = ?\n";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, new_pass1);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return n;
+    }
+
+    public int checkUserPassword(int id, String password) {
+        int n = 0;
+        String sql = "SELECT * FROM [User] WHERE user_id = ? and password = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                // User with the given email exists
+                n = 1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return n;
     }
 
