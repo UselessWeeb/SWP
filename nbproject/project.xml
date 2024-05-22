@@ -22,6 +22,8 @@
                     <file>${file.reference.sqljdbc42.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+<<<<<<< HEAD
+<<<<<<< HEAD
                 <library dirs="200">
                     <file>${file.reference.angus-activation-2.0.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
@@ -82,6 +84,10 @@
                     <file>${file.reference.throwing-function-1.5.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+=======
+>>>>>>> f8475dc (Update frontend for UserProfile)
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>

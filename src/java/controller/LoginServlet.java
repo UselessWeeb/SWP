@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
             //if user choose "remember me, create a cookie and session for said user, otherwise, don't"
             HttpSession session = request.getSession(false);
             session.setAttribute("user", u);
-            System.out.println("login success");
+            System.out.println("Login Success");
             //create cookie as well
             if (request.getParameter("session") != null) {
                 Cookie userid = new Cookie("userid", String.valueOf(u.getUserId()));
@@ -70,7 +70,8 @@ public class LoginServlet extends HttpServlet {
                 userid.setMaxAge(60 * 60); // one hour
                 userid.setPath("/"); // root path
 
-                response.addCookie(userid);    
+                response.addCookie(userid);
+                
             }
             response.sendRedirect(referer);
         }

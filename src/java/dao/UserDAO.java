@@ -1,20 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.User;
 
-/**
- *
- * @author M7510
- */
+import dao.EntityDAO;
+import java.sql.PreparedStatement;
+
+import model.User;
+
 public class UserDAO extends EntityDAO {
+    public int changePassword(int userId, String new_pass1) {
+        int n = 0;
+        try {
+            String sql = "UPDATE [User]\n"
+                    + "   SET \n"
+                    + "      password = ?\n"
+                    + " WHERE user_id = ?\n";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, new_pass1);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return n;
+    }
+
+    public int checkUserPassword(int id, String password) {
+        int n = 0;
+        String sql = "SELECT * FROM [User] WHERE user_id = ? and password = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                // User with the given email exists
+                n = 1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return n;
+    }
 
     public User Login(String email, String password) {
         User u = null;
@@ -52,13 +85,13 @@ public class UserDAO extends EntityDAO {
     public User findByEmail(String email) {
         String strSelect = "Select * from [User] where email = ?";
         User u = null;
-        
+
         try {
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, email);
-            
+
             rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 u = (User) this.createEntity(rs);
             }
@@ -75,9 +108,9 @@ public class UserDAO extends EntityDAO {
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, email);
-            
+
             rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 userID = rs.getInt("user_id");
             }
@@ -86,25 +119,25 @@ public class UserDAO extends EntityDAO {
         }
         return userID;
     }
-    
+
     public List<User> getAllUser() {
         String sql = "Select * from [User]";
         List<User> userList = new ArrayList<>();
-        
+
         try {
             stm = connection.prepareStatement(sql);
-            
+
             rs = stm.executeQuery();
-            
+
             while (rs.next()) {
                 userList.add((User) this.createEntity(rs));
             }
-            
+
             return userList;
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return null;
     }
 
@@ -142,7 +175,7 @@ public class UserDAO extends EntityDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-           System.out.println(e);
+            System.out.println(e);
         }
     }
 
@@ -174,6 +207,7 @@ public class UserDAO extends EntityDAO {
         }
     }
 
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         return new User(
@@ -188,5 +222,30 @@ public class UserDAO extends EntityDAO {
                 rs.getString("state"),
                 rs.getInt("role_id")
         );
+    }
+    
+    public int editCustomer(User u) {
+        int n = 0;
+        String sql = "UPDATE [User]\n"
+                + "SET avatar = ?,\n"
+                + "    full_name = ?,\n"
+                + "    gender = ?,\n"
+                + "    address = ?,\n"
+                + "    phone_number = ? \n"
+                + "WHERE user_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, u.getAvatar());
+            stm.setString(2, u.getFullName());
+            stm.setString(3, u.getGender());
+            stm.setString(4, u.getAddress());
+            stm.setString(5, u.getPhoneNumber());
+            stm.setInt(6, u.getUserId());
+            n = stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return n;
     }
 }

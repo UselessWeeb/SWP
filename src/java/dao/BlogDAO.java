@@ -51,13 +51,12 @@ public class BlogDAO extends EntityDAO {
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
-        Blog_CategoryDAO blog_cat = new Blog_CategoryDAO();
         return new Blog(
                 rs.getInt("blog_id"),
                 rs.getString("thumbnail"),
                 rs.getString("title"),
-                blog_cat.findById(rs.getInt("blog_id")),
                 rs.getTimestamp("updated_date"),
+                rs.getString("category"),
                 rs.getString("blog_content"),
                 rs.getInt("is_featured"),
                 rs.getInt("user_id")

@@ -126,6 +126,7 @@
         });
 
         var productSwiper = new Swiper(".product-swiper", {
+<<<<<<< HEAD
             slidesPerView: 1,
             navigation: {
                 nextEl: ".product-slider-button-next",
@@ -196,4 +197,8 @@
             }, index * 200);
         });
     };
+<<<<<<< HEAD
+=======
+
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
 })(jQuery);
