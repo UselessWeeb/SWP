@@ -9,75 +9,48 @@ package model;
  * @author vudai
  */
 public class User {
-    private int idUser;
-    private String fullname;
-    private String email;
-    private String diaChi;
-    private String phoneNum;
-    private int role;
+    private int userId;
+    private String avatar;
+    private String fullName;
     private String gender;
-    private int point;
+    private String address;
+    private String email;
+    private String phoneNumber;
+    private String password;
+    private String state;
+    private int roleId;
+
+    // Constructor, Getters, and Setters
+    public User(int userId, String avatar, String fullName, String gender, String address, String email, String phoneNumber, String password, String state, int roleId) {
+        this.userId = userId;
+        this.avatar = avatar;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.state = state;
+        this.roleId = roleId;
+    }
 
     public User() {
     }
 
-    public User(int idUser, String fullname, String email, String diaChi, String phoneNum, int role, String gender, int point) {
-        this.idUser = idUser;
-        this.fullname = fullname;
-        this.email = email;
-        this.diaChi = diaChi;
-        this.phoneNum = phoneNum;
-        this.role = role;
-        this.gender = gender;
-        this.point = point;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDiaChi() {
-        return diaChi;
-    }
-
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getGender() {
@@ -88,13 +61,64 @@ public class User {
         this.gender = gender;
     }
 
-    public int getPoint() {
-        return point;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void setAddress(String address) {
+        this.address = address;
     }
-    
-    
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "userId=" + userId + ", avatar=" + avatar + ", fullName=" + fullName + ", gender=" + gender + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password=" + password + ", state=" + state + ", roleId=" + roleId + '}';
+    }
 }
