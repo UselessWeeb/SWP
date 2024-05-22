@@ -93,8 +93,9 @@ public class orderList {
 
         if (order != null) {
             // Redirect to the order details page with the order object
-            orderDetails orderDetails = new orderDetails(order);
-            orderDetails.showOrderDetails();
+            
+//          orderDetails orderDetails = new orderDetails(order);
+//            orderDetails.showOrderDetails();
         } else {
             System.out.println("Order not found.");
         }
