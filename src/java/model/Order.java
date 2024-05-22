@@ -4,143 +4,125 @@
  */
 package model;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  *
- * @author quant
+ * @author vudai
  */
 public class Order {
-    private String orderId;
-    private String customerName;
-    private String customerEmail;
-    private String customerMobile;
-    private String orderDate;
-    private double totalCost;
-    private String saleName;
-    private String status;
+    private int order_id;
+    private Date order_date;
+    private String order_name;
+    private float total_price;
+    private int status;
+    private int quality;
+    private int user_id;
+    private int information_id;
+    private int laptop_id;
 
-    private String receiverName;
-    private String receiverGender;
-    private String receiverEmail;
-    private String receiverMobile;
-    private String receiverAddress;
-
-    private List<Product> products;
-
-    // Getters and setters for the properties
-        
-    // Methods to update order details, change status, add sale notes, etc.
-
-    public String getOrderId() {
-        return orderId;
+    public Order() {
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public Order(int order_id, Date order_date, String order_name, float total_price, int status, int quality, int user_id, int information_id, int laptop_id) {
+        this.order_id = order_id;
+        this.order_date = order_date;
+        this.order_name = order_name;
+        this.total_price = total_price;
+        this.status = status;
+        this.quality = quality;
+        this.user_id = user_id;
+        this.information_id = information_id;
+        this.laptop_id = laptop_id;
+    }
+    
+    public Order(int order_id, Date order_date, String order_name, float total_price, int quality, int user_id, int information_id, int laptop_id) {
+        this.order_id = order_id;
+        this.order_date = order_date;
+        this.order_name = order_name;
+        this.total_price = total_price;
+        this.quality = quality;
+        this.user_id = user_id;
+        this.information_id = information_id;
+        this.laptop_id = laptop_id;
+    }
+    
+    
+
+    public int getOrder_id() {
+        return order_id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public Date getOrder_date() {
+        return order_date;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public void setOrder_date(Date order_date) {
+        this.order_date = order_date;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public String getOrder_name() {
+        return order_name;
     }
 
-    public String getCustomerMobile() {
-        return customerMobile;
+    public void setOrder_name(String order_name) {
+        this.order_name = order_name;
     }
 
-    public void setCustomerMobile(String customerMobile) {
-        this.customerMobile = customerMobile;
+    public float getTotal_price() {
+        return total_price;
     }
 
-    public String getOrderDate() {
-        return orderDate;
+    public void setTotal_price(float total_price) {
+        this.total_price = total_price;
     }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public double getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(double totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public String getSaleName() {
-        return saleName;
-    }
-
-    public void setSaleName(String saleName) {
-        this.saleName = saleName;
-    }
-
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String getReceiverName() {
-        return receiverName;
+    public int getQuality() {
+        return quality;
     }
 
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
+    public void setQuality(int quality) {
+        this.quality = quality;
     }
 
-    public String getReceiverGender() {
-        return receiverGender;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setReceiverGender(String receiverGender) {
-        this.receiverGender = receiverGender;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    public String getReceiverEmail() {
-        return receiverEmail;
+    public int getInformation_id() {
+        return information_id;
     }
 
-    public void setReceiverEmail(String receiverEmail) {
-        this.receiverEmail = receiverEmail;
+    public void setInformation_id(int information_id) {
+        this.information_id = information_id;
     }
 
-    public String getReceiverMobile() {
-        return receiverMobile;
+    public int getLaptop_id() {
+        return laptop_id;
     }
 
-    public void setReceiverMobile(String receiverMobile) {
-        this.receiverMobile = receiverMobile;
+    public void setLaptop_id(int laptop_id) {
+        this.laptop_id = laptop_id;
     }
 
-    public String getReceiverAddress() {
-        return receiverAddress;
-    }
-
-    public void setReceiverAddress(String receiverAddress) {
-        this.receiverAddress = receiverAddress;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    @Override
+    public String toString() {
+        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", order_name=" + order_name + ", total_price=" + total_price + ", status=" + status + ", quality=" + quality + ", user_id=" + user_id + ", information_id=" + information_id + ", laptop_id=" + laptop_id + '}';
     }
 }

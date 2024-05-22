@@ -6,36 +6,38 @@ package model;
 
 /**
  *
- * @author quant
+ * @author M7510
  */
 public class Slider {
 
-    //khai bao
-    private int id;
+    private int sliderId;
     private String title;
-    private String image;
+    private String images;
+    private String details;
     private String backlink;
-    private boolean status;
-    private String notes;
+    private int status;
+    private int userId;
 
-    public Slider(int id, String title, String image, String backlink, boolean status, String notes) {
-        //constructor
-        this.id = id;
+    // Constructor, Getters, and Setters
+    public Slider(int sliderId, String title, String details, String images, String backlink, int status, int userId) {
+        this.sliderId = sliderId;
         this.title = title;
-        this.image = image;
+        this.details = details;
+        this.images = images;
         this.backlink = backlink;
         this.status = status;
-        this.notes = notes;
-
+        this.userId = userId;
     }
 
-    //getter &setter
-    public int getId() {
-        return id;
+    public Slider() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getSliderId() {
+        return sliderId;
+    }
+
+    public void setSliderId(int sliderId) {
+        this.sliderId = sliderId;
     }
 
     public String getTitle() {
@@ -46,12 +48,12 @@ public class Slider {
         this.title = title;
     }
 
-    public String getImage() {
-        return image;
+    public String getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(String images) {
+        this.images = images;
     }
 
     public String getBacklink() {
@@ -62,20 +64,32 @@ public class Slider {
         this.backlink = backlink;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String getNotes() {
-        return notes;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "Slider{" + "sliderId=" + sliderId + ", title=" + title + ", images=" + images + ", details=" + details + ", backlink=" + backlink + ", status=" + status + ", userId=" + userId + '}';
+    }
 }
