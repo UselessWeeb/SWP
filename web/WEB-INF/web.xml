@@ -17,8 +17,16 @@
         <servlet-class>controller.MainServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductListServlet</servlet-name>
-        <servlet-class>controller.ProductListServlet</servlet-class>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetUserPasswordServlet</servlet-name>
+        <servlet-class>controller.ResetPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyServlet</servlet-name>
+        <servlet-class>controller.VerifyServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -29,7 +37,15 @@
         <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductListServlet</servlet-name>
-        <url-pattern>/productList</url-pattern>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetUserPasswordServlet</servlet-name>
+        <url-pattern>/reset-password</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyServlet</servlet-name>
+        <url-pattern>/verify</url-pattern>
     </servlet-mapping>
 </web-app>
