@@ -121,6 +121,7 @@
                                     </li>
                                 </ul>
                             </div>
+<<<<<<< HEAD
                         </div>
                     </aside>
                     <main class="col-md-9">
@@ -176,10 +177,68 @@
             </div>
         </div>
 
+=======
+                        </div>
+                    </aside>
+                    <main class="col-md-9">
+                        <div class="filter-blog d-flex flex-wrap justify-content-between">
+                            <div class="showing-product">
+                                <p>Showing 1-9 of 55 results</p>
+                            </div>
+                            <div class="sort-by">
+                                <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="">
+                                    <option value="">Latest to oldest</option>
+                                    <option value="">Oldest to latest</option>
+                                    <option value="">Popular</option>
+                                    <option value="">Name (A - Z)</option>
+                                    <option value="">Name (Z - A)</option>
+                                    <option value="">Model (A - Z)</option>
+                                    <option value="">Model (Z - A)</option>   
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row post-contents">
+                            <c:set var="list" value = "${requestScope.BlogsList}"/>
+                            <c:forEach var="blog" items="${list}">
+                                <div class="col-lg-4 col-md-6 posts mb-4">
+                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">${blog.category}</a>
+                                    <img src="images/${blog.thumbnail}" alt="post image" class="img-fluid">
+                                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
+                                        <a href="single-post.jsp?id=${blog.blogId}">${blog.title}</a>
+                                    </h4>
+                                    <p class="mb-2">${blog.blogContent}</p>
+                                    <a class="text-decoration-underline" href="single-post.jsp?id=${blog.blogId}">Read More</a>
+                                </div>
+                            </c:forEach>
+
+                        </div>
+                        <nav class="py-5" aria-label="Page navigation">
+                            <ul class="pagination justify-content-center gap-4">
+                                <li class="page-item disabled">
+                                    <a class="page-link">Prev</a>
+                                </li>
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link">1</span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
         <section id="customers-reviews" class="position-relative margin-large mt-0">
             <div class="container">
                 <div class="section-title overflow-hidden mb-4">
                     <h3 class="d-flex align-items-center">Customers reviews</h3>
+<<<<<<< HEAD
                 </div>
                 <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
                     <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
@@ -220,47 +279,174 @@
 <<<<<<< HEAD
                     </div>
                 </section>
-
-    <section id="brands" class="py-5 border-top border-bottom">
-        <div class="container">
-            <div class="brand-images my-5 d-flex align-items-center justify-content-between flex-wrap">
-                <a href="#" class="brand">
-            <img src="images/brand1.png" alt="brand" class="img-fluid">
-          </a>
-                <a href="#" class="brand">
-            <img src="images/brand2.png" alt="brand" class="img-fluid">
-          </a>
-                <a href="#" class="brand">
-            <img src="images/brand3.png" alt="brand" class="img-fluid">
-          </a>
-                <a href="#" class="brand">
-            <img src="images/brand4.png" alt="brand" class="img-fluid">
-          </a>
-                <a href="#" class="brand">
-            <img src="images/brand5.png" alt="brand" class="img-fluid">
-          </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="instagram" class="padding-large">
-        <div class="container">
-            <div class="text-center mb-4">
-                <h3>Instagram #shoplite</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <figure class="instagram-item position-relative rounded-3">
-                        <a href="https://templatesjungle.com/" class="image-link position-relative">
-                            <div class="icon-overlay position-absolute d-flex justify-content-center">
-                                <svg class="instagram">
-                    <use xlink:href="#instagram"></use>
-                  </svg>
-                            </div>
-                            <img src="images/insta-item1.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
-                        </a>
-                    </figure>
+=======
                 </div>
+                <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
+                    <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+                    <use xlink:href="#alt-arrow-right-outline"></use>
+                    </svg>
+                </div>
+                <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
+                    <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+                    <use xlink:href="#alt-arrow-left-outline"></use>
+                    </svg>
+                </div>
+                <div class="swiper testimonial-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                    needs. Highly recommended!?</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>?This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
+                                    you won't regret shopping here!?</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Thomas John</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>?I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
+                                    me find the perfect fit for my lifestyle.?</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                    needs. Highly recommended!?</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Stevin</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                    needs. Highly recommended!?</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Roman</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
+
+        <section id="brands" class="py-5 border-top border-bottom">
+            <div class="container">
+                <div class="brand-images my-5 d-flex align-items-center justify-content-between flex-wrap">
+                    <a href="#" class="brand">
+                        <img src="images/brand1.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand2.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand3.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand4.png" alt="brand" class="img-fluid">
+                    </a>
+                    <a href="#" class="brand">
+                        <img src="images/brand5.png" alt="brand" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="instagram" class="padding-large">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h3>Instagram #shoplite</h3>
+                </div>
+<<<<<<< HEAD
                 <div class="col-md-2">
                     <figure class="instagram-item position-relative rounded-3">
                         <a href="https://templatesjungle.com/" class="image-link position-relative">
@@ -650,10 +836,85 @@
 >>>>>>> 958faa7 (blogDetail.java, blog.jsp, productDAO.jav)
                             </div>
                         </div>
+=======
+                <div class="row">
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item1.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item2.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item3.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item4.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item5.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="col-md-2">
+                        <figure class="instagram-item position-relative rounded-3">
+                            <a href="https://templatesjungle.com/" class="image-link position-relative">
+                                <div class="icon-overlay position-absolute d-flex justify-content-center">
+                                    <svg class="instagram">
+                                    <use xlink:href="#instagram"></use>
+                                    </svg>
+                                </div>
+                                <img src="images/insta-item6.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                            </a>
+                        </figure>
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
                     </div>
                 </div>
             </div>
         </section>
+<<<<<<< HEAD
 
         <section id="brands" class="py-5 border-top border-bottom">
             <div class="container">
@@ -758,6 +1019,8 @@
                 </div>
             </div>
         </section>
+=======
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
         <%@include file = "view/footer.jsp" %>
         <hr>
         <div id="footer-bottom" class="mb-2">

@@ -4,12 +4,12 @@
  */
 package model;
 
-import java.util.Date;
-
 /**
  *
- * @author M7510
+ * @author ASUS
  */
+import java.util.Date;
+
 public class Blog {
 
     private int blogId;

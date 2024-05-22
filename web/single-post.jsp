@@ -957,6 +957,7 @@
                             <svg class="star star-fill">
                             <use xlink:href="#star-fill"></use>
                             </svg>
+<<<<<<< HEAD
                         </div>
                         <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
                     </div>
@@ -1008,8 +1009,12 @@
                   </svg>
                             </div>
                             <h5 class="mt-1 fw-normal">Thomas John</h5>
+=======
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
                         </div>
+                        <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
                     </div>
+<<<<<<< HEAD
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
                             <blockquote>?I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
@@ -1032,8 +1037,33 @@
                   </svg>
                             </div>
                             <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
+=======
+                </div>
+                <div class="swiper-slide">
+                    <div class="card position-relative text-left p-5 border rounded-3">
+                        <blockquote>“This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
+                            you won't regret shopping here!”</blockquote>
+                        <div class="rating text-primary">
+                            <svg class="star star-fill">
+                            <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                            <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                            <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                            <use xlink:href="#star-fill"></use>
+                            </svg>
+                            <svg class="star star-fill">
+                            <use xlink:href="#star-fill"></use>
+                            </svg>
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
                         </div>
+                        <h5 class="mt-1 fw-normal">Thomas John</h5>
                     </div>
+<<<<<<< HEAD
                     <div class="swiper-slide">
                         <div class="card position-relative text-left p-5 border rounded-3">
                             <blockquote>?I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
@@ -1082,6 +1112,8 @@
                             <h5 class="mt-1 fw-normal">Roman</h5>
                         </div>
 =======
+=======
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
                 </div>
                 <div class="swiper-slide">
                     <div class="card position-relative text-left p-5 border rounded-3">
@@ -1153,11 +1185,15 @@
                             </svg>
                         </div>
                         <h5 class="mt-1 fw-normal">Roman</h5>
+<<<<<<< HEAD
 >>>>>>> 958faa7 (blogDetail.java, blog.jsp, productDAO.jav)
+=======
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
     </section>
 
@@ -1185,6 +1221,150 @@
 =======
     </div>
 </section>
+=======
+    </div>
+</section>
+
+<section id="brands" class="py-5 border-top border-bottom">
+    <div class="container">
+        <div class="brand-images my-5 d-flex align-items-center justify-content-between flex-wrap">
+            <a href="#" class="brand">
+                <img src="images/brand1.png" alt="brand" class="img-fluid">
+            </a>
+            <a href="#" class="brand">
+                <img src="images/brand2.png" alt="brand" class="img-fluid">
+            </a>
+            <a href="#" class="brand">
+                <img src="images/brand3.png" alt="brand" class="img-fluid">
+            </a>
+            <a href="#" class="brand">
+                <img src="images/brand4.png" alt="brand" class="img-fluid">
+            </a>
+            <a href="#" class="brand">
+                <img src="images/brand5.png" alt="brand" class="img-fluid">
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="instagram" class="padding-large">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h3>Instagram #shoplite</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <figure class="instagram-item position-relative rounded-3">
+                    <a href="https://templatesjungle.com/" class="image-link position-relative">
+                        <div class="icon-overlay position-absolute d-flex justify-content-center">
+                            <svg class="instagram">
+                            <use xlink:href="#instagram"></use>
+                            </svg>
+                        </div>
+                        <img src="images/insta-item1.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                    </a>
+                </figure>
+            </div>
+            <div class="col-md-2">
+                <figure class="instagram-item position-relative rounded-3">
+                    <a href="https://templatesjungle.com/" class="image-link position-relative">
+                        <div class="icon-overlay position-absolute d-flex justify-content-center">
+                            <svg class="instagram">
+                            <use xlink:href="#instagram"></use>
+                            </svg>
+                        </div>
+                        <img src="images/insta-item2.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                    </a>
+                </figure>
+            </div>
+            <div class="col-md-2">
+                <figure class="instagram-item position-relative rounded-3">
+                    <a href="https://templatesjungle.com/" class="image-link position-relative">
+                        <div class="icon-overlay position-absolute d-flex justify-content-center">
+                            <svg class="instagram">
+                            <use xlink:href="#instagram"></use>
+                            </svg>
+                        </div>
+                        <img src="images/insta-item3.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                    </a>
+                </figure>
+            </div>
+            <div class="col-md-2">
+                <figure class="instagram-item position-relative rounded-3">
+                    <a href="https://templatesjungle.com/" class="image-link position-relative">
+                        <div class="icon-overlay position-absolute d-flex justify-content-center">
+                            <svg class="instagram">
+                            <use xlink:href="#instagram"></use>
+                            </svg>
+                        </div>
+                        <img src="images/insta-item4.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                    </a>
+                </figure>
+            </div>
+            <div class="col-md-2">
+                <figure class="instagram-item position-relative rounded-3">
+                    <a href="https://templatesjungle.com/" class="image-link position-relative">
+                        <div class="icon-overlay position-absolute d-flex justify-content-center">
+                            <svg class="instagram">
+                            <use xlink:href="#instagram"></use>
+                            </svg>
+                        </div>
+                        <img src="images/insta-item5.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                    </a>
+                </figure>
+            </div>
+            <div class="col-md-2">
+                <figure class="instagram-item position-relative rounded-3">
+                    <a href="https://templatesjungle.com/" class="image-link position-relative">
+                        <div class="icon-overlay position-absolute d-flex justify-content-center">
+                            <svg class="instagram">
+                            <use xlink:href="#instagram"></use>
+                            </svg>
+                        </div>
+                        <img src="images/insta-item6.jpg" alt="instagram" class="img-fluid rounded-3 insta-image">
+                    </a>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%@include file = "view/footer.jsp"%>
+<hr>
+<div id="footer-bottom" class="mb-2">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class="ship-and-payment d-flex gap-md-5 flex-wrap">
+                <div class="shipping d-flex">
+                    <p>We ship with:</p>
+                    <div class="card-wrap ps-2">
+                        <img src="images/dhl.png" alt="visa">
+                        <img src="images/shippingcard.png" alt="mastercard">
+                    </div>
+                </div>
+                <div class="payment-method d-flex">
+                    <p>Payment options:</p>
+                    <div class="card-wrap ps-2">
+                        <img src="images/visa.jpg" alt="visa">
+                        <img src="images/mastercard.jpg" alt="mastercard">
+                        <img src="images/paypal.jpg" alt="paypal">
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+>>>>>>> 958faa7f8dab93aa98512e524a7edc11712b67ed
 
 <section id="brands" class="py-5 border-top border-bottom">
     <div class="container">
