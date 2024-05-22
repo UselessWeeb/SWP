@@ -24,14 +24,14 @@ public class slidersList {
 
     public slidersList() {
         sliders = new ArrayList<>();
-        sliders.add(new Slider(1, "Slider 1", "slider1.jpg", "https://example.com/slider1", true, "This is a sample slider."));
-        sliders.add(new Slider(2, "Slider 2", "slider2.jpg", "https://example.com/slider2", false, "This is another sample slider."));
-        sliders.add(new Slider(3, "Slider 3", "slider3.jpg", "https://example.com/slider3", true, "This is a third sample slider."));
-        sliders.add(new Slider(4, "Slider 4", "slider4.jpg", "https://example.com/slider4", false, "This is a fourth sample slider."));
-        sliders.add(new Slider(5, "Slider 5", "slider5.jpg", "https://example.com/slider5", true, "This is a fifth sample slider."));
-        sliders.add(new Slider(6, "Slider 6", "slider6.jpg", "https://example.com/slider6", true, "This is a sixth sample slider."));
-        sliders.add(new Slider(7, "Slider 7", "slider7.jpg", "https://example.com/slider7", false, "This is a seventh sample slider."));
-        sliders.add(new Slider(8, "Slider 8", "slider8.jpg", "https://example.com/slider8", true, "This is an eighth sample slider."));
+        sliders.add(new Slider(1, "Slider 1", "slider1.jpg", "https://example.com/slider1", true, "This is the first slider."));
+        sliders.add(new Slider(2, "Slider 2", "slider2.jpg", "https://example.com/slider2", false, "This is the second sample slider."));
+        sliders.add(new Slider(3, "Slider 3", "slider3.jpg", "https://example.com/slider3", true, "This is the third sample slider."));
+        sliders.add(new Slider(4, "Slider 4", "slider4.jpg", "https://example.com/slider4", false, "This is the fourth sample slider."));
+//        sliders.add(new Slider(5, "Slider 5", "slider5.jpg", "https://example.com/slider5", true, "This is a fifth sample slider."));
+//        sliders.add(new Slider(6, "Slider 6", "slider6.jpg", "https://example.com/slider6", true, "This is a sixth sample slider."));
+//        sliders.add(new Slider(7, "Slider 7", "slider7.jpg", "https://example.com/slider7", false, "This is a seventh sample slider."));
+//        sliders.add(new Slider(8, "Slider 8", "slider8.jpg", "https://example.com/slider8", true, "This is an eighth sample slider."));
     }
 
     public List<Slider> getFilteredSliders(String searchText, int statusIndex) {
