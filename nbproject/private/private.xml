@@ -14,18 +14,11 @@
         <group>
             <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/controller/BlogDetails.java</file>
             <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/dal/test.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/model/Product.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/web/single-product.jsp</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/controller/testing.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/web/shop.jsp</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/DataQuery.sql</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/dao/ProductDAO.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/model/Blog.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/web/single-post.jsp</file>
             <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/dao/BlogDAO.java</file>
+            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/model/Product.java</file>
             <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/controller/Product.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/controller/BlogsList.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/web/index.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/src/java/dao/ProductDAO.java</file>
             <file>file:/C:/Users/ASUS/Documents/Ki55555/SWP391/group3_TuanVM/summer2024-swp391.se1823-g3/web/blog.jsp</file>
         </group>
     </open-files>
