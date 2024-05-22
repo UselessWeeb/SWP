@@ -34,31 +34,33 @@ public class ChangePasswordServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            User u = (User) session.getAttribute("userobj");
+            int userid = Integer.parseInt(request.getParameter("id"));
             String oldPassword = request.getParameter("oldPassword");
             String newPassword = request.getParameter("newPassword");
             String confirmPassword = request.getParameter("confirmPassword");
 
             UserDAO dao = new UserDAO();
-            int check = dao.checkUserPassword(u.getUserId(), oldPassword);
+            int check = dao.checkUserPassword(userid, oldPassword);
 
             if (check > 0) {
+                
                 if (newPassword.equals(confirmPassword)) {
-                    int n = dao.changePassword(u.getUserId(), newPassword);
+                    int n = dao.changePassword(userid, newPassword);
                     if (n > 0) {
-                        session.setAttribute("notification", "Password successfully changed!");
+                        session.setAttribute("successMsg", "Password successfully changed!");
+                        session.invalidate();
                         response.sendRedirect("index.jsp");
                     }
                 } else {
-                    session.setAttribute("notification", "New passwords do not match!");
+                    session.setAttribute("failedMsg", "New passwords do not match!");
                     response.sendRedirect("changePassword.jsp");
                 }
                 if (newPassword.length() <= 6) {
-                    session.setAttribute("notification", "Password must be more than 6 characters!");
+                    session.setAttribute("failedMsg", "Password must be more than 6 characters!");
                     response.sendRedirect("changePassword.jsp");
                 }
             } else {
-                session.setAttribute("notification", "Please check password right");
+                session.setAttribute("failedMsg", "Please check password right");
                 response.sendRedirect("changePassword.jsp");
             }
 //            if (!oldPassword.equals(u.getPassword())) {
@@ -76,7 +78,6 @@ public class ChangePasswordServlet extends HttpServlet {
 //                session.setAttribute("notification", "Password successfully changed!");
 //                request.getRequestDispatcher("index.jsp").forward(request, response);
 //            }
-            out.close();
         }
     }
 
