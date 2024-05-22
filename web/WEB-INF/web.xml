@@ -42,7 +42,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResetUserPasswordServlet</servlet-name>
-        <url-pattern>/resetPassword</url-pattern>
+        <url-pattern>/reset-password</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyServlet</servlet-name>
