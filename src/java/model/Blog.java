@@ -11,86 +11,60 @@ package model;
 import java.util.Date;
 
 public class Blog {
-    private int idBlog;
-    private int idUser;
-    private String header;
-    private String description;
-    private Date date;
-    private int status;
-    private String img;
-    private String category;
 
-    // Default constructor
+    private int blogId;
+    private String thumbnail;
+    private String title;
+    private java.util.Date updatedDate;
+    private String category;
+    private String blogContent;
+    private int userId;
+
+    // Constructor
     public Blog() {
     }
 
-    // Parameterized constructor
-    public Blog(int idBlog, int idUser, String header, String description, Date date, int status, String img, String category) {
-        this.idBlog = idBlog;
-        this.idUser = idUser;
-        this.header = header;
-        this.description = description;
-        this.date = date;
-        this.status = status;
-        this.img = img;
+    public Blog(int blogId, String thumbnail, String title, Date updatedDate, String category, String blogContent, int userId) {
+        this.blogId = blogId;
+        this.thumbnail = thumbnail;
+        this.title = title;
+        this.updatedDate = updatedDate;
         this.category = category;
+        this.blogContent = blogContent;
+        this.userId = userId;
     }
 
-    // Getters and setters
-    public int getIdBlog() {
-        return idBlog;
+    // Getters and Setters
+    public int getBlogId() {
+        return blogId;
     }
 
-    public void setIdBlog(int idBlog) {
-        this.idBlog = idBlog;
+    public void setBlogId(int blogId) {
+        this.blogId = blogId;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
-    public String getHeader() {
-        return header;
+    public String getTitle() {
+        return title;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public java.util.Date getUpdatedDate() {
+        return updatedDate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
+    public void setUpdatedDate(java.util.Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public String getCategory() {
@@ -101,8 +75,24 @@ public class Blog {
         this.category = category;
     }
 
+    public String getBlogContent() {
+        return blogContent;
+    }
+
+    public void setBlogContent(String blogContent) {
+        this.blogContent = blogContent;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
-        return "Blog{" + "idBlog=" + idBlog + ", idUser=" + idUser + ", header=" + header + ", description=" + description + ", date=" + date + ", status=" + status + ", img=" + img + ", category=" + category + '}';
+        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", updatedDate=" + updatedDate + ", category=" + category + ", blogContent=" + blogContent + ", userId=" + userId + '}';
     }
 }

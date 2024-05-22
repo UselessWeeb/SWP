@@ -8,6 +8,10 @@
         <servlet-name>BlogsList</servlet-name>
         <servlet-class>controller.BlogsList</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>Product</servlet-name>
+        <servlet-class>controller.Product</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>BlogDetails</servlet-name>
         <url-pattern>/BlogDetails</url-pattern>
@@ -15,5 +19,9 @@
     <servlet-mapping>
         <servlet-name>BlogsList</servlet-name>
         <url-pattern>/BlogsList</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>Product</servlet-name>
+        <url-pattern>/Product</url-pattern>
     </servlet-mapping>
 </web-app>
