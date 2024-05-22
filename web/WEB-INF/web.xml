@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> f8475dc (Update frontend for UserProfile)
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <filter>
         <filter-name>SessionThirst</filter-name>
@@ -22,6 +25,7 @@
     </servlet>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>controller.RegisterServlet</servlet-class>
@@ -37,23 +41,32 @@
 =======
 >>>>>>> f8475dc (Update frontend for UserProfile)
 =======
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
     <servlet>
         <servlet-name>MyOrderServlet</servlet-name>
         <servlet-class>controller.MyOrderServlet</servlet-class>
     </servlet>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 895eca9 (Complete function Order List and Edit Profile)
 =======
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
     <servlet>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <servlet-class>controller.ChangePasswordServlet</servlet-class>
     </servlet>
+<<<<<<< HEAD
 >>>>>>> 3d46679 (Upload function Change Password)
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <servlet-name>MainServlet</servlet-name>
 <<<<<<< HEAD
@@ -82,20 +95,29 @@
 =======
         <url-pattern></url-pattern>
 =======
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
         <servlet-name>Main</servlet-name>
         <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyOrderServlet</servlet-name>
         <url-pattern>/myorder</url-pattern>
+<<<<<<< HEAD
 >>>>>>> 895eca9 (Complete function Order List and Edit Profile)
     </servlet-mapping>
 <<<<<<< HEAD
 >>>>>>> f8475dc (Update frontend for UserProfile)
 =======
+=======
+    </servlet-mapping>
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
     <servlet-mapping>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
 >>>>>>> 3d46679 (Upload function Change Password)
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
 </web-app>

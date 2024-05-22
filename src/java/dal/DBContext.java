@@ -24,6 +24,7 @@ public class DBContext {
         try {
             String user = "sa";
             String pass = "1234";
+
             String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=LaptopShop";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);

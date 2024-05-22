@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import model.User;
 
 public class UserDAO extends EntityDAO {
-
     public int changePassword(int userId, String new_pass1) {
         int n = 0;
         try {
@@ -207,6 +206,7 @@ public class UserDAO extends EntityDAO {
             System.out.println(e);
         }
     }
+
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {

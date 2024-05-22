@@ -9,6 +9,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <form action = "login" method = "POST" class="tab-pane fade active show" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-sign-in-tab">
     <div class="form-group py-3">
         <label class="mb-2" for="sign-in">Username or email address *</label>
@@ -34,6 +35,8 @@
 </a>
 
 =======
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
         <form action = "login" method = "POST" class="tab-pane fade active show" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-sign-in-tab">
             <div class="form-group py-3">
                 <label class="mb-2" for="sign-in">Username or email address *</label>
@@ -50,5 +53,8 @@
             </label>
             <button type="submit" name="submit" class="btn btn-dark w-100 my-3">Login</button>
         </form>
+<<<<<<< HEAD
 >>>>>>> f8475dc (Update frontend for UserProfile)
+=======
+>>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
 </html>
