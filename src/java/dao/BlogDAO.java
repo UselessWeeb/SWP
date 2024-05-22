@@ -10,6 +10,7 @@ package dao;
  */
 
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,11 @@ public class BlogDAO extends EntityDAO {
             }
         }
         return blogs;
+    }
+
+    @Override
+    public Object createEntity(ResultSet rs) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
