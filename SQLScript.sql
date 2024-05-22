@@ -37,14 +37,29 @@ CREATE TABLE Laptop
 (
   laptop_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   title VARCHAR(200) NOT NULL,
-  category VARCHAR(200) NOT NULL,
-  image VARCHAR(200) NOT NULL,
+  main_image VARCHAR(200) NOT NULL,
   original_price FLOAT NOT NULL,
+  stock INT NOT NULL,
   products_detail VARCHAR(MAX) NOT NULL,
   sale_price FLOAT NOT NULL,
   status INT NOT NULL,
+  updated_date DATETIME NOT NULL,
 );
 GO
+
+CREATE TABLE Laptop_Category(
+	CLaptop INT NOT NULL IDENTITY(1,1),
+	laptop_id INT NOT NULL,
+	Category NVARCHAR(100),
+	FOREIGN KEY (laptop_id) REFERENCES [Laptop]
+)
+
+CREATE TABLE Laptop_Image(
+	ILaptop INT NOT NULL IDENTITY(1,1),
+	laptop_id INT NOT NULL,
+	Image NVARCHAR(100),
+	FOREIGN KEY (laptop_id) REFERENCES [Laptop]
+)
 
 CREATE TABLE Order_Information
 (
@@ -114,13 +129,38 @@ CREATE TABLE Blog
   thumbnail VARCHAR(200) NOT NULL,
   title VARCHAR(200) NOT NULL,
   updated_date DATETIME NOT NULL,
-  category VARCHAR(200) NOT NULL,
   blog_content VARCHAR(MAX) NOT NULL,
   is_featured INT NOT NULL,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES [User]
 );
 GO
+
+CREATE TABLE Blog_Category(
+	CBlog INT NOT NULL IDENTITY(1,1),
+	blog_id INT NOT NULL,
+	Category NVARCHAR(100),
+	FOREIGN KEY (blog_id) REFERENCES [Blog]
+)
+
+CREATE TABLE Post(
+	post_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	post_header VARCHAR(200) NOT NULL,
+	post_content VARCHAR(MAX) NOT NULL,
+	thumbnail VARCHAR(200) NOT NULL,
+	is_featured INT NOT NULL,
+	info VARCHAR(200) NOT NULL,
+	status INT NOT NULL,
+	user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES [User]
+)
+
+CREATE TABLE Post_Category(
+	CPost INT NOT NULL IDENTITY(1,1),
+	post_id INT NOT NULL,
+	Category NVARCHAR(100),
+	FOREIGN KEY (post_id) REFERENCES [Post]
+)
 
 CREATE TABLE Slider
 (
@@ -143,3 +183,5 @@ CREATE TABLE Score
   PRIMARY KEY (score_id),
   FOREIGN KEY (user_id) REFERENCES [User](user_id)
 );
+
+SELECT * FROM Blog ORDER BY updated_date

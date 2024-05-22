@@ -20,6 +20,7 @@ nb-configuration.xml
 *.log
 
 # Package Files #
-*.jar
 *.war
+*.jar
+
 *.ear
