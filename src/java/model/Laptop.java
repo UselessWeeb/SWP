@@ -4,40 +4,62 @@
  */
 package model;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  *
- * @author vudai
+ * @author M7510
  */
 public class Laptop {
-    private int laptop_id;
-    private String title;
-    private String category;
-    private String images;
-    private float original_price;
-    private String product_detail;
-    private float sale_price;
-    private int status;
 
+    private int laptopId;
+    private String title;
+    private String mainImage;
+    private List<Laptop_Category> category;
+    private List<Laptop_Image> image;
+    private float originalPrice;
+    private String productsDetail;
+    private int stock;
+    private float salePrice;
+    private int status;
+    private Date updatedDate;
+    
     public Laptop() {
     }
-
-    public Laptop(int laptop_id, String title, String category, String images, float original_price, String product_detail, float sale_price, int status) {
-        this.laptop_id = laptop_id;
+    
+    // Constructor, Getters, and Setters
+    public Laptop(
+            int laptopId, 
+            String title, 
+            List<Laptop_Category> category,
+            List<Laptop_Image> image,
+            String mainImage, 
+            float originalPrice, 
+            String productsDetail, 
+            float salePrice, 
+            int stock, 
+            int status,
+            Date updatedDate) {
+        this.laptopId = laptopId;
         this.title = title;
         this.category = category;
-        this.images = images;
-        this.original_price = original_price;
-        this.product_detail = product_detail;
-        this.sale_price = sale_price;
+        this.image = image;
+        this.mainImage = mainImage;
+        this.originalPrice = originalPrice;
+        this.productsDetail = productsDetail;
+        this.salePrice = salePrice;
+        this.stock = stock;
         this.status = status;
+        this.updatedDate = updatedDate;
     }
 
-    public int getLaptop_id() {
-        return laptop_id;
+    public int getLaptopId() {
+        return laptopId;
     }
 
-    public void setLaptop_id(int laptop_id) {
-        this.laptop_id = laptop_id;
+    public void setLaptopId(int laptopId) {
+        this.laptopId = laptopId;
     }
 
     public String getTitle() {
@@ -48,44 +70,36 @@ public class Laptop {
         this.title = title;
     }
 
-    public String getCategory() {
-        return category;
+    public String getMainImage() {
+        return mainImage;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
     }
 
-    public String getImages() {
-        return images;
+    public float getOriginalPrice() {
+        return originalPrice;
     }
 
-    public void setImages(String images) {
-        this.images = images;
+    public void setOriginalPrice(float originalPrice) {
+        this.originalPrice = originalPrice;
     }
 
-    public float getOriginal_price() {
-        return original_price;
+    public String getProductsDetail() {
+        return productsDetail;
     }
 
-    public void setOriginal_price(float original_price) {
-        this.original_price = original_price;
+    public void setProductsDetail(String productsDetail) {
+        this.productsDetail = productsDetail;
     }
 
-    public String getProduct_detail() {
-        return product_detail;
+    public float getSalePrice() {
+        return salePrice;
     }
 
-    public void setProduct_detail(String product_detail) {
-        this.product_detail = product_detail;
-    }
-
-    public float getSale_price() {
-        return sale_price;
-    }
-
-    public void setSale_price(float sale_price) {
-        this.sale_price = sale_price;
+    public void setSalePrice(float salePrice) {
+        this.salePrice = salePrice;
     }
 
     public int getStatus() {
@@ -95,5 +109,41 @@ public class Laptop {
     public void setStatus(int status) {
         this.status = status;
     }
-        
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public List<Laptop_Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Laptop_Category> category) {
+        this.category = category;
+    }
+
+    public List<Laptop_Image> getImage() {
+        return image;
+    }
+
+    public void setImage(List<Laptop_Image> image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Laptop{" + "laptopId=" + laptopId + ", title=" + title + ", mainImage=" + mainImage + ", originalPrice=" + originalPrice + ", productsDetail=" + productsDetail + ", stock=" + stock + ", salePrice=" + salePrice + ", status=" + status + ", updatedDate=" + updatedDate + '}';
+    }
 }

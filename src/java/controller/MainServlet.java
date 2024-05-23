@@ -33,7 +33,7 @@ public class MainServlet extends HttpServlet {
         //fetch sth sth
         BlogDAO blogList = new BlogDAO();
         request.setAttribute("blogLatestList", blogList.findLatest());
-        
+        System.out.println(blogList.findLatest());
         request.setAttribute("blogFeatured", blogList.findFeatured());
         //
         LaptopDAO laptopList = new LaptopDAO();
