@@ -4,10 +4,6 @@
  */
 package dao;
 
-/**
- *
- * @author ASUS
- */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,10 +11,44 @@ import java.util.List;
 import model.Blog;
 
 /**
- * BlogDAO to handle database operations for Blog entities.
+ *
+ * @author M7510
  */
 public class BlogDAO extends EntityDAO {
 
+    //for now, if changes are needed, fix this
+    public List<Blog> findLatest() {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String strSelect = "SELECT * FROM Blog ORDER BY updated_date";
+            stm = connection.prepareStatement(strSelect);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Blog blog = (Blog) this.createEntity(rs);
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return blogs;
+    }
+    
+    public Blog getByID(String id) {
+        Blog blog = null;
+        try {
+            String strSelect = "SELECT * FROM Blog WHERE ID = ?";
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                blog = (Blog) this.createEntity(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return blog;
+    }
+    
     public List<Blog> getAll() {
         List<Blog> blogs = new ArrayList<>();
 
@@ -27,15 +57,7 @@ public class BlogDAO extends EntityDAO {
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
-                Blog blog = new Blog(
-                        rs.getInt("blog_id"),
-                        rs.getString("thumbnail"),
-                        rs.getString("title"),
-                        rs.getDate("updated_date"),
-                        rs.getString("category"),
-                        rs.getString("blog_content"),
-                        rs.getInt("user_id")
-                );
+                Blog blog = (Blog)this.createEntity(rs);
                 blogs.add(blog);
             }
         } catch (SQLException e) {
@@ -55,33 +77,34 @@ public class BlogDAO extends EntityDAO {
         return blogs;
     }
 
-    @Override
-    public Object createEntity(ResultSet rs) throws SQLException {
-        return new Blog(
-                rs.getInt("blog_id"),
-                rs.getString("thumbnail"),
-                rs.getString("title"),
-                rs.getDate("updated_date"),
-                rs.getString("category"),
-                rs.getString("blog_content"),
-                rs.getInt("user_id")
-        );
-    }
-
-    public Blog getByID(String id) {
-        Blog blog = null;
+    public List<Blog> findFeatured() {
+        List<Blog> blogs = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Blog WHERE ID = ?";
+            String strSelect = "SELECT * FROM Blog WHERE is_featured = 1";
             stm = connection.prepareStatement(strSelect);
-            stm.setString(1, id);
             rs = stm.executeQuery();
-            if (rs.next()) {
-                blog = (Blog) this.createEntity(rs);
+            while (rs.next()) {
+                Blog blog = (Blog) this.createEntity(rs);
+                blogs.add(blog);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return blog;
+        return blogs;
     }
 
+    @Override
+    public Object createEntity(ResultSet rs) throws SQLException {
+        Blog_CategoryDAO blog_cat = new Blog_CategoryDAO();
+        return new Blog(
+                rs.getInt("blog_id"),
+                rs.getString("thumbnail"),
+                rs.getString("title"),
+                blog_cat.findById(rs.getInt("blog_id")),
+                rs.getTimestamp("updated_date"),
+                rs.getString("blog_content"),
+                rs.getInt("is_featured"),
+                rs.getInt("user_id")
+        );
+    }
 }

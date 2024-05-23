@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author ASUS
  */
-public class BlogDetails extends HttpServlet {
+public class BlogList extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,12 +30,9 @@ public class BlogDetails extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("id");
-        BlogDAO blogDAO = new BlogDAO();
-        request.setAttribute("blog", blogDAO.getByID(id));
-        request.getRequestDispatcher("single-post.jsp").forward(request, response);
+            BlogDAO dao = new BlogDAO();
+            request.setAttribute("BlogsList", dao.getAll());
+            request.getRequestDispatcher("blog.jsp").forward(request, response);
         }
     } 
 

@@ -16,5 +16,6 @@ import java.sql.SQLException;
 public abstract class EntityDAO extends DBContext{
     public PreparedStatement stm;
     public ResultSet rs;
+    
     public abstract Object createEntity(ResultSet rs) throws SQLException;
 }

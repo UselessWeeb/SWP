@@ -2,17 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dal;
-
-import dao.BlogDAO;
+package dao;
 
 /**
  *
- * @author ASUS
+ * @author M7510
  */
-public class test {
+public class testing {
     public static void main(String[] args) {
-        BlogDAO b = new BlogDAO();
-        System.out.println(b.getAll());
+        LaptopDAO laptop = new LaptopDAO();
+        System.out.println(laptop.findByPage(0,12, "", ""));
     }
 }

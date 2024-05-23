@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-    <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
     <head>
         <title>ShopLite - Simple eCommerce Website Template</title>
@@ -140,21 +138,70 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="row post-contents">
-                            <c:set var="list" value = "${requestScope.BlogsList}"/>
-                            <c:forEach var="blog" items="${list}">
-                                <div class="col-lg-4 col-md-6 posts mb-4">
-                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">${blog.category}</a>
-                                    <img src="images/${blog.thumbnail}" alt="post image" class="img-fluid">
-                                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
-                                        <a href="single-post.jsp?id=${blog.blogId}">${blog.title}</a>
-                                    </h4>
-                                    <p class="mb-2">${blog.blogContent}</p>
-                                    <a class="text-decoration-underline" href="single-post.jsp?id=${blog.blogId}">Read More</a>
-                                </div>
-                            </c:forEach>
-
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                                <img src="images/post-item1.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
+                                <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
+                                <img src="images/post-item2.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
+                                <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
+                                <img src="images/post-item3.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
+                                <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                                <img src="images/post-item4.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
+                                <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
+                                <img src="images/post-item5.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
+                                <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
+                                <img src="images/post-item6.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
+                                <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
+                                <img src="images/post-item7.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
+                                <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
+                                <img src="images/post-item8.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
+                                <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 posts mb-4">
+                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
+                                <img src="images/post-item9.jpg" alt="post image" class="img-fluid">
+                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
+                                <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
+                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
+                            </div>
                         </div>
                         <nav class="py-5" aria-label="Page navigation">
                             <ul class="pagination justify-content-center gap-4">
@@ -422,34 +469,6 @@
             </div>
         </section>
         <%@include file = "view/footer.jsp" %>
-        <hr>
-        <div id="footer-bottom" class="mb-2">
-            <div class="container">
-                <div class="d-flex flex-wrap justify-content-between">
-                    <div class="ship-and-payment d-flex gap-md-5 flex-wrap">
-                        <div class="shipping d-flex">
-                            <p>We ship with:</p>
-                            <div class="card-wrap ps-2">
-                                <img src="images/dhl.png" alt="visa">
-                                <img src="images/shippingcard.png" alt="mastercard">
-                            </div>
-                        </div>
-                        <div class="payment-method d-flex">
-                            <p>Payment options:</p>
-                            <div class="card-wrap ps-2">
-                                <img src="images/visa.jpg" alt="visa">
-                                <img src="images/mastercard.jpg" alt="mastercard">
-                                <img src="images/paypal.jpg" alt="paypal">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="copyright">
-                        <p>© Copyright 2024 ShopLite. HTML Template by <a href="https://templatesjungle.com/" target="_blank">TemplatesJungle</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <script src="js/jquery-1.11.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

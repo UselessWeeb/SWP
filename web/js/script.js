@@ -126,28 +126,28 @@
         });
 
         var productSwiper = new Swiper(".product-swiper", {
-            spaceBetween: 20,
+            slidesPerView: 1,
             navigation: {
                 nextEl: ".product-slider-button-next",
                 prevEl: ".product-slider-button-prev",
-            },
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                },
-                270: {
-                    slidesPerView: 2,
-                },
-                660: {
-                    slidesPerView: 3,
-                },
-                980: {
-                    slidesPerView: 4,
-                },
-                1500: {
-                    slidesPerView: 5,
-                }
-            },
+            }
+//            breakpoints: {
+//                0: {
+//                    slidesPerView: 1,
+//                },
+//                270: {
+//                    slidesPerView: 2,
+//                },
+//                660: {
+//                    slidesPerView: 3,
+//                },
+//                980: {
+//                    slidesPerView: 4,
+//                },
+//                1500: {
+//                    slidesPerView: 5,
+//                }
+//            },
         });
 
         var testimonialSwiper = new Swiper(".testimonial-swiper", {
@@ -196,5 +196,4 @@
             }, index * 200);
         });
     };
-
 })(jQuery);

@@ -5,8 +5,7 @@
 
 package controller;
 
-import dao.BlogDAO;
-import dao.ProductDAO;
+import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -30,11 +29,13 @@ public class Product extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
             String id = request.getParameter("id");
             System.out.println(id);
-            ProductDAO ProductDAO = new ProductDAO();
+            LaptopDAO ProductDAO = new LaptopDAO();
             request.setAttribute("Product", ProductDAO.getByID(id));
             request.getRequestDispatcher("single-product.jsp").forward(request, response);
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
