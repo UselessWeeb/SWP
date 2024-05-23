@@ -1,5 +1,5 @@
 
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -184,25 +184,26 @@
                 <div class="section-title overflow-hidden mb-4">
                     <h3 class="d-flex align-items-center">Best selling items</h3>
                 </div>
-                <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next product-slider-button-next">
+                <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
                     <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                     <use xlink:href="#alt-arrow-right-outline"></use>
                     </svg>
                 </div>
-                <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev product-slider-button-prev">
+                <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
                     <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                     <use xlink:href="#alt-arrow-left-outline"></use>
                     </svg>
                 </div>
-                <div class="swiper product-swiper">
-                    <div class="swiper-wrapper">
+                
+                <div class="swiper testimonial-swiper">
+                    <div class="swiper-wrapper d-flex">
                         <c:forEach items="${laptopList}" var="laptop">
                             <div class="swiper-slide">
                                 <div class="card position-relative text-center py-4 border rounded-3">
-                                    <img src="${laptop.image}" class="img-fluid" alt="product item">
+                                    <img src="${laptop.mainImage}" class="img-fluid" alt="product item" style="max-height: 350px; width: 100%;">
                                     <h5 class="mt-2"><a href="single-product.html">${laptop.title}</a></h5>
                                     <span class="price text-primary fw-light mb-2">
-                                        <c:if test = "${laptop.salePrice != laptop.originalPrice}">
+                                        <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                             <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
                                             </c:if>
                                         $${laptop.salePrice}
@@ -228,140 +229,6 @@
                 </div>
             </div>
         </section>
-        <section id="items-listing" class="padding-medium">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                        <div class="featured border rounded-3 p-4">
-                            <div class="section-title overflow-hidden mb-4 mt-2">
-                                <h3 class="d-flex flex-column mb-0">Featured</h3>
-                            </div>
-                            <div class="items-lists">
-                                <div class="item d-flex">
-                                    <img src="images/item-image1.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Wireless headset</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$500</span>
-                                    </div>
-                                </div>
-                                <hr class="gray-400">
-                                <div class="item d-flex">
-                                    <img src="images/item-image2.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Iphone x Pro Max</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$820</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="item d-flex">
-                                    <img src="images/item-image3.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Iphone 11 Pro</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$960</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                        <div class="latest-items border rounded-3 p-4">
-                            <div class="section-title overflow-hidden mb-4 mt-2">
-                                <h3 class="d-flex flex-column mb-0">Latest items</h3>
-                            </div>
-                            <div class="items-lists">
-                                <div class="item d-flex">
-                                    <img src="images/item-image4.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Apple airPod</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$450</span>
-                                    </div>
-                                </div>
-                                <hr class="gray-400">
-                                <div class="item d-flex">
-                                    <img src="images/item-image5.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Screen touch watch</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$750</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="item d-flex">
-                                    <img src="images/item-image6.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Digital watch</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$660</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                        <div class="best-reviewed border rounded-3 p-4">
-                            <div class="section-title overflow-hidden mb-4 mt-2">
-                                <h3 class="d-flex flex-column mb-0">Best reviewed</h3>
-                            </div>
-                            <div class="items-lists">
-                                <div class="item d-flex">
-                                    <img src="images/item-image7.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Wireless Joysticks</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$350</span>
-                                    </div>
-                                </div>
-                                <hr class="gray-400">
-                                <div class="item d-flex">
-                                    <img src="images/item-image8.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Apple White AirPod</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$330</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="item d-flex">
-                                    <img src="images/item-image9.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Gimbal stabilizer</a></h5>
-                                        <span class="price text-primary fw-light mb-2">$920</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4 mb-lg-0 col-lg-3">
-                        <div class="on-sale border rounded-3 p-4">
-                            <div class="section-title overflow-hidden mb-4 mt-2">
-                                <h3 class="d-flex flex-column mb-0">On sale</h3>
-                            </div>
-                            <div class="items-lists">
-                                <div class="item d-flex">
-                                    <img src="images/item-image10.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">Iphone 15 pro max</a></h5>
-                                        <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$1666</s> $999</span>
-                                    </div>
-                                </div>
-                                <hr class="gray-400">
-                                <div class="item d-flex">
-                                    <img src="images/item-image11.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">White AirPods</a></h5>
-                                        <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$500</s> $410</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="item d-flex">
-                                    <img src="images/item-image12.jpg" class="img-fluid rounded-3" alt="product item">
-                                    <div class="item-content ms-3">
-                                        <h5 class="mt-2"><a href="single-product.html">CCTV camera</a></h5>
-                                        <span class="price text-primary fw-light mb-2"><s class="fs-5 fw-lighter text-muted">$600</s> $500</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section id="hot-posts" class="padding-large">
             <div class="container">
@@ -374,7 +241,12 @@
                         <c:when test="${not empty bloglists}">
                             <c:forEach items="${bloglists}" var="blog">
                                 <div class="col-md-3 posts mb-4">
-                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">${blog.category}</a>
+                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">
+                                        <c:forEach items = "${category}" var = "blog.category">
+                                            ${category} 
+                                        </c:forEach>
+
+                                    </a>
                                     <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
                                     <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
                                         <a href="single-post.jsp">${blog.title}</a>
