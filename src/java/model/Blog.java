@@ -5,6 +5,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -15,19 +16,19 @@ public class Blog {
     private int blogId;
     private String thumbnail;
     private String title;
+    private List<Blog_Category> category;
     private Date updatedDate;
-    private String category;
     private String blogContent;
     private int isFeatured;
     private int userId;
 
     // Constructor, Getters, and Setters
-    public Blog(int blogId, String thumbnail, String title, java.util.Date updatedDate, String category, String blogContent, int isFeatured, int userId) {
+    public Blog(int blogId, String thumbnail, String title, List<Blog_Category> category, Date updatedDate, String blogContent, int isFeatured, int userId) {
         this.blogId = blogId;
         this.thumbnail = thumbnail;
         this.title = title;
-        this.updatedDate = updatedDate;
         this.category = category;
+        this.updatedDate = updatedDate;
         this.blogContent = blogContent;
         this.isFeatured = isFeatured;
         this.userId = userId;
@@ -59,15 +60,7 @@ public class Blog {
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
+    
     public String getBlogContent() {
         return blogContent;
     }
@@ -100,8 +93,16 @@ public class Blog {
         this.isFeatured = isFeatured;
     }
 
+    public List<Blog_Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Blog_Category> category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
-        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", updatedDate=" + updatedDate + ", category=" + category + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + '}';
+        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", updatedDate=" + updatedDate + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + '}';
     }
 }

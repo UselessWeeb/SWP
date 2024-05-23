@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <%-- 
     Document   : header
     Created on : May 16, 2024, 2:35:25 PM
     Author     : M7510
 --%>
-=======
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
@@ -16,15 +10,7 @@
 <!DOCTYPE html>
 <html>
     <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-=======
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
     <symbol id="search" xmlns="http://www.w3.org/2000/symbolsvg" viewBox="0 0 24 24">
         <path fill="currentColor" fill-rule="evenodd" d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5M1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25" clip-rule="evenodd" />
     </symbol>
@@ -162,15 +148,7 @@
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
                     <div class="offcanvas-header px-4 pb-0">
-<<<<<<< HEAD
-<<<<<<< HEAD
                         <a class="navbar-brand" href="/Base/">
-=======
-                        <a class="navbar-brand" href="index.jsp">
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                        <a class="navbar-brand" href="index.jsp">
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                             <img src="images/main-logo.png" class="logo">
                         </a>
                         <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -178,29 +156,13 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 <a class="nav-link me-4 active" href="/Base/">Home</a>
-=======
-                                <a class="nav-link me-4 active" href="index.jsp">Home</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                <a class="nav-link me-4 active" href="index.jsp">Home</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="about.jsp">About</a>
                             </li>
                             <li class="nav-item">
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 <a class="nav-link me-4" href="productList">Shop</a>
-=======
-                                <a class="nav-link me-4" href="shop.jsp">Shop</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                <a class="nav-link me-4" href="shop.jsp">Shop</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="blog.jsp">Blogs</a>
@@ -212,15 +174,7 @@
                                         <a href="about.jsp" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                         <a href="productList" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
-=======
-                                        <a href="shop.jsp" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                        <a href="shop.jsp" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                                     </li>
                                     <li>
                                         <a href="single-product.jsp" class="dropdown-item fw-light">Single Product <span class="badge bg-primary">Pro</span></a>
@@ -303,40 +257,20 @@
                                                     <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                                                         <div>
                                                             <h5>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                                                 <a href="#">Profile</a>
-=======
-                                                                <a href="editProfile.jsp">Profile</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                                                <a href="userProfile.jsp">Profile</a>
->>>>>>> 895eca9 (Complete function Order List and Edit Profile)
-=======
-                                                                <a href="userProfile.jsp">Profile</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                                                             </h5>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                                                         <div>
                                                             <h5>
-                                                                <a href="displayOrder.jsp">My Order</a>
+                                                                <a href="#">Setting</a>
                                                             </h5>
                                                         </div>
                                                     </li>
                                                 </ul>
                                                 <div class="d-flex flex-wrap justify-content-center">
-<<<<<<< HEAD
-<<<<<<< HEAD
                                                     <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
-=======
-                                                    <a href="index.jsp" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                                    <a href="index.jsp" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                                                 </div>
                                             </div>
                                         </c:otherwise>
