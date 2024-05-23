@@ -30,6 +30,22 @@ public class LaptopDAO extends EntityDAO {
         }
         return laptops;
     }
+    
+     public Laptop getByID(String id) {
+        Laptop product = null;
+        try {
+            String strSelect = "SELECT * FROM Laptop WHERE laptop_id = ?";
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                product = (Laptop) this.createEntity(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return product;
+    }
 
     public List<Laptop> findAll() {
         List<Laptop> laptops = new ArrayList<>();
