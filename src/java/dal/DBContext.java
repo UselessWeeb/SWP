@@ -6,9 +6,7 @@ package dal;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,10 +15,9 @@ import java.util.logging.Logger;
  * @author M7510
  */
 public class DBContext {
-
     public Connection connection;
-
-    public DBContext() {
+    public DBContext()
+    {
         try {
             String user = "sa";
             String pass = "123";
@@ -30,17 +27,5 @@ public class DBContext {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public ResultSet getResultSet(String sql) {
-        ResultSet rs = null;
-        Statement state;
-        try {
-            state = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rs = state.executeQuery(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rs;
     }
 }

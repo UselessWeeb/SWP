@@ -15,33 +15,40 @@ public class Blog {
     private int blogId;
     private String thumbnail;
     private String title;
-    private Date updatedDate;
+    private java.util.Date updatedDate;
     private String category;
     private String blogContent;
-    private int isFeatured;
     private int userId;
 
-    // Constructor, Getters, and Setters
-    public Blog(int blogId, String thumbnail, String title, java.util.Date updatedDate, String category, String blogContent, int isFeatured, int userId) {
+    // Constructor
+    public Blog() {
+    }
+
+    public Blog(int blogId, String thumbnail, String title, Date updatedDate, String category, String blogContent, int userId) {
         this.blogId = blogId;
         this.thumbnail = thumbnail;
         this.title = title;
         this.updatedDate = updatedDate;
         this.category = category;
         this.blogContent = blogContent;
-        this.isFeatured = isFeatured;
         this.userId = userId;
     }
 
-    public Blog() {
-    }
-
+    // Getters and Setters
     public int getBlogId() {
         return blogId;
     }
 
     public void setBlogId(int blogId) {
         this.blogId = blogId;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getTitle() {
@@ -52,11 +59,11 @@ public class Blog {
         this.title = title;
     }
 
-    public Date getUpdatedDate() {
+    public java.util.Date getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
+    public void setUpdatedDate(java.util.Date updatedDate) {
         this.updatedDate = updatedDate;
     }
 
@@ -84,24 +91,8 @@ public class Blog {
         this.userId = userId;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public int getIsFeatured() {
-        return isFeatured;
-    }
-
-    public void setIsFeatured(int isFeatured) {
-        this.isFeatured = isFeatured;
-    }
-
     @Override
     public String toString() {
-        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", updatedDate=" + updatedDate + ", category=" + category + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + '}';
+        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", updatedDate=" + updatedDate + ", category=" + category + ", blogContent=" + blogContent + ", userId=" + userId + '}';
     }
 }

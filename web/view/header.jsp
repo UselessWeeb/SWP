@@ -1,30 +1,14 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <%-- 
     Document   : header
     Created on : May 16, 2024, 2:35:25 PM
     Author     : M7510
 --%>
-=======
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-=======
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
     <symbol id="search" xmlns="http://www.w3.org/2000/symbolsvg" viewBox="0 0 24 24">
         <path fill="currentColor" fill-rule="evenodd" d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5M1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25" clip-rule="evenodd" />
     </symbol>
@@ -129,6 +113,7 @@
                     <a href="#" title="Memory Cards">Memory Cards</a>
                 </li>
             </ul>
+
         </div>
     </div>
 
@@ -162,15 +147,7 @@
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
                     <div class="offcanvas-header px-4 pb-0">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        <a class="navbar-brand" href="/Base/">
-=======
                         <a class="navbar-brand" href="index.jsp">
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                        <a class="navbar-brand" href="index.jsp">
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                             <img src="images/main-logo.png" class="logo">
                         </a>
                         <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -178,29 +155,13 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                <a class="nav-link me-4 active" href="/Base/">Home</a>
-=======
                                 <a class="nav-link me-4 active" href="index.jsp">Home</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                <a class="nav-link me-4 active" href="index.jsp">Home</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="about.jsp">About</a>
                             </li>
                             <li class="nav-item">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                <a class="nav-link me-4" href="productList">Shop</a>
-=======
                                 <a class="nav-link me-4" href="shop.jsp">Shop</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                <a class="nav-link me-4" href="shop.jsp">Shop</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="blog.jsp">Blogs</a>
@@ -212,15 +173,7 @@
                                         <a href="about.jsp" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
                                     </li>
                                     <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                        <a href="productList" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
-=======
                                         <a href="shop.jsp" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                        <a href="shop.jsp" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
                                     </li>
                                     <li>
                                         <a href="single-product.jsp" class="dropdown-item fw-light">Single Product <span class="badge bg-primary">Pro</span></a>
@@ -245,6 +198,9 @@
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="contact.jsp">Contact</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-decoration-underline me-4" href="https://templatesjungle.gumroad.com/l/shoplite-simple-ecommerce-bootstrap-html-css-website-template" target="_blank">Get Pro</a>
+                            </li>
                         </ul>
                         <div class="user-items d-flex">
                             <ul class="d-flex justify-content-end list-unstyled mb-0">
@@ -255,196 +211,127 @@
                                         </svg>
                                     </a>
                                 </li>
-                                <li class="wishlist-dropdown dropdown pe-3">
-                                    <c:set var = "user" value = "${sessionScope.user}"/>
-                                    <c:choose>
-                                        <c:when test="${empty user}">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                <svg class="user">
-                                                <use xlink:href="#user"></use>
-                                                </svg>
-                                            </a>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header border-bottom-0">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="tabs-listing">
-                                                                <nav>
-                                                                    <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-                                                                        <button class="nav-link text-uppercase active" id="nav-sign-in-tab" data-bs-toggle="tab" data-bs-target="#nav-sign-in" type="button" role="tab" aria-controls="nav-sign-in" aria-selected="true">Sign In</button>
-                                                                        <button class="nav-link text-uppercase" id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">Register</button>
-                                                                    </div>
-                                                                </nav>
-                                                                <div class="tab-content" id="nav-tabContent">
-                                                                    <%@include file = "login.jsp" %>
-                                                                    <%@include file = "register.jsp" %>
-                                                                </div>
+                                <li class="pe-3">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <svg class="user">
+                                        <use xlink:href="#user"></use>
+                                        </svg>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header border-bottom-0">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="tabs-listing">
+                                                        <nav>
+                                                            <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+                                                                <button class="nav-link text-uppercase active" id="nav-sign-in-tab" data-bs-toggle="tab" data-bs-target="#nav-sign-in" type="button" role="tab" aria-controls="nav-sign-in" aria-selected="true">Sign In</button>
+                                                                <button class="nav-link text-uppercase" id="nav-register-tab" data-bs-toggle="tab" data-bs-target="#nav-register" type="button" role="tab" aria-controls="nav-register" aria-selected="false">Register</button>
                                                             </div>
+                                                        </nav>
+                                                        <div class="tab-content" id="nav-tabContent">
+                                                            <%@include file = "login.jsp" %>
+                                                            <%@include file = "register.jsp" %>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                                <svg class="user">
-                                                <use xlink:href="#user"></use>
-                                                </svg>
-                                            </a>
-                                            <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
-                                                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                                    <span class="text-primary">${user.fullName}</span>
-                                                </h4>
-                                                <ul class="list-group mb-3">
-                                                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                        <div>
-                                                            <h5>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                                                <a href="#">Profile</a>
-=======
-                                                                <a href="editProfile.jsp">Profile</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                                                <a href="userProfile.jsp">Profile</a>
->>>>>>> 895eca9 (Complete function Order List and Edit Profile)
-=======
-                                                                <a href="userProfile.jsp">Profile</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
-                                                            </h5>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                        <div>
-                                                            <h5>
-                                                                <a href="displayOrder.jsp">My Order</a>
-                                                            </h5>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <div class="d-flex flex-wrap justify-content-center">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                                    <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
-=======
-                                                    <a href="index.jsp" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
->>>>>>> f8475dc (Update frontend for UserProfile)
-=======
-                                                    <a href="index.jsp" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
-                                                </div>
-                                            </div>
-                                        </c:otherwise>
-                                    </c:choose>
+                                        </div>
+                                    </div>
                                 </li>
-                                <c:if test="${not empty user}">
-                                    <li class="wishlist-dropdown dropdown pe-3">
-                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
-                                            </svg>
-                                        </a>
-                                        <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
-                                            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                                <span class="text-primary">Your wishlist</span>
-                                                <span class="badge bg-primary rounded-pill">2</span>
-                                            </h4>
-                                            <ul class="list-group mb-3">
-                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                    <div>
-                                                        <h5>
-                                                            <a href="single-product.jsp">Iphone 15 pro max</a>
-                                                        </h5>
-                                                        <small>Special discounted price.</small>
-                                                        <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
-                                                    </div>
-                                                    <span class="text-primary">$2000</span>
-                                                </li>
-                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                    <div>
-                                                        <h5>
-                                                            <a href="single-product.jsp">Apple Watch (2nd Gen)</a>
-                                                        </h5>
-                                                        <small>Professional apple watch.</small>
-                                                        <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
-                                                    </div>
-                                                    <span class="text-primary">$400</span>
-                                                </li>
-                                                <li class="list-group-item bg-transparent d-flex justify-content-between">
-                                                    <span class="text-uppercase"><b>Total (USD)</b></span>
-                                                    <strong>$1470</strong>
-                                                </li>
-                                            </ul>
-                                            <div class="d-flex flex-wrap justify-content-center">
-                                                <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Add all to cart</a>
-                                                <a href="cart.jsp" class="w-100 btn btn-primary" type="submit">View cart</a>
-                                            </div>
+                                <li class="wishlist-dropdown dropdown pe-3">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                        <svg class="wishlist">
+                                        <use xlink:href="#heart"></use>
+                                        </svg>
+                                    </a>
+                                    <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
+                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-primary">Your wishlist</span>
+                                            <span class="badge bg-primary rounded-pill">2</span>
+                                        </h4>
+                                        <ul class="list-group mb-3">
+                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                <div>
+                                                    <h5>
+                                                        <a href="single-product.jsp">Iphone 15 pro max</a>
+                                                    </h5>
+                                                    <small>Special discounted price.</small>
+                                                    <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
+                                                </div>
+                                                <span class="text-primary">$2000</span>
+                                            </li>
+                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                <div>
+                                                    <h5>
+                                                        <a href="single-product.jsp">Apple Watch (2nd Gen)</a>
+                                                    </h5>
+                                                    <small>Professional apple watch.</small>
+                                                    <a href="#" class="d-block fw-medium text-capitalize mt-2">Add to cart</a>
+                                                </div>
+                                                <span class="text-primary">$400</span>
+                                            </li>
+                                            <li class="list-group-item bg-transparent d-flex justify-content-between">
+                                                <span class="text-uppercase"><b>Total (USD)</b></span>
+                                                <strong>$1470</strong>
+                                            </li>
+                                        </ul>
+                                        <div class="d-flex flex-wrap justify-content-center">
+                                            <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Add all to cart</a>
+                                            <a href="cart.jsp" class="w-100 btn btn-primary" type="submit">View cart</a>
                                         </div>
-                                    </li>
-                                    <li class="cart-dropdown dropdown">
-                                        <a href="cart.jsp" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                            <svg class="cart">
-                                            <use xlink:href="#cart"></use>
-                                            </svg><span class="fs-6 fw-light">(02)</span>
-                                        </a>
-                                        <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
-                                            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                                <span class="text-primary">Your cart</span>
-                                                <span class="badge bg-primary rounded-pill">2</span>
-                                            </h4>
-                                            <ul class="list-group mb-3">
-                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                    <div>
-                                                        <h5>
-                                                            <a href="single-product.jsp">IPad (9th Gen)</a>
-                                                        </h5>
-                                                        <small>High quality in good price.</small>
-                                                    </div>
-                                                    <span class="text-primary">$870</span>
-                                                </li>
-                                                <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
-                                                    <div>
-                                                        <h5>
-                                                            <a href="single-product.jsp">Drone with camera</a>
-                                                        </h5>
-                                                        <small>Professional drone with camera.</small>
-                                                    </div>
-                                                    <span class="text-primary">$600</span>
-                                                </li>
-                                                <li class="list-group-item bg-transparent d-flex justify-content-between">
-                                                    <span class="text-uppercase"><b>Total (USD)</b></span>
-                                                    <strong>$1470</strong>
-                                                </li>
-                                            </ul>
-                                            <div class="d-flex flex-wrap justify-content-center">
-                                                <a href="cart.jsp" class="w-100 btn btn-dark mb-1" type="submit">View Cart</a>
-                                                <a href="checkout.jsp" class="w-100 btn btn-primary" type="submit">Go to checkout</a>
-                                            </div>
+                                    </div>
+                                </li>
+                                <li class="cart-dropdown dropdown">
+                                    <a href="cart.jsp" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                        <svg class="cart">
+                                        <use xlink:href="#cart"></use>
+                                        </svg><span class="fs-6 fw-light">(02)</span>
+                                    </a>
+                                    <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
+                                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-primary">Your cart</span>
+                                            <span class="badge bg-primary rounded-pill">2</span>
+                                        </h4>
+                                        <ul class="list-group mb-3">
+                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                <div>
+                                                    <h5>
+                                                        <a href="single-product.jsp">IPad (9th Gen)</a>
+                                                    </h5>
+                                                    <small>High quality in good price.</small>
+                                                </div>
+                                                <span class="text-primary">$870</span>
+                                            </li>
+                                            <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
+                                                <div>
+                                                    <h5>
+                                                        <a href="single-product.jsp">Drone with camera</a>
+                                                    </h5>
+                                                    <small>Professional drone with camera.</small>
+                                                </div>
+                                                <span class="text-primary">$600</span>
+                                            </li>
+                                            <li class="list-group-item bg-transparent d-flex justify-content-between">
+                                                <span class="text-uppercase"><b>Total (USD)</b></span>
+                                                <strong>$1470</strong>
+                                            </li>
+                                        </ul>
+                                        <div class="d-flex flex-wrap justify-content-center">
+                                            <a href="cart.jsp" class="w-100 btn btn-dark mb-1" type="submit">View Cart</a>
+                                            <a href="checkout.jsp" class="w-100 btn btn-primary" type="submit">Go to checkout</a>
                                         </div>
-                                    </li>
-                                </c:if>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
-        <c:if test = "${user.state == 'unvertified'}">
-            <div class="top-info border-bottom d-none d-md-block bg-danger">
-                <div class="container-fluid">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <p class="fs-6 my-2 text-center text-white">Your account is unverified, please confirm your email</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:if>
     </header>
 </body>
 </html>

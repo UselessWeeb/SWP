@@ -126,29 +126,28 @@
         });
 
         var productSwiper = new Swiper(".product-swiper", {
-<<<<<<< HEAD
-            slidesPerView: 1,
+            spaceBetween: 20,
             navigation: {
                 nextEl: ".product-slider-button-next",
                 prevEl: ".product-slider-button-prev",
-            }
-//            breakpoints: {
-//                0: {
-//                    slidesPerView: 1,
-//                },
-//                270: {
-//                    slidesPerView: 2,
-//                },
-//                660: {
-//                    slidesPerView: 3,
-//                },
-//                980: {
-//                    slidesPerView: 4,
-//                },
-//                1500: {
-//                    slidesPerView: 5,
-//                }
-//            },
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                270: {
+                    slidesPerView: 2,
+                },
+                660: {
+                    slidesPerView: 3,
+                },
+                980: {
+                    slidesPerView: 4,
+                },
+                1500: {
+                    slidesPerView: 5,
+                }
+            },
         });
 
         var testimonialSwiper = new Swiper(".testimonial-swiper", {
@@ -197,8 +196,5 @@
             }, index * 200);
         });
     };
-<<<<<<< HEAD
-=======
 
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
 })(jQuery);

@@ -40,22 +40,17 @@ public class BlogDAO extends EntityDAO {
             }
         } catch (SQLException e) {
             System.out.println(e);
-        }
-        return blogs;
-    }
-
-    public List<Blog> findFeatured() {
-        List<Blog> blogs = new ArrayList<>();
-        try {
-            String strSelect = "SELECT * FROM Blog WHERE is_featured = 1";
-            stm = connection.prepareStatement(strSelect);
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                Blog blog = (Blog) this.createEntity(rs);
-                blogs.add(blog);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
             }
-        } catch (SQLException e) {
-            System.out.println(e);
         }
         return blogs;
     }

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # Created by https://www.toptal.com/developers/gitignore/api/netbeans,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=netbeans,java
 
@@ -22,15 +20,7 @@ nb-configuration.xml
 *.log
 
 # Package Files #
-*.war
 *.jar
+*.war
 
 *.ear
-=======
-/dist/
-/build/
->>>>>>> f184d37 (Use Profile Function)
-=======
-/dist/
-/build/
->>>>>>> ca7366867f7578dad7e9bab6c27a7c2997e50b16
