@@ -45,7 +45,7 @@
             </h3>
             <table class="table table-striped mt-5">
                 <thead class="bg-primary text-white">
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">Order ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     <c:forEach items= "${orderList}" var = "order">
-                        <tr>
+                        <tr class="text-center">
                             <td>${order.order_id}</td>
                             <td>${user.fullName}</td>
                             <td>${user.email}</td>
@@ -66,22 +66,22 @@
                             <td 
                                 <c:choose>
                                     <c:when test = "${order.status == 1}">
-                                        class="text-warning text-center">Wait
+                                        <span class="text-warning text-center">Wait</span>
                                     </c:when>
                                     <c:when test = "${order.status == 2}">
-                                        class="text-primary text-center">Process
+                                        <span class="text-primary text-center">Process</span>
                                     </c:when>
                                     <c:when test = "${order.status == 3}">
-                                        class="text-success text-center">Done
+                                        <span class="text-success text-center">Done</span>
                                     </c:when>
                                     <c:otherwise>
-                                        class="text-danger text-center">Canceled
+                                        <span class="text-danger text-center">Canceled</span>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td class="row">
-                                <a class="col-md-6 btn btn-sm btn-primary" href="orderdetail.jsp?id=${order.order_id}" class="btn btn-sm btn-primary">Detail</a>
-                                <a class="col-md-6 btn btn-sm btn-danger" href="status?id=${order.order_id}&&status=4 " class="btn btn-sm btn-primary">Cancel</a>
+                            <td class="d-flex justify-content-center gap-1">
+                                <a class="btn btn-xs btn-primary" href="orderdetail.jsp?id=${order.order_id}">Detail</a>
+                                <a class="btn btn-xs btn-danger" href="status?id=${order.order_id}&&status=4 ">Cancel</a>
                             </td>
                         </tr>
                     </c:forEach>

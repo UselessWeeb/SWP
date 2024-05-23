@@ -125,4 +125,5 @@ public class User {
                 + ", password=" + password + ", state=" + state + ", roleId=" 
                 + roleId + '}';
     }
+
 }

@@ -42,7 +42,7 @@ public class OrderDAO extends EntityDAO {
                 vector.add(order);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vector;
     }

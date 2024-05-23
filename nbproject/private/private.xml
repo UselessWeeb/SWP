@@ -12,9 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/src/java/controller/ChangePasswordServlet.java</file>
-            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/web/changePassword.jsp</file>
+            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/src/java/controller/UserProfileServlet.java</file>
             <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/src/java/dao/UserDAO.java</file>
+            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/web/changePassword.jsp</file>
+            <file>file:/W:/FPT%20University/Summer24/SWP391/Project/Base/web/userProfile.jsp</file>
         </group>
     </open-files>
 </project-private>

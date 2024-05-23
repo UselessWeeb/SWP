@@ -55,7 +55,7 @@ public class ChangePasswordServlet extends HttpServlet {
                     session.setAttribute("failedMsg", "New passwords do not match!");
                     response.sendRedirect("changePassword.jsp");
                 }
-                if (newPassword.length() <= 6) {
+                if (newPassword.length() <= 5) {
                     session.setAttribute("failedMsg", "Password must be more than 6 characters!");
                     response.sendRedirect("changePassword.jsp");
                 }

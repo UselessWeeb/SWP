@@ -34,10 +34,17 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="text-center text-primary">Edit Profile</h4>
-                            <form action="userProfile" method="POST">
+                            <c:if test="${not empty success}">
+                                <p class="text-center text-success">${success}</p>
+                                <c:remove var="successMsg" scope="session"/>
+                            </c:if>
+                            <c:if test="${not empty error }">
+                                <p class="text-center text-danger">${error}</p>
+                                <c:remove var="failedMsg" scope="session"/>
+                            </c:if>
+                            <form action="userProfile" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">
-                                        Email</label>
+                                    <label for="exampleInputEmail1"><b><u>Email</u></b></label>
                                     <input readonly="readonly" type="email" class="form-control" 
                                            id="exampleInputEmail1" 
                                            aria-describedby="emailHelp"
@@ -46,8 +53,7 @@
                                            value="${user.email}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">
-                                        Your Name</label>
+                                    <label for="exampleInputEmail1"><b><u>Your Name</u></b></label>
                                     <input type="text" class="form-control" 
                                            id="exampleInputEmail1" 
                                            aria-describedby="emailHelp"
@@ -56,14 +62,13 @@
                                            value="${user.fullName}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="gender">Gender:</label><br>
+                                    <label for="gender"><b><u>Gender:</u></b></label><br>
                                     <input type="radio" id="male" name="sex" value="Male" ${user.gender == 'Male' ? 'checked' : ''}> Male
                                     <input type="radio" id="female" name="sex" value="Female" ${user.gender == 'Female' ? 'checked' : ''}> Female
                                     <input type="radio" id="other" name="sex" value="Other" ${user.gender == 'Other' ? 'checked' : ''}> Other
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">
-                                        Address</label>
+                                    <label for="exampleInputPassword1"><b><u>Address</u></b></label>
                                     <input type="text" class="form-control" 
                                            id="exampleInputPassword1" 
                                            aria-describedby="emailHelp"
@@ -72,8 +77,7 @@
                                            value="${user.address}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">
-                                        Phone Number</label>
+                                    <label for="exampleInputEmail1"><b><u>Phone Number</u></b></label>
                                     <input type="text" class="form-control" 
                                            id="exampleInputEmail1" 
                                            aria-describedby="emailHelp"
@@ -82,9 +86,6 @@
                                            value="${user.phoneNumber}">
                                 </div>
                                 <input type="hidden" name="id" value="${user.userId}">
-                                <input type="hidden" name="state" value="${user.state}">
-                                <input type="hidden" name="role" value="${user.roleId}">
-                                
                                 <br>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary btn-sm btn-block">
@@ -96,11 +97,16 @@
                     </div>
                 </div>
                 <div class="col-md-6 d-flex align-items-center">
-                    <form action="editProfile.jsp" method="post" enctype="multipart/form-data">
+                    <form action="userProfile" method="POST" enctype="multipart/form-data">
                         <div class="card">
                             <div class="card-body">
-                                <img src="${user.avatar}" alt="${user.fullName}"><br>
-                                <input type="file" id="image" name="img" accept=".jpeg, .png">
+                                <input type="hidden" name="id" value="${user.userId}">
+                                <input type="hidden" name="fname" value="${user.fullName}">
+                                <input type="hidden" name="sex" value="${user.gender}">
+                                <input type="hidden" name="loca" value="${user.address}">                                
+                                <input type="hidden" name="phone" value="${user.phoneNumber}">
+                                <img src="${user.avatar}" alt="${user.fullName}" style="max-width: 100%; height: auto;"><br>
+                                <input type="file" id="image" name="img" accept=".jpeg, .png, .jpg">
                                 <div class="save-button">
                                     <button type="submit">Save</button>
                                 </div>  
