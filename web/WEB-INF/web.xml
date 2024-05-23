@@ -13,31 +13,23 @@
         <servlet-class>controller.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Main</servlet-name>
+        <servlet-name>MainServlet</servlet-name>
         <servlet-class>controller.MainServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MyOrderServlet</servlet-name>
-        <servlet-class>controller.MyOrderServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangePasswordServlet</servlet-name>
-        <servlet-class>controller.ChangePasswordServlet</servlet-class>
+        <servlet-name>ProductListServlet</servlet-name>
+        <servlet-class>controller.ProductListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Main</servlet-name>
+        <servlet-name>MainServlet</servlet-name>
         <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MyOrderServlet</servlet-name>
-        <url-pattern>/myorder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangePasswordServlet</servlet-name>
-        <url-pattern>/changepassword</url-pattern>
+        <servlet-name>ProductListServlet</servlet-name>
+        <url-pattern>/productList</url-pattern>
     </servlet-mapping>
 </web-app>
