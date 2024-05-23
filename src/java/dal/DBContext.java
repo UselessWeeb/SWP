@@ -15,10 +15,9 @@ import java.util.logging.Logger;
  * @author M7510
  */
 public class DBContext {
-
-    public Connection connection;
-
-    public DBContext() {
+    protected Connection connection;
+    public DBContext()
+    {
         try {
             String user = "sa";
             String pass = "1234";

@@ -9,7 +9,6 @@ package model;
  * @author vudai
  */
 public class User {
-
     private int userId;
     private String avatar;
     private String fullName;
@@ -22,9 +21,7 @@ public class User {
     private int roleId;
 
     // Constructor, Getters, and Setters
-    public User(int userId, String avatar, String fullName, String gender, 
-            String address, String email, String phoneNumber, String password, 
-            String state, int roleId) {
+    public User(int userId, String avatar, String fullName, String gender, String address, String email, String phoneNumber, String password, String state, int roleId) {
         this.userId = userId;
         this.avatar = avatar;
         this.fullName = fullName;
@@ -122,10 +119,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "userId=" + userId + ", avatar=" + avatar 
-                + ", fullName=" + fullName + ", gender=" + gender + ", address=" 
-                + address + ", email=" + email + ", phoneNumber=" + phoneNumber 
-                + ", password=" + password + ", state=" + state + ", roleId=" 
-                + roleId + '}';
+        return "User{" + "userId=" + userId + ", avatar=" + avatar + ", fullName=" + fullName + ", gender=" + gender + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password=" + password + ", state=" + state + ", roleId=" + roleId + '}';
     }
 }
