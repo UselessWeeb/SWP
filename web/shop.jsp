@@ -146,7 +146,6 @@
                                     </c:if>
                                 </ul>
                             </nav>
-                        </div>
                     </main>
                     <aside class="col-md-3">
                         <div class="sidebar ps-lg-5">
