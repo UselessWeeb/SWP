@@ -32,6 +32,50 @@ public class BlogDAO extends EntityDAO {
         }
         return blogs;
     }
+    
+    public Blog getByID(String id) {
+        Blog blog = null;
+        try {
+            String strSelect = "SELECT * FROM Blog WHERE ID = ?";
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, id);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                blog = (Blog) this.createEntity(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return blog;
+    }
+    
+    public List<Blog> getAll() {
+        List<Blog> blogs = new ArrayList<>();
+
+        try {
+            String strSelect = "SELECT * FROM Blog";
+            stm = connection.prepareStatement(strSelect);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Blog blog = (Blog)this.createEntity(rs);
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return blogs;
+    }
 
     public List<Blog> findFeatured() {
         List<Blog> blogs = new ArrayList<>();
