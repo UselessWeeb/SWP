@@ -4,14 +4,26 @@
  */
 package service;
 
+import jakarta.servlet.annotation.WebServlet;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.*;
+import model.Role.*;
+import model.User;
+import org.reflections.Reflections;
+import static service.URLfilter.minimizeUrl;
+
 /**
  *
  * @author M7510
  */
 public class RoleAuthorization {
-        public static HashMap<String, List<Type>> currentMapping = new HashMap();
 
-    public RoleAndRequestMapper() {
+    public static HashMap<String, List<Type>> currentMapping = new HashMap();
+
+    public RoleAuthorization() {
         Reflections reflections = new Reflections();
 
         Set<Class<?>> servletClazzes = reflections.getTypesAnnotatedWith(AccessRole.class);
@@ -33,6 +45,7 @@ public class RoleAuthorization {
         }
     }
 
+    //if no annotation, use this to registed manually
     public void register(String url, List<Type> roles) {
         Logger.getLogger(this.getClass().getSimpleName()).info("Register: " + url);
         currentMapping.put(url, roles);
@@ -40,42 +53,42 @@ public class RoleAuthorization {
 
     public boolean isAllowAnyOneToAccess(String url) {
         List<Type> allowedType = currentMapping.get(minimizeUrl(url));
-        String key = "";
         if (allowedType == null || allowedType.isEmpty()) {
-            
-            //http://localhost:8080/onlinelearn/about.html
-            
-             key = url.replace("http://localhost:8084/SWP-home/", "http://localhost:8084/SWP-home/home");
-            
-            if (key == null || key.isEmpty()) return true;
-            
-            if (key.contains("?")) key = key.substring(0, key.indexOf("?"));
-            
-            Logger.getLogger(this.getClass().getSimpleName()).info("Checking: " + key + ": " + currentMapping.get(key));
-            allowedType = currentMapping.get(key);
+
+            if (url == null || url.isEmpty()) {
+                return true;
+            }
+
+            if (url.contains("?")) {
+                url = url.substring(0, url.indexOf("?"));
+            }
+
+            Logger.getLogger(this.getClass().getSimpleName()).info("Checking: " + url + ": " + currentMapping.get(url));
+            allowedType = currentMapping.get(url);
         }
-        
-        boolean result = allowedType == null  || allowedType.equals("null")|| allowedType.isEmpty();
-        Logger.getLogger(this.getClass().getSimpleName()).info("Checking aaa: " + " key: " + key + "Url :" +url+ " :" + result);
+
+        boolean result = allowedType == null || allowedType.equals("null") || allowedType.isEmpty();
+        Logger.getLogger(this.getClass().getSimpleName()).info("Checking Url :" + url + " :" + result);
         return result;
     }
 
-    public boolean isAllowToAccess(Account account, String url) {
+    public boolean isAllowToAccess(User user, String url) {
         if (isAllowAnyOneToAccess(url)) {
             List<Type> allowedType = currentMapping.get(minimizeUrl(url));
             if (allowedType == null || allowedType.isEmpty()) {
-                String key = url.replace("http://localhost:8084/SWP-home/home", "");
-            if (key == null || key.isEmpty()) return true;
-                Logger.getLogger(this.getClass().getSimpleName()).info("Checking: " + key);
-                if (key.indexOf("?") >= 0) {
-                    key = key.substring(0, key.indexOf("?"));
+                if (url == null || url.isEmpty()) {
+                    return true;
                 }
-                allowedType = currentMapping.get(key);
+                Logger.getLogger(this.getClass().getSimpleName()).info("Checking: " + url);
+                if (url.indexOf("?") >= 0) {
+                    url = url.substring(0, url.indexOf("?"));
+                }
+                allowedType = currentMapping.get(url);
             }
         }
         List<Type> allowedType = currentMapping.get(minimizeUrl(url));
         for (Type type : allowedType) {
-            if (type == getRoleTypeById(account.getRole().getRole_id())) {
+            if (type == getRoleTypeById(user.getRole().getRole_id())) {
                 return true;
             }
         }
@@ -88,13 +101,15 @@ public class RoleAuthorization {
             case 1:
                 return Type.admin;
             case 2:
-                return Type.customer;
+                return Type.sale_manager; // Adjusted role name
             case 3:
-                return Type.expert;
+                return Type.marketing_manager; // Adjusted role name
             case 4:
-                return Type.sale;
+                return Type.marketing; // Adjusted role name
             case 5:
-                return Type.marketing;
+                return Type.sale; // Adjusted role name
+            case 6:
+                return Type.customer; // Adjusted role name
             default:
                 throw new RuntimeException("Invalid role id, roleId = " + roleId);
         }

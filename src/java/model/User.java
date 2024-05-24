@@ -18,10 +18,12 @@ public class User {
     private String phoneNumber;
     private String password;
     private String state;
-    private int roleId;
+    private int role_id;
+    
+    private Role role;
 
     // Constructor, Getters, and Setters
-    public User(int userId, String avatar, String fullName, String gender, String address, String email, String phoneNumber, String password, String state, int roleId) {
+    public User(int userId, String avatar, String fullName, String gender, String address, String email, String phoneNumber, String password, String state, Role role) {
         this.userId = userId;
         this.avatar = avatar;
         this.fullName = fullName;
@@ -31,7 +33,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.state = state;
-        this.roleId = roleId;
+        this.role = role;
     }
 
     public User() {
@@ -93,6 +95,14 @@ public class User {
         this.password = password;
     }
 
+    public int getRoleId() {
+        return role_id;
+    }
+
+    public void setRoleId(int role_id) {
+        this.role_id = role_id;
+    }
+
     public String getState() {
         return state;
     }
@@ -101,12 +111,12 @@ public class User {
         this.state = state;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getAvatar() {
@@ -119,6 +129,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "userId=" + userId + ", avatar=" + avatar + ", fullName=" + fullName + ", gender=" + gender + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password=" + password + ", state=" + state + ", roleId=" + roleId + '}';
+        return "User{" + "userId=" + userId + ", avatar=" + avatar + ", fullName=" + fullName + ", gender=" + gender + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password=" + password + ", state=" + state + ", role=" + role + '}';
     }
 }

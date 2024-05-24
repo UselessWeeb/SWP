@@ -21,6 +21,28 @@ public class Role {
         marketing,
         customer,
     }
-    
-    
+
+    public Role() {
+    }
+
+    public Role(int role_id, String role_purpose) {
+        this.role_id = role_id;
+        this.role_purpose = role_purpose;
+    }
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+    public String getRole_purpose() {
+        return role_purpose;
+    }
+
+    public void setRole_purpose(String role_purpose) {
+        this.role_purpose = role_purpose;
+    }
 }

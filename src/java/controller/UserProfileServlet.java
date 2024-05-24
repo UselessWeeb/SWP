@@ -16,7 +16,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import model.Order;
+import model.Role;
 import model.User;
+import service.AccessRole;
 
 /**
  *
@@ -24,6 +26,14 @@ import model.User;
  */
 @MultipartConfig
 @WebServlet(urlPatterns = {"/userProfile"})
+@AccessRole(roles = {
+    Role.Type.admin, 
+    Role.Type.sale_manager, 
+    Role.Type.marketing_manager,
+    Role.Type.sale,
+    Role.Type.marketing,
+    Role.Type.customer,
+})
 public class UserProfileServlet extends HttpServlet {
 
     /**
