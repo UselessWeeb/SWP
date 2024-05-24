@@ -6,6 +6,8 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.User;
 
 /**
@@ -107,6 +109,131 @@ public class UserDAO extends EntityDAO {
         }
         return n;
     }
+        
+    public User findByEmail(String email) {
+        String strSelect = "Select * from [User] where email = ?";
+        User u = null;
+        
+        try {
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, email);
+            
+            rs = stm.executeQuery();
+            
+            if (rs.next()) {
+                u = (User) this.createEntity(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return u;
+    }
+
+    public int getUserIdByEmail(String email) {
+        String sql = "Select * from [User] where email = ?";
+        int userID = -1;
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, email);
+            
+            rs = stm.executeQuery();
+            
+            if (rs.next()) {
+                userID = rs.getInt("user_id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return userID;
+    }
+    
+    public List<User> getAllUser() {
+        String sql = "Select * from [User]";
+        List<User> userList = new ArrayList<>();
+        
+        try {
+            stm = connection.prepareStatement(sql);
+            
+            rs = stm.executeQuery();
+            
+            while (rs.next()) {
+                userList.add((User) this.createEntity(rs));
+            }
+            
+            return userList;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+        return null;
+    }
+
+    public boolean checkIfUserExist(String userEmail) {
+        String sql = "Select 1 from [User] where email = ?";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, userEmail);
+
+            rs = stm.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
+
+    public void registerUser(User inputUser) {
+        String sql = "Insert into [User] values(?,?,?,?,?,?,?,?,?)";
+
+        try {
+            stm = connection.prepareStatement(sql);
+
+            stm.setString(1, inputUser.getAvatar());
+            stm.setString(2, inputUser.getFullName());
+            stm.setString(3, inputUser.getGender());
+            stm.setString(4, inputUser.getAddress());
+            stm.setString(5, inputUser.getEmail());
+            stm.setString(6, inputUser.getPhoneNumber());
+            stm.setString(7, inputUser.getPassword());
+            stm.setString(8, inputUser.getState());
+            stm.setInt(9, inputUser.getRoleId());
+
+            stm.executeUpdate();
+        } catch (SQLException e) {
+           System.out.println(e);
+        }
+    }
+
+    public void updateUserPassword(int userID, String password) {
+        String sql = "Update [User] Set password = ? Where user_id = ?";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, userID);
+            stm.setString(2, password);
+
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateUserState(int userID, String state) {
+        String sql = "Update [User] Set state = ? Where user_id = ?";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, userID);
+            stm.setString(2, state);
+
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }        
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
