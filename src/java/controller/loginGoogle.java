@@ -38,7 +38,7 @@ public class loginGoogle extends HttpServlet {
         String error = request.getParameter("error");
         //neu nguoi dung huy uy quyen
         if(error != null) {
-            response.sendRedirect("app-name/");
+            response.sendRedirect(request.getContextPath());
         }
         GoogleLogin gg = new GoogleLogin();
         String accessToken = gg.getToken(code);
@@ -56,9 +56,9 @@ public class loginGoogle extends HttpServlet {
             user.setRoleId(acc.getRoleId());
             user.setPassword("");
             dao.registerUser(user);
-        }
-
+        } 
         request.getSession().setAttribute("user", user);
+        response.sendRedirect(request.getContextPath());
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
