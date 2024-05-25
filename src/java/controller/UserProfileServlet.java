@@ -25,7 +25,7 @@ import service.AccessRole;
  * @author vudai
  */
 @MultipartConfig
-@WebServlet("/userProfile")
+@WebServlet(urlPatterns = {"/userProfile"})
 @AccessRole(roles = {
     Role.Type.admin, 
     Role.Type.sale_manager, 

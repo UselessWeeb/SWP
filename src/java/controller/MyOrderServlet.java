@@ -20,7 +20,7 @@ import model.User;
  *
  * @author vudai
  */
-@WebServlet("/myorder")
+@WebServlet(urlPatterns = {"/myorder"})
 public class MyOrderServlet extends HttpServlet {
    
     /** 

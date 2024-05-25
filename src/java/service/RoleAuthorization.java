@@ -34,7 +34,7 @@ public class RoleAuthorization {
             if (webServlet == null) {
                 throw new RuntimeException(String.format("AccessRole annotation can only use for servlet {%s}", servletClazz.getSimpleName()));
             }
-            for (String s : webServlet.value()) {
+            for (String s : webServlet.urlPatterns()) {
                 currentMapping.put(minimizeUrl(s), Arrays.asList(accessRole.roles()));
                 System.out.println(minimizeUrl(s) +" "+ Arrays.asList(accessRole.roles()));
                 for (Type role : accessRole.roles()) {
