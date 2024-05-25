@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author M7510
  */
-@WebServlet("/productList")
+@WebServlet(urlPatterns = {"/productList"})
 public class ProductListServlet extends HttpServlet {
 
     /**

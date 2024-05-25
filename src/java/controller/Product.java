@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author ASUS
  */
-@WebServlet("/product")
+@WebServlet(urlPatterns = {"/product"})
 public class Product extends HttpServlet {
    
     /** 

@@ -14,11 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
 /**
  *
  * @author ASUS
  */
-@WebServlet("/blogdetails")
+@WebServlet(urlPatterns = {"/blogdetails"})
 public class BlogDetails extends HttpServlet {
    
     /** 
