@@ -13,12 +13,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Role;
+import service.AccessRole;
 
 /**
  *
  * @author ASUS
  */
 @WebServlet("/blogdetails")
+@AccessRole(roles = {
+    Role.Type.admin, 
+})
 public class BlogDetails extends HttpServlet {
    
     /** 
