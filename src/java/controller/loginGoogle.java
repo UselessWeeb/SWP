@@ -21,7 +21,7 @@ import service.GoogleLogin;
  * @author M7510
  */
 
-@WebServlet(name="loginGoogle", urlPatterns={"/google_login"})
+@WebServlet("/google_login")
 public class loginGoogle extends HttpServlet {
    
     /** 
