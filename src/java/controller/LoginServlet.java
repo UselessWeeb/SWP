@@ -20,7 +20,7 @@ import model.User;
  *
  * @author M7510
  */
-@WebServlet("/login")
+@WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

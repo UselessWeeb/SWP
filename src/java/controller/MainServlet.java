@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author M7510
  */
-@WebServlet("")
+@WebServlet(urlPatterns = {""})
 public class MainServlet extends HttpServlet {
 
     /**

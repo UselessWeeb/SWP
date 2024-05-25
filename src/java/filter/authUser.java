@@ -110,10 +110,7 @@ public class authUser implements Filter {
 
         String requestedResource = URLfilter.getResourceUrl(req.getRequestURI());
         requestedResource = requestedResource.substring(requestedResource.indexOf("/") + 1);
-        boolean allowedAnyone = roleAuth.isAllowAnyOneToAccess(requestedResource);
-
-        System.out.println(requestedResource);
-        
+        boolean allowedAnyone = roleAuth.isAllowAnyOneToAccess(requestedResource);     
 
         if (allowedAnyone) {
             chain.doFilter(request, response);

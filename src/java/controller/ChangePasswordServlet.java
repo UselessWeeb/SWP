@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author vudai
  */
-@WebServlet("/changepassword")
+@WebServlet(urlPatterns = {"/changepassword"})
 public class ChangePasswordServlet extends HttpServlet {
    
     /** 
