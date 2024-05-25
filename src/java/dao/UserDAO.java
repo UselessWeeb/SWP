@@ -186,6 +186,24 @@ public class UserDAO extends EntityDAO {
 
         return false;
     }
+    
+    public User findUserByEmail(String userEmail) {
+        String sql = "Select * from [User] where email = ?";
+        User u = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, userEmail);
+
+            rs = stm.executeQuery();
+            if(rs.next()){
+                u = (User)this.createEntity(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return u;
+    }
 
     public void registerUser(User inputUser) {
         String sql = "Insert into [User] values(?,?,?,?,?,?,?,?,?)";

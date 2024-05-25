@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+import com.google.gson.annotations.SerializedName;
 
 /**
  *
@@ -10,10 +11,18 @@ package model;
  */
 public class User {
     private int userId;
+
+    //ading serial name to match with the json key
+    @SerializedName("picture")
     private String avatar;
+
+    @SerializedName("name")
     private String fullName;
+
     private String gender;
     private String address;
+
+    @SerializedName("email")
     private String email;
     private String phoneNumber;
     private String password;
@@ -37,6 +46,15 @@ public class User {
     }
 
     public User() {
+        this.avatar = "images/default.jpg";
+        this.fullName = "Unknown";
+        this.gender = "Not specified";
+        this.address = "Not specified";
+        this.email = "Not specified";
+        this.phoneNumber = "Not specified";
+        this.password = "";
+        this.state = "Not specified";
+        this.role_id = 6; //if no role is assigned, assign the default role
     }
 
     public int getUserId() {

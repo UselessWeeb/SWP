@@ -43,6 +43,7 @@ public class RoleAuthorization {
                 }
             }
         }
+        Logger.getLogger(currentMapping.toString());
     }
 
     //if no annotation, use this to registed manually
@@ -59,6 +60,7 @@ public class RoleAuthorization {
                 return true;
             }
 
+            //handle around GET method(with parameter)
             if (url.contains("?")) {
                 url = url.substring(0, url.indexOf("?"));
             }
@@ -87,31 +89,23 @@ public class RoleAuthorization {
             }
         }
         List<Type> allowedType = currentMapping.get(minimizeUrl(url));
-        for (Type type : allowedType) {
-            if (type == getRoleTypeById(user.getRole().getRole_id())) {
-                return true;
+        System.out.println(url);
+        System.out.println(currentMapping);
+        if (!allowedType.isEmpty()) {
+            for (Type type : allowedType) {
+                if (type == getRoleTypeById(user.getRole().getRole_id())) {
+                    return true;
+                }
             }
         }
-
         return false;
     }
 
     public Type getRoleTypeById(int roleId) {
-        switch (roleId) {
-            case 1:
-                return Type.admin;
-            case 2:
-                return Type.sale_manager; // Adjusted role name
-            case 3:
-                return Type.marketing_manager; // Adjusted role name
-            case 4:
-                return Type.marketing; // Adjusted role name
-            case 5:
-                return Type.sale; // Adjusted role name
-            case 6:
-                return Type.customer; // Adjusted role name
-            default:
-                throw new RuntimeException("Invalid role id, roleId = " + roleId);
+        Type[] types = Type.values();
+        if (roleId < 1 || roleId > types.length) {
+            throw new RuntimeException("Invalid role id, roleId = " + roleId);
         }
+        return types[roleId - 1];
     }
 }
