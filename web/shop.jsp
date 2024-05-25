@@ -162,6 +162,44 @@
                                 </div>
                             </div>
                             <div class="widget-product-categories pt-5">
+                                <section id="customers-reviews" class="position-relative">
+                                    <div class="container">
+                                        <div class="section-title overflow-hidden mb-2">
+                                            <h3 class="d-flex flex-column mb-0">Latest</h3>
+                                        </div>
+                                        <div class="swiper product-swiper">
+                                            <div class="swiper-wrapper">
+                                                <c:set var="latestProducts" value="${requestScope.latestProducts}" />
+                                                <c:forEach items="${latestProducts}" var="laptop">
+                                                    <div class="swiper-slide">
+                                                        <div class="card position-relative text-left p-5 border rounded-3">
+                                                            <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
+                                                            <h5 class="mt-2"><a href="single-product.jsp?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
+                                                                <c:if test="${laptop.salePrice != laptop.originalPrice}">
+                                                                <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
+                                                                </c:if>
+                                                            <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
+                                                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
+                                                                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
+                                                                    <svg class="cart">
+                                                                    <use xlink:href="#cart"></use>
+                                                                    </svg>
+                                                                </button>
+                                                                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wishlist">
+                                                                    <svg class="wishlist">
+                                                                    <use xlink:href="#heart"></use>
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="widget-product-categories pt-5">
                                 <div class="section-title overflow-hidden mb-2">
                                     <h3 class="d-flex flex-column mb-0">Categories</h3>
                                 </div>
@@ -205,42 +243,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <section id="customers-reviews" class="position-relative">
-                                <div class="container">
-                                    <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Latest products</h3>
-                                </div>
-                                    <div class="swiper product-swiper">
-                                        <div class="swiper-wrapper">
-                                            <c:set var="latestProducts" value="${requestScope.latestProducts}" />
-                                            <c:forEach items="${latestProducts}" var="laptop">
-                                                <div class="swiper-slide">
-                                                    <div class="card position-relative text-left p-5 border rounded-3">
-                                                        <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
-                                                        <h5 class="mt-2"><a href="single-product.jsp?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
-                                                            <c:if test="${laptop.salePrice != laptop.originalPrice}">
-                                                            <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
-                                                            </c:if>
-                                                        <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
-                                                        <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                                            <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
-                                                                <svg class="cart">
-                                                                <use xlink:href="#cart"></use>
-                                                                </svg>
-                                                            </button>
-                                                            <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wishlist">
-                                                                <svg class="wishlist">
-                                                                <use xlink:href="#heart"></use>
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+
                         </div>
                     </aside>
                 </div>

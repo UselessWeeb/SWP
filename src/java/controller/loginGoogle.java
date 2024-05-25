@@ -5,7 +5,7 @@
 
 package controller;
 
-import dao.OrderDAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +13,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import model.User;
+import service.GoogleLogin;
 
 /**
  *
- * @author vudai
+ * @author M7510
  */
-@WebServlet("/myorder")
-public class MyOrderServlet extends HttpServlet {
+
+@WebServlet("/google_login")
+public class loginGoogle extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,18 +34,32 @@ public class MyOrderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(false);
-            User u = (User)session.getAttribute("user");
-            OrderDAO dao = new OrderDAO();
-            System.out.println(dao.getOrderUser(u.getUserId()));
-            
-            request.setAttribute("orderList", dao.getOrderUser(u.getUserId()));
-            
-            request.getRequestDispatcher("displayOrder.jsp").forward(request, response);
-
+        String code = request.getParameter("code");
+        String error = request.getParameter("error");
+        //neu nguoi dung huy uy quyen
+        if(error != null) {
+            response.sendRedirect(request.getContextPath());
         }
-    }
+        GoogleLogin gg = new GoogleLogin();
+        String accessToken = gg.getToken(code);
+        User acc = gg.getUserInfo(accessToken);
+
+        UserDAO dao = new UserDAO();
+        User user = dao.findUserByEmail(acc.getEmail());
+        
+        if(user == null) {
+            //add user to database
+            user = new User();
+            user.setEmail(acc.getEmail());
+            user.setFullName(acc.getFullName());
+            user.setAvatar(acc.getAvatar());
+            user.setRoleId(acc.getRoleId());
+            user.setPassword("");
+            dao.registerUser(user);
+        } 
+        request.getSession().setAttribute("user", user);
+        response.sendRedirect(request.getContextPath());
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

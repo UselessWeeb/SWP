@@ -61,28 +61,27 @@ CREATE TABLE Laptop_Image(
 	FOREIGN KEY (laptop_id) REFERENCES [Laptop]
 )
 
-CREATE TABLE Order_Information
-(
-  information_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  user_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES [User]
-);
-GO
-
 CREATE TABLE [Order]
 (
   order_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   order_date DATETIME NOT NULL,
   order_name VARCHAR(100) NOT NULL,
-  total_price FLOAT NOT NULL,
   status INT NOT NULL,
   quantity INT NOT NULL,
   user_id INT NOT NULL,
   laptop_id INT NOT NULL,
-  information_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES [User],
   FOREIGN KEY (laptop_id) REFERENCES [Laptop],
-  FOREIGN KEY (information_id) REFERENCES Order_Information(information_id)
+);
+GO
+
+CREATE TABLE Order_Information
+(
+  information_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  order_id INT NOT NULL,
+  payment_method NVARCHAR(100) NOT NULL,
+  state INT NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES [Order]
 );
 GO
 
@@ -92,7 +91,6 @@ CREATE TABLE Cart
   title VARCHAR(100) NOT NULL,
   price FLOAT NOT NULL,
   quantity INT NOT NULL,
-  total_cost FLOAT NOT NULL,
   user_id INT NOT NULL,
   order_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES [User],

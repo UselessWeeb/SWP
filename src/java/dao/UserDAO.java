@@ -15,6 +15,8 @@ import model.User;
  * @author M7510
  */
 public class UserDAO extends EntityDAO {
+    
+    RoleDAO r = new RoleDAO();
 
     public User Login(String email, String password) {
         User u = null;
@@ -184,6 +186,24 @@ public class UserDAO extends EntityDAO {
 
         return false;
     }
+    
+    public User findUserByEmail(String userEmail) {
+        String sql = "Select * from [User] where email = ?";
+        User u = null;
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, userEmail);
+
+            rs = stm.executeQuery();
+            if(rs.next()){
+                u = (User)this.createEntity(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return u;
+    }
 
     public void registerUser(User inputUser) {
         String sql = "Insert into [User] values(?,?,?,?,?,?,?,?,?)";
@@ -199,7 +219,7 @@ public class UserDAO extends EntityDAO {
             stm.setString(6, inputUser.getPhoneNumber());
             stm.setString(7, inputUser.getPassword());
             stm.setString(8, inputUser.getState());
-            stm.setInt(9, inputUser.getRoleId());
+            stm.setObject(9, r.getById(inputUser.getRoleId()));
 
             stm.executeUpdate();
         } catch (SQLException e) {
@@ -237,6 +257,7 @@ public class UserDAO extends EntityDAO {
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
+        
         return new User(
                 rs.getInt("user_id"),
                 rs.getString("avatar"),
@@ -247,7 +268,7 @@ public class UserDAO extends EntityDAO {
                 rs.getString("phone_number"),
                 rs.getString("password"),
                 rs.getString("state"),
-                rs.getInt("role_id")
+                r.getById(rs.getInt("role_id"))
         );
     }
 }
