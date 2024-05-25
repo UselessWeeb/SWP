@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+import com.google.gson.annotations.SerializedName;
 
 /**
  *
@@ -10,18 +11,28 @@ package model;
  */
 public class User {
     private int userId;
+
+    //ading serial name to match with the json key
+    @SerializedName("picture")
     private String avatar;
+
+    @SerializedName("name")
     private String fullName;
+
     private String gender;
     private String address;
+
+    @SerializedName("email")
     private String email;
     private String phoneNumber;
     private String password;
     private String state;
-    private int roleId;
+    private int role_id;
+    
+    private Role role;
 
     // Constructor, Getters, and Setters
-    public User(int userId, String avatar, String fullName, String gender, String address, String email, String phoneNumber, String password, String state, int roleId) {
+    public User(int userId, String avatar, String fullName, String gender, String address, String email, String phoneNumber, String password, String state, Role role) {
         this.userId = userId;
         this.avatar = avatar;
         this.fullName = fullName;
@@ -31,10 +42,19 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.state = state;
-        this.roleId = roleId;
+        this.role = role;
     }
 
     public User() {
+        this.avatar = "images/default.jpg";
+        this.fullName = "Unknown";
+        this.gender = "Not specified";
+        this.address = "Not specified";
+        this.email = "Not specified";
+        this.phoneNumber = "Not specified";
+        this.password = "";
+        this.state = "Not specified";
+        this.role_id = 6; //if no role is assigned, assign the default role
     }
 
     public int getUserId() {
@@ -93,6 +113,14 @@ public class User {
         this.password = password;
     }
 
+    public int getRoleId() {
+        return role_id;
+    }
+
+    public void setRoleId(int role_id) {
+        this.role_id = role_id;
+    }
+
     public String getState() {
         return state;
     }
@@ -101,12 +129,12 @@ public class User {
         this.state = state;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getAvatar() {
@@ -119,6 +147,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "userId=" + userId + ", avatar=" + avatar + ", fullName=" + fullName + ", gender=" + gender + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password=" + password + ", state=" + state + ", roleId=" + roleId + '}';
+        return "User{" + "userId=" + userId + ", avatar=" + avatar + ", fullName=" + fullName + ", gender=" + gender + ", address=" + address + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password=" + password + ", state=" + state + ", role=" + role + '}';
     }
 }
