@@ -36,7 +36,7 @@ public class BlogDAO extends EntityDAO {
     public Blog getByID(String id) {
         Blog blog = null;
         try {
-            String strSelect = "SELECT * FROM Blog WHERE ID = ?";
+            String strSelect = "SELECT * FROM Blog WHERE blog_id = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, id);
             rs = stm.executeQuery();
