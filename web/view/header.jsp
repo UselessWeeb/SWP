@@ -167,35 +167,7 @@
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="blog.jsp">Blogs</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu animate slide border">
-                                    <li>
-                                        <a href="about.jsp" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="productList" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="single-product.jsp" class="dropdown-item fw-light">Single Product <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="cart.jsp" class="dropdown-item fw-light">Cart <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="checkout.jsp" class="dropdown-item fw-light">Checkout <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="blog.jsp" class="dropdown-item fw-light">Blog <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="single-post.jsp" class="dropdown-item fw-light">Single Post <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="contact.jsp" class="dropdown-item fw-light">Contact <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <jsp:include page="/showaction" />
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="contact.jsp">Contact</a>
                             </li>

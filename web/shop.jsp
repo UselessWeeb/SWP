@@ -69,19 +69,6 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <div class="sort-by">
-                                <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="" onchange = "updateSort()">
-                                    <option value="">Default sorting</option>
-                                    <option value="">Name (A - Z)</option>
-                                    <option value="">Name (Z - A)</option>
-                                    <option value="">Price (Low-High)</option>
-                                    <option value="">Price (High-Low)</option>
-                                    <option value="">Rating (Highest)</option>
-                                    <option value="">Rating (Lowest)</option>
-                                    <option value="">Model (A - Z)</option>
-                                    <option value="">Model (Z - A)</option>   
-                                </select>
-                            </div>
                         </div>
                         <div class="row product-content product-store">
                             <c:forEach items="${laptopList}" var="laptop">
@@ -112,7 +99,7 @@
                                 <ul class="pagination justify-content-center gap-4">
                                     <c:if test="${currentPage > 0}">
                                         <li class="page-item">
-                                            <a class="page-link" href="yourPage.jsp?page=${currentPage - 1}">Prev</a>
+                                            <a class="page-link" href="productList?page=${currentPage - 1}&search=${searchQuery}">Prev</a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage == 0}">
