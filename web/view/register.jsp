@@ -1,9 +1,3 @@
-<%-- 
-    Document   : register
-    Created on : May 16, 2024, 3:08:08 PM
-    Author     : M7510
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
