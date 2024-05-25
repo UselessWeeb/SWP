@@ -21,8 +21,5 @@ nb-configuration.xml
 
 # Package Files #
 *.war
-<<<<<<< HEAD
 
-=======
->>>>>>> 3e517727226744b7b27b3cf0b548bf82314f696c
 *.ear
