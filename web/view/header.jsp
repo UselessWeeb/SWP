@@ -264,7 +264,7 @@
                                                     <li class="list-group-item bg-transparent d-flex justify-content-between lh-sm">
                                                         <div>
                                                             <h5>
-                                                                <a href="#">Setting</a>
+                                                                <a href="myorder">My Order</a>
                                                             </h5>
                                                         </div>
                                                     </li>
