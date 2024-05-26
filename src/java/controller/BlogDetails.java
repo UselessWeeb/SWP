@@ -38,6 +38,7 @@ public class BlogDetails extends HttpServlet {
         String id = request.getParameter("id");
         BlogDAO blogDAO = new BlogDAO();
         request.setAttribute("blog", blogDAO.getByID(id));
+            System.out.println(blogDAO.getByID(id));
         request.getRequestDispatcher("single-post.jsp").forward(request, response);
         }
     } 
