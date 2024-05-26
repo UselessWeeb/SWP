@@ -45,7 +45,7 @@
             <table class="table table-striped mt-5">
                 <thead class="bg-primary text-white">
                     <tr class="text-center">
-                        <th scope="col">Order ID</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Date</th>

@@ -19,11 +19,13 @@ public class OrderDetailServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         
-        String orderId_raw = request.getParameter("orderId");
+        String orderId_raw = request.getParameter("order_id");
         int orderId = Integer.parseInt(orderId_raw);
 
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         List<Order_Information> orderDetail = orderDetailDAO.getOrderDetail(orderId);
+        
+        System.out.println(orderDetail);
 
         request.setAttribute("orderDetail", orderDetail);
         request.getRequestDispatcher("orderdetail.jsp").forward(request, response);

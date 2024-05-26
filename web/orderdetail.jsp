@@ -32,7 +32,7 @@
             <table class="table table-striped mt-5">
                 <thead class="bg-primary text-white">
                     <tr>
-                        <th scope="col">Item ID</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Full Name</th>
                         <th scope="col">Address</th>
                         <th scope="col">Email</th>
