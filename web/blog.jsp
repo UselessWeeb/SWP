@@ -18,7 +18,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     </head>
-
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <body>
         <%@include file = "view/header.jsp" %>
         <section class="hero-section position-relative bg-light-gray padding-medium">
@@ -46,8 +47,8 @@
                         <div class="sidebar pe-lg-5 mb-3">
                             <div class="widget-menu">
                                 <div class="widget-search-bar">
-                                    <form class="d-flex border rounded-3 p-2 " role="search">
-                                        <input class="form-control border-0 me-2" type="search" placeholder="Search" aria-label="Search">
+                                    <form class="d-flex border rounded-3 p-2 " role="search" action="yourServletURL" method="get">
+                                        <input class="form-control border-0 me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="${searchQuery}">
                                         <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
                                             <svg class="search text-light" width="18" height="18">
                                             <use xlink:href="#search"></use>
@@ -61,21 +62,11 @@
                                     <h3 class="d-flex flex-column mb-0">Categories</h3>
                                 </div>
                                 <ul class="product-categories mb-0 sidebar-list list-unstyled">
-                                    <li class="cat-item">
-                                        <a href="/collections/categories">All</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Phones</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Accessories</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Tablets</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Watches</a>
-                                    </li>
+                                    <c:forEach var="entry" items="${categoryMap}">
+                                        <li class="cat-item">
+                                            <a href="?category=${entry.key}">${entry.key} (${entry.value})</a>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                             </div>
                             <div class="widget-product-tags pt-5">
@@ -138,84 +129,31 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row post-contents">
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
-                                <img src="images/post-item1.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
-                                <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
-                                <img src="images/post-item2.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
-                                <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
-                                <img src="images/post-item3.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
-                                <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
-                                <img src="images/post-item4.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
-                                <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
-                                <img src="images/post-item5.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
-                                <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
-                                <img src="images/post-item6.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
-                                <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Gadgets</a>
-                                <img src="images/post-item7.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">5 Must-Have Gadgets for the Modern Home</a></h4>
-                                <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight five essential gadg</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Phones</a>
-                                <img src="images/post-item8.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">Eco-Friendly Innovations Making a Difference</a></h4>
-                                <p class="mb-2">Explore the intersection of technology and sustainability in our latest blog post. Learn about the innovative</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
-                            <div class="col-lg-4 col-md-6 posts mb-4">
-                                <a href="blog.jsp" class="btn rounded-0 py-0 px-2">Tech</a>
-                                <img src="images/post-item9.jpg" alt="post image" class="img-fluid">
-                                <h4 class="card-title mt-3 mb-2 text-uppercase text-dark"><a href="single-post.jsp">The Future of Wearable Tech: Trends to Watch</a></h4>
-                                <p class="mb-2">Stay ahead of the curve with our insightful look into the rapidly evolving landscape of wearable technology.</p>
-                                <a class="text-decoration-underline" href="single-post.jsp">Read More</a>
-                            </div>
+                        <div class = "row post-content">
+                            <c:set var = "blogList" value = "${requestScope.blogList}" />
+                            <c:forEach var="blog" items="${blogList}">
+                                <div class="col-lg-4 col-md-6 posts mb-4">
+                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">
+                                        <c:forEach var="category" items="${blog.category}">
+                                            ${category.category}
+                                        </c:forEach>
+                                    </a>
+                                    <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
+                                    <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
+                                        <a href="single-post.html?id=${blog.blogId}">${blog.title}</a>
+                                    </h4>
+                                    <p class="mb-2">${blog.blogContent}</p>
+                                    <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
+                                </div>
+                            </c:forEach>
                         </div>
                         <nav class="py-5" aria-label="Page navigation">
                             <ul class="pagination justify-content-center gap-4">
-                                <li class="page-item disabled">
-                                    <a class="page-link">Prev</a>
-                                </li>
-                                <li class="page-item active" aria-current="page">
-                                    <span class="page-link">1</span>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
+                                <c:forEach var="i" begin="0" end="${totalPage-1}">
+                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="?page=${i}">${i+1}</a>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </nav>
                     </main>
