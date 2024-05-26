@@ -63,12 +63,12 @@ public class LaptopDAO extends EntityDAO {
         return laptops;
     }
 
-    public List<Laptop> findByName(String name) {
+    public List<Laptop> findBySearch(String searchQuery) {
         List<Laptop> laptops = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Laptop where title LIKE ?";
+            String strSelect = "SELECT * FROM Laptop WHERE title LIKE ?";
             stm = connection.prepareStatement(strSelect);
-            stm.setString(1, name);
+            stm.setString(1, "%" + searchQuery + "%");
             rs = stm.executeQuery();
             while (rs.next()) {
                 Laptop laptop = (Laptop) this.createEntity(rs);
@@ -80,14 +80,79 @@ public class LaptopDAO extends EntityDAO {
         return laptops;
     }
 
-    public List<Laptop> findByPage(int page, int totalPerPage, String order, String condition) {
+    public List<Laptop> findByCategories(String[] selectedCategories) {
         List<Laptop> laptops = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Laptop ";
+            String strSelect = "select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id WHERE category IN (";
+            for (int i = 0; i < selectedCategories.length; i++) {
+                strSelect += "?";
+                if (i < selectedCategories.length - 1) {
+                    strSelect += ", ";
+                }
+            }
+            strSelect += ")";
+            stm = connection.prepareStatement(strSelect);
+            for (int i = 0; i < selectedCategories.length; i++) {
+                stm.setString(i + 1, selectedCategories[i]);
+            }
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Laptop laptop = (Laptop) this.createEntity(rs);
+                laptops.add(laptop);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return laptops;
+    }
 
-            // Check if condition is not blank and append WHERE clause
+    public List<Laptop> findBySearchAndCategories(String searchQuery, String[] selectedCategories) {
+        List<Laptop> laptops = new ArrayList<>();
+        try {
+            String strSelect = "select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id WHERE title LIKE ? AND category IN (";
+            for (int i = 0; i < selectedCategories.length; i++) {
+                strSelect += "?";
+                if (i < selectedCategories.length - 1) {
+                    strSelect += ", ";
+                }
+            }
+            strSelect += ")";
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, searchQuery);
+            for (int i = 0; i < selectedCategories.length; i++) {
+                stm.setString(i + 2, selectedCategories[i]);
+            }
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Laptop laptop = (Laptop) this.createEntity(rs);
+                laptops.add(laptop);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return laptops;
+    }
+
+    public List<Laptop> findByPage(int page, int totalPerPage, String order, String condition, String[] categories) {
+        List<Laptop> laptops = new ArrayList<>();
+        try {
+            String strSelect = "select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id ";
+
+            // Check if categories are provided and append WHERE clause
+            if (categories != null && categories.length > 0) {
+                strSelect += " WHERE category IN (";
+                for (int i = 0; i < categories.length; i++) {
+                    strSelect += "?";
+                    if (i < categories.length - 1) {
+                        strSelect += ", ";
+                    }
+                }
+                strSelect += ")";
+            }
+
+            // Check if condition is not blank and append AND clause
             if (!condition.isBlank()) {
-                strSelect += " WHERE title LIKE ?";
+                strSelect += (categories != null && categories.length > 0 ? " AND" : " WHERE") + " title LIKE ?";
             }
 
             // Append ORDER BY clause and pagination
@@ -96,8 +161,13 @@ public class LaptopDAO extends EntityDAO {
             System.out.println(strSelect);
             stm = connection.prepareStatement(strSelect);
 
-            // Set parameters based on whether condition is provided
+            // Set parameters based on whether categories and condition are provided
             int paramIndex = 1;
+            if (categories != null && categories.length > 0) {
+                for (String category : categories) {
+                    stm.setString(paramIndex++, category);
+                }
+            }
             if (!condition.isBlank()) {
                 stm.setString(paramIndex++, condition);
             }
@@ -114,7 +184,7 @@ public class LaptopDAO extends EntityDAO {
         }
         return laptops;
     }
-
+    
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         Laptop_CategoryDAO lap_cat = new Laptop_CategoryDAO();

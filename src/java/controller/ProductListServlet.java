@@ -12,6 +12,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import model.Laptop;
+import model.Laptop_Category;
 
 /**
  *
@@ -38,27 +42,55 @@ public class ProductListServlet extends HttpServlet {
             String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
             String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
 
+            // Step 1: Retrieve the checkbox values
+            String[] selectedCategories = request.getParameterValues("category");
+
             final int totalPerPage = 12;
-            int totalProducts = (searchQuery.isBlank() ? laptopDAO.findAll().size() : laptopDAO.findByName("%" + searchQuery + "%").size());
+            int totalProducts;
+            if (searchQuery.isBlank()) {
+                totalProducts = laptopDAO.findAll().size();
+            } else if (selectedCategories != null) {
+                totalProducts = laptopDAO.findBySearchAndCategories("%" + searchQuery + "%", selectedCategories).size();
+            } else {
+                // Call a different method if selectedCategories is null
+                totalProducts = laptopDAO.findBySearch("%" + searchQuery + "%").size();
+            }
             int totalPage = (int) Math.ceil((double) totalProducts / totalPerPage);
 
             int currentPage;
             try {
                 currentPage = Integer.parseInt(request.getParameter("page"));
                 if (currentPage < 0 || currentPage >= totalPage) {
-                    currentPage = 0; 
+                    currentPage = 0;
                 }
             } catch (NumberFormatException e) {
-                currentPage = 0; 
+                currentPage = 0;
             }
-            
+
             request.setAttribute("searchQuery", searchQuery);
-            request.setAttribute("laptopList", laptopDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%"));
+            request.setAttribute("laptopList", laptopDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%", selectedCategories));
             request.setAttribute("totalPage", totalPage);
             request.setAttribute("totalProducts", totalProducts);
             request.setAttribute("totalPerPage", totalPerPage);
             request.setAttribute("currentPage", currentPage);
+
+            //next, the hashmap to contains all types of laptop category
+            HashMap<String, Integer> categoryMap = new HashMap<>();
+            List<Laptop> allLaptops;
+
+            allLaptops = laptopDAO.findAll();
+
+            for (Laptop laptop : allLaptops) {
+                List<Laptop_Category> laptopCategory = laptop.getCategory();
+                for (Laptop_Category l : laptopCategory){
+                    categoryMap.put(l.getCategory(), categoryMap.getOrDefault(l.getCategory(), 0) + 1);
+                }
+            }
+
+            request.setAttribute("categoryMap", categoryMap);
             
+            request.setAttribute("selectedCategories", selectedCategories);
+
             //lastly, show latest products
             request.setAttribute("latestProducts", laptopDAO.findLatest());
 

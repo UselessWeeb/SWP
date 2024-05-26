@@ -60,6 +60,8 @@
                                 <c:set var= "totalProducts" value = "${requestScope.totalProducts}" />
                                 <c:set var= "totalPerPage" value= "${requestScope.totalPerPage}" />
                                 <c:set var = "searchQuery" value= "${requestScope.searchQuery}"/>
+                                <c:set var = "categoryMap" value= "${requestScope.categoryMap}"/>
+                                <c:set var = "selectedCategories" value= "${requestScope.selectedCategories}"/>
                                 <c:choose>
                                     <c:when test="${not empty laptopList and not empty totalPage and not empty currentPage}">
                                         <p>Showing ${currentPage * totalPerPage + 1}–${(currentPage * totalPerPage) + laptopList.size()} of ${totalProducts} results</p>
@@ -99,7 +101,11 @@
                                 <ul class="pagination justify-content-center gap-4">
                                     <c:if test="${currentPage > 0}">
                                         <li class="page-item">
-                                            <a class="page-link" href="productList?page=${currentPage - 1}&search=${searchQuery}">Prev</a>
+                                            <a class="page-link" href="productList?page=${currentPage - 1}&search=${searchQuery}
+                                                <c:forEach var="category" items="${selectedCategories}">
+                                                    &category=${category}
+                                                </c:forEach>
+                                            ">Prev</a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage == 0}">
@@ -107,23 +113,36 @@
                                             <span class="page-link">Prev</span>
                                         </li>
                                     </c:if>
-
-                                    <c:forEach begin="0" end="${totalPage - 1}" var="i">
-                                        <li class="page-item ${currentPage == i ? 'active' : ''}" aria-current="${currentPage == i ? 'page' : ''}">
-                                            <c:choose>
-                                                <c:when test="${currentPage == i}">
-                                                    <span class="page-link">${i + 1}</span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a class="page-link" href="productList?page=${i}&search=${searchQuery}">${i + 1}</a>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </li>
-                                    </c:forEach>
-
+                                    
+                                    <c:if test="${totalPage > 0}">
+                                        <c:set var="start" value="${currentPage - 2 < 0 ? 0 : currentPage - 2}" />
+                                        <c:set var="end" value="${currentPage + 2 >= totalPage ? totalPage - 1 : currentPage + 2}" />
+                                        
+                                        <c:forEach begin="${start}" end="${end}" var="i">
+                                            <li class="page-item ${currentPage == i ? 'active' : ''}" aria-current="${currentPage == i ? 'page' : ''}">
+                                                <c:choose>
+                                                    <c:when test="${currentPage == i}">
+                                                        <span class="page-link">${i + 1}</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a class="page-link" href="productList?page=${i}&search=${searchQuery}
+                                                            <c:forEach var="category" items="${selectedCategories}">
+                                                                &category=${category}
+                                                            </c:forEach>
+                                                        ">${i + 1}</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </li>
+                                        </c:forEach>
+                                    </c:if>
+                            
                                     <c:if test="${currentPage < totalPage - 1}">
                                         <li class="page-item">
-                                            <a class="page-link" href="productList?page=${currentPage + 1}&search=${searchQuery}">Next</a>
+                                            <a class="page-link" href="productList?page=${currentPage + 1}&search=${searchQuery}
+                                                <c:forEach var="category" items="${selectedCategories}">
+                                                    &category=${category}
+                                                </c:forEach>
+                                            ">Next</a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage >= totalPage - 1}">
@@ -135,17 +154,17 @@
                             </nav>
                     </main>
                     <aside class="col-md-3">
-                        <div class="sidebar ps-lg-5">
+                        <form class="sidebar ps-lg-5" role="search" action="productList">
                             <div class="widget-menu">
                                 <div class="widget-search-bar">
-                                    <form class="d-flex border rounded-3 p-2" role="search" action="productList">
+                                    <div class="d-flex border rounded-3 p-2">
                                         <input class="form-control border-0 me-2" type="search" placeholder="Search" name="search" aria-label="Search" value="${fn:escapeXml(searchQuery)}">
                                         <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
                                             <svg class="search text-light" width="18" height="18">
                                             <use xlink:href="#search"></use>
                                             </svg>
                                         </button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                             <div class="widget-product-categories pt-5">
@@ -191,21 +210,14 @@
                                     <h3 class="d-flex flex-column mb-0">Categories</h3>
                                 </div>
                                 <ul class="product-categories mb-0 sidebar-list list-unstyled">
-                                    <li class="cat-item">
-                                        <a href="/collections/categories">All</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Phones</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Accessories</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Tablets</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Watches</a>
-                                    </li>
+                                    <c:forEach var="entry" items="${categoryMap}">
+                                        <li class="cat-item">
+                                            <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
+                                            <input type="checkbox" name="category" value="${entry.key}" 
+                                                ${fn:contains(selectedCategoriesString, entry.key) ? 'checked' : ''}>
+                                            <label>${entry.key} (${entry.value})</label>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                             </div>
                             <div class="widget-price-filter pt-5">
@@ -230,8 +242,7 @@
                                     </li>
                                 </ul>
                             </div>
-
-                        </div>
+                        </form>
                     </aside>
                 </div>
             </div>

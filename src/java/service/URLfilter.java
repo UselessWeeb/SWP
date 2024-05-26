@@ -45,6 +45,7 @@ public class URLfilter {
             "error", 
             "view/error.jsp",
             "showaction",
+            "userProfile",
             "google_login",
             "profile"
             );
