@@ -148,7 +148,7 @@
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
                     <div class="offcanvas-header px-4 pb-0">
-                        <a class="navbar-brand" href="/Base/">
+                        <a class="navbar-brand" href="/app-name/">
                             <img src="images/main-logo.png" class="logo">
                         </a>
                         <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -156,7 +156,7 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link me-4 active" href="/Base/">Home</a>
+                                <a class="nav-link me-4 active" href="/app-name/">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" href="about.jsp">About</a>
@@ -165,7 +165,7 @@
                                 <a class="nav-link me-4" href="productList">Shop</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="blog.jsp">Blogs</a>
+                                <a class="nav-link me-4" href="blog">Blogs</a>
                             </li>
                             <jsp:include page="/showaction" />
                             <li class="nav-item">
@@ -192,7 +192,7 @@
                                             </a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
+                                                <div class="modal-dialog modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header border-bottom-0">
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

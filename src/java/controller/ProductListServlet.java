@@ -47,13 +47,14 @@ public class ProductListServlet extends HttpServlet {
 
             final int totalPerPage = 12;
             int totalProducts;
-            if (searchQuery.isBlank()) {
+            if (searchQuery.isBlank() && selectedCategories == null) {
                 totalProducts = laptopDAO.findAll().size();
-            } else if (selectedCategories != null) {
+            } else if (!searchQuery.isBlank() && selectedCategories != null) {
                 totalProducts = laptopDAO.findBySearchAndCategories("%" + searchQuery + "%", selectedCategories).size();
-            } else {
-                // Call a different method if selectedCategories is null
+            } else if (!searchQuery.isBlank() && selectedCategories == null){         
                 totalProducts = laptopDAO.findBySearch("%" + searchQuery + "%").size();
+            } else {
+                totalProducts = laptopDAO.findByCategories(selectedCategories).size();
             }
             int totalPage = (int) Math.ceil((double) totalProducts / totalPerPage);
 

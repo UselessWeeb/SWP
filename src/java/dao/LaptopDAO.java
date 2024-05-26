@@ -136,7 +136,7 @@ public class LaptopDAO extends EntityDAO {
     public List<Laptop> findByPage(int page, int totalPerPage, String order, String condition, String[] categories) {
         List<Laptop> laptops = new ArrayList<>();
         try {
-            String strSelect = "select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id ";
+            String strSelect = "select distinct * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id ";
 
             // Check if categories are provided and append WHERE clause
             if (categories != null && categories.length > 0) {

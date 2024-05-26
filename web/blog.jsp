@@ -47,7 +47,7 @@
                         <div class="sidebar pe-lg-5 mb-3">
                             <div class="widget-menu">
                                 <div class="widget-search-bar">
-                                    <form class="d-flex border rounded-3 p-2 " role="search" action="yourServletURL" method="get">
+                                    <form class="d-flex border rounded-3 p-2 " role="search" action="blog">
                                         <input class="form-control border-0 me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="${searchQuery}">
                                         <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
                                             <svg class="search text-light" width="18" height="18">
@@ -67,47 +67,6 @@
                                             <a href="?category=${entry.key}">${entry.key} (${entry.value})</a>
                                         </li>
                                     </c:forEach>
-                                </ul>
-                            </div>
-                            <div class="widget-product-tags pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Tags</h3>
-                                </div>
-                                <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                    <li class="tags-item">
-                                        <a href="#">White</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Cheap</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Mobile</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Modern</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="widget-social-links pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Social Links</h3>
-                                </div>
-                                <ul class="social-links mb-0 sidebar-list list-unstyled">
-                                    <li class="links">
-                                        <a href="#">Facebook</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Instagram</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Twitter</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Youtube</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Pinterest</a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
