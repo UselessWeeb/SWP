@@ -28,7 +28,8 @@
 
     <body>
         <%@include file = "view/header.jsp" %>
-
+        <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
         <section class="single-product padding-large">
             <div class="container">
                 <div class="row">
@@ -37,7 +38,7 @@
                             <div class="swiper thumb-swiper w-50">
                                 <div class="swiper-wrapper d-flex flex-wrap gap-3 align-content-start">
                                     <div class="swiper-slide bg-white">
-                                        <img src="images/product-thumbnail-1.png" alt="product-thumb" class="img-fluid border rounded-3">
+                                        <img src="${Product.image}" alt="product-thumb" class="img-fluid border rounded-3">
                                     </div>
                                     <div class="swiper-slide bg-white">
                                         <img src="images/product-thumbnail-2.png" alt="product-thumb" class="img-fluid border rounded-3">
@@ -50,7 +51,7 @@
                             <div class="swiper large-swiper border rounded-3 overflow-hidden">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide bg-white">
-                                        <img src="images/product-large-1.png" alt="single-product" class="img-fluid">
+                                        <img src="${Product.image}" alt="single-product" class="img-fluid">
                                     </div>
                                     <div class="swiper-slide bg-white">
                                         <img src="images/product-large-2.png" alt="single-product" class="img-fluid">
@@ -65,10 +66,10 @@
                     <div class="col-lg-4">
                         <div class="product-info ps-lg-5 pt-3 pt-lg-0">
                             <div class="element-header">
-                                <h1 class="product-title">Iphone 15 Pro Max</h1>
+                                <h1 class="product-title">${Product.title}</h1>
                                 <div class="product-price d-flex align-items-center mt-2">
-                                    <span class="fs-2 fw-light text-primary me-2">$2000</span>
-                                    <del>$2600</del>
+                                    <span class="fs-2 fw-light text-primary me-2">${Product.originalPrice}</span>
+                                    <del>${Product.salePrice}</del>
                                 </div>
                                 <div class="rating text-primary my-3">
                                     <svg class="star star-fill">
@@ -88,43 +89,10 @@
                                     </svg>
                                 </div>
                             </div>
-                            <p>Justo, cum feugiat imperdiet nulla molestie ac vulputate scelerisque amet. Bibendum adipiscing platea blandit sit sed quam semper rhoncus.</p>
+                            <p>${Product.productsDetail}</p>
                             <div class="slash-divider"></div>
                             <div class="cart-wrap">
-                                <div class="color-options product-select my-3">
-                                    <div class="color-toggle" data-option-index="0">
-                                        <h4 class="item-title text-decoration-underline text-uppercase">Color</h4>
-                                        <ul class="select-list list-unstyled d-flex mb-0">
-                                            <li class="select-item me-3" data-val="Green" title="Green">
-                                                <a href="#">Gray</a>
-                                            </li>
-                                            <li class="select-item me-3" data-val="Orange" title="Orange">
-                                                <a href="#">Blue</a>
-                                            </li>
-                                            <li class="select-item me-3" data-val="Red" title="Red">
-                                                <a href="#">White</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="swatch product-select" data-option-index="1">
-                                    <h4 class="item-title text-decoration-underline text-uppercase">Size</h4>
-                                    <ul class="select-list list-unstyled d-flex mb-0">
-                                        <li data-value="S" class="select-item me-3">
-                                            <a href="#">S</a>
-                                        </li>
-                                        <li data-value="M" class="select-item me-3">
-                                            <a href="#">M</a>
-                                        </li>
-                                        <li data-value="L" class="select-item me-3">
-                                            <a href="#">L</a>
-                                        </li>
-                                    </ul>
-                                </div>
                                 <div class="product-quantity my-3">
-                                    <div class="item-title">
-                                        <l>2 in stock</l>
-                                    </div>
                                     <div class="stock-button-wrap mt-2 d-flex flex-wrap align-items-center">
                                         <div class="product-quantity">
                                             <div class="input-group product-qty align-items-center" style="max-width: 150px;">
@@ -158,7 +126,7 @@
                                 <div class="meta-item d-flex mb-1">
                                     <span class="fw-medium me-2">SKU:</span>
                                     <ul class="select-list list-unstyled d-flex mb-0">
-                                        <li data-value="S" class="select-item">1223</li>
+                                        <li data-value="S" class="select-item">${Product.laptopId}</li>
                                     </ul>
                                 </div>
                                 <div class="meta-item d-flex mb-1">

@@ -1232,3 +1232,11 @@ select#input-sort {
         margin-bottom: 10px;
     }
 }
+
+.side-content{ 
+    background-color: #ff6543;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+

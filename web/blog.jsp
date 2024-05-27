@@ -79,10 +79,9 @@
                                     </a>
                                     <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
                                     <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
-                                        <a href="single-post.html?id=${blog.blogId}">${blog.title}</a>
+                                        <a href="blogdetails?id=${blog.blogId}">${blog.title}</a>
                                     </h4>
                                     <p class="mb-2">${blog.blogContent}</p>
-                                    <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
                                 </div>
                             </c:forEach>
                         </div>

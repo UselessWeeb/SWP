@@ -77,7 +77,7 @@
                                 <div class="col-lg-3 col-md-4">
                                     <div class="card position-relative text-center py-4 mb-4 border rounded-3">
                                         <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
-                                        <h5 class="mt-2"><a href="single-product.html?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
+                                        <h5 class="mt-2"><a href="product?id=${laptop.laptopId}">${laptop.title}</a></h5>
                                             <c:if test = "${laptop.salePrice != laptop.originalPrice}">
                                             <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
                                             </c:if>
