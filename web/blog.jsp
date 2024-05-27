@@ -69,12 +69,43 @@
                                     </c:forEach>
                                 </ul>
                             </div>
+                            <div class="widget-product-categories pt-5">
+                                <section id="customers-reviews" class="position-relative">
+                                    <div class="container">
+                                        <div class="section-title overflow-hidden mb-2">
+                                            <h3 class="d-flex flex-column mb-0">Latest Blogs</h3>
+                                        </div>
+                                        <div class="swiper product-swiper">
+                                            <div class="swiper-wrapper">
+                                                <c:set var="latestBlogs" value="${requestScope.latestBlogs}" />
+                                                <c:forEach items="${latestBlogs}" var="blog">
+                                                    <div class="swiper-slide">
+                                                        <div class="card position-relative text-left p-5 border rounded-3">
+                                                            <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
+                                                            <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
+                                                            <p class="text-muted">${blog.blogContent}</p>
+                                                            <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
                     </aside>
                     <main class="col-md-9">
                         <div class="filter-blog d-flex flex-wrap justify-content-between">
                             <div class="showing-product">
-                                <p>Showing 1-9 of 55 results</p>
+                                <c:choose>
+                                    <c:when test="${not empty blogList and not empty totalPage and not empty currentPage}">
+                                        <p>Showing ${currentPage * totalPerPage + 1} - ${(currentPage * totalPerPage) + blogList.size()} of ${totalProducts} results</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>No results found.</p>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="sort-by">
                                 <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="">
@@ -108,11 +139,17 @@
                         </div>
                         <nav class="py-5" aria-label="Page navigation">
                             <ul class="pagination justify-content-center gap-4">
+                                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                                    <a class="page-link" href="?page=${currentPage - 1}">Previous</a>
+                                </li>
                                 <c:forEach var="i" begin="0" end="${totalPage-1}">
                                     <li class="page-item ${i == currentPage ? 'active' : ''}">
                                         <a class="page-link" href="?page=${i}">${i+1}</a>
                                     </li>
                                 </c:forEach>
+                                <li class="page-item ${currentPage == totalPage - 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="?page=${currentPage + 1}">Next</a>
+                                </li>
                             </ul>
                         </nav>
                     </main>

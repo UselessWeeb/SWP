@@ -152,6 +152,7 @@
                                     </c:if>
                                 </ul>
                             </nav>
+                        </div>
                     </main>
                     <aside class="col-md-3">
                         <form class="sidebar ps-lg-5" role="search" action="productList">
