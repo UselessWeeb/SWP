@@ -19,7 +19,7 @@ public class OrderDetailServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         
-        String orderId_raw = request.getParameter("order_id");
+        String orderId_raw = request.getParameter("id");
         int orderId = Integer.parseInt(orderId_raw);
 
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();

@@ -63,4 +63,16 @@ public class Order_Information {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Laptop getLaptop() {
+        return laptop;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
 }

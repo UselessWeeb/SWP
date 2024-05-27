@@ -2,6 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import = "dao.OrderDetailDAO" %>
 
 <!doctype html>
 <html>
@@ -26,7 +27,6 @@
 
     <body>
         <%@include file = "view/header.jsp" %>
-
         <div class="container p-1">
             <h3 class="text-center text-primary">Order Details</h3>
             <table class="table table-striped mt-5">
@@ -44,6 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <c:set var = "totalPrice" value="0"/>
                     <c:forEach items="${orderDetail}" var="od">
                         <tr>
                             <td>${od.in4_id}</td>
@@ -55,10 +56,14 @@
                             <td>${od.order.order_date}</td>
                             <td>${od.laptop.originalPrice}</td>
                             <td>${od.order.quality}</td>
+                            <c:set var = "totalPrice" value = "${totalPrice + (od.laptop.originalPrice * od.order.quality)}" />
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            <div>
+                <p>Total Price: ${totalPrice}  </p> 
+            </div>
         </div>
 
         <%@include file = "view/footer.jsp" %>

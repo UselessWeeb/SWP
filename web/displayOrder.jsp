@@ -79,7 +79,7 @@
                                 </c:choose>
                             </td>
                             <td class="d-flex justify-content-center gap-1">
-                                <a class="btn btn-xs btn-primary" href="orderdetail.jsp?id=${order.order_id}">Detail</a>
+                                <a class="btn btn-xs btn-primary" href="orderdetail?id=${order.order_id}">Detail</a>
                                 <a class="btn btn-xs btn-danger" href="status?id=${order.order_id}&&status=4 ">Cancel</a>
                             </td>
                         </tr>
