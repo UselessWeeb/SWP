@@ -4,6 +4,9 @@
  */
 package email;
 
+import java.util.List;
+import model.Order;
+import model.OrderInformation;
 import org.simplejavamail.api.email.Email;
 import org.simplejavamail.api.mailer.Mailer;
 import org.simplejavamail.api.mailer.config.TransportStrategy;
@@ -63,4 +66,29 @@ public class EmailService {
 
         mailer.sendMail(email);
     }
+    
+    public void sendPurchaseConfirmationEmail(String name, String userMail, List<OrderInformation> purchasedProducts, String deliveryDate) {
+    StringBuilder message = new StringBuilder();
+    message.append("<p>Xin chào ").append(name).append(",</p>")
+           .append("<p>Cảm ơn quý khách đã mua hàng! Dưới đây là thông tin đơn hàng của quý khách:</p>")
+           .append("<ul>");
+
+    for (OrderInformation product : purchasedProducts) {
+        message.append("<li>").append(product.getOrder().getOrder_name()).append(" - ").append(product.getOrder().getTotal_price()).append("</li>");
+    }
+
+    message.append("</ul>")
+           .append("<p>Đơn hàng sẽ được giao vào ngày: ").append(deliveryDate).append("</p>")
+           .append("<p>Nếu quý khách có bất kỳ câu hỏi hoặc lo lắng nào, xin đừng ngần ngại liên hệ với chúng tôi.</p>")
+           .append("<p>Cảm ơn quý khách đã mua sắm tại cửa hàng của chúng tôi!</p>");
+
+    Email email = EmailBuilder.startingBlank()
+                .from(SENDER_NAME, SENDER_EMAIL)
+                .to(userMail)
+                .withSubject("Xác nhận đơn hàng")
+                .withHTMLText(message.toString())
+                .buildEmail();
+
+    mailer.sendMail(email);
+}
 }

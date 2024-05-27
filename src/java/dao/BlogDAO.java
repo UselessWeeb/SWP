@@ -32,11 +32,11 @@ public class BlogDAO extends EntityDAO {
         }
         return blogs;
     }
-    
+
     public Blog getByID(String id) {
         Blog blog = null;
         try {
-            String strSelect = "SELECT * FROM Blog WHERE ID = ?";
+            String strSelect = "SELECT * FROM Blog WHERE blog_id = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, id);
             rs = stm.executeQuery();
@@ -48,7 +48,7 @@ public class BlogDAO extends EntityDAO {
         }
         return blog;
     }
-    
+
     public List<Blog> getAll() {
         List<Blog> blogs = new ArrayList<>();
 
@@ -57,7 +57,7 @@ public class BlogDAO extends EntityDAO {
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
-                Blog blog = (Blog)this.createEntity(rs);
+                Blog blog = (Blog) this.createEntity(rs);
                 blogs.add(blog);
             }
         } catch (SQLException e) {
@@ -76,6 +76,127 @@ public class BlogDAO extends EntityDAO {
         }
         return blogs;
     }
+
+    public List<Blog> findByPage(int page, int totalPerPage, String order, String condition, String[] categories) {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String strSelect = "select * from Blog INNER JOIN Blog_Category ON Blog.blog_id = Blog_Category.blog_id ";
+
+            // Check if categories are provided and append WHERE clause
+            if (categories != null && categories.length > 0) {
+                strSelect += " WHERE category IN (";
+                for (int i = 0; i < categories.length; i++) {
+                    strSelect += "?";
+                    if (i < categories.length - 1) {
+                        strSelect += ", ";
+                    }
+                }
+                strSelect += ")";
+            }
+
+            // Check if condition is not blank and append AND clause
+            if (!condition.isBlank()) {
+                strSelect += (categories != null && categories.length > 0 ? " AND" : " WHERE") + " title LIKE ?";
+            }
+
+            // Append ORDER BY clause and pagination
+            strSelect += " ORDER BY " + (order.isBlank() ? "updated_date" : order) + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+            System.out.println(strSelect);
+            stm = connection.prepareStatement(strSelect);
+
+            // Set parameters based on whether categories and condition are provided
+            int paramIndex = 1;
+            if (categories != null && categories.length > 0) {
+                for (String category : categories) {
+                    stm.setString(paramIndex++, category);
+                }
+            }
+            if (!condition.isBlank()) {
+                stm.setString(paramIndex++, condition);
+            }
+            stm.setInt(paramIndex++, page * totalPerPage);
+            stm.setInt(paramIndex, totalPerPage);
+
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Blog blog = (Blog) this.createEntity(rs);
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return blogs;
+    }
+
+    public List<Blog> findByCategories(String[] selectedCategories) {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String strSelect = "select * from Blog INNER JOIN Blog_Category ON Blog.blog_id = Blog_Category.blog_id WHERE category IN (";
+            for (int i = 0; i < selectedCategories.length; i++) {
+                strSelect += "?";
+                if (i < selectedCategories.length - 1) {
+                    strSelect += ", ";
+                }
+            }
+            strSelect += ")";
+            stm = connection.prepareStatement(strSelect);
+            for (int i = 0; i < selectedCategories.length; i++) {
+                stm.setString(i + 1, selectedCategories[i]);
+            }
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Blog blog = (Blog) this.createEntity(rs);
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return blogs;
+    }
+
+    public List<Blog> findBySearchAndCategories(String searchQuery, String[] selectedCategories) {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String strSelect = "select * from Blog INNER JOIN Blog_Category ON Blog.blog_id = Blog_Category.blog_id WHERE title LIKE ? AND category IN (";
+            for (int i = 0; i < selectedCategories.length; i++) {
+                strSelect += "?";
+                if (i < selectedCategories.length - 1) {
+                    strSelect += ", ";
+                }
+            }
+            strSelect += ")";
+            stm = connection.prepareStatement(strSelect);
+            stm.setString(1, searchQuery);
+            for (int i = 0; i < selectedCategories.length; i++) {
+                stm.setString(i + 2, selectedCategories[i]);
+            }
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Blog blog = (Blog) this.createEntity(rs);
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return blogs;
+    }
+    public List<Blog> findBySearch(String searchQuery) {
+    List<Blog> blogs = new ArrayList<>();
+    try {
+        String strSelect = "SELECT * FROM Blog WHERE title LIKE ?";
+        stm = connection.prepareStatement(strSelect);
+        stm.setString(1, "%" + searchQuery + "%");
+        rs = stm.executeQuery();
+        while (rs.next()) {
+            Blog blog = (Blog) this.createEntity(rs);
+            blogs.add(blog);
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return blogs;
+}
 
     public List<Blog> findFeatured() {
         List<Blog> blogs = new ArrayList<>();
