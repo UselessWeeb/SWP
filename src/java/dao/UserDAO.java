@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -201,7 +202,6 @@ public class UserDAO extends EntityDAO {
         } catch (SQLException e) {
             System.out.println(e);
         }
-
         return u;
     }
 
@@ -219,7 +219,7 @@ public class UserDAO extends EntityDAO {
             stm.setString(6, inputUser.getPhoneNumber());
             stm.setString(7, inputUser.getPassword());
             stm.setString(8, inputUser.getState());
-            stm.setObject(9, r.getById(inputUser.getRoleId()));
+            stm.setInt(9, inputUser.getRoleId());
 
             stm.executeUpdate();
         } catch (SQLException e) {

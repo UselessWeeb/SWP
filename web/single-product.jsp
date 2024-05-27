@@ -32,101 +32,6 @@
         <section class="single-product padding-large">
             <div class="container">
                 <div class="row">
-                    <aside class="col-md-3">
-                        <div class="sidebar ps-lg-5">
-                            <div class="widget-menu">
-                                <div class="widget-search-bar">
-                                    <form class="d-flex border rounded-3 p-2" role="search">
-                                        <input class="form-control border-0 me-2" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
-                                            <svg class="search text-light" width="18" height="18">
-                                            <use xlink:href="#search"></use>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="widget-product-categories pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Categories</h3>
-                                </div>
-                                <ul class="product-categories mb-0 sidebar-list list-unstyled">
-                                    <li class="cat-item">
-                                        <a href="/collections/categories">All</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Phones</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Accessories</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Tablets</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Watches</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="widget-product-tags pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Tags</h3>
-                                </div>
-                                <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                    <li class="tags-item">
-                                        <a href="#">White</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Cheap</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Mobile</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Modern</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="widget-product-brands pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Brands</h3>
-                                </div>
-                                <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                    <li class="tags-item">
-                                        <a href="#">Apple</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Samsung</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Huwai</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="widget-price-filter pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Filter by price</h3>
-                                </div>
-                                <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                    <li class="tags-item">
-                                        <a href="#">Less than $10</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$10- $20</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$20- $30</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$30- $40</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$40- $50</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </aside>
                     <div class="col-lg-5">
                         <div class="d-flex gap-3 product-preview">
                             <div class="swiper thumb-swiper w-50">
@@ -287,6 +192,7 @@
                             </div>
                         </div>
                     </div>
+                    <jsp:include page = "/productSidebar" />
                 </div>
             </div>
         </section>

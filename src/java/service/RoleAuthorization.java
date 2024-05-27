@@ -5,6 +5,7 @@
 package service;
 
 import jakarta.servlet.annotation.WebServlet;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -26,24 +27,24 @@ public class RoleAuthorization {
     public RoleAuthorization() {
         Reflections reflections = new Reflections();
 
-        Set<Class<?>> servletClazzes = reflections.getTypesAnnotatedWith(AccessRole.class);
+        Set<Class<?>> servletClazzes = reflections.getTypesAnnotatedWith(WebServlet.class);
 
         for (Class<?> servletClazz : servletClazzes) {
             WebServlet webServlet = servletClazz.getAnnotation(WebServlet.class);
             AccessRole accessRole = servletClazz.getAnnotation(AccessRole.class);
-            if (webServlet == null) {
-                throw new RuntimeException(String.format("AccessRole annotation can only use for servlet {%s}", servletClazz.getSimpleName()));
+            List<Type> roles = new ArrayList<>();
+            if (accessRole != null) {
+                roles = Arrays.asList(accessRole.roles());
             }
             for (String s : webServlet.urlPatterns()) {
-                currentMapping.put(minimizeUrl(s), Arrays.asList(accessRole.roles()));
-                System.out.println(minimizeUrl(s) +" "+ Arrays.asList(accessRole.roles()));
-                for (Type role : accessRole.roles()) {
+                currentMapping.put(minimizeUrl(s), roles);
+                for (Type role : roles) {
                     Logger.getLogger(this.getClass().getSimpleName()).info("Mapper: " + minimizeUrl(s) + " , " + role.name());
                 }
             }
         }
     }
-
+    
     //if no annotation, use this to registed manually
     public void register(String url, List<Type> roles) {
         Logger.getLogger(this.getClass().getSimpleName()).info("Register: " + url);
@@ -73,27 +74,22 @@ public class RoleAuthorization {
     }
 
     public boolean isAllowToAccess(User user, String url) {
-        if (isAllowAnyOneToAccess(url)) {
-            List<Type> allowedType = currentMapping.get(minimizeUrl(url));
-            if (allowedType == null || allowedType.isEmpty()) {
-                if (url == null || url.isEmpty()) {
-                    return true;
-                }
-                Logger.getLogger(this.getClass().getSimpleName()).info("Checking: " + url);
-                if (url.indexOf("?") >= 0) {
-                    url = url.substring(0, url.indexOf("?"));
-                }
-                allowedType = currentMapping.get(url);
-            }
-        }
         List<Type> allowedType = currentMapping.get(minimizeUrl(url));
-        if (!allowedType.isEmpty()) {
+        
+        // If the page doesn't have the @AccessRole annotation, return true
+        if (allowedType == null || allowedType.isEmpty()) {
+            return true;
+        }
+
+        // If the user is not null, check if their role is in the list of allowed roles
+        if (user != null) {
             for (Type type : allowedType) {
                 if (type == getRoleTypeById(user.getRole().getRole_id())) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 

@@ -129,74 +129,48 @@ public class BlogDAO extends EntityDAO {
         return blogs;
     }
 
-    public List<Blog> findByCategories(String[] selectedCategories) {
-        List<Blog> blogs = new ArrayList<>();
+    public int getBlogCount(String searchQuery, String[] selectedCategories) {
+        int count = 0;
         try {
-            String strSelect = "select * from Blog INNER JOIN Blog_Category ON Blog.blog_id = Blog_Category.blog_id WHERE category IN (";
-            for (int i = 0; i < selectedCategories.length; i++) {
-                strSelect += "?";
-                if (i < selectedCategories.length - 1) {
-                    strSelect += ", ";
-                }
-            }
-            strSelect += ")";
-            stm = connection.prepareStatement(strSelect);
-            for (int i = 0; i < selectedCategories.length; i++) {
-                stm.setString(i + 1, selectedCategories[i]);
-            }
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                Blog blog = (Blog) this.createEntity(rs);
-                blogs.add(blog);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return blogs;
-    }
+            StringBuilder strSelect = new StringBuilder("SELECT COUNT(*) FROM Blog INNER JOIN Blog_Category ON Blog.blog_id = Blog_Category.blog_id WHERE 1=1");
 
-    public List<Blog> findBySearchAndCategories(String searchQuery, String[] selectedCategories) {
-        List<Blog> blogs = new ArrayList<>();
-        try {
-            String strSelect = "select * from Blog INNER JOIN Blog_Category ON Blog.blog_id = Blog_Category.blog_id WHERE title LIKE ? AND category IN (";
-            for (int i = 0; i < selectedCategories.length; i++) {
-                strSelect += "?";
-                if (i < selectedCategories.length - 1) {
-                    strSelect += ", ";
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                strSelect.append(" AND title LIKE ?");
+            }
+
+            if (selectedCategories != null && selectedCategories.length > 0) {
+                strSelect.append(" AND category IN (");
+                for (int i = 0; i < selectedCategories.length; i++) {
+                    strSelect.append("?");
+                    if (i < selectedCategories.length - 1) {
+                        strSelect.append(", ");
+                    }
+                }
+                strSelect.append(")");
+            }
+
+            stm = connection.prepareStatement(strSelect.toString());
+
+            int parameterIndex = 1;
+            if (searchQuery != null && !searchQuery.isEmpty()) {
+                stm.setString(parameterIndex++, "%" + searchQuery + "%");
+            }
+
+            if (selectedCategories != null && selectedCategories.length > 0) {
+                for (String category : selectedCategories) {
+                    stm.setString(parameterIndex++, category);
                 }
             }
-            strSelect += ")";
-            stm = connection.prepareStatement(strSelect);
-            stm.setString(1, searchQuery);
-            for (int i = 0; i < selectedCategories.length; i++) {
-                stm.setString(i + 2, selectedCategories[i]);
-            }
+
             rs = stm.executeQuery();
-            while (rs.next()) {
-                Blog blog = (Blog) this.createEntity(rs);
-                blogs.add(blog);
+            if (rs.next()) {
+                count = rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return blogs;
+        return count;
     }
-    public List<Blog> findBySearch(String searchQuery) {
-    List<Blog> blogs = new ArrayList<>();
-    try {
-        String strSelect = "SELECT * FROM Blog WHERE title LIKE ?";
-        stm = connection.prepareStatement(strSelect);
-        stm.setString(1, "%" + searchQuery + "%");
-        rs = stm.executeQuery();
-        while (rs.next()) {
-            Blog blog = (Blog) this.createEntity(rs);
-            blogs.add(blog);
-        }
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
-    return blogs;
-}
 
     public List<Blog> findFeatured() {
         List<Blog> blogs = new ArrayList<>();
