@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -29,7 +32,7 @@
     <body>
 
         <%@include file = "view/header.jsp" %>
-
+        <c:set var = "blog" value = "${requestScope.blog}" />
         <div class="post-wrap padding-large overflow-hidden">
             <div class="container">
                 <div class="row">
@@ -38,96 +41,24 @@
                             <article class="post-item">
                                 <div class="post-content">
                                     <div class="hero-image col-lg-12">
-                                        <img src="images/single-post.jpg" alt="single-post" class="img-fluid">
+                                        <img src="${blog.thumbnail}" alt="single-post" class="img-fluid">
                                     </div>
                                     <div class="post-meta mt-4">
-                                        <span class="post-category">Feb 22, 2023 </span> - <span class="meta-date"><a href="blog.html">Technology</a></span>
+                                        <span class="post-category">${blog.updatedDate}</span> - <span class="meta-date"><a href="blog.html"><c:forEach items = "${category}" var = "blog.category">
+                                            ${category} 
+                                        </c:forEach></a></span>
                                     </div>
-                                    <h1 class="post-title mt-4">5 Must-Have Gadgets for the Modern Home</h1>
+                                    <h1 class="post-title mt-4">${blog.title}</h1>
                                     <div class="post-description review-item mt-4">
                                         <p>
-                                            <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur facilisis vivamus massa magna. Blandit mauris libero condimentum commodo morbi consectetur sociis convallis sit. Magna diam amet justo sed vel dolor et volutpat integer. Iaculis sit sapien hac odio elementum egestas neque. Adipiscing purus euismod orci sem amet, et. Turpis erat ornare nisi laoreet est euismod.</strong>
+                                            <strong>${blog.blogContent}</strong>
                                         </p>
-                                        <p>Sit suscipit tortor turpis sed fringilla lectus facilisis amet. Ipsum, amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut vivamus sit imperdiet enim, lacus, vel. Morbi arcu amet, nulla fermentum
-                                            vitae mattis arcu mi convallis. Urna in sollicitudin in vestibulum erat. Turpis faucibus augue ipsum, at aliquam. Cras sagittis tellus nunc integer vitae neque bibendum eget. Tempus malesuada et pellentesque maecenas.
-                                            Sociis porttitor elit tincidunt tellus sit ornare. Purus ut quis sed venenatis eget ut ipsum, enim lacus. Praesent imperdiet vitae eu, eu tincidunt nunc integer sit.</p>
-                                        <blockquote class="fs-1">“Sit suscipit tortor turpis sed fringilla lectus facilisis amet. Ipsum, amet dolor curabitur non aliquet orci urna volutpat. Id aliquam neque, ut vivamus sit imperdiet enim, lacus, vel.</blockquote>
-                                        <h3 class="mt-3">Is This Great?</h3>
-                                        <ul style="list-style-type:disc;" class="inner-list">
-                                            <li>Blandit mauris libero condimentum commodo sociis convallis sit.</li>
-                                            <li>Magna diam amet justo sed vel dolor et volutpat integer.</li>
-                                            <li>Laculis sit sapien hac odio elementum egestas neque.</li>
-                                        </ul>
-                                        <p>Morbi arcu amet, nulla fermentum vitae mattis arcu mi convallis. Urna in sollicitudin in vestibulum erat. Turpis faucibus augue ipsum, at aliquam. Cras sagittis tellus nunc integer vitae neque bibendum eget. Tempus
-                                            malesuada et pellentesque maecenas. Sociis porttitor elit tincidunt tellus sit ornare. Purus ut ipsum, enim lacus. Praesent imperdiet vitae eu, eu tincidunt nunc integer sit.</p>
-                                        <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                            nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus. Nunc tempus feugiat massa laoreet ultrices diam magna quam. Congue auctor
-                                            auctor luctus neque. Enim lorem ultrices diam donec. Sed id placerat consectetur faucibus.</p>
-                                        <img src="images/post-img.jpg" alt="post-image" class="img-fluid float-start rounded-4 me-3 mb-3 col-md-5">
-                                        <h3 class="mt-3">Velit, praesent pharetra malesuada</h3>
-                                        <p>Id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget lectus. Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget ullamcorper urna, elit ac diam tellus viverra lacus.</p>
-                                        <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                            nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-                                        <p>Velit, praesent pharetra malesuada id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget lectus. Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget ullamcorper urna, elit
-                                            ac diam tellus viverra lacus.</p>
-                                        <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                            nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
-                                        <p>Praesent pharetra malesuada id pulvinar amet. Consequat potenti mollis massa iaculis et, dolor, eget lectus. Aliquam pellentesque molestie felis fames sed eget non euismod eget. Et eget ullamcorper urna, elit ac diam
-                                            tellus viverra lacus.</p>
-                                        <p>Tortor diam dignissim amet, in interdum aliquet. Magnis dictum et eros purus fermentum, massa ullamcorper sit sollicitudin. Nascetur libero elementum adipiscing mauris maecenas et magna. Etiam nec, rutrum a diam lacus,
-                                            nunc integer etiam. Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus.</p>
+                                        <!-- More content can be added similarly using blog object properties -->
                                         <div class="post-bottom-link d-flex justify-content-between mt-2">
-                                            <div class="block-tag">
-                                                <ul class="list-unstyled d-flex">
-                                                    <li class="pe-3">
-                                                        <a href="#">Tech</a>
-                                                    </li>
-                                                    <li class="pe-3">
-                                                        <a href="#">Tips</a>
-                                                    </li>
-                                                    <li class="pe-3">
-                                                        <a href="#">Gadgets</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                             <div class="social-links d-flex">
                                                 <div class="element-title pe-2">Share:</div>
                                                 <ul class="d-flex list-unstyled">
-                                                    <li>
-                                                        <a href="#">
-                                                            <svg class="facebook">
-                                                            <use xlink:href="#facebook"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <svg class="instagram">
-                                                            <use xlink:href="#instagram"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <svg class="twitter">
-                                                            <use xlink:href="#twitter"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <svg class="linkedin">
-                                                            <use xlink:href="#linkedin"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <svg class="youtube">
-                                                            <use xlink:href="#youtube"></use>
-                                                            </svg>
-                                                        </a>
-                                                    </li>
+                                                    <!-- Add social media icons here -->
                                                 </ul>
                                             </div>
                                         </div>
@@ -138,10 +69,10 @@
                                                 <svg class="alt-arrow-left-bold" width="44" height="44">
                                                 <use xlink:href="#alt-arrow-left-bold"></use>
                                                 </svg>
-                                                <h4 class="card-title text-uppercase text-dark">Best digital watches to buy in this year</h4>
+                                                <h4 class="card-title text-uppercase text-dark"></h4>
                                             </a>
                                             <a itemprop="url" class="post-next d-flex align-items-center" href="#">
-                                                <h4 class="card-title text-uppercase text-dark">Best airpod that you must get it</h4>
+                                                <h4 class="card-title text-uppercase text-dark"></h4>
                                                 <svg class="alt-arrow-right-bold" width="44" height="44">
                                                 <use xlink:href="#alt-arrow-right-bold"></use>
                                                 </svg>
