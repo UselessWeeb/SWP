@@ -10,7 +10,9 @@ package dao;
  */
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Laptop;
 
 public class LaptopDAO extends EntityDAO {
@@ -30,8 +32,8 @@ public class LaptopDAO extends EntityDAO {
         }
         return laptops;
     }
-    
-     public Laptop getByID(String id) {
+
+    public Laptop getByID(String id) {
         Laptop product = null;
         try {
             String strSelect = "SELECT * FROM Laptop WHERE laptop_id = ?";
@@ -63,74 +65,47 @@ public class LaptopDAO extends EntityDAO {
         return laptops;
     }
 
-    public List<Laptop> findBySearch(String searchQuery) {
-        List<Laptop> laptops = new ArrayList<>();
+    public int findCountByCriteria(String searchQuery, String[] selectedCategories) {
+        int count = 0;
         try {
-            String strSelect = "SELECT * FROM Laptop WHERE title LIKE ?";
-            stm = connection.prepareStatement(strSelect);
-            stm.setString(1, "%" + searchQuery + "%");
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                Laptop laptop = (Laptop) this.createEntity(rs);
-                laptops.add(laptop);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return laptops;
-    }
-
-    public List<Laptop> findByCategories(String[] selectedCategories) {
-        List<Laptop> laptops = new ArrayList<>();
-        try {
-            String strSelect = "select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id WHERE category IN (";
-            for (int i = 0; i < selectedCategories.length; i++) {
-                strSelect += "?";
-                if (i < selectedCategories.length - 1) {
-                    strSelect += ", ";
+            StringBuilder strSelect = new StringBuilder("SELECT COUNT(*) FROM Laptop");
+            if (searchQuery != null || selectedCategories != null) {
+                strSelect.append(" WHERE ");
+                if (searchQuery != null) {
+                    strSelect.append("title LIKE ? ");
+                }
+                if (selectedCategories != null) {
+                    if (searchQuery != null) {
+                        strSelect.append("AND ");
+                    }
+                    strSelect.append("category IN (");
+                    for (int i = 0; i < selectedCategories.length; i++) {
+                        strSelect.append("?");
+                        if (i < selectedCategories.length - 1) {
+                            strSelect.append(", ");
+                        }
+                    }
+                    strSelect.append(") ");
                 }
             }
-            strSelect += ")";
-            stm = connection.prepareStatement(strSelect);
-            for (int i = 0; i < selectedCategories.length; i++) {
-                stm.setString(i + 1, selectedCategories[i]);
+            stm = connection.prepareStatement(strSelect.toString());
+            int paramIndex = 1;
+            if (searchQuery != null) {
+                stm.setString(paramIndex++, "%" + searchQuery + "%");
             }
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                Laptop laptop = (Laptop) this.createEntity(rs);
-                laptops.add(laptop);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return laptops;
-    }
-
-    public List<Laptop> findBySearchAndCategories(String searchQuery, String[] selectedCategories) {
-        List<Laptop> laptops = new ArrayList<>();
-        try {
-            String strSelect = "select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id WHERE title LIKE ? AND category IN (";
-            for (int i = 0; i < selectedCategories.length; i++) {
-                strSelect += "?";
-                if (i < selectedCategories.length - 1) {
-                    strSelect += ", ";
+            if (selectedCategories != null) {
+                for (String category : selectedCategories) {
+                    stm.setString(paramIndex++, category);
                 }
             }
-            strSelect += ")";
-            stm = connection.prepareStatement(strSelect);
-            stm.setString(1, searchQuery);
-            for (int i = 0; i < selectedCategories.length; i++) {
-                stm.setString(i + 2, selectedCategories[i]);
-            }
             rs = stm.executeQuery();
-            while (rs.next()) {
-                Laptop laptop = (Laptop) this.createEntity(rs);
-                laptops.add(laptop);
+            if (rs.next()) {
+                count = rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return laptops;
+        return count;
     }
 
     public List<Laptop> findByPage(int page, int totalPerPage, String order, String condition, String[] categories) {
@@ -184,7 +159,28 @@ public class LaptopDAO extends EntityDAO {
         }
         return laptops;
     }
-    
+
+    public HashMap<String, Integer> getCategoryCounts() {
+        HashMap<String, Integer> categoryMap = new HashMap<>();
+
+        String query = "SELECT lc.category, COUNT(l.laptop_id) FROM Laptop l INNER JOIN Laptop_Category lc ON l.laptop_id = lc.laptop_id GROUP BY lc.category";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String category = rs.getString(1);
+                int count = rs.getInt(2);
+                categoryMap.put(category, count);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categoryMap;
+    }
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         Laptop_CategoryDAO lap_cat = new Laptop_CategoryDAO();

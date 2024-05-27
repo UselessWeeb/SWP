@@ -82,6 +82,11 @@
     </symbol>
     </svg>
 
+    <%
+        String uri = request.getRequestURI();
+        request.setAttribute("uri", uri);
+    %>
+
     <div class="search-popup">
         <div class="search-popup-container">
 
@@ -156,20 +161,20 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link me-4 active" href="/app-name/">Home</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("index.jsp")}'>active</c:if>" href="/app-name/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="about.jsp">About</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("about.jsp")}'>active</c:if>" href="about.jsp">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="productList">Shop</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("shop.jsp")}'>active</c:if>" href="productList">Shop</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="blog">Blogs</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("blog.jsp")}'>active</c:if>" href="blog">Blogs</a>
                             </li>
                             <jsp:include page="/showaction" />
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="contact.jsp">Contact</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("contact.jsp")}'>active</c:if>" href="contact.jsp">Contact</a>
                             </li>
                         </ul>
                         <div class="user-items d-flex">

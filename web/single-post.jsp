@@ -38,9 +38,9 @@
                 <div class="row">
                     <main class="post-grid">
                         <div class="row">
-                            <article class="post-item">
+                            <article class="post-item col-md-9">
                                 <div class="post-content">
-                                    <div class="hero-image col-lg-12">
+                                    <div class="hero-image">
                                         <img src="${blog.thumbnail}" alt="single-post" class="img-fluid">
                                     </div>
                                     <div class="post-meta mt-4">
@@ -81,6 +81,7 @@
                                     </div>
                                 </div>
                             </article>
+                            <jsp:include page="/blogSidebar"/>
                             <section id="post-comment" class="padding-medium pb-0">
                                 <div class="container">
                                     <div class="row">
@@ -170,6 +171,7 @@
                                 </div>
                             </section>
                         </div>
+                        
                     </main>
                 </div>
             </div>

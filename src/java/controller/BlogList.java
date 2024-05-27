@@ -47,13 +47,14 @@ public class BlogList extends HttpServlet {
 
         final int totalPerPage = 12;
         int totalBlogs;
-        if (searchQuery.isBlank()) {
-            totalBlogs = blogDAO.getAll().size();
-        } else if (selectedCategories != null) {
-            totalBlogs = blogDAO.findBySearchAndCategories("%" + searchQuery + "%", selectedCategories).size();
+        if (searchQuery.isBlank() && (selectedCategories == null || selectedCategories.length == 0)) {
+            totalBlogs = blogDAO.getBlogCount(null, null);
+        } else if (!searchQuery.isBlank() && (selectedCategories == null || selectedCategories.length == 0)) {
+            totalBlogs = blogDAO.getBlogCount(searchQuery, null);
+        } else if (searchQuery.isBlank() && selectedCategories != null && selectedCategories.length > 0) {
+            totalBlogs = blogDAO.getBlogCount(null, selectedCategories);
         } else {
-            // Call a different method if selectedCategories is null
-            totalBlogs = blogDAO.findBySearch("%" + searchQuery + "%").size();
+            totalBlogs = blogDAO.getBlogCount(searchQuery, selectedCategories);
         }
         int totalPage = (int) Math.ceil((double) totalBlogs / totalPerPage);
 
@@ -74,27 +75,7 @@ public class BlogList extends HttpServlet {
         request.setAttribute("totalPerPage", totalPerPage);
         request.setAttribute("currentPage", currentPage);
 
-//next, the hashmap to contains all types of blog category
-        HashMap<String, Integer> categoryMap = new HashMap<>();
-        List<Blog> allBlogs;
-
-        allBlogs = blogDAO.getAll();
-
-        for (Blog blog : allBlogs) {
-            List<Blog_Category> blogCategory = blog.getCategory();
-            for (Blog_Category b : blogCategory) {
-                categoryMap.put(b.getCategory(), categoryMap.getOrDefault(b.getCategory(), 0) + 1);
-            }
-        }
-        
-        System.out.println(blogDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%", selectedCategories));
-
-        request.setAttribute("categoryMap", categoryMap);
-
         request.setAttribute("selectedCategories", selectedCategories);
-
-//lastly, show latest blogs
-        request.setAttribute("latestBlogs", blogDAO.findLatest());
 
         request.getRequestDispatcher("blog.jsp").forward(request, response);
     }
