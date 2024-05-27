@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dao.BlogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,18 +11,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.List;
-import model.Blog;
-import model.Blog_Category;
+import java.util.Set;
+import java.util.stream.Collectors;
+import model.User;
+import service.RoleAuthorization;
+import service.URLfilter;
 
 /**
  *
- * @author ASUS
+ * @author M7510
  */
-@WebServlet(urlPatterns = {"/blog"})
-
-public class BlogList extends HttpServlet {
+@WebServlet(name = "showUserActionServlet", urlPatterns = {"/showaction"})
+public class showUserActionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,47 +37,26 @@ public class BlogList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        BlogDAO blogDAO = new BlogDAO();
+        //this is a list that will show what user can do right now
+        //using the userAuthorization, ofc
+        RoleAuthorization auth = new RoleAuthorization();
+        URLfilter filter = new URLfilter();
+        // Get the current user from the session
+        User currentUser = (User) request.getSession(false).getAttribute("user");
+        
+        // Filter the URLs to only include those that the current user can access
+        Set<String> allUrls = RoleAuthorization.currentMapping.keySet();
+        List<String> hiddenUrls = filter.hiddenUrls();
+        System.out.println(hiddenUrls);
+        System.out.println(allUrls);
+        List<String> accessibleUrls = allUrls.stream()
+            .filter(url -> auth.isAllowToAccess(currentUser, url) && !hiddenUrls.contains(url)) // Filter out URLs that the user can't access
+            .collect(Collectors.toList());
 
-        String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
-        String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
-
-// Step 1: Retrieve the checkbox values
-        String[] selectedCategories = request.getParameterValues("category");
-
-        final int totalPerPage = 12;
-        int totalBlogs;
-        if (searchQuery.isBlank() && (selectedCategories == null || selectedCategories.length == 0)) {
-            totalBlogs = blogDAO.getBlogCount(null, null);
-        } else if (!searchQuery.isBlank() && (selectedCategories == null || selectedCategories.length == 0)) {
-            totalBlogs = blogDAO.getBlogCount(searchQuery, null);
-        } else if (searchQuery.isBlank() && selectedCategories != null && selectedCategories.length > 0) {
-            totalBlogs = blogDAO.getBlogCount(null, selectedCategories);
-        } else {
-            totalBlogs = blogDAO.getBlogCount(searchQuery, selectedCategories);
-        }
-        int totalPage = (int) Math.ceil((double) totalBlogs / totalPerPage);
-
-        int currentPage;
-        try {
-            currentPage = Integer.parseInt(request.getParameter("page"));
-            if (currentPage < 0 || currentPage >= totalPage) {
-                currentPage = 0;
-            }
-        } catch (NumberFormatException e) {
-            currentPage = 0;
-        }
-
-        request.setAttribute("searchQuery", searchQuery);
-        request.setAttribute("blogList", blogDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%", selectedCategories));
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("totalBlogs", totalBlogs);
-        request.setAttribute("totalPerPage", totalPerPage);
-        request.setAttribute("currentPage", currentPage);
-
-        request.setAttribute("selectedCategories", selectedCategories);
-
-        request.getRequestDispatcher("blog.jsp").forward(request, response);
+        // Store the list of accessible URLs in the request
+        request.setAttribute("accessibleUrls", accessibleUrls);
+        // Forward the request to a JSP page to display the list
+        request.getRequestDispatcher("/view/showAction.jsp").include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

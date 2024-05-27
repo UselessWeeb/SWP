@@ -144,6 +144,6 @@ public class Laptop {
 
     @Override
     public String toString() {
-        return "Laptop{" + "laptopId=" + laptopId + ", title=" + title + ", mainImage=" + mainImage + ", originalPrice=" + originalPrice + ", productsDetail=" + productsDetail + ", stock=" + stock + ", salePrice=" + salePrice + ", status=" + status + ", updatedDate=" + updatedDate + '}';
+        return "Laptop{" + "laptopId=" + laptopId + ", title=" + title + ", mainImage=" + mainImage + ", category=" + category + ", image=" + image + ", originalPrice=" + originalPrice + ", productsDetail=" + productsDetail + ", stock=" + stock + ", salePrice=" + salePrice + ", status=" + status + ", updatedDate=" + updatedDate + '}';
     }
 }

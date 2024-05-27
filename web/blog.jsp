@@ -43,79 +43,18 @@
         <div class="padding-large">
             <div class="container">
                 <div class="row">
-                    <aside class="col-md-3">
-                        <div class="sidebar pe-lg-5 mb-3">
-                            <div class="widget-menu">
-                                <div class="widget-search-bar">
-                                    <form class="d-flex border rounded-3 p-2 " role="search" action="yourServletURL" method="get">
-                                        <input class="form-control border-0 me-2" type="search" placeholder="Search" aria-label="Search" name="search" value="${searchQuery}">
-                                        <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
-                                            <svg class="search text-light" width="18" height="18">
-                                            <use xlink:href="#search"></use>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="widget-product-categories pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Categories</h3>
-                                </div>
-                                <ul class="product-categories mb-0 sidebar-list list-unstyled">
-                                    <c:forEach var="entry" items="${categoryMap}">
-                                        <li class="cat-item">
-                                            <a href="?category=${entry.key}">${entry.key} (${entry.value})</a>
-                                        </li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
-                            <div class="widget-product-tags pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Tags</h3>
-                                </div>
-                                <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                    <li class="tags-item">
-                                        <a href="#">White</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Cheap</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Mobile</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">Modern</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="widget-social-links pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Social Links</h3>
-                                </div>
-                                <ul class="social-links mb-0 sidebar-list list-unstyled">
-                                    <li class="links">
-                                        <a href="#">Facebook</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Instagram</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Twitter</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Youtube</a>
-                                    </li>
-                                    <li class="links">
-                                        <a href="#">Pinterest</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </aside>
+                    <jsp:include page="/blogSidebar"/>
                     <main class="col-md-9">
                         <div class="filter-blog d-flex flex-wrap justify-content-between">
                             <div class="showing-product">
-                                <p>Showing 1-9 of 55 results</p>
+                                <c:choose>
+                                    <c:when test="${not empty blogList and not empty totalPage and not empty currentPage}">
+                                        <p>Showing ${currentPage * totalPerPage + 1} - ${(currentPage * totalPerPage) + blogList.size()} of ${totalProducts} results</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>No results found.</p>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="sort-by">
                                 <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="">
@@ -133,7 +72,7 @@
                             <c:set var = "blogList" value = "${requestScope.blogList}" />
                             <c:forEach var="blog" items="${blogList}">
                                 <div class="col-lg-4 col-md-6 posts mb-4">
-                                    <a href="blog.html" class="btn rounded-0 py-0 px-2">
+                                    <a href="blogdetails" class="btn rounded-0 py-0 px-2">
                                         <c:forEach var="category" items="${blog.category}">
                                             ${category.category}
                                         </c:forEach>
@@ -149,11 +88,17 @@
                         </div>
                         <nav class="py-5" aria-label="Page navigation">
                             <ul class="pagination justify-content-center gap-4">
+                                <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
+                                    <a class="page-link" href="?page=${currentPage - 1}">Previous</a>
+                                </li>
                                 <c:forEach var="i" begin="0" end="${totalPage-1}">
                                     <li class="page-item ${i == currentPage ? 'active' : ''}">
                                         <a class="page-link" href="?page=${i}">${i+1}</a>
                                     </li>
                                 </c:forEach>
+                                <li class="page-item ${currentPage == totalPage - 1 ? 'disabled' : ''}">
+                                    <a class="page-link" href="?page=${currentPage + 1}">Next</a>
+                                </li>
                             </ul>
                         </nav>
                     </main>

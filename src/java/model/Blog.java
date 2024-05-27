@@ -103,6 +103,6 @@ public class Blog {
 
     @Override
     public String toString() {
-        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", updatedDate=" + updatedDate + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + '}';
+        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", category=" + category + ", updatedDate=" + updatedDate + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + '}';
     }
 }
