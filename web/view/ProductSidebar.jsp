@@ -21,7 +21,7 @@
                 <section id="customers-reviews" class="position-relative">
                     <div class="container">
                         <div class="section-title overflow-hidden mb-2">
-                            <h3 class="d-flex flex-column mb-0">Latest</h3>
+                            <h3 class="d-flex flex-column mb-0 side-content">Latest</h3>
                         </div>
                         <div class="swiper product-swiper">
                             <div class="swiper-wrapper">
@@ -29,11 +29,11 @@
                                 <c:forEach items="${latestProducts}" var="laptop">
                                     <div class="swiper-slide">
                                         <div class="card position-relative text-left p-5 border rounded-3">
-                                            <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
+                                            <img src="${laptop.mainImage}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
                                             <h5 class="mt-2"><a href="single-product.jsp?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
-                                            <c:if test="${laptop.salePrice != laptop.originalPrice}">
+                                                <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                                 <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
-                                            </c:if>
+                                                </c:if>
                                             <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
                                             <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
                                                 <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
@@ -57,22 +57,22 @@
             </div>
             <div class="widget-product-categories pt-5">
                 <div class="section-title overflow-hidden mb-2">
-                    <h3 class="d-flex flex-column mb-0">Categories</h3>
+                    <h3 class="d-flex flex-column mb-0 side-content">Categories</h3>
                 </div>
                 <ul class="product-categories mb-0 sidebar-list list-unstyled">
                     <c:forEach var="entry" items="${categoryMap}">
                         <li class="cat-item">
-                        <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
-                        <input type="checkbox" name="category" value="${entry.key}" 
-                               ${fn:contains(selectedCategoriesString, entry.key) ? 'checked' : ''}>
-                        <label>${entry.key} (${entry.value})</label>
+                            <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
+                            <input type="checkbox" name="category" value="${entry.key}" 
+                                   ${fn:contains(selectedCategoriesString, entry.key) ? 'checked' : ''}>
+                            <label>${entry.key} (${entry.value})</label>
                         </li>
                     </c:forEach>
                 </ul>
             </div>
             <div class="widget-price-filter pt-5">
                 <div class="section-title overflow-hidden mb-2">
-                    <h3 class="d-flex flex-column mb-0">Filter by price</h3>
+                    <h3 class="d-flex flex-column mb-0 side-content">Filter by price</h3>
                 </div>
                 <ul class="product-tags mb-0 sidebar-list list-unstyled">
                     <li class="tags-item">

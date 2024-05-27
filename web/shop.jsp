@@ -76,7 +76,7 @@
                             <c:forEach items="${laptopList}" var="laptop">
                                 <div class="col-lg-3 col-md-4">
                                     <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                        <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
+                                        <img src="${laptop.mainImage}" class="p-3 img-fluid product-image" alt="${laptop.title}">
                                         <h5 class="mt-2"><a href="single-product.html?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
                                             <c:if test = "${laptop.salePrice != laptop.originalPrice}">
                                             <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
@@ -142,7 +142,8 @@
                                                <c:forEach var="category" items="${selectedCategories}">
                                                    &category=${category}
                                                </c:forEach>
-                                               ">Next</a>
+                                               ">Next
+                                            </a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage >= totalPage - 1}">

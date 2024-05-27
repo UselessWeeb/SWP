@@ -1232,3 +1232,17 @@ select#input-sort {
         margin-bottom: 10px;
     }
 }
+
+/*--Extra Settings --*/
+.side-content{ 
+    background-color: #ff6543;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.product-image {
+    width: 250px; 
+    height: 150px; 
+    object-fit: cover;
+}
