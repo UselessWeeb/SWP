@@ -20,7 +20,7 @@ public class Blog_CategoryDAO extends EntityDAO {
     public List<Blog_Category> findById(int cBlog) {
         List<Blog_Category> categories = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Blog_Category WHERE CBlog = ?";
+            String strSelect = "SELECT * FROM Blog_Category WHERE blog_id = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setInt(1, cBlog);
             rs = stm.executeQuery();

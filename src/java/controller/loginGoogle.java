@@ -5,6 +5,7 @@
 
 package controller;
 
+import dao.RoleDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,18 +46,23 @@ public class loginGoogle extends HttpServlet {
         User acc = gg.getUserInfo(accessToken);
 
         UserDAO dao = new UserDAO();
-        User user = dao.findUserByEmail(acc.getEmail());
-        
+        User user = dao.findUserByEmail(acc.getEmail());       
         if(user == null) {
             //add user to database
             user = new User();
+            RoleDAO roledao = new RoleDAO();
             user.setEmail(acc.getEmail());
             user.setFullName(acc.getFullName());
             user.setAvatar(acc.getAvatar());
             user.setRoleId(acc.getRoleId());
             user.setPassword("");
+            user.setRole(roledao.getById(acc.getRoleId()));
             dao.registerUser(user);
+            int user_id = dao.getUserIdByEmail(acc.getEmail());
+            user.setUserId(user_id);
         } 
+        System.out.println(user);
+        
         request.getSession().setAttribute("user", user);
         response.sendRedirect(request.getContextPath());
     } 

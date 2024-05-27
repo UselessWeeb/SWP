@@ -53,7 +53,7 @@ public class User {
         this.email = "Not specified";
         this.phoneNumber = "Not specified";
         this.password = "";
-        this.state = "Not specified";
+        this.state = "unvertified";
         this.role_id = 6; //if no role is assigned, assign the default role
     }
 

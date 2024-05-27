@@ -19,7 +19,7 @@ public class Laptop_CategoryDAO extends EntityDAO {
     public List<Laptop_Category> findById(int cLaptop) {
         List<Laptop_Category> category = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Laptop_Category WHERE CLaptop = ?";
+            String strSelect = "SELECT * FROM Laptop_Category WHERE laptop_id = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setInt(1, cLaptop);
             ResultSet rs = stm.executeQuery();
@@ -35,7 +35,6 @@ public class Laptop_CategoryDAO extends EntityDAO {
     @Override
     public Laptop_Category createEntity(ResultSet rs) throws SQLException {
         return new Laptop_Category(
-                rs.getInt("CLaptop"),
                 rs.getInt("laptop_id"),
                 rs.getString("Category")
         );

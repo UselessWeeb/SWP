@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.sidebar;
 
 import dao.LaptopDAO;
 import java.io.IOException;
@@ -21,8 +21,8 @@ import model.Laptop_Category;
  *
  * @author M7510
  */
-@WebServlet(urlPatterns = {"/productList"})
-public class ProductListServlet extends HttpServlet {
+@WebServlet(name = "ProductSidebar", urlPatterns = {"/productSidebar"})
+public class ProductSidebar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,50 +36,17 @@ public class ProductListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            LaptopDAO laptopDAO = new LaptopDAO();
+        HashMap<String, Integer> categoryMap = new HashMap<>();
+        LaptopDAO laptopDAO = new LaptopDAO();
+        
+        categoryMap = laptopDAO.getCategoryCounts();
 
-            String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
-            String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
+        request.setAttribute("categoryMap", categoryMap);
 
-            // Step 1: Retrieve the checkbox values
-            String[] selectedCategories = request.getParameterValues("category");
+        //lastly, show latest products
+        request.setAttribute("latestProducts", laptopDAO.findLatest());
 
-            int totalProducts;
-            if (searchQuery.isBlank() && selectedCategories == null) {
-                totalProducts = laptopDAO.findCountByCriteria(null, null);
-            } else if (!searchQuery.isBlank() && selectedCategories != null) {
-                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", selectedCategories);
-            } else if (!searchQuery.isBlank() && selectedCategories == null) {
-                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", null);
-            } else {
-                totalProducts = laptopDAO.findCountByCriteria(null, selectedCategories);
-            }
-            final int totalPerPage = 12;
-
-            int totalPage = (int) Math.ceil((double) totalProducts / totalPerPage);
-
-            int currentPage;
-            try {
-                currentPage = Integer.parseInt(request.getParameter("page"));
-                if (currentPage < 0 || currentPage >= totalPage) {
-                    currentPage = 0;
-                }
-            } catch (NumberFormatException e) {
-                currentPage = 0;
-            }
-
-            request.setAttribute("searchQuery", searchQuery);
-            request.setAttribute("laptopList", laptopDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%", selectedCategories));
-            request.setAttribute("totalPage", totalPage);
-            request.setAttribute("totalProducts", totalProducts);
-            request.setAttribute("totalPerPage", totalPerPage);
-            request.setAttribute("currentPage", currentPage);
-
-            request.setAttribute("selectedCategories", selectedCategories);
-
-            request.getRequestDispatcher("shop.jsp").forward(request, response);
-        }
+        request.getRequestDispatcher("view/ProductSidebar.jsp").include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

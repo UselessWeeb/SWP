@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.sidebar;
 
-import dao.LaptopDAO;
+import dao.BlogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +14,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
-import model.Laptop;
-import model.Laptop_Category;
+import model.Blog;
+import model.Blog_Category;
 
 /**
  *
  * @author M7510
  */
-@WebServlet(urlPatterns = {"/productList"})
-public class ProductListServlet extends HttpServlet {
+@WebServlet(name = "BlogSidebar", urlPatterns = {"/blogSidebar"})
+public class BlogSidebar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,50 +36,25 @@ public class ProductListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            LaptopDAO laptopDAO = new LaptopDAO();
+            BlogDAO blogDAO = new BlogDAO();
+            HashMap<String, Integer> categoryMap = new HashMap<>();
+            List<Blog> allBlogs;
 
-            String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
-            String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
+            allBlogs = blogDAO.getAll();
 
-            // Step 1: Retrieve the checkbox values
-            String[] selectedCategories = request.getParameterValues("category");
-
-            int totalProducts;
-            if (searchQuery.isBlank() && selectedCategories == null) {
-                totalProducts = laptopDAO.findCountByCriteria(null, null);
-            } else if (!searchQuery.isBlank() && selectedCategories != null) {
-                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", selectedCategories);
-            } else if (!searchQuery.isBlank() && selectedCategories == null) {
-                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", null);
-            } else {
-                totalProducts = laptopDAO.findCountByCriteria(null, selectedCategories);
-            }
-            final int totalPerPage = 12;
-
-            int totalPage = (int) Math.ceil((double) totalProducts / totalPerPage);
-
-            int currentPage;
-            try {
-                currentPage = Integer.parseInt(request.getParameter("page"));
-                if (currentPage < 0 || currentPage >= totalPage) {
-                    currentPage = 0;
+            for (Blog blog : allBlogs) {
+                List<Blog_Category> blogCategory = blog.getCategory();
+                for (Blog_Category b : blogCategory) {
+                    categoryMap.put(b.getCategory(), categoryMap.getOrDefault(b.getCategory(), 0) + 1);
                 }
-            } catch (NumberFormatException e) {
-                currentPage = 0;
             }
 
-            request.setAttribute("searchQuery", searchQuery);
-            request.setAttribute("laptopList", laptopDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%", selectedCategories));
-            request.setAttribute("totalPage", totalPage);
-            request.setAttribute("totalProducts", totalProducts);
-            request.setAttribute("totalPerPage", totalPerPage);
-            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("categoryMap", categoryMap);
 
-            request.setAttribute("selectedCategories", selectedCategories);
-
-            request.getRequestDispatcher("shop.jsp").forward(request, response);
-        }
+            //lastly, show latest blogs
+            request.setAttribute("latestBlogs", blogDAO.findLatest());
+            System.out.println(blogDAO.findLatest());
+            request.getRequestDispatcher("view/BlogSidebar.jsp").include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

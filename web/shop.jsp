@@ -60,6 +60,8 @@
                                 <c:set var= "totalProducts" value = "${requestScope.totalProducts}" />
                                 <c:set var= "totalPerPage" value= "${requestScope.totalPerPage}" />
                                 <c:set var = "searchQuery" value= "${requestScope.searchQuery}"/>
+                                <c:set var = "categoryMap" value= "${requestScope.categoryMap}"/>
+                                <c:set var = "selectedCategories" value= "${requestScope.selectedCategories}"/>
                                 <c:choose>
                                     <c:when test="${not empty laptopList and not empty totalPage and not empty currentPage}">
                                         <p>Showing ${currentPage * totalPerPage + 1}–${(currentPage * totalPerPage) + laptopList.size()} of ${totalProducts} results</p>
@@ -68,19 +70,6 @@
                                         <p>No results found.</p>
                                     </c:otherwise>
                                 </c:choose>
-                            </div>
-                            <div class="sort-by">
-                                <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="" onchange = "updateSort()">
-                                    <option value="">Default sorting</option>
-                                    <option value="">Name (A - Z)</option>
-                                    <option value="">Name (Z - A)</option>
-                                    <option value="">Price (Low-High)</option>
-                                    <option value="">Price (High-Low)</option>
-                                    <option value="">Rating (Highest)</option>
-                                    <option value="">Rating (Lowest)</option>
-                                    <option value="">Model (A - Z)</option>
-                                    <option value="">Model (Z - A)</option>   
-                                </select>
                             </div>
                         </div>
                         <div class="row product-content product-store">
@@ -112,7 +101,11 @@
                                 <ul class="pagination justify-content-center gap-4">
                                     <c:if test="${currentPage > 0}">
                                         <li class="page-item">
-                                            <a class="page-link" href="yourPage.jsp?page=${currentPage - 1}">Prev</a>
+                                            <a class="page-link" href="productList?page=${currentPage - 1}&search=${searchQuery}
+                                               <c:forEach var="category" items="${selectedCategories}">
+                                                   &category=${category}
+                                               </c:forEach>
+                                               ">Prev</a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage == 0}">
@@ -121,22 +114,35 @@
                                         </li>
                                     </c:if>
 
-                                    <c:forEach begin="0" end="${totalPage - 1}" var="i">
-                                        <li class="page-item ${currentPage == i ? 'active' : ''}" aria-current="${currentPage == i ? 'page' : ''}">
-                                            <c:choose>
-                                                <c:when test="${currentPage == i}">
-                                                    <span class="page-link">${i + 1}</span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a class="page-link" href="productList?page=${i}&search=${searchQuery}">${i + 1}</a>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </li>
-                                    </c:forEach>
+                                    <c:if test="${totalPage > 0}">
+                                        <c:set var="start" value="${currentPage - 2 < 0 ? 0 : currentPage - 2}" />
+                                        <c:set var="end" value="${currentPage + 2 >= totalPage ? totalPage - 1 : currentPage + 2}" />
+
+                                        <c:forEach begin="${start}" end="${end}" var="i">
+                                            <li class="page-item ${currentPage == i ? 'active' : ''}" aria-current="${currentPage == i ? 'page' : ''}">
+                                                <c:choose>
+                                                    <c:when test="${currentPage == i}">
+                                                        <span class="page-link">${i + 1}</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a class="page-link" href="productList?page=${i}&search=${searchQuery}
+                                                           <c:forEach var="category" items="${selectedCategories}">
+                                                               &category=${category}
+                                                           </c:forEach>
+                                                           ">${i + 1}</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </li>
+                                        </c:forEach>
+                                    </c:if>
 
                                     <c:if test="${currentPage < totalPage - 1}">
                                         <li class="page-item">
-                                            <a class="page-link" href="productList?page=${currentPage + 1}&search=${searchQuery}">Next</a>
+                                            <a class="page-link" href="productList?page=${currentPage + 1}&search=${searchQuery}
+                                               <c:forEach var="category" items="${selectedCategories}">
+                                                   &category=${category}
+                                               </c:forEach>
+                                               ">Next</a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage >= totalPage - 1}">
@@ -146,106 +152,9 @@
                                     </c:if>
                                 </ul>
                             </nav>
-                    </main>
-                    <aside class="col-md-3">
-                        <div class="sidebar ps-lg-5">
-                            <div class="widget-menu">
-                                <div class="widget-search-bar">
-                                    <form class="d-flex border rounded-3 p-2" role="search" action="productList">
-                                        <input class="form-control border-0 me-2" type="search" placeholder="Search" name="search" aria-label="Search" value="${fn:escapeXml(searchQuery)}">
-                                        <button class="btn rounded-3 px-4 d-flex align-items-center" type="submit">
-                                            <svg class="search text-light" width="18" height="18">
-                                            <use xlink:href="#search"></use>
-                                            </svg>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="widget-product-categories pt-5">
-                                <section id="customers-reviews" class="position-relative">
-                                    <div class="container">
-                                        <div class="section-title overflow-hidden mb-2">
-                                            <h3 class="d-flex flex-column mb-0">Latest</h3>
-                                        </div>
-                                        <div class="swiper product-swiper">
-                                            <div class="swiper-wrapper">
-                                                <c:set var="latestProducts" value="${requestScope.latestProducts}" />
-                                                <c:forEach items="${latestProducts}" var="laptop">
-                                                    <div class="swiper-slide">
-                                                        <div class="card position-relative text-left p-5 border rounded-3">
-                                                            <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
-                                                            <h5 class="mt-2"><a href="single-product.jsp?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
-                                                                <c:if test="${laptop.salePrice != laptop.originalPrice}">
-                                                                <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
-                                                                </c:if>
-                                                            <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
-                                                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                                                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
-                                                                    <svg class="cart">
-                                                                    <use xlink:href="#cart"></use>
-                                                                    </svg>
-                                                                </button>
-                                                                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wishlist">
-                                                                    <svg class="wishlist">
-                                                                    <use xlink:href="#heart"></use>
-                                                                    </svg>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="widget-product-categories pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Categories</h3>
-                                </div>
-                                <ul class="product-categories mb-0 sidebar-list list-unstyled">
-                                    <li class="cat-item">
-                                        <a href="/collections/categories">All</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Phones</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Accessories</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Tablets</a>
-                                    </li>
-                                    <li class="cat-item">
-                                        <a href="#">Watches</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="widget-price-filter pt-5">
-                                <div class="section-title overflow-hidden mb-2">
-                                    <h3 class="d-flex flex-column mb-0">Filter by price</h3>
-                                </div>
-                                <ul class="product-tags mb-0 sidebar-list list-unstyled">
-                                    <li class="tags-item">
-                                        <a href="#">Less than $10</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$10- $20</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$20- $30</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$30- $40</a>
-                                    </li>
-                                    <li class="tags-item">
-                                        <a href="#">$40- $50</a>
-                                    </li>
-                                </ul>
-                            </div>
-
                         </div>
-                    </aside>
+                    </main>
+                    <jsp:include page="/productSidebar" flush="true"/>
                 </div>
             </div>
         </div> 

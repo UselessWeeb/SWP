@@ -82,6 +82,11 @@
     </symbol>
     </svg>
 
+    <%
+        String uri = request.getRequestURI();
+        request.setAttribute("uri", uri);
+    %>
+
     <div class="search-popup">
         <div class="search-popup-container">
 
@@ -148,7 +153,7 @@
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
                     <div class="offcanvas-header px-4 pb-0">
-                        <a class="navbar-brand" href="/Base/">
+                        <a class="navbar-brand" href="/app-name/">
                             <img src="images/main-logo.png" class="logo">
                         </a>
                         <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
@@ -156,48 +161,20 @@
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link me-4 active" href="/Base/">Home</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("index.jsp")}'>active</c:if>" href="/app-name/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="about.jsp">About</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("about.jsp")}'>active</c:if>" href="about.jsp">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="productList">Shop</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("shop.jsp")}'>active</c:if>" href="productList">Shop</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="blog.jsp">Blogs</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("blog.jsp")}'>active</c:if>" href="blog">Blogs</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu animate slide border">
-                                    <li>
-                                        <a href="about.jsp" class="dropdown-item fw-light">About <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="productList" class="dropdown-item fw-light">Shop <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="single-product.jsp" class="dropdown-item fw-light">Single Product <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="cart.jsp" class="dropdown-item fw-light">Cart <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="checkout.jsp" class="dropdown-item fw-light">Checkout <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="blog.jsp" class="dropdown-item fw-light">Blog <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="single-post.jsp" class="dropdown-item fw-light">Single Post <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="contact.jsp" class="dropdown-item fw-light">Contact <span class="badge bg-primary">Pro</span></a>
-                                    </li>
-                                </ul>
-                            </li>
+                            <jsp:include page="/showaction" />
                             <li class="nav-item">
-                                <a class="nav-link me-4" href="contact.jsp">Contact</a>
+                                <a class="nav-link me-4 <c:if test='${uri.contains("contact.jsp")}'>active</c:if>" href="contact.jsp">Contact</a>
                             </li>
                         </ul>
                         <div class="user-items d-flex">
@@ -220,7 +197,7 @@
                                             </a>
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
+                                                <div class="modal-dialog modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header border-bottom-0">
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
