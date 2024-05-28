@@ -42,18 +42,27 @@ public class ProductListServlet extends HttpServlet {
             String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
             String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
 
-            // Step 1: Retrieve the checkbox values
+            // Step 2: Retrieve the checkbox values
             String[] selectedCategories = request.getParameterValues("category");
+            
+            // Step 3: Auto set max value as final value(if not specified):
+            float maxCurrentPrice = laptopDAO.findMaxPrice();
+
+            // Step 4: Retrieve the min and max price values
+            float minPrice = request.getParameter("minPrice") != null ? Float.parseFloat(request.getParameter("minPrice")) : 0;
+            float maxPrice = request.getParameter("maxPrice") != null ? Float.parseFloat(request.getParameter("maxPrice")) : maxCurrentPrice;
+            
+            
 
             int totalProducts;
             if (searchQuery.isBlank() && selectedCategories == null) {
-                totalProducts = laptopDAO.findCountByCriteria(null, null);
+                totalProducts = laptopDAO.findCountByCriteria(null, null, minPrice, maxPrice);
             } else if (!searchQuery.isBlank() && selectedCategories != null) {
-                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", selectedCategories);
+                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", selectedCategories, minPrice, maxPrice);
             } else if (!searchQuery.isBlank() && selectedCategories == null) {
-                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", null);
+                totalProducts = laptopDAO.findCountByCriteria("%" + searchQuery + "%", null, minPrice, maxPrice);
             } else {
-                totalProducts = laptopDAO.findCountByCriteria(null, selectedCategories);
+                totalProducts = laptopDAO.findCountByCriteria(null, selectedCategories, minPrice, maxPrice);
             }
             final int totalPerPage = 12;
 
@@ -70,7 +79,7 @@ public class ProductListServlet extends HttpServlet {
             }
 
             request.setAttribute("searchQuery", searchQuery);
-            request.setAttribute("laptopList", laptopDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%", selectedCategories));
+            request.setAttribute("laptopList", laptopDAO.findByPage(currentPage, totalPerPage, orderBy, "%" + searchQuery + "%", selectedCategories, minPrice, maxPrice));
             request.setAttribute("totalPage", totalPage);
             request.setAttribute("totalProducts", totalProducts);
             request.setAttribute("totalPerPage", totalPerPage);
@@ -78,47 +87,58 @@ public class ProductListServlet extends HttpServlet {
 
             request.setAttribute("selectedCategories", selectedCategories);
 
+            // Step 3: Set the min and max price attributes
+            request.setAttribute("minPrice", minPrice);
+            request.setAttribute("maxPrice", maxPrice);
+
+            // Step 4: Set the max price attribute from the database
+            request.setAttribute("maxPriceFromDB", maxCurrentPrice);
+
             request.getRequestDispatcher("shop.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        /**
+         * Handles the HTTP <code>GET</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doGet
+        (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+            processRequest(request, response);
+        }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doPost
+        (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+            processRequest(request, response);
+        }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }

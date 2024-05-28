@@ -5,15 +5,12 @@
 <html lang="en">
     <form action = "register" method = "POST" class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
         <div class="form-group py-3">
-            <label class="mb-2" for="register">Your email address *</label>
-            <input type="text" minlength="2" name="username" placeholder="Your Email Address" class="form-control w-100 rounded-3 p-3" required>
+            <input type="text" minlength="2" name="username" placeholder="Email Address" class="form-control w-100 rounded-3 p-3" required>
         </div>
         <div class="form-group py-3">
-            <label class="mb-2" for="fullname">Full Name *</label>
-            <input type="text" minlength="2" name="fullname" placeholder="Your Full Name" class="form-control w-100 rounded-3 p-3" required>
+            <input type="text" minlength="2" name="fullname" placeholder="Full Name" class="form-control w-100 rounded-3 p-3" required>
         </div>
         <div class="form-group py-3">
-            <label class="mb-2" for="gender">Gender *</label>
             <select name="gender" class="form-control w-100 rounded-3 p-3" required>
                 <option value="" disabled selected>Select your gender</option>
                 <option value="male">Male</option>
@@ -22,15 +19,12 @@
             </select>
         </div>
         <div class="form-group py-3">
-            <label class="mb-2" for="phonenumber">Phone Number *</label>
             <input type="text" minlength="2" name="phonenumber" placeholder="Your Phone Number" class="form-control w-100 rounded-3 p-3" required>
         </div>
         <div class="form-group py-3">
-            <label class="mb-2" for="address">Address *</label>
             <input type="text" minlength="2" name="address" placeholder="Your Address" class="form-control w-100 rounded-3 p-3" required>
         </div>
         <div class="form-group pb-3">
-            <label class="mb-2" for="sign-in">Password *</label>
             <input type="password" minlength="2" name="password" placeholder="Your Password" class="form-control w-100 rounded-3 p-3" required>
         </div>
         <label class="py-3">

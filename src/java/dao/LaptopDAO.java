@@ -65,19 +65,36 @@ public class LaptopDAO extends EntityDAO {
         return laptops;
     }
 
-    public int findCountByCriteria(String searchQuery, String[] selectedCategories) {
+    public float findMaxPrice() {
+        float maxPrice = 0;
+        try {
+            String strSelect = "SELECT MAX(original_price) FROM Laptop";
+            stm = connection.prepareStatement(strSelect);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                maxPrice = rs.getFloat(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return maxPrice;
+    }
+
+    public int findCountByCriteria(String searchQuery, String[] selectedCategories, float minPrice, float maxPrice) {
         int count = 0;
         try {
+            int paramIndex = 1;
             StringBuilder strSelect = new StringBuilder("SELECT COUNT(*) FROM Laptop");
-            if (searchQuery != null || selectedCategories != null) {
+            if (searchQuery != null || selectedCategories != null || minPrice > 0 || maxPrice > 0) {
                 strSelect.append(" WHERE ");
+                
                 if (searchQuery != null) {
                     strSelect.append("title LIKE ? ");
-                }
-                if (selectedCategories != null) {
-                    if (searchQuery != null) {
+                    if (selectedCategories != null || minPrice > 0 || maxPrice > 0) {
                         strSelect.append("AND ");
                     }
+                }
+                if (selectedCategories != null) {
                     strSelect.append("category IN (");
                     for (int i = 0; i < selectedCategories.length; i++) {
                         strSelect.append("?");
@@ -86,10 +103,21 @@ public class LaptopDAO extends EntityDAO {
                         }
                     }
                     strSelect.append(") ");
+                    if (minPrice > 0 || maxPrice > 0) {
+                        strSelect.append("AND ");
+                    }
+                }
+                if (minPrice > 0) {
+                    strSelect.append("original_price >= ? ");
+                    if (maxPrice > 0) {
+                        strSelect.append("AND ");
+                    }
+                }
+                if (maxPrice > 0) {
+                    strSelect.append("original_price <= ? ");
                 }
             }
             stm = connection.prepareStatement(strSelect.toString());
-            int paramIndex = 1;
             if (searchQuery != null) {
                 stm.setString(paramIndex++, "%" + searchQuery + "%");
             }
@@ -97,6 +125,12 @@ public class LaptopDAO extends EntityDAO {
                 for (String category : selectedCategories) {
                     stm.setString(paramIndex++, category);
                 }
+            }
+            if (minPrice > 0) {
+                stm.setFloat(paramIndex++, minPrice);
+            }
+            if (maxPrice > 0) {
+                stm.setFloat(paramIndex++, maxPrice);
             }
             rs = stm.executeQuery();
             if (rs.next()) {
@@ -108,7 +142,7 @@ public class LaptopDAO extends EntityDAO {
         return count;
     }
 
-    public List<Laptop> findByPage(int page, int totalPerPage, String order, String condition, String[] categories) {
+    public List<Laptop> findByPage(int page, int totalPerPage, String order, String condition, String[] categories, float minPrice, float maxPrice) {
         List<Laptop> laptops = new ArrayList<>();
         try {
             String strSelect = "select distinct * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id ";
@@ -130,6 +164,16 @@ public class LaptopDAO extends EntityDAO {
                 strSelect += (categories != null && categories.length > 0 ? " AND" : " WHERE") + " title LIKE ?";
             }
 
+            // Check if minPrice is greater than 0 and append AND clause
+            if (minPrice > 0) {
+                strSelect += (categories != null && categories.length > 0 || !condition.isBlank() ? " AND" : " WHERE") + " original_price >= ?";
+            }
+
+            // Check if maxPrice is greater than 0 and append AND clause
+            if (maxPrice > 0) {
+                strSelect += (categories != null && categories.length > 0 || !condition.isBlank() || minPrice > 0 ? " AND" : " WHERE") + " original_price <= ?";
+            }
+
             // Append ORDER BY clause and pagination
             strSelect += " ORDER BY " + (order.isBlank() ? "updated_date" : order) + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
@@ -145,6 +189,12 @@ public class LaptopDAO extends EntityDAO {
             }
             if (!condition.isBlank()) {
                 stm.setString(paramIndex++, condition);
+            }
+            if (minPrice > 0) {
+                stm.setFloat(paramIndex++, minPrice);
+            }
+            if (maxPrice > 0) {
+                stm.setFloat(paramIndex++, maxPrice);
             }
             stm.setInt(paramIndex++, page * totalPerPage);
             stm.setInt(paramIndex, totalPerPage);

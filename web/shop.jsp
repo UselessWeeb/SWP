@@ -155,7 +155,7 @@
                             </nav>
                         </div>
                     </main>
-                    <jsp:include page="/productSidebar" flush="true"/>
+                    <jsp:include page="/Sidebar" flush="true"/>
                 </div>
             </div>
         </div> 
