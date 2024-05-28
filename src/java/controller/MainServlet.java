@@ -34,8 +34,6 @@ public class MainServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //fetch sth sth
         BlogDAO blogList = new BlogDAO();
-        request.setAttribute("blogLatestList", blogList.findLatest());
-        System.out.println(blogList.findLatest());
         request.setAttribute("blogFeatured", blogList.findFeatured());
         //
         LaptopDAO laptopList = new LaptopDAO();

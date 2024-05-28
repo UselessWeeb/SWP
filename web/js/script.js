@@ -160,11 +160,14 @@
                 0: {
                     slidesPerView: 1,
                 },
-                800: {
+                270: {
                     slidesPerView: 2,
                 },
-                1400: {
+                800: {
                     slidesPerView: 3,
+                },
+                1000: {
+                    slidesPerView: 4,
                 }
             },
         });
