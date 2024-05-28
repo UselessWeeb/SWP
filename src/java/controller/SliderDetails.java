@@ -4,39 +4,52 @@
  */
 package controller;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import model.Slider;
 
 /**
  *
  * @author quant
  */
-public class SliderDetails extends JFrame {
-    public SliderDetails(Slider slider) {
-        this(slider, false);
+public class SliderDetails extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            int sliderId = Integer.parseInt(request.getParameter("id"));
+            Slider slider = getSliderById(sliderId);
+
+            if (slider == null) {
+                out.println("Slider not found.");
+                return;
+            }
+
+            request.setAttribute("slider", slider);
+            request.getRequestDispatcher("slider-details.jsp").forward(request, response);
+        }
     }
 
-    public SliderDetails(Slider slider, boolean editable) {
-        setTitle("Slider Details");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 300);
-        setLocationRelativeTo(null);
+    private Slider getSliderById(int id) {
+        // Implement your own logic to retrieve the slider by id
+        // For now, we'll just return a sample slider
+        return new Slider(id, "Slider 1", "This is the first slider.", "slider1.jpg", "https://example.com/slider1", 1, 1);
+    }
 
-        JLabel imageLabel = new JLabel(slider.getImages());
-        JLabel titleLabel = new JLabel(slider.getTitle());
-        JLabel backlinkLabel = new JLabel(slider.getBacklink());
-        JLabel statusLabel = new JLabel(slider.getStatus() == 1 ? "Active" : "Inactive");
-        JTextArea detailsTextArea = new JTextArea(slider.getDetails());
-        detailsTextArea.setEditable(editable);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
-        add(imageLabel, "North");
-        add(titleLabel, "North");
-        add(backlinkLabel, "Center");
-        add(statusLabel, "South");
-        add(detailsTextArea, "South");
-
-        setVisible(true);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 }
