@@ -27,26 +27,27 @@
 
     <body>
         <%@include file = "view/header.jsp" %>
+        <br>
         <div class="container p-1">
-            <h3 class="text-center text-primary">Order Details</h3>
+            <h1 class="text-center text-primary">Order Details</h1>
             <table class="table table-striped mt-5">
                 <thead class="bg-primary text-white">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
+                    <tr class="text-center">
+                        <th scope="col"><b>ID</b></th>
+                        <th scope="col"><b>Full Name</b></th>
+                        <th scope="col"><b>Address</b></th>
+                        <th scope="col"><b>Email</b></th>
+                        <th scope="col"><b>Phone Number</b></th>
+                        <th scope="col"><b>Product Name</b></th>
+                        <th scope="col"><b>Order Date</b></th>
+                        <th scope="col"><b>Price</b></th>
+                        <th scope="col"><b>Quantity</b></th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:set var = "totalPrice" value="0"/>
                     <c:forEach items="${orderDetail}" var="od">
-                        <tr>
+                        <tr class="text-center">
                             <td>${od.in4_id}</td>
                             <td>${od.user.fullName}</td>
                             <td>${od.user.address}</td>
@@ -54,7 +55,7 @@
                             <td>${od.user.phoneNumber}</td>
                             <td>${od.laptop.title}</td>
                             <td>${od.order.order_date}</td>
-                            <td>${od.laptop.originalPrice}</td>
+                            <td>${od.laptop.originalPrice}$</td>
                             <td>${od.order.quality}</td>
                             <c:set var = "totalPrice" value = "${totalPrice + (od.laptop.originalPrice * od.order.quality)}" />
                         </tr>
@@ -62,8 +63,9 @@
                 </tbody>
             </table>
             <div>
-                <p>Total Price: ${totalPrice}  </p> 
+                <h3 class="text-primary text-end"><b>Total Price: ${totalPrice}</b></h3> 
             </div>
+            <br>
         </div>
 
         <%@include file = "view/footer.jsp" %>

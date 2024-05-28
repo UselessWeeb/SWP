@@ -39,48 +39,45 @@
         <c:set var="orderList" value = "${requestScope.orderList}" />
         <c:set var="user" value = "${sessionScope.user}" />
         <div class="container p-1">
-            <h3 class="text-center text-primary ">
-                Your Order
-            </h3>
+            <h3 class="text-center text-primary ">Your Order</h3>
             <table class="table table-striped mt-5">
                 <thead class="bg-primary text-white">
                     <tr class="text-center">
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Detail</th>
+                        <th scope="col"><b>ID</b></th>
+                        <th scope="col"><b>Order Date</b></th>
+                        <th scope="col"><b>Product</b></th>
+                        <th scope="col"><b>Price</b></th>
+                        <th scope="col"><b>Quality</b></th>
+                        <th scope="col"><b>Total</b></th>
+                        <th scope="col"><b>Status</b></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items= "${orderList}" var = "order">
+                    <c:set var = "totalPrice" value="0"/>
+                    <c:forEach items= "${orderList}" var = "o">
                         <tr class="text-center">
-                            <td>${order.order_id}</td>
-                            <td>${user.fullName}</td>
-                            <td>${user.email}</td>
-                            <td>${order.order_date}</td>
-                            <td>${user.address}</td>
-                            <td 
+                            <td><a href="orderdetail?id=${o.order_id}"><u>${o.order_id}</u></a></td>
+                            <td>${o.order_date}</td>
+                            <td>${o.laptop.title}</td>
+                            <td>${o.laptop.originalPrice}$</td>
+                            <td>${o.quality}</td>
+                            <c:set var = "totalPrice" value = "${totalPrice + (o.laptop.originalPrice * o.quality)}" />
+                            <td>${totalPrice}$</td>
+                            <td>
                                 <c:choose>
-                                    <c:when test = "${order.status == 1}">
+                                    <c:when test = "${o.status == 1}">
                                         <span class="text-warning text-center">Wait</span>
                                     </c:when>
-                                    <c:when test = "${order.status == 2}">
+                                    <c:when test = "${o.status == 2}">
                                         <span class="text-primary text-center">Process</span>
                                     </c:when>
-                                    <c:when test = "${order.status == 3}">
+                                    <c:when test = "${o.status == 3}">
                                         <span class="text-success text-center">Done</span>
                                     </c:when>
                                     <c:otherwise>
                                         <span class="text-danger text-center">Canceled</span>
                                     </c:otherwise>
                                 </c:choose>
-                            </td>
-                            <td class="d-flex justify-content-center gap-1">
-                                <a class="btn btn-xs btn-primary" href="orderdetail?id=${order.order_id}">Detail</a>
-                                <a class="btn btn-xs btn-danger" href="status?id=${order.order_id}&&status=4 ">Cancel</a>
                             </td>
                         </tr>
                     </c:forEach>
