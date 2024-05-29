@@ -37,7 +37,7 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("blogFeatured", blogList.findFeatured());
         //
         LaptopDAO laptopList = new LaptopDAO();
-        request.setAttribute("laptopList", laptopList.findAll());
+        request.setAttribute("laptopList", laptopList.findLatest());
         
         //
         SliderDAO sliderList = new SliderDAO();

@@ -8,23 +8,29 @@
 %>
 <!DOCTYPE html>
 <html>
-    <aside class="col-md-3 bg-light">
+    <aside class="col-md-3">
         <c:choose>
             <c:when test = '${uri.contains("index.jsp")}'>
-                <div class="text-center py-5 mb-3"><h4>Latest Blog</h4></div>
-                <c:set var="latestBlogs" value="${requestScope.latestBlogs != null ? requestScope.latestBlogs : requestScope.blogLatestList}" />
-                <c:forEach items="${latestBlogs}" var="blog">
-                    <div class="posts mb-4 position-relative">
-                        <div class="d-flex justify-content-between">
-                            <span class="btn rounded-2 py-0 px-2">Category</span>
-                            <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-25 start-80 translate-middle">New</span>
-                        </div>
-                        <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
-                        <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
-                        <p class="text-muted">${blog.blogContent}</p>
-                        <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
-                    </div>
-                </c:forEach>
+                <div class = "bg-light px-4 h-100">
+                    <div class="text-center py-5 mb-3"><h4>Latest Blog</h4></div>
+                    <c:set var="latestBlogs" value="${requestScope.latestBlogs != null ? requestScope.latestBlogs : requestScope.blogLatestList}" />
+                    <c:forEach items="${latestBlogs}" var="blog">
+                        <div class="posts mb-4 position-relative">
+                            <div class="d-flex justify-content-between">
+                                <span class="btn rounded-2 py-0 px-2">
+                                    <c:forEach items = "${blog.category}" var = "category">
+                                        ${category.category} 
+                                    </c:forEach>                           
+                                </span>
+                                <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
+                            </div>
+                            <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
+                            <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
+                            <p class="text-muted">${blog.blogContent}</p>
+                            <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
+                        </div>                  
+                    </c:forEach>
+                </div>
             </c:when>
             <c:otherwise>
                 <form class="sidebar pe-lg-5 mb-3" role="search"

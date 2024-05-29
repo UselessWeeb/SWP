@@ -20,11 +20,14 @@ public class LaptopDAO extends EntityDAO {
     public List<Laptop> findLatest() {
         List<Laptop> laptops = new ArrayList<>();
         try {
-            String strSelect = "SELECT TOP 10 * FROM Laptop ORDER BY updated_date DESC";
+            String strSelect = 
+                "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
+                "FROM Laptop " +
+                "WHERE is_featured = 1";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
-                Laptop laptop = (Laptop) this.createEntity(rs);
+                Laptop laptop = (Laptop)createEntity(rs);
                 laptops.add(laptop);
             }
         } catch (SQLException e) {
@@ -36,12 +39,15 @@ public class LaptopDAO extends EntityDAO {
     public Laptop getByID(String id) {
         Laptop product = null;
         try {
-            String strSelect = "SELECT * FROM Laptop WHERE laptop_id = ?";
+            String strSelect = 
+                "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
+                "FROM Laptop " +
+                "WHERE laptop_id = ?";
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, id);
             rs = stm.executeQuery();
             if (rs.next()) {
-                product = (Laptop) this.createEntity(rs);
+                product = (Laptop)createEntity(rs);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -52,11 +58,15 @@ public class LaptopDAO extends EntityDAO {
     public List<Laptop> findAll() {
         List<Laptop> laptops = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Laptop";
+            String strSelect = 
+                "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
+                "FROM Laptop " +
+                "WHERE is_featured = 1 " +
+                "LIMIT 10";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
-                Laptop laptop = (Laptop) this.createEntity(rs);
+                Laptop laptop = (Laptop)createEntity(rs);
                 laptops.add(laptop);
             }
         } catch (SQLException e) {
@@ -83,54 +93,37 @@ public class LaptopDAO extends EntityDAO {
     public int findCountByCriteria(String searchQuery, String[] selectedCategories, float minPrice, float maxPrice) {
         int count = 0;
         try {
-            int paramIndex = 1;
-            StringBuilder strSelect = new StringBuilder("SELECT COUNT(*) FROM Laptop");
-            if (searchQuery != null || selectedCategories != null || minPrice > 0 || maxPrice > 0) {
-                strSelect.append(" WHERE ");
-                
-                if (searchQuery != null) {
-                    strSelect.append("title LIKE ? ");
-                    if (selectedCategories != null || minPrice > 0 || maxPrice > 0) {
-                        strSelect.append("AND ");
-                    }
-                }
-                if (selectedCategories != null) {
-                    strSelect.append("category IN (");
-                    for (int i = 0; i < selectedCategories.length; i++) {
-                        strSelect.append("?");
-                        if (i < selectedCategories.length - 1) {
-                            strSelect.append(", ");
-                        }
-                    }
-                    strSelect.append(") ");
-                    if (minPrice > 0 || maxPrice > 0) {
-                        strSelect.append("AND ");
-                    }
-                }
-                if (minPrice > 0) {
-                    strSelect.append("original_price >= ? ");
-                    if (maxPrice > 0) {
-                        strSelect.append("AND ");
-                    }
-                }
-                if (maxPrice > 0) {
-                    strSelect.append("original_price <= ? ");
-                }
-            }
-            stm = connection.prepareStatement(strSelect.toString());
+            StringBuilder strSelect = new StringBuilder("SELECT COUNT(DISTINCT Laptop.laptop_id) FROM Laptop ");
+            strSelect.append("INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id WHERE 1=1 ");
+            List<Object> params = new ArrayList<>();
+            
             if (searchQuery != null) {
-                stm.setString(paramIndex++, "%" + searchQuery + "%");
+                strSelect.append("AND title LIKE ? ");
+                params.add("%" + searchQuery + "%");
             }
-            if (selectedCategories != null) {
-                for (String category : selectedCategories) {
-                    stm.setString(paramIndex++, category);
+            if (selectedCategories != null && selectedCategories.length > 0) {
+                strSelect.append("AND category IN (");
+                for (int i = 0; i < selectedCategories.length; i++) {
+                    strSelect.append("?");
+                    if (i < selectedCategories.length - 1) {
+                        strSelect.append(", ");
+                    }
+                    params.add(selectedCategories[i]);
                 }
+                strSelect.append(") ");
             }
             if (minPrice > 0) {
-                stm.setFloat(paramIndex++, minPrice);
+                strSelect.append("AND original_price >= ? ");
+                params.add(minPrice);
             }
             if (maxPrice > 0) {
-                stm.setFloat(paramIndex++, maxPrice);
+                strSelect.append("AND original_price <= ? ");
+                params.add(maxPrice);
+            }
+            
+            stm = connection.prepareStatement(strSelect.toString());
+            for (int i = 0; i < params.size(); i++) {
+                stm.setObject(i + 1, params.get(i));
             }
             rs = stm.executeQuery();
             if (rs.next()) {
@@ -145,63 +138,57 @@ public class LaptopDAO extends EntityDAO {
     public List<Laptop> findByPage(int page, int totalPerPage, String order, String condition, String[] categories, float minPrice, float maxPrice) {
         List<Laptop> laptops = new ArrayList<>();
         try {
-            String strSelect = "select distinct * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id ";
-
-            // Check if categories are provided and append WHERE clause
+            StringBuilder strSelect = new StringBuilder(
+                "SELECT DISTINCT Laptop.laptop_id, Laptop.title, Laptop.main_image, Laptop.original_price, " +
+                "Laptop.stock, Laptop.products_detail, Laptop.sale_price, Laptop.status, Laptop.updated_date " +
+                "FROM Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id WHERE 1=1 "
+            );
+            
+            List<Object> params = new ArrayList<>();
             if (categories != null && categories.length > 0) {
-                strSelect += " WHERE category IN (";
+                strSelect.append("AND Laptop_Category.Category IN (");
                 for (int i = 0; i < categories.length; i++) {
-                    strSelect += "?";
+                    strSelect.append("?");
                     if (i < categories.length - 1) {
-                        strSelect += ", ";
+                        strSelect.append(", ");
                     }
+                    params.add(categories[i]);
                 }
-                strSelect += ")";
-            }
-
-            // Check if condition is not blank and append AND clause
-            if (!condition.isBlank()) {
-                strSelect += (categories != null && categories.length > 0 ? " AND" : " WHERE") + " title LIKE ?";
-            }
-
-            // Check if minPrice is greater than 0 and append AND clause
-            if (minPrice > 0) {
-                strSelect += (categories != null && categories.length > 0 || !condition.isBlank() ? " AND" : " WHERE") + " original_price >= ?";
-            }
-
-            // Check if maxPrice is greater than 0 and append AND clause
-            if (maxPrice > 0) {
-                strSelect += (categories != null && categories.length > 0 || !condition.isBlank() || minPrice > 0 ? " AND" : " WHERE") + " original_price <= ?";
-            }
-
-            // Append ORDER BY clause and pagination
-            strSelect += " ORDER BY " + (order.isBlank() ? "updated_date" : order) + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-
-            System.out.println(strSelect);
-            stm = connection.prepareStatement(strSelect);
-
-            // Set parameters based on whether categories and condition are provided
-            int paramIndex = 1;
-            if (categories != null && categories.length > 0) {
-                for (String category : categories) {
-                    stm.setString(paramIndex++, category);
-                }
+                strSelect.append(") ");
             }
             if (!condition.isBlank()) {
-                stm.setString(paramIndex++, condition);
+                strSelect.append("AND Laptop.title LIKE ? ");
+                params.add("%" + condition + "%");
             }
             if (minPrice > 0) {
-                stm.setFloat(paramIndex++, minPrice);
+                strSelect.append("AND Laptop.original_price >= ? ");
+                params.add(minPrice);
             }
             if (maxPrice > 0) {
-                stm.setFloat(paramIndex++, maxPrice);
+                strSelect.append("AND Laptop.original_price <= ? ");
+                params.add(maxPrice);
             }
-            stm.setInt(paramIndex++, page * totalPerPage);
-            stm.setInt(paramIndex, totalPerPage);
+            
+            if (order.isBlank()) {
+                order = "Laptop.updated_date";
+            }
+            strSelect.append("GROUP BY Laptop.laptop_id, Laptop.title, Laptop.main_image, Laptop.original_price, " +
+                             "Laptop.stock, Laptop.products_detail, Laptop.sale_price, Laptop.status, Laptop.updated_date " +
+                             "ORDER BY ").append(order).append(" OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+
+            params.add(page * totalPerPage);
+            params.add(totalPerPage);
+
+            System.out.println(strSelect.toString());
+            stm = connection.prepareStatement(strSelect.toString());
+
+            for (int i = 0; i < params.size(); i++) {
+                stm.setObject(i + 1, params.get(i));
+            }
 
             rs = stm.executeQuery();
             while (rs.next()) {
-                Laptop laptop = (Laptop) this.createEntity(rs);
+                Laptop laptop = (Laptop)createEntity(rs);
                 laptops.add(laptop);
             }
         } catch (SQLException e) {
@@ -212,25 +199,22 @@ public class LaptopDAO extends EntityDAO {
 
     public HashMap<String, Integer> getCategoryCounts() {
         HashMap<String, Integer> categoryMap = new HashMap<>();
-
-        String query = "SELECT lc.category, COUNT(l.laptop_id) FROM Laptop l INNER JOIN Laptop_Category lc ON l.laptop_id = lc.laptop_id GROUP BY lc.category";
-
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            ResultSet rs = stmt.executeQuery();
-
+            String query = 
+                "SELECT lc.category, COUNT(l.laptop_id) FROM Laptop l " +
+                "INNER JOIN Laptop_Category lc ON l.laptop_id = lc.laptop_id " +
+                "GROUP BY lc.category";
+            stm = connection.prepareStatement(query);
+            rs = stm.executeQuery();
             while (rs.next()) {
-                String category = rs.getString(1);
-                int count = rs.getInt(2);
-                categoryMap.put(category, count);
+                categoryMap.put(rs.getString(1), rs.getInt(2));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return categoryMap;
     }
-
+    
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         Laptop_CategoryDAO lap_cat = new Laptop_CategoryDAO();

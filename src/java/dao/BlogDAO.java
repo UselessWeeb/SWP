@@ -175,7 +175,7 @@ public class BlogDAO extends EntityDAO {
     public List<Blog> findFeatured() {
         List<Blog> blogs = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Blog WHERE is_featured = 1";
+            String strSelect = "SELECT TOP 10 * FROM Blog ORDER BY updated_date DESC";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {

@@ -24,6 +24,7 @@ public class Laptop {
     private float salePrice;
     private int status;
     private Date updatedDate;
+    private int is_featured;
     
     public Laptop() {
     }
@@ -52,6 +53,7 @@ public class Laptop {
         this.stock = stock;
         this.status = status;
         this.updatedDate = updatedDate;
+        this.is_featured = is_featured;
     }
 
     public int getLaptopId() {

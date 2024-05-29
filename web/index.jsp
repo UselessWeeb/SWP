@@ -26,7 +26,7 @@
     <body>
         <%@include file = "view/header.jsp" %>
         <div class ="row">
-            <div class = "col-md-9 px-4">
+            <div class = "col-md-9 ps-5">
                 <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray" style="background-image: url(images/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center;">
                     <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
                         <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
@@ -64,75 +64,19 @@
                     </div>
                 </section>
 
-                <section id="company-services" class="padding-large">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                                <div class="icon-box d-flex">
-                                    <div class="icon-box-icon pe-3 pb-3">
-                                        <svg class="cart-outline">
-                                        <use xlink:href="#cart-outline" />
-                                        </svg>
-                                    </div>
-                                    <div class="icon-box-content">
-                                        <h4 class="card-title mb-1 text-uppercase text-dark">Free delivery</h4>
-                                        <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                                <div class="icon-box d-flex">
-                                    <div class="icon-box-icon pe-3 pb-3">
-                                        <svg class="quality">
-                                        <use xlink:href="#quality" />
-                                        </svg>
-                                    </div>
-                                    <div class="icon-box-content">
-                                        <h4 class="card-title mb-1 text-uppercase text-dark">Quality guarantee</h4>
-                                        <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                                <div class="icon-box d-flex">
-                                    <div class="icon-box-icon pe-3 pb-3">
-                                        <svg class="price-tag">
-                                        <use xlink:href="#price-tag" />
-                                        </svg>
-                                    </div>
-                                    <div class="icon-box-content">
-                                        <h4 class="card-title mb-1 text-uppercase text-dark">Daily offers</h4>
-                                        <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-                                <div class="icon-box d-flex">
-                                    <div class="icon-box-icon pe-3 pb-3">
-                                        <svg class="shield-plus">
-                                        <use xlink:href="#shield-plus" />
-                                        </svg>
-                                    </div>
-                                    <div class="icon-box-content">
-                                        <h4 class="card-title mb-1 text-uppercase text-dark">100% secure payment</h4>
-                                        <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <section id="company-services" class="padding-small"> 
                 </section>
                 <section id="best-selling-items" class="position-relative padding-top-medium padding-bottom-small">
                     <div class="container">
                         <div class="section-title overflow-hidden mb-4">
-                            <h3 class="d-flex align-items-center">Best selling items</h3>
+                            <h3 class="d-flex align-items-center">Featured Items</h3>
                         </div>
-                        <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
+                        <div class="position-absolute top-50 end-0 pe-0 me-0 me-xxl-5 swiper-next testimonial-button-next">
                             <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                             <use xlink:href="#alt-arrow-right-outline"></use>
                             </svg>
                         </div>
-                        <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
+                        <div class="position-absolute top-50 start-0 ps-0 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
                             <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                             <use xlink:href="#alt-arrow-left-outline"></use>
                             </svg>
@@ -143,7 +87,7 @@
                                 <c:forEach items="${laptopList}" var="laptop">
                                     <div class="swiper-slide">
                                         <div class="card position-relative text-center py-4 border rounded-3">
-                                            <img src="${laptop.mainImage}" class="img-fluid" alt="product item" style="max-height: 350px; width: 100%;">
+                                            <img src="${laptop.mainImage}" class="img-fluid product-image" alt="product item" style="max-height: 350px; width: 100%;">
                                             <h5 class="mt-2"><a href="single-product.html">${laptop.title}</a></h5>
                                             <span class="price text-primary fw-light mb-2">
                                                 <c:if test="${laptop.salePrice != laptop.originalPrice}">
@@ -151,20 +95,6 @@
                                                     </c:if>
                                                 $${laptop.salePrice}
                                             </span>
-                                            <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                                <button type="button" href="#" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
-                                                    <svg class="cart">
-                                                    <use xlink:href="#cart"></use>
-                                                    </svg>
-                                                </button>
-                                                <a href="#" class="btn btn-dark">
-                                                    <span>
-                                                        <svg class="wishlist">
-                                                        <use xlink:href="#heart"></use>
-                                                        </svg>
-                                                    </span>
-                                                </a>
-                                            </div>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -173,7 +103,7 @@
                     </div>
                 </section>
 
-                <section id="hot-posts" class="padding-large">
+                <section id="hot-posts" class="padding-medium">
                     <div class="container">
                         <div class="section-title overflow-hidden mb-4">
                             <h3 class="d-flex align-items-center">Hot posts</h3>
@@ -185,12 +115,11 @@
                                     <c:forEach items="${bloglists}" var="blog">
                                         <div class="col-md-3 posts mb-4">
                                             <a href="blog.html" class="btn rounded-0 py-0 px-2">
-                                                <c:forEach items = "${category}" var = "blog.category">
-                                                    ${category} 
-                                                </c:forEach>
-
+                                                <c:forEach items = "${blog.category}" var = "category">
+                                                    ${category.category} 
+                                                </c:forEach> 
                                             </a>
-                                            <img src="${blog.thumbnail}" alt="post image" class="img-fluid">
+                                            <img src="${blog.thumbnail}" alt="post image product-image" class="img-fluid">
                                             <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
                                                 <a href="single-post.jsp">${blog.title}</a>
                                             </h4>

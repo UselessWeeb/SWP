@@ -1366,10 +1366,10 @@ input[type="range"]:active::-webkit-slider-thumb{
     margin-top: 30px;
 }
 
-.top-25{
-    top : 25% !important;
+.top-5{
+    top : 8% !important;
 }
 
-.start-80{
-    right:80% !important;
+.end-10{
+    left:90% !important;
 }
