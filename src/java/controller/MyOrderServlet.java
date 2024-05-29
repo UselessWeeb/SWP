@@ -35,6 +35,7 @@ public class MyOrderServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(false);
+            
             User u = (User)session.getAttribute("user");
             OrderDAO dao = new OrderDAO();
             System.out.println(dao.getOrderUser(u.getUserId()));

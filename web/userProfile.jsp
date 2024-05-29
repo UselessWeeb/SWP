@@ -104,7 +104,7 @@
                                 <input type="hidden" name="sex" value="${user.gender}">
                                 <input type="hidden" name="loca" value="${user.address}">                                
                                 <input type="hidden" name="phone" value="${user.phoneNumber}">
-                                <img src="${user.avatar}" alt="${user.fullName}" style="max-width: 100%; height: auto;"><br>
+                                <img src="${user.avatar}" alt="${user.fullName}" style="max-width: 40%; height: auto;"><br>
                                 <input type="file" id="image" name="img" accept=".jpeg, .png, .jpg">
                                 <div class="save-button">
                                     <button type="submit">Save</button>

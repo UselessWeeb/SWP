@@ -4,13 +4,16 @@
  */
 package dao;
 
+import dal.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Laptop;
 import model.Order;
 import model.Slider;
 
@@ -21,32 +24,42 @@ import model.Slider;
 public class OrderDAO extends EntityDAO {
 
     public Vector<Order> getOrderUser(int id) {
-        Vector<Order> vector = new Vector<Order>();
-        String sql = "select * from [Order] where user_id = ?";
-        PreparedStatement pre;
+        Vector<Order> vector = new Vector<>();
+        String sql = "select o.order_id, o.order_date, l.title, l.original_price, o.quantity, o.status "
+                + "from [Order] o "
+                + "inner join [Laptop] l on l.laptop_id = o.laptop_id "
+                + "where o.user_id = ?";
         try {
-            pre = connection.prepareStatement(sql);
-            pre.setInt(1, id);
-            ResultSet rs = pre.executeQuery();
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            rs = stm.executeQuery();
             while (rs.next()) {
                 int orderid = rs.getInt(1);
                 Date orderdate = rs.getDate(2);
-                String orderName = rs.getString(3);
-                Float price = rs.getFloat(4);
-                int status = rs.getInt(5);
-                int quality = rs.getInt(6);
-                int userid = rs.getInt(7);
-                int in4id = rs.getInt(8);
-                int lapid = rs.getInt(9);
-                Order order = new Order(orderid, orderdate, orderName, price, quality, status, userid, in4id, lapid);
-                vector.add(order);
+                String product = rs.getString(3);
+                float price = rs.getFloat(4);
+                int quality = rs.getInt(5);
+                int status = rs.getInt(6);
+
+                Order o = new Order();
+                o.setOrder_id(orderid);
+                o.setOrder_date(orderdate);
+                o.setQuality(quality);
+                o.setStatus(status);
+
+                Laptop l = new Laptop();
+                l.setTitle(product);
+                l.setOriginalPrice(price);
+                o.setLaptop(l);
+
+                vector.add(o);
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vector;
     }
-    
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         return new Slider(
