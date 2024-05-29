@@ -37,7 +37,7 @@
                                 <p class="text-center text-success">${successMsg}</p>
                                 <c:remove var="successMsg" scope="session"/>
                             </c:if>
-                            <c:if test="${not empty failedMsg }">
+                            <c:if test="${not empty failedMsg}">
                                 <p class="text-center text-danger">${failedMsg}</p>
                                 <c:remove var="failedMsg" scope="session"/>
                             </c:if>
