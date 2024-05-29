@@ -4,12 +4,12 @@
     Author     : quant
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 
 
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -48,7 +48,7 @@
             <c:forEach items="${sliders}" var="slider">
                 <tr>
                     <td>${slider.id}</td>
-                    <td>${slider.title}</td>
+                    <td><a href="SliderDetails?id=${slider.id}">${slider.title}</a></td>
                     <td>${slider.description}</td>
                     <td><img src="${slider.image}" alt="${slider.title}"></td>
                     <td><a href="${slider.backlink}">${slider.backlink}</a></td>
@@ -60,5 +60,15 @@
             </c:forEach>
         </tbody>
     </table>
+
+    <c:if test="${not empty param.id}">
+        <h1>Slider Details</h1>
+
+        <img src="${slider.image}" alt="${slider.title}">
+        <h2>${slider.title}</h2>
+        <p>${slider.details}</p>
+        <p>Backlink: <a href="${slider.backlink}">${slider.backlink}</a></p>
+        <p>Status: ${slider.status == 1 ? 'Active' : 'Inactive'}</p>
+    </c:if>
 </body>
 </html>
