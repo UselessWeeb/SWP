@@ -22,6 +22,8 @@ public class Blog {
     private int isFeatured;
     private int userId;
     private int view;
+    
+    private User user;
 
     // Constructor, Getters, and Setters
     public Blog(int blogId, String thumbnail, String title, List<Blog_Category> category, Date updatedDate, String blogContent, int isFeatured, int userId, int view) {
@@ -111,6 +113,14 @@ public class Blog {
         this.view = view;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     @Override
     public String toString() {
         return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", category=" + category + ", updatedDate=" + updatedDate + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + ", view=" + view + '}';

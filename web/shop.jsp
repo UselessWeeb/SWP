@@ -55,7 +55,7 @@
                         <div class="filter-shop d-flex flex-wrap justify-content-between">
                             <div class="showing-product">
                                 <c:set var= "laptopList" value= "${requestScope.laptopList}" />
-                                <c:set var= "totalPage" value= "${requestScope.totalPage}" />
+                                <c:set var= "totalPage" value = "${requestScope.totalPage}" />
                                 <c:set var= "currentPage" value= "${requestScope.currentPage}" />
                                 <c:set var= "totalProducts" value = "${requestScope.totalProducts}" />
                                 <c:set var= "totalPerPage" value= "${requestScope.totalPerPage}" />
@@ -76,14 +76,9 @@
                             <c:forEach items="${laptopList}" var="laptop">
                                 <div class="col-lg-3 col-md-4">
                                     <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-<<<<<<< HEAD
-                                        <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
-                                        <h5 class="mt-2"><a href="product?id=${laptop.laptopId}">${laptop.title}</a></h5>
-=======
                                         <img src="${laptop.mainImage}" class="p-3 img-fluid product-image" alt="${laptop.title}">
                                         <h5 class="mt-2"><a href="product?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
                                         <div class = "d-flex justify-content-between px-3">
->>>>>>> b3b34c6dcb8d3ea468effd1691bcfc633010baf3
                                             <c:if test = "${laptop.salePrice != laptop.originalPrice}">
                                                 <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
                                                 </c:if>            

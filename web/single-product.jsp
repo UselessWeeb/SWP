@@ -28,42 +28,11 @@
 
     <body>
         <%@include file = "view/header.jsp" %>
-<<<<<<< HEAD
         <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-=======
-        <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
->>>>>>> b3b34c6dcb8d3ea468effd1691bcfc633010baf3
         <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
         <section class="single-product padding-large">
             <div class="container">
                 <div class="row">
-<<<<<<< HEAD
-                    <div class="col-lg-5">
-                        <div class="d-flex gap-3 product-preview">
-                            <div class="swiper thumb-swiper w-50">
-                                <div class="swiper-wrapper d-flex flex-wrap gap-3 align-content-start">
-                                    <div class="swiper-slide bg-white">
-                                        <img src="${Product.image}" alt="product-thumb" class="img-fluid border rounded-3">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-thumbnail-2.png" alt="product-thumb" class="img-fluid border rounded-3">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-thumbnail-3.png" alt="product-thumb" class="img-fluid border rounded-3">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper large-swiper border rounded-3 overflow-hidden">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide bg-white">
-                                        <img src="${Product.image}" alt="single-product" class="img-fluid">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-large-2.png" alt="single-product" class="img-fluid">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-large-3.png" alt="single-product" class="img-fluid">
-=======
                     <jsp:include page = "/Sidebar" />
                     <c:set var = "Product" value = "${requestScope.Product}" />
                     <div class="col-lg-9">
@@ -72,44 +41,23 @@
                                 <div class="d-flex flex-wrap gap-3 align-content-start">
                                     <div class="bg-white">
                                         <img src="${Product.mainImage}" alt="product-thumb" class="img-fluid border rounded-3">
->>>>>>> b3b34c6dcb8d3ea468effd1691bcfc633010baf3
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="product-info ps-lg-5 pt-3 pt-lg-0">
+
                             <div class="element-header">
                                 <h1 class="product-title">${Product.title}</h1>
+                                <p>${Product.productsDetail}</p>
                                 <div class="product-price d-flex align-items-center mt-2">
-<<<<<<< HEAD
-                                    <span class="fs-2 fw-light text-primary me-2">${Product.originalPrice}</span>
-                                    <del>${Product.salePrice}</del>
-=======
                                     <c:if test = "${Product.salePrice != Product.originalPrice}">
                                         <s class="fs-5 fw-lighter text-muted">$${Product.originalPrice}</s>
                                         </c:if>            
                                     <span class="price text-primary fw-light mb-2">$${Product.salePrice}</span>
->>>>>>> b3b34c6dcb8d3ea468effd1691bcfc633010baf3
-                                </div>
-                                <div class="rating text-primary my-3">
-                                    <svg class="star star-fill">
-                                    <use xlink:href="#star-fill"></use>
-                                    </svg>
-                                    <svg class="star star-fill">
-                                    <use xlink:href="#star-fill"></use>
-                                    </svg>
-                                    <svg class="star star-fill">
-                                    <use xlink:href="#star-fill"></use>
-                                    </svg>
-                                    <svg class="star star-fill">
-                                    <use xlink:href="#star-fill"></use>
-                                    </svg>
-                                    <svg class="star star-fill">
-                                    <use xlink:href="#star-fill"></use>
-                                    </svg>
                                 </div>
                             </div>
-                            <p>${Product.productsDetail}</p>
+
                             <div class="slash-divider"></div>
                             <div class="cart-wrap">
                                 <div class="product-quantity my-3">
@@ -152,29 +100,11 @@
                                 <div class="meta-item d-flex mb-1">
                                     <span class="fw-medium me-2">Category:</span>
                                     <ul class="select-list list-unstyled d-flex mb-0">
-                                        <li data-value="S" class="select-item">
-                                            <a href="#">Toy</a>,
-                                        </li>
-                                        <li data-value="S" class="select-item">
-                                            <a href="#">Robot</a>,
-                                        </li>
-                                        <li data-value="S" class="select-item">
-                                            <a href="#">Tech</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="meta-item d-flex mb-1">
-                                    <span class="fw-medium me-2">Tags:</span>
-                                    <ul class="select-list list-unstyled d-flex mb-0">
-                                        <li data-value="S" class="select-item">
-                                            <a href="#">Toy</a>,
-                                        </li>
-                                        <li data-value="S" class="select-item">
-                                            <a href="#">Small</a>,
-                                        </li>
-                                        <li data-value="S" class="select-item">
-                                            <a href="#">Strong</a>
-                                        </li>
+                                        <c:forEach items ="${Product.category}" var = "category" >
+                                            <li data-value="S" class="select-item">
+                                                <a href="#">${category.category}</a>,
+                                            </li>
+                                        </c:forEach>
                                     </ul>
                                 </div>
                             </div>

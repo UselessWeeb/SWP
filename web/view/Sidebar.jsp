@@ -22,7 +22,7 @@
                                         ${category.category} 
                                     </c:forEach>                           
                                 </span>
-                                <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
+                                <span class="btn rounded-2 py-0 px-2 btn bg-info text-black py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
                             </div>
                             <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
                             <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
@@ -109,7 +109,7 @@
                                                         ${category.category} 
                                                     </c:forEach>                           
                                                 </span>
-                                                <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
+                                                <span class="btn rounded-2 py-0 px-2 btn bg-info text-black py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
                                             </div>
                                             <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
                                             <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
