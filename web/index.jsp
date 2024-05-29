@@ -124,6 +124,8 @@
                                                 <a href="single-post.jsp">${blog.title}</a>
                                             </h4>
                                             <p class="mb-2">${blog.blogContent}</p>
+                                            <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+                                            </svg>   ${blog.view} views
                                             <a class="text-decoration-underline" href="single-post.html">Read More</a>
                                         </div>
                                     </c:forEach>

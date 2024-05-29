@@ -41,6 +41,7 @@ public class Sidebar extends HttpServlet {
         System.out.println(requestedURL);
         HashMap<String, Integer> categoryMap = new HashMap<>();
         switch (requestedURL) {
+            case "/app-name/single-post.jsp":
             case "/app-name/blog.jsp":
                 BlogDAO blogDAO = new BlogDAO();
 
@@ -59,15 +60,29 @@ public class Sidebar extends HttpServlet {
                 request.setAttribute("latestBlogs", blogDAO.findLatest());
                 break;
             case "/app-name/shop.jsp":
+            case "/app-name/single-product.jsp":
                 LaptopDAO laptopDAO = new LaptopDAO();
 
                 categoryMap = laptopDAO.getCategoryCounts();
 
+                float maxCurrentPrice = laptopDAO.findMaxPrice();
+
+                // Step 4: Retrieve the min and max price values
+                float minPrice = request.getParameter("minPrice") != null ? Float.parseFloat(request.getParameter("minPrice")) : 0;
+                float maxPrice = request.getParameter("maxPrice") != null ? Float.parseFloat(request.getParameter("maxPrice")) : maxCurrentPrice;
+
                 request.setAttribute("categoryMap", categoryMap);
+
+                // Step 3: Set the min and max price attributes
+                request.setAttribute("minPrice", minPrice);
+                request.setAttribute("maxPrice", maxPrice);
+
+                // Step 4: Set the max price attribute from the database
+                request.setAttribute("maxPriceFromDB", maxCurrentPrice);
 
                 //lastly, show latest products
                 request.setAttribute("latestProducts", laptopDAO.findLatest());
-                
+
                 break;
         }
 

@@ -64,7 +64,7 @@ public class ProductListServlet extends HttpServlet {
             } else {
                 totalProducts = laptopDAO.findCountByCriteria(null, selectedCategories, minPrice, maxPrice);
             }
-            final int totalPerPage = 12;
+            final int totalPerPage = 16;
 
             int totalPage = (int) Math.ceil((double) totalProducts / totalPerPage);
 
@@ -86,13 +86,6 @@ public class ProductListServlet extends HttpServlet {
             request.setAttribute("currentPage", currentPage);
 
             request.setAttribute("selectedCategories", selectedCategories);
-
-            // Step 3: Set the min and max price attributes
-            request.setAttribute("minPrice", minPrice);
-            request.setAttribute("maxPrice", maxPrice);
-
-            // Step 4: Set the max price attribute from the database
-            request.setAttribute("maxPriceFromDB", maxCurrentPrice);
 
             request.getRequestDispatcher("shop.jsp").forward(request, response);
         }

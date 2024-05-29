@@ -21,7 +21,7 @@ public class LaptopDAO extends EntityDAO {
         List<Laptop> laptops = new ArrayList<>();
         try {
             String strSelect = 
-                "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
+                "SELECT TOP 3 laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
                 "FROM Laptop " +
                 "WHERE is_featured = 1";
             stm = connection.prepareStatement(strSelect);
