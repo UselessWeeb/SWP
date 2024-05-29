@@ -5,6 +5,7 @@
 package controller.sidebar;
 
 import dao.BlogDAO;
+import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,8 +22,8 @@ import model.Blog_Category;
  *
  * @author M7510
  */
-@WebServlet(name = "BlogSidebar", urlPatterns = {"/blogSidebar"})
-public class BlogSidebar extends HttpServlet {
+@WebServlet(name = "Sidebar", urlPatterns = {"/Sidebar"})
+public class Sidebar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,25 +37,58 @@ public class BlogSidebar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            BlogDAO blogDAO = new BlogDAO();
-            HashMap<String, Integer> categoryMap = new HashMap<>();
-            List<Blog> allBlogs;
+        String requestedURL = request.getRequestURI();
+        System.out.println(requestedURL);
+        HashMap<String, Integer> categoryMap = new HashMap<>();
+        switch (requestedURL) {
+            case "/app-name/single-post.jsp":
+            case "/app-name/blog.jsp":
+                BlogDAO blogDAO = new BlogDAO();
 
-            allBlogs = blogDAO.getAll();
+                List<Blog> allBlogs;
 
-            for (Blog blog : allBlogs) {
-                List<Blog_Category> blogCategory = blog.getCategory();
-                for (Blog_Category b : blogCategory) {
-                    categoryMap.put(b.getCategory(), categoryMap.getOrDefault(b.getCategory(), 0) + 1);
+                allBlogs = blogDAO.getAll();
+
+                for (Blog blog : allBlogs) {
+                    List<Blog_Category> blogCategory = blog.getCategory();
+                    for (Blog_Category b : blogCategory) {
+                        categoryMap.put(b.getCategory(), categoryMap.getOrDefault(b.getCategory(), 0) + 1);
+                    }
                 }
-            }
 
-            request.setAttribute("categoryMap", categoryMap);
+                //lastly, show latest blogs
+                request.setAttribute("latestBlogs", blogDAO.findLatest());
+                break;
+            case "/app-name/shop.jsp":
+            case "/app-name/single-product.jsp":
+                LaptopDAO laptopDAO = new LaptopDAO();
 
-            //lastly, show latest blogs
-            request.setAttribute("latestBlogs", blogDAO.findLatest());
-            System.out.println(blogDAO.findLatest());
-            request.getRequestDispatcher("view/BlogSidebar.jsp").include(request, response);
+                categoryMap = laptopDAO.getCategoryCounts();
+
+                float maxCurrentPrice = laptopDAO.findMaxPrice();
+
+                // Step 4: Retrieve the min and max price values
+                float minPrice = request.getParameter("minPrice") != null ? Float.parseFloat(request.getParameter("minPrice")) : 0;
+                float maxPrice = request.getParameter("maxPrice") != null ? Float.parseFloat(request.getParameter("maxPrice")) : maxCurrentPrice;
+
+                request.setAttribute("categoryMap", categoryMap);
+
+                // Step 3: Set the min and max price attributes
+                request.setAttribute("minPrice", minPrice);
+                request.setAttribute("maxPrice", maxPrice);
+
+                // Step 4: Set the max price attribute from the database
+                request.setAttribute("maxPriceFromDB", maxCurrentPrice);
+
+                //lastly, show latest products
+                request.setAttribute("latestProducts", laptopDAO.findLatest());
+
+                break;
+        }
+
+        request.setAttribute("categoryMap", categoryMap);
+
+        request.getRequestDispatcher("view/Sidebar.jsp").include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

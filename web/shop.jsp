@@ -76,12 +76,14 @@
                             <c:forEach items="${laptopList}" var="laptop">
                                 <div class="col-lg-3 col-md-4">
                                     <div class="card position-relative text-center py-4 mb-4 border rounded-3">
-                                        <img src="${laptop.image}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
-                                        <h5 class="mt-2"><a href="single-product.html?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
+                                        <img src="${laptop.mainImage}" class="p-3 img-fluid product-image" alt="${laptop.title}">
+                                        <h5 class="mt-2"><a href="product?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
+                                        <div class = "d-flex justify-content-between px-3">
                                             <c:if test = "${laptop.salePrice != laptop.originalPrice}">
-                                            <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
-                                            </c:if>
-                                        <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
+                                                <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
+                                                </c:if>            
+                                            <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
+                                        </div>
                                         <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
                                             <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
                                                 <svg class="cart">
@@ -142,7 +144,8 @@
                                                <c:forEach var="category" items="${selectedCategories}">
                                                    &category=${category}
                                                </c:forEach>
-                                               ">Next</a>
+                                               ">Next
+                                            </a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage >= totalPage - 1}">
@@ -154,7 +157,7 @@
                             </nav>
                         </div>
                     </main>
-                    <jsp:include page="/productSidebar" flush="true"/>
+                    <jsp:include page="/Sidebar" flush="true"/>
                 </div>
             </div>
         </div> 

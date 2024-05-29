@@ -38,6 +38,7 @@
                 <div class="row">
                     <main class="post-grid">
                         <div class="row">
+                            <jsp:include page="/Sidebar"/>
                             <article class="post-item col-md-9">
                                 <div class="post-content">
                                     <div class="hero-image">
@@ -45,8 +46,8 @@
                                     </div>
                                     <div class="post-meta mt-4">
                                         <span class="post-category">${blog.updatedDate}</span> - <span class="meta-date"><a href="blog.html"><c:forEach items = "${category}" var = "blog.category">
-                                            ${category} 
-                                        </c:forEach></a></span>
+                                                    ${category} 
+                                                </c:forEach></a></span>
                                     </div>
                                     <h1 class="post-title mt-4">${blog.title}</h1>
                                     <div class="post-description review-item mt-4">
@@ -81,7 +82,6 @@
                                     </div>
                                 </div>
                             </article>
-                            <jsp:include page="/blogSidebar"/>
                             <section id="post-comment" class="padding-medium pb-0">
                                 <div class="container">
                                     <div class="row">
@@ -171,7 +171,6 @@
                                 </div>
                             </section>
                         </div>
-                        
                     </main>
                 </div>
             </div>
