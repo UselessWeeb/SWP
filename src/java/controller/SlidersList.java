@@ -23,6 +23,7 @@ public class SlidersList extends HttpServlet {
     private int currentPage = 1;
     private int pageSize = 5;
 
+    @Override
     public void init() {
         sliders = new ArrayList<>();
         sliders.add(new Slider(1, "Slider 1", "This is the first slider.", "slider1.jpg", "https://example.com/slider1", 1, 1));
@@ -31,6 +32,7 @@ public class SlidersList extends HttpServlet {
         sliders.add(new Slider(4, "Slider 4", "This is the fourth sample slider.", "slider4.jpg", "https://example.com/slider4", 0, 1));
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String searchText = request.getParameter("searchText");
