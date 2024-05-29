@@ -27,13 +27,12 @@ import service.AccessRole;
 @MultipartConfig
 @WebServlet(urlPatterns = {"/userProfile"})
 @AccessRole(roles = {
-    Role.Type.admin, 
-    Role.Type.sale_manager, 
+    Role.Type.admin,
+    Role.Type.sale_manager,
     Role.Type.marketing_manager,
     Role.Type.sale,
     Role.Type.marketing,
-    Role.Type.customer,
-})
+    Role.Type.customer,})
 
 public class UserProfileServlet extends HttpServlet {
 
@@ -57,9 +56,11 @@ public class UserProfileServlet extends HttpServlet {
         String gender = request.getParameter("sex");
         String address = request.getParameter("loca");
         String phoneNumber = request.getParameter("phone");
-
-        HttpSession session = request.getSession();
+        
+        
+        //UserDAO userDAO = new UserDAO();
         UserDAO dao = new UserDAO();
+
         User user = dao.findById(userId);  // Assuming you have a method to get user by ID
 
         // Update user details
@@ -92,10 +93,11 @@ public class UserProfileServlet extends HttpServlet {
         int n = dao.editCustomer(user);
 
         if (n > 0) {
+            HttpSession session = request.getSession();
             session.setAttribute("success", "Update successful!");
-            response.sendRedirect("userProfile.jsp");
+            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
         } else {
-            session.setAttribute("error", "Update failed!");
+            request.setAttribute("error", "Update failed!");
             response.sendRedirect("userProfile.jsp");
         }
     }
