@@ -20,12 +20,15 @@ VALUES
 ('DELL Inspiron 1101', 'images/thumbnail/1.jpg', GETDATE(), 'The computer is one of the...', 1, 1),
 ('DELL Precision 7510', 'images/thumbnail/2.jpg', GETDATE(), 'The new inovation of the ...', 1, 1);
 GO
-
+delete from Blog_Category
+select * from Blog_Category
 INSERT INTO Blog_Category (blog_id, Category) VALUES
-(2, 'DELL'),
-(3, 'DELL');
+(1, 'DELL'),
+(2, 'DELL');
 GO
 --product
+
+select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id
 
 INSERT INTO Laptop (title, main_image, original_price, products_detail, sale_price, stock, status, updated_date) 
 VALUES 

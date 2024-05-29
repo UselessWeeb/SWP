@@ -28,47 +28,31 @@
 
     <body>
         <%@include file = "view/header.jsp" %>
-
+        <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
         <section class="single-product padding-large">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-5">
-                        <div class="d-flex gap-3 product-preview">
-                            <div class="swiper thumb-swiper w-50">
-                                <div class="swiper-wrapper d-flex flex-wrap gap-3 align-content-start">
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-thumbnail-1.png" alt="product-thumb" class="img-fluid border rounded-3">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-thumbnail-2.png" alt="product-thumb" class="img-fluid border rounded-3">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-thumbnail-3.png" alt="product-thumb" class="img-fluid border rounded-3">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper large-swiper border rounded-3 overflow-hidden">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-large-1.png" alt="single-product" class="img-fluid">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-large-2.png" alt="single-product" class="img-fluid">
-                                    </div>
-                                    <div class="swiper-slide bg-white">
-                                        <img src="images/product-large-3.png" alt="single-product" class="img-fluid">
+                    <jsp:include page = "/Sidebar" />
+                    <c:set var = "Product" value = "${requestScope.Product}" />
+                    <div class="col-lg-9">
+                        <div class="gap-3 product-preview">
+                            <div>
+                                <div class="d-flex flex-wrap gap-3 align-content-start">
+                                    <div class="bg-white">
+                                        <img src="${Product.mainImage}" alt="product-thumb" class="img-fluid border rounded-3">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
                         <div class="product-info ps-lg-5 pt-3 pt-lg-0">
                             <div class="element-header">
-                                <h1 class="product-title">Iphone 15 Pro Max</h1>
+                                <h1 class="product-title">${Product.title}</h1>
                                 <div class="product-price d-flex align-items-center mt-2">
-                                    <span class="fs-2 fw-light text-primary me-2">$2000</span>
-                                    <del>$2600</del>
+                                    <c:if test = "${Product.salePrice != Product.originalPrice}">
+                                        <s class="fs-5 fw-lighter text-muted">$${Product.originalPrice}</s>
+                                        </c:if>            
+                                    <span class="price text-primary fw-light mb-2">$${Product.salePrice}</span>
                                 </div>
                                 <div class="rating text-primary my-3">
                                     <svg class="star star-fill">
@@ -127,7 +111,7 @@
                                     </div>
                                     <div class="stock-button-wrap mt-2 d-flex flex-wrap align-items-center">
                                         <div class="product-quantity">
-                                            <div class="input-group product-qty align-items-center" style="max-width: 150px;">
+                                            <div class="input-group product-qty align-items-center">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-minus" data-type="minus" data-field="">
                                                         <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
@@ -192,9 +176,7 @@
                             </div>
                         </div>
                     </div>
-                    <jsp:include page = "/productSidebar" />
                 </div>
-            </div>
         </section>
 
         <section class="product-tabs">
