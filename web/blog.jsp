@@ -43,7 +43,7 @@
         <div class="padding-large">
             <div class="container">
                 <div class="row">
-                    <jsp:include page="/blogSidebar"/>
+                    <jsp:include page="/Sidebar"/>
                     <main class="col-md-9">
                         <div class="filter-blog d-flex flex-wrap justify-content-between">
                             <div class="showing-product">

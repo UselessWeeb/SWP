@@ -37,6 +37,7 @@ public class BlogDetails extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("id");
         BlogDAO blogDAO = new BlogDAO();
+        blogDAO.incrementViewCount(id);
         request.setAttribute("blog", blogDAO.getByID(id));
             System.out.println(blogDAO.getByID(id));
         request.getRequestDispatcher("single-post.jsp").forward(request, response);

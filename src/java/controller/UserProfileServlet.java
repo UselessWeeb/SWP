@@ -92,10 +92,10 @@ public class UserProfileServlet extends HttpServlet {
         int n = dao.editCustomer(user);
 
         if (n > 0) {
-            session.setAttribute("success", "Cập nhật tài khoản thành công !");
+            session.setAttribute("success", "Update successful!");
             response.sendRedirect("userProfile.jsp");
         } else {
-            session.setAttribute("error", "Lỗi khi cập nhật !");
+            session.setAttribute("error", "Update failed!");
             response.sendRedirect("userProfile.jsp");
         }
     }

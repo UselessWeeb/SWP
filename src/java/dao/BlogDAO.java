@@ -16,6 +16,18 @@ import model.Blog;
  */
 public class BlogDAO extends EntityDAO {
 
+    public void incrementViewCount(String id) {
+    try {
+        String strUpdate = "UPDATE Blog SET [view] = [view] + 1 WHERE blog_id = ?";
+        stm = connection.prepareStatement(strUpdate);
+        stm.setString(1, id);
+        stm.executeUpdate();
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+}
+
+
     //for now, if changes are needed, fix this
     public List<Blog> findLatest() {
         List<Blog> blogs = new ArrayList<>();
@@ -175,7 +187,7 @@ public class BlogDAO extends EntityDAO {
     public List<Blog> findFeatured() {
         List<Blog> blogs = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Blog WHERE is_featured = 1";
+            String strSelect = "SELECT TOP 10 * FROM Blog ORDER BY [view] DESC";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -199,7 +211,8 @@ public class BlogDAO extends EntityDAO {
                 rs.getTimestamp("updated_date"),
                 rs.getString("blog_content"),
                 rs.getInt("is_featured"),
-                rs.getInt("user_id")
+                rs.getInt("user_id"),
+                rs.getInt("view")
         );
     }
 }

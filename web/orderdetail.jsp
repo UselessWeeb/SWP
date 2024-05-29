@@ -1,7 +1,8 @@
-<%@page import="dao.OrderDAO,java.util.Vector,model.User,java.sql.ResultSet" %>
+<%@page import="dao.OrderDAO,java.util.Vector,model.User,model.Laptop,model.Order,java.sql.ResultSet" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import = "dao.OrderDetailDAO" %>
 
 <!doctype html>
 <html>
@@ -26,63 +27,45 @@
 
     <body>
         <%@include file = "view/header.jsp" %>
-
-        <c:if test="${not empty successMsg}">
-            <p class="text-center text-success">${successMsg}</p>
-            <c:remove var="successMsg" scope="session"/>
-        </c:if>
-        <c:if test="${not empty failedMsg }">
-            <p class="text-center text-danger">${failedMsg}</p>
-            <c:remove var="failedMsg" scope="session"/>
-        </c:if>
-
-        <c:set var="orderList" value = "${requestScope.orderList}" />
-        <c:set var="user" value = "${sessionScope.user}" />
+        <br>
         <div class="container p-1">
-            <h3 class="text-center text-primary ">Your Order</h3>
+            <h1 class="text-center text-primary">Order Details</h1>
             <table class="table table-striped mt-5">
                 <thead class="bg-primary text-white">
                     <tr class="text-center">
                         <th scope="col"><b>ID</b></th>
+                        <th scope="col"><b>Full Name</b></th>
+                        <th scope="col"><b>Address</b></th>
+                        <th scope="col"><b>Email</b></th>
+                        <th scope="col"><b>Phone Number</b></th>
+                        <th scope="col"><b>Product Name</b></th>
                         <th scope="col"><b>Order Date</b></th>
-                        <th scope="col"><b>Product</b></th>
                         <th scope="col"><b>Price</b></th>
-                        <th scope="col"><b>Quality</b></th>
-                        <th scope="col"><b>Total</b></th>
-                        <th scope="col"><b>Status</b></th>
+                        <th scope="col"><b>Quantity</b></th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:set var = "totalPrice" value="0"/>
-                    <c:forEach items= "${orderList}" var = "o">
+                    <c:forEach items="${orderDetail}" var="od">
                         <tr class="text-center">
-                            <td><a href="orderdetail?id=${o.order_id}"><u>${o.order_id}</u></a></td>
-                            <td>${o.order_date}</td>
-                            <td>${o.laptop.title}</td>
-                            <td>${o.laptop.originalPrice}$</td>
-                            <td>${o.quality}</td>
-                            <c:set var = "totalPrice" value = "${totalPrice + (o.laptop.originalPrice * o.quality)}" />
-                            <td>${totalPrice}$</td>
-                            <td>
-                                <c:choose>
-                                    <c:when test = "${o.status == 1}">
-                                        <span class="text-warning text-center">Wait</span>
-                                    </c:when>
-                                    <c:when test = "${o.status == 2}">
-                                        <span class="text-primary text-center">Process</span>
-                                    </c:when>
-                                    <c:when test = "${o.status == 3}">
-                                        <span class="text-success text-center">Done</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="text-danger text-center">Canceled</span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
+                            <td>${od.in4_id}</td>
+                            <td>${od.user.fullName}</td>
+                            <td>${od.user.address}</td>
+                            <td>${od.user.email}</td>
+                            <td>${od.user.phoneNumber}</td>
+                            <td>${od.laptop.title}</td>
+                            <td>${od.order.order_date}</td>
+                            <td>${od.laptop.originalPrice}$</td>
+                            <td>${od.order.quality}</td>
+                            <c:set var = "totalPrice" value = "${totalPrice + (od.laptop.originalPrice * od.order.quality)}" />
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
+            <div>
+                <h3 class="text-primary text-end"><b>Total Price: ${totalPrice}</b></h3> 
+            </div>
+            <br>
         </div>
 
         <%@include file = "view/footer.jsp" %>

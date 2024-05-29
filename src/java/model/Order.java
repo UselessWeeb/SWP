@@ -20,6 +20,8 @@ public class Order {
     private int user_id;
     private int information_id;
     private int laptop_id;
+    
+    private Laptop laptop;
 
     public Order() {
     }
@@ -121,6 +123,14 @@ public class Order {
         this.laptop_id = laptop_id;
     }
 
+    public Laptop getLaptop() {
+        return laptop;
+    }
+
+    public void setLaptop(Laptop laptop) {
+        this.laptop = laptop;
+    }
+   
     @Override
     public String toString() {
         return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", order_name=" + order_name + ", total_price=" + total_price + ", status=" + status + ", quality=" + quality + ", user_id=" + user_id + ", information_id=" + information_id + ", laptop_id=" + laptop_id + '}';

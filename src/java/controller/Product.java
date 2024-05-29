@@ -32,10 +32,11 @@ public class Product extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String id = request.getParameter("id");
+            String id = request.getParameter("laptopId");
             System.out.println(id);
             LaptopDAO ProductDAO = new LaptopDAO();
             request.setAttribute("Product", ProductDAO.getByID(id));
+            System.out.println(ProductDAO.getByID(id));
             request.getRequestDispatcher("single-product.jsp").forward(request, response);
         }
     } 

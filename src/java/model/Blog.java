@@ -21,9 +21,10 @@ public class Blog {
     private String blogContent;
     private int isFeatured;
     private int userId;
+    private int view;
 
     // Constructor, Getters, and Setters
-    public Blog(int blogId, String thumbnail, String title, List<Blog_Category> category, Date updatedDate, String blogContent, int isFeatured, int userId) {
+    public Blog(int blogId, String thumbnail, String title, List<Blog_Category> category, Date updatedDate, String blogContent, int isFeatured, int userId, int view) {
         this.blogId = blogId;
         this.thumbnail = thumbnail;
         this.title = title;
@@ -32,6 +33,7 @@ public class Blog {
         this.blogContent = blogContent;
         this.isFeatured = isFeatured;
         this.userId = userId;
+        this.view = view;
     }
 
     public Blog() {
@@ -101,8 +103,16 @@ public class Blog {
         this.category = category;
     }
 
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
     @Override
     public String toString() {
-        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", category=" + category + ", updatedDate=" + updatedDate + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + '}';
+        return "Blog{" + "blogId=" + blogId + ", thumbnail=" + thumbnail + ", title=" + title + ", category=" + category + ", updatedDate=" + updatedDate + ", blogContent=" + blogContent + ", isFeatured=" + isFeatured + ", userId=" + userId + ", view=" + view + '}';
     }
 }
