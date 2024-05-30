@@ -88,7 +88,7 @@
                                     <div class="swiper-slide">
                                         <div class="card position-relative text-center py-4 border rounded-3">
                                             <img src="${laptop.mainImage}" class="img-fluid product-image" alt="product item" style="max-height: 350px; width: 100%;">
-                                            <h5 class="mt-2"><a href="/app-name/product?id=${laptop.laptopId}">${laptop.title}</a></h5>
+                                            <h5 class="mt-2"><a href="/app-name/product?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
                                             <span class="price text-primary fw-light mb-2">
                                                 <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                                     <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
@@ -125,7 +125,6 @@
                                                 <a href="blogdetails?id=${blog.blogId}">${blog.title}</a>
                                             </h4>
                                             <p class="mb-2">${blog.blogContent}</p>
-                                            <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                                             </svg>   ${blog.view} views
                                         </div>
                                     </c:forEach>

@@ -39,13 +39,13 @@ public class BlogList extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         BlogDAO blogDAO = new BlogDAO();
 
-        String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
-        String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
+        String searchQuery = request.getParameter("search") != null ? request.getParameter("search").trim() : "";
+        String orderBy = request.getParameter("order") != null ? request.getParameter("order").trim() : "";
 
 // Step 1: Retrieve the checkbox values
         String[] selectedCategories = request.getParameterValues("category");
 
-        final int totalPerPage = 12;
+        final int totalPerPage = 9;
         int totalBlogs;
         if (searchQuery.isBlank() && (selectedCategories == null || selectedCategories.length == 0)) {
             totalBlogs = blogDAO.getBlogCount(null, null);

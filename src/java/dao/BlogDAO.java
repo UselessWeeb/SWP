@@ -32,7 +32,7 @@ public class BlogDAO extends EntityDAO {
     public List<Blog> findLatest() {
         List<Blog> blogs = new ArrayList<>();
         try {
-            String strSelect = "SELECT * FROM Blog ORDER BY updated_date";
+            String strSelect = "SELECT TOP 3 * FROM Blog ORDER BY updated_date";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -187,7 +187,7 @@ public class BlogDAO extends EntityDAO {
     public List<Blog> findFeatured() {
         List<Blog> blogs = new ArrayList<>();
         try {
-            String strSelect = "SELECT TOP 10 * FROM Blog ORDER BY [view] DESC";
+            String strSelect = "SELECT TOP 4 * FROM Blog ORDER BY [view] DESC";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
