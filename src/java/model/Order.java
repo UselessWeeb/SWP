@@ -15,21 +15,24 @@ public class Order {
     private Date order_date;
     private String order_name;
     private float total_price;
+    private int quality;
     private int status;
     private int user_id;
     private int information_id;
     private int laptop_id;
     
     private Laptop laptop;
+    private User user;
 
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, String order_name, float total_price, int status, int user_id, int information_id, int laptop_id, Laptop laptop) {
+    public Order(int order_id, Date order_date, String order_name, float total_price, int quality, int status, int user_id, int information_id, int laptop_id, Laptop laptop) {
         this.order_id = order_id;
         this.order_date = order_date;
         this.order_name = order_name;
         this.total_price = total_price;
+        this.quality = quality;
         this.status = status;
         this.user_id = user_id;
         this.information_id = information_id;
@@ -67,6 +70,14 @@ public class Order {
 
     public void setTotal_price(float total_price) {
         this.total_price = total_price;
+    }
+
+    public int getQuality() {
+        return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
     }
 
     public int getStatus() {
@@ -108,6 +119,16 @@ public class Order {
     public void setLaptop(Laptop laptop) {
         this.laptop = laptop;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
 
     @Override
     public String toString() {
