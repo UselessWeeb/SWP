@@ -39,8 +39,8 @@ public class ProductListServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             LaptopDAO laptopDAO = new LaptopDAO();
 
-            String searchQuery = request.getParameter("search") != null ? request.getParameter("search") : "";
-            String orderBy = request.getParameter("order") != null ? request.getParameter("order") : "";
+            String searchQuery = request.getParameter("search") != null ? request.getParameter("search").trim() : "";
+            String orderBy = request.getParameter("order") != null ? request.getParameter("order").trim() : "";
 
             // Step 2: Retrieve the checkbox values
             String[] selectedCategories = request.getParameterValues("category");

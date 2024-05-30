@@ -115,37 +115,41 @@
                                             <span class="page-link">Prev</span>
                                         </li>
                                     </c:if>
-
+                            
                                     <c:if test="${totalPage > 0}">
-                                        <c:set var="start" value="${currentPage - 2 < 0 ? 0 : currentPage - 2}" />
-                                        <c:set var="end" value="${currentPage + 2 >= totalPage ? totalPage - 1 : currentPage + 2}" />
-
-                                        <c:forEach begin="${start}" end="${end}" var="i">
-                                            <li class="page-item ${currentPage == i ? 'active' : ''}" aria-current="${currentPage == i ? 'page' : ''}">
-                                                <c:choose>
-                                                    <c:when test="${currentPage == i}">
-                                                        <span class="page-link">${i + 1}</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a class="page-link" href="productList?page=${i}&search=${searchQuery}
-                                                           <c:forEach var="category" items="${selectedCategories}">
-                                                               &category=${category}
-                                                           </c:forEach>
-                                                           ">${i + 1}</a>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </li>
+                                        <c:forEach var="i" begin="0" end="${totalPage - 1}">
+                                            <c:choose>
+                                                <c:when test="${i < 2 || (i > currentPage - 1 && i < currentPage + 1) || i > totalPage - 3}">
+                                                    <li class="page-item ">
+                                                        <a class="px-3 page-link page-item ${i == currentPage ? 'bg-primary text-white' : ''}" href="productList?page=${i}&search=${searchQuery.trim() != '' ? searchQuery : ''}
+                                                            <c:forEach var="category" items="${selectedCategories}">
+                                                                <c:if test="${!empty category}">
+                                                                    &category=${category}
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            ">${i + 1}
+                                                        </a>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:if test="${(i == 2 && currentPage > 2) || (i == totalPage - 3 && currentPage < totalPage - 3)}">
+                                                        <li class="page-item disabled">
+                                                            <span class="page-link">...</span>
+                                                        </li>
+                                                    </c:if>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:forEach>
                                     </c:if>
-
+                            
                                     <c:if test="${currentPage < totalPage - 1}">
                                         <li class="page-item">
                                             <a class="page-link" href="productList?page=${currentPage + 1}&search=${searchQuery}
-                                               <c:forEach var="category" items="${selectedCategories}">
-                                                   &category=${category}
-                                               </c:forEach>
-                                               ">Next
-                                            </a>
+                                           <c:forEach var="category" items="${selectedCategories}">
+                                               &category=${category}
+                                           </c:forEach>
+                                           ">Next
+                                        </a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage >= totalPage - 1}">

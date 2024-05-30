@@ -22,11 +22,18 @@
                                         ${category.category} 
                                     </c:forEach>                           
                                 </span>
-                                <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
+                                <span class="btn rounded-2 py-0 px-2 btn bg-info text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
                             </div>
-                            <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
-                            <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
-                            <p class="text-muted">${blog.blogContent}</p>
+                            <img src="${blog.thumbnail}" class="mw-100 img-fluid" alt="${blog.title}">
+                            <h5 class="mt-2"><a href="blogdetails?id=${blog.blogId}">${blog.title}</a></h5>
+                            <p class="text-muted"><c:choose>
+                                <c:when test="${fn:length(fn:replace(blog.blogContent, '<.*?>', '')) > 15}">
+                                    ${fn:substring(fn:replace(blog.blogContent, '<.*?>', ''), 0, 15)}...
+                                </c:when>
+                                <c:otherwise>
+                                    ${fn:replace(blog.blogContent, '<.*?>', '')}
+                                </c:otherwise>
+                            </c:choose></p>
                             <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
                         </div>                  
                     </c:forEach>
@@ -61,15 +68,16 @@
                         </div>
                         <ul class="product-categories mb-0 sidebar-list list-unstyled">
                             <c:forEach var="entry" items="${categoryMap}">
-                                <li class="cat-item">
+                                <li class="cat-item ${entry.key == param.category ? 'bg-info text-white' : 'text-black'}">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
-                                    <input type="checkbox" name="category" value="${entry.key}" 
-                                           ${fn:contains(selectedCategoriesString, entry.key) ? 'checked' : ''}>
-                                    <label>${entry.key} (${entry.value})</label>
+                                    <c:set var="url" value="${uri}" />
+                                            <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(url.contains('shop.jsp') || url.contains('single-product.jsp')) ? 'productList' : 'blog'}?category=${entry.key}">
+                                        <label>${entry.key} (${entry.value})</label>
+                                    </a>
                                 </li>
                             </c:forEach>
                         </ul>
-                        <c:if test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp")}'>
+                        <c:if test = '${uri.contains("shop.jsp")}'>
                             <div class="widget-product-categories pt-5">
                                 <div class="section-title overflow-hidden mb-2">
                                     <h4 class="d-flex flex-column mb-0 side-content py-1">Find by Prices</h4>
@@ -109,11 +117,18 @@
                                                         ${category.category} 
                                                     </c:forEach>                           
                                                 </span>
-                                                <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
+                                                <span class="btn rounded-2 py-0 px-2 btn bg-info text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
                                             </div>
-                                            <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
-                                            <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
-                                            <p class="text-muted">${blog.blogContent}</p>
+                                            <img src="${blog.thumbnail}" class="mw-100 img-fluid" alt="${blog.title}">
+                                            <h5 class="mt-2"><a href="/app-name/blogdetails?id=${blog.blogId}">${blog.title}</a></h5>
+                                            <p class="text-muted"><c:choose>
+                                                <c:when test="${fn:length(fn:replace(blog.blogContent, '<.*?>', '')) > 15}">
+                                                    ${fn:substring(fn:replace(blog.blogContent, '<.*?>', ''), 0, 15)}...
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${fn:replace(blog.blogContent, '<.*?>', '')}
+                                                </c:otherwise>
+                                            </c:choose></p>
                                             <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
                                         </div>                  
                                     </c:forEach>
@@ -122,23 +137,15 @@
                                     <c:set var="latestProducts" value="${requestScope.latestProducts}" />
                                     <c:forEach items="${latestProducts}" var="laptop">
                                         <div class="position-relative text-left p-5 rounded-3">
-                                            <img src="${laptop.mainImage}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
-                                            <h5 class="mt-2"><a href="single-product.jsp?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
+                                            <img src="${laptop.mainImage}" class="mw-100 img-fluid" alt="${laptop.title}">
+                                            <h5 class="mt-2">
+                                                <a href="product?laptopId=${laptop.laptopId}">${laptop.title}</a>
+                                            </h5>
                                                 <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                                 <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
                                                 </c:if>
                                             <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
                                             <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
-                                                    <svg class="cart">
-                                                    <use xlink:href="#cart"></use>
-                                                    </svg>
-                                                </button>
-                                                <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wishlist">
-                                                    <svg class="wishlist">
-                                                    <use xlink:href="#heart"></use>
-                                                    </svg>
-                                                </button>
                                             </div>
                                         </div>
                                     </c:forEach>
