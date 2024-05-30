@@ -28,4 +28,18 @@ public class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+     public Connection getConnection() {
+        return connection;
+    }
+
+    public static void main(String[] args) {
+        DBContext dbContext = new DBContext();
+        if (dbContext.getConnection() != null) {
+            System.out.println("Connection test successful.");
+        } else {
+            System.out.println("Connection test failed.");
+        }
+    }
 }

@@ -199,10 +199,6 @@
             }, index * 200);
         });
     };
-    
-    function sendForm(){
-        $("#form").submit();
-    }
 })(jQuery);
 
 window.onload = function () {

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.OrderItem;
 import model.Order_Information;
 
 @WebServlet(name = "OrderDetailServlet", urlPatterns = {"/orderdetail"})
@@ -23,7 +24,7 @@ public class OrderDetailServlet extends HttpServlet {
         int orderId = Integer.parseInt(orderId_raw);
 
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-        List<Order_Information> orderDetail = orderDetailDAO.getOrderDetail(orderId);
+        List<OrderItem> orderDetail = orderDetailDAO.getOrderDetail(orderId);
         
         System.out.println(orderDetail);
 

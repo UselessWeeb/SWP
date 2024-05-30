@@ -45,7 +45,7 @@ public class BlogList extends HttpServlet {
 // Step 1: Retrieve the checkbox values
         String[] selectedCategories = request.getParameterValues("category");
 
-        final int totalPerPage = 9;
+        final int totalPerPage = 12;
         int totalBlogs;
         if (searchQuery.isBlank() && (selectedCategories == null || selectedCategories.length == 0)) {
             totalBlogs = blogDAO.getBlogCount(null, null);

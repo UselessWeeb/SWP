@@ -6,7 +6,6 @@
 package controller;
 
 import dao.BlogDAO;
-import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Blog;
 
 
 /**
@@ -39,12 +37,9 @@ public class BlogDetails extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("id");
         BlogDAO blogDAO = new BlogDAO();
-        UserDAO userDAO = new UserDAO();
         blogDAO.incrementViewCount(id);
-        Blog blog = blogDAO.getByID(id);
-        request.setAttribute("blog", blog);
-        request.setAttribute("user3", userDAO.findById(String.valueOf(blog.getUserId())));
-            System.out.println(userDAO.findById(String.valueOf(blog.getUserId())));
+        request.setAttribute("blog", blogDAO.getByID(id));
+            System.out.println(blogDAO.getByID(id));
         request.getRequestDispatcher("single-post.jsp").forward(request, response);
         }
     } 
