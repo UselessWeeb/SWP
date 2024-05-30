@@ -88,7 +88,7 @@
                                     <div class="swiper-slide">
                                         <div class="card position-relative text-center py-4 border rounded-3">
                                             <img src="${laptop.mainImage}" class="img-fluid product-image" alt="product item" style="max-height: 350px; width: 100%;">
-                                            <h5 class="mt-2"><a href="single-product.html">${laptop.title}</a></h5>
+                                            <h5 class="mt-2"><a href="/app-name/product?id=${laptop.laptopId}">${laptop.title}</a></h5>
                                             <span class="price text-primary fw-light mb-2">
                                                 <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                                     <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
@@ -114,14 +114,15 @@
                                 <c:when test="${not empty bloglists}">
                                     <c:forEach items="${bloglists}" var="blog">
                                         <div class="col-md-3 posts mb-4">
-                                            <a href="blog.html" class="btn rounded-0 py-0 px-2">
+                                            <a href="/app-name/blog?search=&category=
                                                 <c:forEach items = "${blog.category}" var = "category">
                                                     ${category.category} 
                                                 </c:forEach> 
+                                               &minPrice=0&maxPrice=" class="btn rounded-0 py-0 px-2">
                                             </a>
                                             <img src="${blog.thumbnail}" alt="post image product-image" class="img-fluid">
                                             <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
-                                                <a href="single-post.jsp">${blog.title}</a>
+                                                <a href="blogdetails?id=${blog.blogId}">${blog.title}</a>
                                             </h4>
                                             <p class="mb-2"><c:set var="content" value="${blog.blogContent}" />
                                                 <c:choose>
@@ -134,9 +135,7 @@
                                                 </c:choose>
 
                                                 ${shortContent}</p>
-                                            <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
                                             </svg>   ${blog.view} views
-                                            <a class="text-decoration-underline" href="single-post.html">Read More</a>
                                         </div>
                                     </c:forEach>
                                 </c:when>

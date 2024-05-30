@@ -73,11 +73,6 @@
                             <c:forEach var="entry" items="${categoryMap}">
                                 <li class="cat-item">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
-<<<<<<< HEAD
-                                    <input type="checkbox" name="category" value="${entry.key}" onchange = "sendForm()" 
-                                           ${fn:contains(selectedCategoriesString, entry.key) ? 'checked' : ''}>
-                                    <label>${entry.key} (${entry.value})</label>
-=======
                                     <a href =
                                        <c:choose>
                                            <c:when test = '${uri.contains("single-post.jsp")}'>
@@ -93,7 +88,6 @@
                                        = "${fn:contains(selectedCategoriesString, entry.key) ? 'bg-info text-white' : ''}">
                                         ${entry.key} (${entry.value})
                                     </a>
->>>>>>> d99368992b11873f334b719348148ea30f41be38
                                 </li>
                             </c:forEach>
                         </ul>
