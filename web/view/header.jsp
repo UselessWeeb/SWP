@@ -124,23 +124,6 @@
     </div>
 
     <header id="header" class="site-header">
-
-        <div class="top-info border-bottom d-none d-md-block">
-            <div class="container-fluid">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <p class="fs-6 my-2 text-center">Need any help? Call us <a href="#">112233344455</a></p>
-                    </div>
-                    <div class="col-md-4 border-start border-end">
-                        <p class="fs-6 my-2 text-center">Summer sale discount off 60% off! <a class="text-decoration-underline" href="shop.jsp">Shop Now</a></p>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="fs-6 my-2 text-center">2-3 business days delivery & free returns</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <nav id="header-nav" class="navbar navbar-expand-lg py-3">
             <div class="container">
                 <a class="navbar-brand" href="index.jsp">
@@ -247,7 +230,7 @@
                                                     </li>
                                                 </ul>
                                                 <div class="d-flex flex-wrap justify-content-center">
-                                                    <a href="#" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
+                                                    <a href="logout" class="w-100 btn btn-dark mb-1" type="submit">Logout</a>
                                                 </div>
                                             </div>
                                         </c:otherwise>
