@@ -1373,3 +1373,7 @@ input[type="range"]:active::-webkit-slider-thumb{
 .end-10{
     left:90% !important;
 }
+
+.thumbnail{  
+    height: 500px;
+}

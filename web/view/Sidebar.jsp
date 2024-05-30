@@ -22,18 +22,28 @@
                                         ${category.category} 
                                     </c:forEach>                           
                                 </span>
-                                <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
+                                <span class="btn rounded-2 py-0 px-2 btn bg-info text-black py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
                             </div>
                             <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
                             <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
-                            <p class="text-muted">${blog.blogContent}</p>
+                            <p class="text-muted"><c:set var="content" value="${blog.blogContent}" />
+                                <c:choose>
+                                    <c:when test="${fn:length(content) > 12}">
+                                        <c:set var="shortContent" value="${fn:substring(content, 0, 12)}..." />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="shortContent" value="${content}" />
+                                    </c:otherwise>
+                                </c:choose>
+
+                                ${shortContent}</p>
                             <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
                         </div>                  
                     </c:forEach>
                 </div>
             </c:when>
             <c:otherwise>
-                <form class="sidebar pe-lg-5 mb-3" role="search"
+                <form class="sidebar pe-lg-5 mb-3" role="search" id = "form"
                       <c:choose>
                           <c:when test = '${uri.contains("blog.jsp") || uri.contains("single-post.jsp")}'>
                               action="blog"
@@ -63,13 +73,25 @@
                             <c:forEach var="entry" items="${categoryMap}">
                                 <li class="cat-item">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
-                                    <input type="checkbox" name="category" value="${entry.key}" 
-                                           ${fn:contains(selectedCategoriesString, entry.key) ? 'checked' : ''}>
-                                    <label>${entry.key} (${entry.value})</label>
+                                    <a href =
+                                       <c:choose>
+                                           <c:when test = '${uri.contains("single-post.jsp")}'>
+                                               "/app-name/blog?search=&category=${entry.key}"
+                                           </c:when>
+                                           <c:when test = '${uri.contains("single-product.jsp")}'>
+                                               "/app-name/productList?search=&category=${entry.key}&minPrice=0&maxPrice=${maxPriceFromDB}"
+                                           </c:when>
+                                           <c:otherwise>
+                                               "?search=&category=${entry.key}&minPrice=0&maxPrice=${maxPriceFromDB}"
+                                           </c:otherwise>
+                                       </c:choose> class 
+                                       = "${fn:contains(selectedCategoriesString, entry.key) ? 'bg-info text-white' : ''}">
+                                        ${entry.key} (${entry.value})
+                                    </a>
                                 </li>
                             </c:forEach>
                         </ul>
-                        <c:if test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp")}'>
+                        <c:if test = '${uri.contains("shop.jsp")}'>
                             <div class="widget-product-categories pt-5">
                                 <div class="section-title overflow-hidden mb-2">
                                     <h4 class="d-flex flex-column mb-0 side-content py-1">Find by Prices</h4>
@@ -86,8 +108,8 @@
                                     </div>
                                     <div class="range-container">
                                         <div class="slider-track"></div>
-                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${minPrice}" name="minPrice" id="slider-1" oninput="slideOne()">
-                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${maxPrice}" name="maxPrice" id="slider-2" oninput="slideTwo()">
+                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${minPrice}" name="minPrice" id="slider-1" oninput="slideOne()" onchange = "sendForm()">
+                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${maxPrice}" name="maxPrice" id="slider-2" oninput="slideTwo()" onchange = "sendForm()">
                                     </div>
                                 </div>
                             </div>
@@ -109,19 +131,28 @@
                                                         ${category.category} 
                                                     </c:forEach>                           
                                                 </span>
-                                                <span class="btn rounded-2 py-0 px-2 btn bg-success text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
+                                                <span class="btn rounded-2 py-0 px-2 btn bg-info text-black py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
                                             </div>
                                             <img src="${blog.thumbnail}" class="mw-100 p-3 img-fluid" alt="${blog.title}">
-                                            <h5 class="mt-2"><a href="single-post.jsp?blogId=${blog.blogId}">${blog.title}</a></h5>
-                                            <p class="text-muted">${blog.blogContent}</p>
-                                            <a class="text-decoration-underline" href="blogdetails?id=${blog.blogId}">Read More</a>
+                                            <h5 class="mt-2"><a href="blogdetails?id=${blog.blogId}">${blog.title}</a></h5>
+                                                <c:set var="content" value="${blog.blogContent}" />
+                                                <c:choose>
+                                                    <c:when test="${fn:length(content) > 12}">
+                                                        <c:set var="shortContent" value="${fn:substring(content, 0, 12)}..." />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="shortContent" value="${content}" />
+                                                    </c:otherwise>
+                                                </c:choose>
+
+                                            <p>${shortContent}</p>
                                         </div>                  
                                     </c:forEach>
                                 </c:when>
                                 <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp")}'>
                                     <c:set var="latestProducts" value="${requestScope.latestProducts}" />
                                     <c:forEach items="${latestProducts}" var="laptop">
-                                        <div class="position-relative text-left p-5 rounded-3">
+                                        <div class="position-relative text-left rounded-3">
                                             <img src="${laptop.mainImage}" class="mw-100 p-3 img-fluid" alt="${laptop.title}">
                                             <h5 class="mt-2"><a href="single-product.jsp?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
                                                 <c:if test="${laptop.salePrice != laptop.originalPrice}">
@@ -150,4 +181,9 @@
             </c:otherwise>
         </c:choose>
     </aside>
+    <script language="javascript" type="text/javascript">
+        function sendForm() {
+            $("#form").submit();
+        }
+    </script>
 </html>
