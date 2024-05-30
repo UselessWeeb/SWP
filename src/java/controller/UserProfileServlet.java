@@ -27,13 +27,12 @@ import service.AccessRole;
 @MultipartConfig
 @WebServlet(urlPatterns = {"/userProfile"})
 @AccessRole(roles = {
-    Role.Type.admin, 
-    Role.Type.sale_manager, 
+    Role.Type.admin,
+    Role.Type.sale_manager,
     Role.Type.marketing_manager,
     Role.Type.sale,
     Role.Type.marketing,
-    Role.Type.customer,
-})
+    Role.Type.customer,})
 
 public class UserProfileServlet extends HttpServlet {
 
@@ -51,15 +50,23 @@ public class UserProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
 
         String userId = request.getParameter("id");
         String fullName = request.getParameter("fname");
         String gender = request.getParameter("sex");
         String address = request.getParameter("loca");
         String phoneNumber = request.getParameter("phone");
+        
+        if (phoneNumber.length() != 10) {
+            request.setAttribute("error", "Phone Number must have 10 digits");
+            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+            return;
+        }
 
-        HttpSession session = request.getSession();
+        //UserDAO userDAO = new UserDAO();
         UserDAO dao = new UserDAO();
+
         User user = dao.findById(userId);  // Assuming you have a method to get user by ID
 
         // Update user details
@@ -89,13 +96,15 @@ public class UserProfileServlet extends HttpServlet {
             user.setAvatar(userProfileImagePath);
         }
 
+        session.setAttribute("user", user);
+
         int n = dao.editCustomer(user);
 
         if (n > 0) {
             session.setAttribute("success", "Update successful!");
             response.sendRedirect("userProfile.jsp");
         } else {
-            session.setAttribute("error", "Update failed!");
+            request.setAttribute("error", "Update failed!");
             response.sendRedirect("userProfile.jsp");
         }
     }
