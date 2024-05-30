@@ -199,6 +199,7 @@
             }, index * 200);
         });
     };
+    
 })(jQuery);
 
 window.onload = function () {

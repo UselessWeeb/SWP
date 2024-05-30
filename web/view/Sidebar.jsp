@@ -63,7 +63,7 @@
                             <c:forEach var="entry" items="${categoryMap}">
                                 <li class="cat-item">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
-                                    <input type="checkbox" name="category" value="${entry.key}" 
+                                    <input type="checkbox" name="category" value="${entry.key}" onchange = "sendForm()" 
                                            ${fn:contains(selectedCategoriesString, entry.key) ? 'checked' : ''}>
                                     <label>${entry.key} (${entry.value})</label>
                                 </li>
