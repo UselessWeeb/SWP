@@ -200,6 +200,9 @@
         });
     };
     
+    function sendForm(){
+        $("#form").submit();
+    }
 })(jQuery);
 
 window.onload = function () {
