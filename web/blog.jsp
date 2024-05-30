@@ -56,17 +56,6 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
-                            <div class="sort-by">
-                                <select id="sorting" class="form-select" data-filter-sort="" data-filter-order="">
-                                    <option value="">Latest to oldest</option>
-                                    <option value="">Oldest to latest</option>
-                                    <option value="">Popular</option>
-                                    <option value="">Name (A - Z)</option>
-                                    <option value="">Name (Z - A)</option>
-                                    <option value="">Model (A - Z)</option>
-                                    <option value="">Model (Z - A)</option>   
-                                </select>
-                            </div>
                         </div>
                         <div class = "row post-content">
                             <c:set var = "blogList" value = "${requestScope.blogList}" />
@@ -81,7 +70,19 @@
                                     <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
                                         <a href="blogdetails?id=${blog.blogId}">${blog.title}</a>
                                     </h4>
-                                    <p class="mb-2">${blog.blogContent}</p>
+                                    <p class="mb-2">
+                                        <c:set var="content" value="${blog.blogContent}" />
+                                        <c:choose>
+                                            <c:when test="${fn:length(content) > 12}">
+                                                <c:set var="shortContent" value="${fn:substring(content, 0, 12)}..." />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="shortContent" value="${content}" />
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        ${shortContent}
+                                    </p>
                                 </div>
                             </c:forEach>
                         </div>
@@ -92,7 +93,7 @@
                                 </li>
                                 <c:forEach var="i" begin="0" end="${totalPage-1}">
                                     <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                        <a class="page-link bg-primary px-3 text-white" href="?page=${i}">${i+1}</a>
+                                        <a class="page-link ${i == currentPage ? 'bg-primary text-white' : 'text-primary'} px-3" href="?page=${i}">${i+1}</a>
                                     </li>
                                 </c:forEach>
                                 <li class="page-item ${currentPage == totalPage - 1 ? 'disabled' : ''}">
