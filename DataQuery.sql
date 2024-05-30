@@ -54,33 +54,34 @@ VALUES
 ('Dell Inspiron 15', 'images/product/20.jpg', 700.00, 'Dell Inspiron 15 details...', 700.00, 130, 1, GETDATE()),
 ('Lenovo Legion Y540', 'images/product/21.jpg', 1100.00, 'Lenovo Legion Y540 details...', 1100.00, 95, 1, GETDATE());
 GO
-
+-- Insert into Laptop_Category
 INSERT INTO Laptop_Category (laptop_id, Category) VALUES
+(1, 'Ultrabook'),
 (2, 'Ultrabook'),
-(3, 'Ultrabook'),
-(4, 'Business'),
-(5, 'Ultrabook'),
+(3, 'Business'),
+(4, 'Ultrabook'),
+(5, 'Gaming'),
 (6, 'Gaming'),
-(7, 'Gaming'),
+(7, 'Ultrabook'),
 (8, 'Ultrabook'),
-(9, 'Ultrabook'),
+(9, 'Convertible'),
 (10, 'Convertible'),
-(11, 'Convertible'),
+(11, 'Ultrabook'),
 (12, 'Ultrabook'),
-(13, 'Ultrabook'),
+(13, 'Gaming'),
 (14, 'Gaming'),
 (15, 'Gaming'),
-(16, 'Gaming'),
-(17, 'Business'),
+(16, 'Business'),
+(17, 'Ultrabook'),
 (18, 'Ultrabook'),
-(19, 'Ultrabook'),
-(20, 'Budget'),
-(21, 'Gaming'),
-(22, 'Ultrabook');
+(19, 'Budget'),
+(20, 'Gaming'),
+(21, 'Ultrabook');
 GO
 
+-- Insert into Laptop_Image
 INSERT INTO Laptop_Image (laptop_id, Image) VALUES
-(22, 'images/product/1.jpg'),
+(1, 'images/product/1.jpg'),
 (2, 'images/product/2.jpg'),
 (3, 'images/product/3.jpg'),
 (4, 'images/product/4.jpg'),
@@ -103,6 +104,7 @@ INSERT INTO Laptop_Image (laptop_id, Image) VALUES
 (21, 'images/product/21.jpg');
 GO
 
+
 --slider(s)
 INSERT INTO Slider (title, images, details, backlink, status, user_id) 
 VALUES ('Summer Sale', 'images/summer-sale.jpg', 'Products being sale up to 90% !', 'http://example.com/sale', 1, 1);
@@ -110,4 +112,24 @@ GO
 
 INSERT INTO Slider (title, images, details, backlink, status, user_id) 
 VALUES ('Sudden Sale', 'images/sudden-sale.jpg', 'Some odd products is being saled ! How cool', 'http://example.com/sale', 1, 1);
+GO
+
+-- Insert into Order table
+INSERT INTO [Order] (order_date, status, price, user_id) 
+VALUES 
+(GETDATE(), 1, 1500.00, 1),
+(GETDATE(), 1, 1300.00, 1),
+(GETDATE(), 1, 1100.00, 2),
+(GETDATE(), 1, 1200.00, 2),
+(GETDATE(), 1, 2400.00, 1);
+GO
+
+-- Insert into Order_Item table
+INSERT INTO Order_Item (order_id, laptop_id, quantity, price) 
+VALUES 
+(1, 1, 2, 3000.00),
+(2, 2, 1, 1300.00),
+(3, 3, 1, 1100.00),
+(4, 4, 3, 3600.00),
+(5, 5, 2, 4800.00);
 GO

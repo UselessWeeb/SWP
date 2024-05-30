@@ -64,16 +64,24 @@ CREATE TABLE Laptop_Image(
 CREATE TABLE [Order]
 (
   order_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-  order_date DATETIME NOT NULL,
-  order_name VARCHAR(100) NOT NULL,
+  order_date DATETIME NOT NULL,  
   status INT NOT NULL,
-  quantity INT NOT NULL,
-  user_id INT NOT NULL,
-  laptop_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES [User],
-  FOREIGN KEY (laptop_id) REFERENCES [Laptop],
+ price FLOAT NOT NULL,
+ user_id INT NOT NULL,  
+  FOREIGN KEY (user_id) REFERENCES [User],  
 );
 GO
+CREATE TABLE Order_Item
+(
+  order_item_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+  order_id INT NOT NULL,
+  laptop_id INT NOT NULL,
+  quantity INT NOT NULL,
+  price FLOAT NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES [Order](order_id),
+  FOREIGN KEY (laptop_id) REFERENCES [Laptop](laptop_id)
+);
+
 
 CREATE TABLE Order_Information
 (
@@ -182,4 +190,4 @@ CREATE TABLE Score
   FOREIGN KEY (user_id) REFERENCES [User](user_id)
 );
 
-SELECT * FROM Blog ORDER BY updated_date
+

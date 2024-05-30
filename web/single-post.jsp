@@ -33,7 +33,6 @@
 
         <%@include file = "view/header.jsp" %>
         <c:set var = "blog" value = "${requestScope.blog}" />
-        <c:set var = "user2" value = "${requestScope.user2}" />
         <div class="post-wrap padding-large overflow-hidden">
             <div class="container">
                 <div class="row">
@@ -42,21 +41,15 @@
                             <jsp:include page="/Sidebar"/>
                             <article class="post-item col-md-9">
                                 <div class="post-content">
-                                    <div class="hero-image d-flex justify-content-center thumbnail">
+                                    <div class="hero-image">
                                         <img src="${blog.thumbnail}" alt="single-post" class="img-fluid">
                                     </div>
-                                    <div class = "d-flex justify-content-between " >
-                                        <h1 class="post-title mt-4">${blog.title}</h1>
-                                        <span class = "pt-5"> by ${user3.fullName}</span>
-                                    </div>
                                     <div class="post-meta mt-4">
-                                        <span class="post-category">${blog.updatedDate}</span> - <span class="meta-date"><a href="blog.html">
-                                                <c:forEach items = "${blog.category}" var = "category">
-                                                    ${category.category} 
-                                                </c:forEach></a>
-                                        </span>
+                                        <span class="post-category">${blog.updatedDate}</span> - <span class="meta-date"><a href="blog.html"><c:forEach items = "${category}" var = "blog.category">
+                                                    ${category} 
+                                                </c:forEach></a></span>
                                     </div>
-
+                                    <h1 class="post-title mt-4">${blog.title}</h1>
                                     <div class="post-description review-item mt-4">
                                         <p>
                                             <strong>${blog.blogContent}</strong>
@@ -64,6 +57,10 @@
                                         <!-- More content can be added similarly using blog object properties -->
                                         <div class="post-bottom-link d-flex justify-content-between mt-2">
                                             <div class="social-links d-flex">
+                                                <div class="element-title pe-2">Share:</div>
+                                                <ul class="d-flex list-unstyled">
+                                                    <!-- Add social media icons here -->
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -85,6 +82,93 @@
                                     </div>
                                 </div>
                             </article>
+                            <section id="post-comment" class="padding-medium pb-0">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="comments-wrap">
+                                                <h3 class="mb-3">3 Comments</h3>
+                                                <div class="comment-list padding-small">
+                                                    <article class="comment-item d-flex flex-wrap mb-3">
+                                                        <div class="col-lg-1 col-sm-3 me-4 mb-3">
+                                                            <img src="images/commentor-item1.jpg" alt="default" class="img-fluid rounded-3">
+                                                        </div>
+                                                        <div class="col-lg-10 col-sm-9 author-wrap">
+                                                            <div class="author-post">
+                                                                <div class="comment-meta d-flex">
+                                                                    <div class="author-name fw-medium pe-1">Sam Smith</div>
+                                                                    <span class="meta-date">Jul 10</span>
+                                                                </div>
+                                                                <p class="no-margin">Mattis pulvinar non viverra donec pellentesque. Odio mi consequat libero dolor. Porta ut diam lobortis eget leo, lectus. Tortor diam dignissim amet, in interdum aliquet. Nascetur libero elementum
+                                                                    adipiscing mauris maecenas et magna.</p>
+                                                                <div class="comments-reply">
+                                                                    <a href="#" class="text-primary">Reply Now</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                    <article class="comment-item d-flex child-comments flex-wrap ps-5 mb-3">
+                                                        <div class="col-lg-1 col-sm-3 me-4 mb-3">
+                                                            <img src="images/commentor-item2.jpg" alt="default" class="img-fluid rounded-3">
+                                                        </div>
+                                                        <div class="col-lg-10 col-sm-9 author-wrap">
+                                                            <div class="author-post">
+                                                                <div class="comment-meta d-flex">
+                                                                    <div class="author-name fw-medium pe-1">Santie Mary</div>
+                                                                    <span class="meta-date">Jul 10</span>
+                                                                </div>
+                                                                <p class="no-margin">Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.</p>
+                                                                <div class="comments-reply">
+                                                                    <a href="#" class="text-primary">Reply Now</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                    <article class="comment-item d-flex flex-wrap">
+                                                        <div class="col-lg-1 col-sm-3 me-4 mb-3">
+                                                            <img src="images/commentor-item3.jpg" alt="default" class="img-fluid rounded-3">
+                                                        </div>
+                                                        <div class="col-lg-10 col-sm-9 author-wrap">
+                                                            <div class="author-post">
+                                                                <div class="comment-meta d-flex">
+                                                                    <div class="author-name fw-medium pe-1">Analisa Nora</div>
+                                                                    <span class="meta-date">Jul 10</span>
+                                                                </div>
+                                                                <p class="no-margin">Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.Tristique tempis condimentum diam done ullancomroer sit element henddg sit he consequert.</p>
+                                                                <div class="comments-reply">
+                                                                    <a href="#" class="text-primary">Reply Now</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+
+                                            <div class="comment-respond">
+                                                <h3>Leave a Comment</h3>
+                                                <p>Your email address will not be published. Required fields are marked *</p>
+                                                <form id="form" class="d-flex gap-3 flex-wrap">
+                                                    <div class="w-100 d-flex gap-3">
+                                                        <div class="w-50">
+                                                            <input type="text" name="name" placeholder="Write your name here *" class="form-control w-100">
+                                                        </div>
+                                                        <div class="w-50">
+                                                            <input type="text" name="email" placeholder="Write your email here *" class="form-control w-100">
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-100">
+                                                        <textarea placeholder="Write your comment here *" class="form-control w-100"></textarea>
+                                                    </div>
+                                                    <label class="w-100">
+                                                        <input type="checkbox" required="" class="d-inline">
+                                                        <span>Save my name, email, and website in this browser for the next time.</span>
+                                                    </label>
+                                                    <button type="submit" name="submit" class="btn my-3">Post Comment</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </section>
                         </div>
                     </main>
@@ -129,7 +213,149 @@
                 </div>
             </div>
         </section>
-                                        
+
+        <section id="customers-reviews" class="position-relative margin-large">
+            <div class="container">
+                <div class="section-title overflow-hidden mb-4">
+                    <h3 class="d-flex align-items-center">Customers reviews</h3>
+                </div>
+                <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
+                    <svg class="chevron-forward-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+                    <use xlink:href="#alt-arrow-right-outline"></use>
+                    </svg>
+                </div>
+                <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
+                    <svg class="chevron-back-circle d-flex justify-content-center align-items-center border rounded-3 p-2" width="55" height="55">
+                    <use xlink:href="#alt-arrow-left-outline"></use>
+                    </svg>
+                </div>
+                <div class="swiper testimonial-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                    needs. Highly recommended!”</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>“This tech store is my go-to for all things tech! Whether it's a new smartphone, accessories, or even troubleshooting advice, they've always got me covered. The staff is friendly, and their expertise is unmatched. Trust me;
+                                    you won't regret shopping here!”</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Thomas John</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>“I recently purchased a smartwatch from this tech store, and I'm absolutely thrilled find the perfect fit with my purchase! Not only did they have an extensive find the perfect fit selection to choose from, but their team helped
+                                    me find the perfect fit for my lifestyle.”</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                    needs. Highly recommended!”</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Stevin</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="card position-relative text-left p-5 border rounded-3">
+                                <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing the perfect device for my
+                                    needs. Highly recommended!”</blockquote>
+                                <div class="rating text-primary">
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                    <svg class="star star-fill">
+                                    <use xlink:href="#star-fill"></use>
+                                    </svg>
+                                </div>
+                                <h5 class="mt-1 fw-normal">Roman</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="brands" class="py-5 border-top border-bottom">
             <div class="container">
                 <div class="brand-images my-5 d-flex align-items-center justify-content-between flex-wrap">

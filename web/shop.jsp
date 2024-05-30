@@ -55,7 +55,7 @@
                         <div class="filter-shop d-flex flex-wrap justify-content-between">
                             <div class="showing-product">
                                 <c:set var= "laptopList" value= "${requestScope.laptopList}" />
-                                <c:set var= "totalPage" value = "${requestScope.totalPage}" />
+                                <c:set var= "totalPage" value= "${requestScope.totalPage}" />
                                 <c:set var= "currentPage" value= "${requestScope.currentPage}" />
                                 <c:set var= "totalProducts" value = "${requestScope.totalProducts}" />
                                 <c:set var= "totalPerPage" value= "${requestScope.totalPerPage}" />

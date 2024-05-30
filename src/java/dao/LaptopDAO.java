@@ -17,32 +17,13 @@ import model.Laptop;
 
 public class LaptopDAO extends EntityDAO {
 
-    public List<Laptop> findFeatured() {
+    public List<Laptop> findLatest() {
         List<Laptop> laptops = new ArrayList<>();
         try {
             String strSelect = 
                 "SELECT TOP 3 laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
                 "FROM Laptop " +
                 "WHERE is_featured = 1";
-            stm = connection.prepareStatement(strSelect);
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                Laptop laptop = (Laptop)createEntity(rs);
-                laptops.add(laptop);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return laptops;
-    }
-    
-        public List<Laptop> findLatest() {
-        List<Laptop> laptops = new ArrayList<>();
-        try {
-            String strSelect = 
-                "SELECT TOP 3 laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
-                "FROM Laptop " +
-                "ORDER BY updated_date DESC";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -232,6 +213,24 @@ public class LaptopDAO extends EntityDAO {
             e.printStackTrace();
         }
         return categoryMap;
+    }
+    
+     public Laptop getLaptopById(int laptopID) {
+        Laptop laptop = null;
+        try {
+            String strSelect = "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date "
+                    + "FROM Laptop "
+                    + "WHERE laptop_id = ?";
+            stm = connection.prepareStatement(strSelect);
+            stm.setInt(1, laptopID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                laptop = (Laptop) createEntity(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return laptop;
     }
     
     @Override
