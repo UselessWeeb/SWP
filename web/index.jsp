@@ -124,7 +124,7 @@
                                             <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
                                                 <a href="blogdetails?id=${blog.blogId}">${blog.title}</a>
                                             </h4>
-                                            <p class="mb-2">${blog.blogContent}</p>
+                                            <p class="mb-2">${fn:substring(blog.blogContent, 0, 15)}</p>
                                             </svg>   ${blog.view} views
                                         </div>
                                     </c:forEach>
