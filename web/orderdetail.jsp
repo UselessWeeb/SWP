@@ -34,33 +34,24 @@
                 <thead class="bg-primary text-white">
                     <tr class="text-center">
                         <th scope="col"><b>ID</b></th>
-                        <th scope="col"><b>Full Name</b></th>
-                        <th scope="col"><b>Address</b></th>
-                        <th scope="col"><b>Email</b></th>
-                        <th scope="col"><b>Phone Number</b></th>
                         <th scope="col"><b>Product Name</b></th>
-                        <th scope="col"><b>Order Date</b></th>
                         <th scope="col"><b>Price</b></th>
-                        <th scope="col"><b>Quantity</b></th>
+                        <th scope="col"><b>Quantity</b></th>                       
+                                               
                     </tr>
                 </thead>
-                <tbody>
-                    <c:set var = "totalPrice" value="0"/>
-                    <c:forEach items="${orderDetail}" var="od">
-                        <tr class="text-center">
-                            <td>${od.in4_id}</td>
-                            <td>${od.user.fullName}</td>
-                            <td>${od.user.address}</td>
-                            <td>${od.user.email}</td>
-                            <td>${od.user.phoneNumber}</td>
-                            <td>${od.laptop.title}</td>
-                            <td>${od.order.order_date}</td>
-                            <td>${od.laptop.originalPrice}$</td>
-                            <td>${od.order.quality}</td>
-                            <c:set var = "totalPrice" value = "${totalPrice + (od.laptop.originalPrice * od.order.quality)}" />
-                        </tr>
-                    </c:forEach>
-                </tbody>
+                 <tbody>
+            <c:set var="totalPrice" value="0"/>
+            <c:forEach items="${orderDetail}" var="od">
+                <tr>
+                    <td>${od.orderItemId}</td>
+                    <td>${od.laptopId.title}</td>
+                    <td>${od.price}</td>
+                    <td>${od.quantity}</td>
+                    <c:set var="totalPrice" value="${totalPrice + (od.price * od.quantity)}"/>
+                </tr>
+            </c:forEach>
+        </tbody>
             </table>
             <div>
                 <h3 class="text-primary text-end"><b>Total Price: ${totalPrice}</b></h3> 
