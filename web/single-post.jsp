@@ -44,11 +44,11 @@
                                     <div class="hero-image">
                                         <img src="${blog.thumbnail}" alt="single-post" class="img-fluid">
                                     </div>
-                                    <c:set var = "user2" value ="${requestScope.user}"/>
+                                    <c:set var = "user1" value ="${requestScope.user1}"/>
                                     <div class="post-meta mt-4">
                                         <div class ="d-flex justify-content-between">
                                         <h1 class="post-title mt-4">${blog.title}</h1>
-                                        <p> - By ${user2} </p>
+                                        <p class = "pt-5"> - By ${user1.fullName} </p>
                                         </div>
                                         <span class="post-category">${blog.updatedDate}</span> - <span class="meta-date"><a href="blog.html"><c:forEach items = "${category}" var = "blog.category">
                                                     ${category} 
