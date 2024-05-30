@@ -50,6 +50,7 @@ public class UserProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
 
         String userId = request.getParameter("id");
         String fullName = request.getParameter("fname");
@@ -57,7 +58,12 @@ public class UserProfileServlet extends HttpServlet {
         String address = request.getParameter("loca");
         String phoneNumber = request.getParameter("phone");
         
-        
+        if (phoneNumber.length() != 10) {
+            request.setAttribute("error", "Phone Number must have 10 digits");
+            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+            return;
+        }
+
         //UserDAO userDAO = new UserDAO();
         UserDAO dao = new UserDAO();
 
@@ -90,12 +96,13 @@ public class UserProfileServlet extends HttpServlet {
             user.setAvatar(userProfileImagePath);
         }
 
+        session.setAttribute("user", user);
+
         int n = dao.editCustomer(user);
 
         if (n > 0) {
-            HttpSession session = request.getSession();
             session.setAttribute("success", "Update successful!");
-            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+            response.sendRedirect("userProfile.jsp");
         } else {
             request.setAttribute("error", "Update failed!");
             response.sendRedirect("userProfile.jsp");

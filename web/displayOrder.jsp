@@ -64,7 +64,7 @@
                                         <td>${o.laptop.title}</td>
                                         <td>$${o.laptop.originalPrice}</td>
                                         <td>${o.quality}</td>
-                                        <c:set var = "totalPrice" value = "${totalPrice + (o.laptop.originalPrice * o.quality)}" />
+                                        <c:set var = "totalPrice" value = "${(o.laptop.originalPrice * o.quality)}" />
                                         <td>$${totalPrice}</td>
                                         <td>
                                             <c:choose>
