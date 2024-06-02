@@ -118,7 +118,7 @@
                 <div class="row">
                     <div class="tabs-listing">
                         <div class="tab-content border-bottom py-4" id="nav-tabContent">
-                            <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="tab-pane fade active show d-flex justify-content-center" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 ${Product.productsDetail}
                             </div>
                         </div>
