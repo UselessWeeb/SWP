@@ -103,7 +103,7 @@
                                         <c:forEach var="productCategory" items="${requestScope.Product.category}">
                                             <li data-value="S" class="select-item">
                                                 <a href="#">${productCategory.category}</a><c:if test="${!productCategoryStatus.last}">,</c:if>
-                                            </li>
+                                                </li>
                                         </c:forEach>
                                     </ul>
                                 </div>
@@ -120,6 +120,22 @@
                         <div class="tab-content border-bottom py-4" id="nav-tabContent">
                             <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                 ${Product.productsDetail}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="tabs-listing">
+                        <div class="tab-content border-bottom py-4" id="nav-tabContent" >
+                            <div>
+                                <h2 class="tab-pane fade active show" aria-labelledby="nav-home-tab">
+                                    User A
+                                </h2>
+                            </div>
+                            <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                               Really cool, would love to see !
                             </div>
                         </div>
                     </div>
