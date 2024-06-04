@@ -1071,7 +1071,11 @@ th {
 }
 
 .card-concern .btn {
-    padding: 1.125rem;
+    padding: 5px;
+}
+
+.card-concern p {
+    margin-bottom:0;
 }
 
 .card-concern svg {
