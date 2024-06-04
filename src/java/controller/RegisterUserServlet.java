@@ -1,31 +1,44 @@
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package controller;
 
+import dao.TokenDAO;
+import dao.UserDAO;
+import email.EmailService;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import dao.UserDAO;
-import dao.TokenDAO;
-import model.User;
+import java.time.LocalDateTime;
 import model.Token;
-import email.EmailService;
+import model.User;
 import util.HashUtil;
 import util.RandomString;
 
 /**
  *
- * @author phamn
+ * @author ASUS
  */
+@WebServlet(name = "RegisterUserServlet", urlPatterns = {"/register"})
+public class RegisterUserServlet extends HttpServlet {
 
-public class RegisterServlet extends HttpServlet {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -33,8 +46,8 @@ public class RegisterServlet extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet -specific error occurs
-     * @throws IOException if an I /O error occurs
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -76,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
             newUser.setEmail(email);
             newUser.setPhoneNumber(request.getParameter("phonenumber"));
             newUser.setPassword(hash.md5hash(request.getParameter("password")));
-            newUser.setState("Not Verified");
+            newUser.setState("unvertified");
             newUser.setRoleId(6);
 
             userDao.registerUser(newUser);
@@ -95,7 +108,7 @@ public class RegisterServlet extends HttpServlet {
                     LocalDateTime.now(),
                     0
             ));
-            
+
             String link = generateVerificationLink(request, token);
 
             emailService.sendVerificationEmail(token, email, link);
@@ -106,22 +119,11 @@ public class RegisterServlet extends HttpServlet {
     }
 
     private String generateVerificationLink(HttpServletRequest request, String token) {
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int serverPort = request.getServerPort();
-        String contextPath = request.getContextPath();
+        StringBuffer url = request.getRequestURL();
 
         String verificationPath = "/verify?token=" + token;
 
-        StringBuilder url = new StringBuilder();
-        url.append(scheme).append("://").append(serverName);
-
-        // Append port if not default
-        if (serverPort != 80 && serverPort != 443) {
-            url.append(":").append(serverPort);
-        }
-
-        url.append(contextPath).append(verificationPath);
+        url.append(verificationPath);
 
         return url.toString();
     }
@@ -134,5 +136,6 @@ public class RegisterServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    } // </editor-fold>
+    }// </editor-fold>
+
 }

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
+import util.HashUtil;
 
 /**
  *
@@ -51,12 +52,13 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        HashUtil hash = new HashUtil();
+        //encoding password before finding it
+        password = hash.md5hash(password);
         String referer = request.getHeader("referer");
         UserDAO userDAO = new UserDAO();
         User u = userDAO.Login(email, password);
         if (u == null) {
-            System.out.println(email);
-            System.out.println(password);
             request.setAttribute("err", "Incorrect Username/Password");
             response.sendRedirect(referer);
         } else {
