@@ -79,6 +79,12 @@ public class RegisterUserServlet extends HttpServlet {
         if (userDao.checkIfUserExist(email)) {
             request.setAttribute("err", "Email already exist!");
             response.sendRedirect(referer);
+        } 
+        String password = request.getParameter("password");
+        String repassword = request.getParameter("repassword");
+        if (!password.equals(repassword)) {
+            request.setAttribute("err", "Password doesn't match");
+            response.sendRedirect(referer);
         } else {
             User newUser = new User();
 

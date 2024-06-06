@@ -145,31 +145,31 @@
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link me-4 <c:if test='${uri.contains("index.jsp")}'>active</c:if>" href="/app-name/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4 <c:if test='${uri.contains("about.jsp")}'>active</c:if>" href="about.jsp">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4 <c:if test='${uri.contains("shop.jsp")}'>active</c:if>" href="productList">Shop</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4 <c:if test='${uri.contains("blog.jsp")}'>active</c:if>" href="blog">Blogs</a>
-                            </li>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link me-4 <c:if test='${uri.contains("about.jsp")}'>active</c:if>" href="about.jsp">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link me-4 <c:if test='${uri.contains("shop.jsp")}'>active</c:if>" href="productList">Shop</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link me-4 <c:if test='${uri.contains("blog.jsp")}'>active</c:if>" href="blog">Blogs</a>
+                                </li>
                             <jsp:include page="/showaction" />
                             <li class="nav-item">
                                 <a class="nav-link me-4 <c:if test='${uri.contains("contact.jsp")}'>active</c:if>" href="contact.jsp">Contact</a>
-                            </li>
-                        </ul>
-                        <div class="user-items d-flex">
-                            <ul class="d-flex justify-content-end list-unstyled mb-0">
-                                <li class="search-item pe-3">
-                                    <a href="#" class="search-button">
-                                        <svg class="search">
-                                        <use xlink:href="#search"></use>
-                                        </svg>
-                                    </a>
                                 </li>
-                                <li class="wishlist-dropdown dropdown pe-3">
+                            </ul>
+                            <div class="user-items d-flex">
+                                <ul class="d-flex justify-content-end list-unstyled mb-0">
+                                    <li class="search-item pe-3">
+                                        <a href="#" class="search-button">
+                                            <svg class="search">
+                                            <use xlink:href="#search"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li class="wishlist-dropdown dropdown pe-3">
                                     <c:set var = "user" value = "${sessionScope.user}"/>
                                     <c:choose>
                                         <c:when test="${empty user}">
@@ -334,6 +334,17 @@
                     <div class="row g-0">
                         <div class="col-md-4">
                             <p class="fs-6 my-2 text-center text-white">Your account is unverified, please confirm your email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test = "${not empty err}">
+            <div class="top-info border-bottom d-none d-md-block bg-danger">
+                <div class="container-fluid">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <p class="fs-6 my-2 text-center text-white">${err}</p>
                         </div>
                     </div>
                 </div>
