@@ -13,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import model.Cart;
 import model.Laptop;
@@ -38,14 +40,17 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //show the cart list to user
-        CartDAO cartDAO = new CartDAO();
-        LaptopDAO laptopDAO = new LaptopDAO(); // Assuming you have a DAO for laptops
-        int userId = ((User) request.getSession(false).getAttribute("user")).getUserId();
-        List<Cart> carts = cartDAO.getByUserId(userId);
-        for (Cart cart : carts) {
-            Laptop laptop = laptopDAO.getByID(String.valueOf(cart.getLaptopId())); // Fetch laptop details
-            cart.setLaptop(laptop); // Assuming you have a setLaptop method in your Cart class
-        }
+//        CartDAO cartDAO = new CartDAO();
+//        LaptopDAO laptopDAO = new LaptopDAO(); // Assuming you have a DAO for laptops
+//        int userId = ((User) request.getSession(false).getAttribute("user")).getUserId();
+//        List<Cart> carts = cartDAO.getByUserId(userId);
+//        for (Cart cart : carts) {
+//            Laptop laptop = laptopDAO.getByID(String.valueOf(cart.getLaptopId())); // Fetch laptop details
+//            cart.setLaptop(laptop); // Assuming you have a setLaptop method in your Cart class
+//        }
+        HttpSession session = request.getSession(false);
+        //create a hashmap for storing easier
+        HashMap<Laptop, Integer> carts = (HashMap<Laptop, Integer>) session.getAttribute("cart");
         request.setAttribute("carts", carts);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }

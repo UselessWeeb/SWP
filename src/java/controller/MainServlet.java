@@ -13,6 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
+import model.Laptop;
 /**
  *
  * @author M7510
@@ -42,6 +45,11 @@ public class MainServlet extends HttpServlet {
         //
         SliderDAO sliderList = new SliderDAO();
         request.setAttribute("sliderList", sliderList.findAll());
+        //create a new session for user to cart
+        HttpSession session = request.getSession(false);
+        //create a hashmap for storing easier
+        HashMap<Laptop, Integer> cart = new HashMap<>();
+        session.setAttribute("cart", cart);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
