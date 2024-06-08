@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dao.CartDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,8 +49,8 @@ public class CartServlet extends HttpServlet {
 //        }
         HttpSession session = request.getSession(false);
         //create a hashmap for storing easier
-        HashMap<Laptop, Integer> carts = (HashMap<Laptop, Integer>) session.getAttribute("cart");
-        request.setAttribute("carts", carts);
+        Cart carts = (Cart) session.getAttribute("cart");
+        request.setAttribute("carts", carts.getCart());
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 

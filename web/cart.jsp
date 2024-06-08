@@ -61,21 +61,25 @@
                         </div>
                         <div class="slash-divider"></div>
                         <div class="cart-table">
+                            <c:set var="totalQuantity" value="0"/>
+                            <c:set var="totalPrice" value="0"/>
                             <c:forEach var="cart" items="${carts}">
+                                <c:set var="totalQuantity" value="${totalQuantity + cart.value}"/>
+                                <c:set var="totalPrice" value="${totalPrice + (cart.key.salePrice * cart.value)}"/>
                                 <div class="cart-item border-bottom padding-small">
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-md-3">
                                             <div class="cart-info d-flex gap-2 flex-wrap align-items-center">
                                                 <div class="col-lg-5">
                                                     <div class="card-image">
-                                                        <img src="${cart.laptop.image}" alt="cart-img" class="img-fluid border rounded-3">
+                                                        <img src="${cart.key.image}" alt="cart-img" class="img-fluid border rounded-3">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="card-detail">
-                                                        <h5 class="mt-2"><a href="single-product.html">${cart.laptop.name}</a></h5>
+                                                        <h5 class="mt-2"><a href="single-product.html">${cart.key.title}</a></h5>
                                                         <div class="card-price">
-                                                            <span class="price text-primary fw-light" data-currency-usd="${cart.laptop.price}">${cart.laptop.price}</span>
+                                                            <span class="price text-primary fw-light" data-currency-usd="${cart.key.originalPrice}">${cart.key.originalPrice}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -85,14 +89,39 @@
                                             <div class="row d-flex">
                                                 <div class="col-md-6">
                                                     <div class="product-quantity my-2 my-2">
-                                                        <div class="input-group product-qty align-items-center" style="max-width: 150px;">
-                                                            <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="${cart.quantity}" min="1" max="100" required>
-                                                        </div>
+                                                        <script>
+                                                            function updateQuantity(action) {
+                                                                event.preventDefault();
+                                                                var quantityInput = document.getElementById('quantity');
+                                                                var currentQuantity = parseInt(quantityInput.value);
+                                                                if (action === 'minus' && currentQuantity > 1) {
+                                                                    quantityInput.value = currentQuantity - 1;
+                                                                } else if (action === 'plus') {
+                                                                    quantityInput.value = currentQuantity + 1;
+                                                                }
+                                                                document.getElementById('cartForm').submit();
+                                                            }
+                                                            </script>
+                                                            
+                                                            <form id="cartForm" class="input-group product-qty align-items-center" style="max-width: 150px;" action="setcart">
+                                                                <input type="hidden" name="id" value="${cart.key.laptopId}">
+                                                                <span class="input-group-btn">
+                                                                    <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-minus" onclick="updateQuantity('minus')">
+                                                                        <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                                                    </button>
+                                                                </span>
+                                                                <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="${cart.value}" min="1" max="100" required>
+                                                                <span class="input-group-btn">
+                                                                    <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-right-plus" onclick="updateQuantity('plus')">
+                                                                        <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                                                    </button>
+                                                                </span>
+                                                            </form>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="total-price">
-                                                        <span class="money fs-2 fw-light text-primary">${cart.laptop.price * cart.quantity}</span>
+                                                        <span class="money fs-2 fw-light text-primary">${cart.key.salePrice * cart.value}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,33 +130,33 @@
                                 </div>
                             </c:forEach>
                         </div>
-                    <div class="cart-totals padding-medium pb-0">
-                        <h3 class="mb-3">Cart Totals</h3>
-                        <div class="total-price pb-3">
-                            <table cellspacing="0" class="table text-uppercase">
-                                <tbody>
-                                    <tr class="subtotal pt-2 pb-2 border-top border-bottom">
-                                        <th>Subtotal</th>
-                                        <td data-title="Subtotal">
-                                            <span class="price-amount amount text-primary ps-5 fw-light">
-                                                <bdi>
-                                                    <span class="price-currency-symbol">$</span>2,400.00
-                                                </bdi>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="order-total pt-2 pb-2 border-bottom">
-                                        <th>Total</th>
-                                        <td data-title="Total">
-                                            <span class="price-amount amount text-primary ps-5 fw-light">
-                                                <bdi>
-                                                    <span class="price-currency-symbol">$</span>2,400.00</bdi>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="cart-totals padding-medium pb-0">
+                            <h3 class="mb-3">Cart Totals</h3>
+                            <div class="total-price pb-3">
+                                <table cellspacing="0" class="table text-uppercase">
+                                    <tbody>
+                                        <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                                            <th>Subtotal</th>
+                                            <td data-title="Subtotal">
+                                                <span class="price-amount amount text-primary ps-5 fw-light">
+                                                    <bdi>
+                                                        <span class="price-currency-symbol">$</span>${totalPrice}
+                                                    </bdi>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr class="order-total pt-2 pb-2 border-bottom">
+                                            <th>Total</th>
+                                            <td data-title="Total">
+                                                <span class="price-amount amount text-primary ps-5 fw-light">
+                                                    <bdi>
+                                                        <span class="price-currency-symbol">$</span>${totalPrice}</bdi>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         <div class="button-wrap d-flex flex-wrap gap-3">
                             <button class="btn">Update Cart</button>
                             <button class="btn">Continue Shopping</button>

@@ -4,67 +4,44 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author M7510
  */
 public class Cart {
-    private int cartId;
-    private int quantity;
-    private int userId;
-    private int laptopId;
+
+    //a hash map to store product
+    HashMap<Laptop, Integer> cart = new HashMap<>();
+
+    public Cart() {
+    }
+
+    public HashMap<Laptop, Integer> getCart() {
+        return cart;
+    }
+
+    public void setCart(HashMap<Laptop, Integer> cart) {
+        this.cart = cart;
+    }
+
+    public void addToCart(Laptop laptop, int quantity) {
+        cart.put(laptop, cart.getOrDefault(laptop, 0) + quantity);
+    }
     
-    private Laptop laptop;
-
-    // Constructors, getters, and setters
-    public Cart() {}
-
-    public Cart(int cartId, int quantity, int userId, int laptopId) {
-        this.cartId = cartId;
-        this.quantity = quantity;
-        this.userId = userId;
-        this.laptopId = laptopId;
+    public void overrideCart(Laptop laptop, int quantity) {
+        cart.put(laptop, quantity);
     }
 
-    // Getters and setters
-    public int getCartId() {
-        return cartId;
+    public void deleteFromCart(Laptop laptop) {
+        cart.remove(laptop);
     }
 
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
+    public List<Map.Entry<Laptop, Integer>> getCartItems() {
+        return new ArrayList<>(cart.entrySet());
     }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getLaptopId() {
-        return laptopId;
-    }
-
-    public void setLaptopId(int laptopId) {
-        this.laptopId = laptopId;
-    }
-
-    public Laptop getLaptop() {
-        return laptop;
-    }
-
-    public void setLaptop(Laptop laptop) {
-        this.laptop = laptop;
-    }
-
 }

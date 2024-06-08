@@ -80,13 +80,18 @@
                                     </div>
                                 </div>
                                 <div class="action-buttons my-3 d-flex flex-wrap gap-3">
-                                    <a href="#" class="btn">Order now</a>
-                                    <a href="#" class="btn btn-dark">Add to cart</a>
-                                    <a href="#" class="btn btn-dark">
-                                        <svg class="heart" width="21" height="21">
-                                        <use xlink:href="#heart"></use>
-                                        </svg>
-                                    </a>
+                                    <form action="someAction" method="post">
+                                        <input type="hidden" id="orderQuantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required>
+                                        <input type="hidden" name="id" value="${Product.laptopId}">
+                                        <button type="submit" class="btn">Order now</button>
+                                    </form>
+
+                                    <!-- Form for the "Add to cart" button -->
+                                    <form action="addtocart" method="post">
+                                        <input type="hidden" id="cartQuantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required>
+                                        <input type="hidden" name="id" value="${Product.laptopId}">
+                                        <button type="submit" class="btn btn-dark">Add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="slash-divider"></div>
@@ -103,7 +108,7 @@
                                         <c:forEach var="productCategory" items="${requestScope.Product.category}">
                                             <li data-value="S" class="select-item">
                                                 <a href="#">${productCategory.category}</a><c:if test="${!productCategoryStatus.last}">,</c:if>
-                                            </li>
+                                                </li>
                                         </c:forEach>
                                     </ul>
                                 </div>
@@ -130,6 +135,23 @@
         <%@include file = "view/footer.jsp" %>
 
         <script src="js/jquery-1.11.0.min.js"></script>
+        <script>
+            document.querySelector('.quantity-left-minus').addEventListener('click', function () {
+                let quantity = document.getElementById('quantity');
+                updateQuantities(quantity.value);
+            });
+
+            document.querySelector('.quantity-right-plus').addEventListener('click', function () {
+                let quantity = document.getElementById('quantity');
+                updateQuantities(quantity.value);
+            });
+
+            function updateQuantities(value) {
+                let numericValue = Number(value);
+                document.getElementById('orderQuantity').value = numericValue + 1;
+                document.getElementById('cartQuantity').value = numericValue + 1;
+            }
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
