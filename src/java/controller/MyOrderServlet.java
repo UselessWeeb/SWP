@@ -37,6 +37,7 @@ public class MyOrderServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(false);
             
+            //Creat user u
             User u = (User)session.getAttribute("user");
             OrderDAO dao = new OrderDAO();
             System.out.println(dao.getOrderUser(u.getUserId()));
