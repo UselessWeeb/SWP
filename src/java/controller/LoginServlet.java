@@ -53,7 +53,6 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         HashUtil hash = new HashUtil();
         String password = request.getParameter("password");
-        HashUtil hash = new HashUtil();
         //encoding password before finding it
         password = hash.md5hash(password);
         String referer = request.getHeader("referer");
