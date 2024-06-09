@@ -344,7 +344,11 @@
                 </div>
             </div>
         </c:if>
+<<<<<<< Updated upstream
         <c:if test = "${not empty err}">
+=======
+        <c:if test = "${not empty sessionScope.err}">
+>>>>>>> Stashed changes
             <div class="top-info border-bottom d-none d-md-block bg-danger">
                 <div class="container-fluid">
                     <div class="row g-0">

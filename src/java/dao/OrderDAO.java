@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +60,20 @@ public class OrderDAO extends EntityDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vector;
+    }
+    
+    public List<Order> getOrderPage(int page, int totalPage, String order_by, String search_query){
+        try {
+            String sqlQuery = "select * from Order";
+            
+            
+            sqlQuery += " ORDER BY " + (order_by.isBlank() ? "updated_date" : order_by) + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            stm = connection.prepareStatement(sqlQuery);
+            rs = stm.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
       
     @Override
