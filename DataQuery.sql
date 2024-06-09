@@ -15,236 +15,75 @@ INSERT INTO [User] (full_name, avatar, gender, address, email, phone_number, pas
 VALUES ('Loel', 'images/avatar/default.jpg' ,'Male', '123 Main St', 'longndhe181257@fpt.edu.vn', '123-456-7891', '123456', 'unvertified', 2);
 GO
 
---blog
-INSERT INTO Blog (title, thumbnail, updated_date, blog_content, is_featured, user_id) 
+INSERT INTO Laptop (title, main_image, original_price, stock, products_detail, sale_price, status, updated_date) VALUES 
+('Laptop A', 'image/laptop/a.jpg', 1000.00, 10, 'Details of Laptop A', 900.00, 1, GETDATE()),
+('Laptop B', 'image/laptop/b.jpg', 1500.00, 5, 'Details of Laptop B', 1350.00, 1, GETDATE());
+GO
+
+-- Inserting laptop categories
+INSERT INTO Laptop_Category (laptop_id, Category) VALUES 
+(1, 'Gaming'),
+(2, 'Business');
+GO
+
+-- Inserting laptop images
+INSERT INTO Laptop_Image (laptop_id, Image) VALUES 
+(1, 'image/laptop/a_1.jpg'),
+(1, 'image/laptop/a_2.jpg'),
+(2, 'image/laptop/b_1.jpg');
+GO
+
+-- Inserting orders
+INSERT INTO [Order] (order_date, status, user_id) VALUES 
+(GETDATE(), 1, 1),
+(GETDATE(), 2, 2);
+GO
+
+-- Inserting order items
+INSERT INTO Order_Item (order_id, laptop_id, quantity, price) VALUES 
+(1, 1, 1, 900.00),
+(2, 2, 1, 1350.00);
+GO
+
+-- Inserting order information
+INSERT INTO Order_Information (order_id, payment_method, user_id) VALUES 
+(1, 'Credit Card', 1),
+(2, 'PayPal', 2);
+GO
+
+-- Inserting carts
+INSERT INTO Cart (user_id,laptop_id, quantity) VALUES 
+(1, 1, 3),
+(1, 2, 4);
+GO
+
+-- Inserting tokens
+INSERT INTO Token (userid, tokenString, expireDate, purpose) VALUES 
+(1, 'token123', GETDATE() + 1, 0);
+GO
+
 select * from Blog
-Update Laptop set Laptop.products_detail = '
-
-<h2>Technical Specifications</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Component</th>
-                            <th>Specification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Processor</td>
-                            <td>Intel Core i7-10750H</td>
-                        </tr>
-                        <tr>
-                            <td>RAM</td>
-                            <td>16GB DDR4</td>
-                        </tr>
-                        <tr>
-                            <td>Storage</td>
-                            <td>512GB SSD</td>
-                        </tr>
-                        <tr>
-                            <td>Display</td>
-                            <td>15.6-inch Full HD (1920x1080)</td>
-                        </tr>
-                        <tr>
-                            <td>Graphics</td>
-                            <td>NVIDIA GeForce GTX 1650</td>
-                        </tr>
-                        <tr>
-                            <td>Battery Life</td>
-                            <td>Up to 8 hours</td>
-                        </tr>
-                        <tr>
-                            <td>Operating System</td>
-                            <td>Windows 10 Home</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <p>The Dell Inspiron 7510 also includes a variety of ports and connectivity options:</p>
-                <ul>
-                    <li>USB 3.1 Type-C</li>
-                    <li>USB 3.1 Type-A</li>
-                    <li>HDMI 2.0</li>
-                    <li>SD card reader</li>
-                    <li>Wi-Fi 6 and Bluetooth 5.1</li>
-                </ul>'
-Update Blog set blog_content = '            <div>
-                <p class="text-muted">This computer is surely better than it looks</p>
-                <br>
-				<img src="images/thumbnail/1.jpg" alt="single-post" class="img-fluid">
-                <p>The Dell Inspiron 7510 is designed to meet the needs of both professionals and casual users. Here are some of its key features:</p>
-                <ul>
-                    <li>Powerful Intel Core i7 processor</li>
-                    <li>16GB DDR4 RAM for seamless multitasking</li>
-                    <li>512GB SSD for fast boot and load times</li>
-                    <li>15.6-inch Full HD display</li>
-                    <li>NVIDIA GeForce GTX 1650 graphics card</li>
-                </ul>
-                <br>
-                <h2>Technical Specifications</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Component</th>
-                            <th>Specification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Processor</td>
-                            <td>Intel Core i7-10750H</td>
-                        </tr>
-                        <tr>
-                            <td>RAM</td>
-                            <td>16GB DDR4</td>
-                        </tr>
-                        <tr>
-                            <td>Storage</td>
-                            <td>512GB SSD</td>
-                        </tr>
-                        <tr>
-                            <td>Display</td>
-                            <td>15.6-inch Full HD (1920x1080)</td>
-                        </tr>
-                        <tr>
-                            <td>Graphics</td>
-                            <td>NVIDIA GeForce GTX 1650</td>
-                        </tr>
-                        <tr>
-                            <td>Battery Life</td>
-                            <td>Up to 8 hours</td>
-                        </tr>
-                        <tr>
-                            <td>Operating System</td>
-                            <td>Windows 10 Home</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <p>The Dell Inspiron 7510 also includes a variety of ports and connectivity options:</p>
-                <ul>
-                    <li>USB 3.1 Type-C</li>
-                    <li>USB 3.1 Type-A</li>
-                    <li>HDMI 2.0</li>
-                    <li>SD card reader</li>
-                    <li>Wi-Fi 6 and Bluetooth 5.1</li>
-                </ul>
-                <br>
-                <p>This laptop is perfect for users who need a balance of power, portability, and reliability. Whether youre working on complex projects, enjoying multimedia content, or gaming, the Dell Inspiron 7510 delivers top-notch performance.</p>
-            </div>
-        </div>
-    </div>
-<p>'
-select * from Blog
-select * from Blog_Category
-INSERT INTO Blog_Category (blog_id, Category) VALUES
-(1002, 'DELL'),
-(1004, 'DELL');
-GO
---product
-select * from Slider
-select * from Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id
-
-INSERT INTO Laptop (title, main_image, original_price, products_detail, sale_price, stock, status, updated_date) 
-VALUES 
-('Dell XPS 15', 'images/product/1.jpg', 1500.00, 'Dell XPS 15 details here...', 1200.00, 100, 1, GETDATE()),
-('Dell PRECISION 7510', 'images/product/2.jpg', 1300.00, 'Dell PRECISION 7510 details...', 1300.00, 150, 1, GETDATE()),
-('HP Envy 13', 'images/product/3.jpg', 1100.00, 'HP Envy 13 details...', 1100.00, 100, 1, GETDATE()),
-('Lenovo ThinkPad X1', 'images/product/4.jpg', 1200.00, 'Lenovo ThinkPad X1 details...', 1200.00, 100, 1, GETDATE()),
-('MacBook Pro 15', 'images/product/5.jpg', 2400.00, 'MacBook Pro 15 details...', 2400.00, 200, 1, GETDATE()),
-('Acer Aspire 7', 'images/product/6.jpg', 900.00, 'Acer Aspire 7 details...', 900.00, 50, 1, GETDATE()),
-('Asus ROG Zephyrus', 'images/product/7.jpg', 2500.00, 'Asus ROG Zephyrus details...', 2500.00, 70, 1, GETDATE()),
-('Microsoft Surface Laptop 4', 'images/product/8.jpg', 1500.00, 'Surface Laptop 4 details...', 1500.00, 80, 1, GETDATE()),
-('Dell XPS 13', 'images/product/9.jpg', 1400.00, 'Dell XPS 13 details...', 1400.00, 120, 1, GETDATE()),
-('HP Spectre x360', 'images/product/10.jpg', 1300.00, 'HP Spectre x360 details...', 1300.00, 90, 1, GETDATE()),
-('Lenovo Yoga 920', 'images/product/11.jpg', 1000.00, 'Lenovo Yoga 920 details...', 1000.00, 60, 1, GETDATE()),
-('Apple MacBook Air', 'images/product/12.jpg', 999.00, 'MacBook Air details...', 999.00, 200, 1, GETDATE()),
-('Asus ZenBook 14', 'images/product/13.jpg', 850.00, 'Asus ZenBook 14 details...', 850.00, 150, 1, GETDATE()),
-('Razer Blade Stealth', 'images/product/14.jpg', 1800.00, 'Razer Blade Stealth details...', 1800.00, 80, 1, GETDATE()),
-('MSI GS65 Stealth', 'images/product/15.jpg', 1900.00, 'MSI GS65 Stealth details...', 1900.00, 90, 1, GETDATE()),
-('Alienware m15 R3', 'images/product/16.jpg', 2100.00, 'Alienware m15 R3 details...', 2100.00, 70, 1, GETDATE()),
-('Toshiba Portege X30', 'images/product/17.jpg', 1450.00, 'Toshiba Portege X30 details...', 1450.00, 40, 1, GETDATE()),
-('LG Gram 17', 'images/product/18.jpg', 1600.00, 'LG Gram 17 details...', 1600.00, 100, 1, GETDATE()),
-('Samsung Notebook 9', 'images/product/19.jpg', 950.00, 'Samsung Notebook 9 details...', 950.00, 110, 1, GETDATE()),
-('Dell Inspiron 15', 'images/product/20.jpg', 700.00, 'Dell Inspiron 15 details...', 700.00, 130, 1, GETDATE()),
-('Lenovo Legion Y540', 'images/product/21.jpg', 1100.00, 'Lenovo Legion Y540 details...', 1100.00, 95, 1, GETDATE());
-GO
--- Insert into Laptop_Category
-INSERT INTO Laptop_Category (laptop_id, Category) VALUES
-(1, 'Ultrabook'),
-(2, 'Ultrabook'),
-(3, 'Business'),
-(4, 'Ultrabook'),
-(5, 'Gaming'),
-(6, 'Gaming'),
-(7, 'Ultrabook'),
-(8, 'Ultrabook'),
-(9, 'Convertible'),
-(10, 'Convertible'),
-(11, 'Ultrabook'),
-(12, 'Ultrabook'),
-(13, 'Gaming'),
-(14, 'Gaming'),
-(15, 'Gaming'),
-(16, 'Business'),
-(17, 'Ultrabook'),
-(18, 'Ultrabook'),
-(19, 'Budget'),
-(20, 'Gaming'),
-(21, 'Ultrabook');
+-- Inserting feedback
+INSERT INTO Feedback (user_id, order_id, rated_star, feedback, images, status) VALUES 
+(1, 1, 4.5, 'Great laptop!', 'image/feedback/1.jpg', 1);
 GO
 
--- Insert into Laptop_Image
-INSERT INTO Laptop_Image (laptop_id, Image) VALUES
-(1, 'images/product/1.jpg'),
-(2, 'images/product/2.jpg'),
-(3, 'images/product/3.jpg'),
-(4, 'images/product/4.jpg'),
-(5, 'images/product/5.jpg'),
-(6, 'images/product/6.jpg'),
-(7, 'images/product/7.jpg'),
-(8, 'images/product/8.jpg'),
-(9, 'images/product/9.jpg'),
-(10, 'images/product/10.jpg'),
-(11, 'images/product/11.jpg'),
-(12, 'images/product/12.jpg'),
-(13, 'images/product/13.jpg'),
-(14, 'images/product/14.jpg'),
-(15, 'images/product/15.jpg'),
-(16, 'images/product/16.jpg'),
-(17, 'images/product/17.jpg'),
-(18, 'images/product/18.jpg'),
-(19, 'images/product/19.jpg'),
-(20, 'images/product/20.jpg'),
-(21, 'images/product/21.jpg');
+-- Inserting blogs
+INSERT INTO Blog (thumbnail, title, updated_date, blog_content, is_featured, user_id) VALUES 
+('image/blog/thumbnail.jpg', 'New Laptops of 2024', GETDATE(), 'Content of the blog post...', 1, 1);
 GO
 
-
---slider(s)
-INSERT INTO Slider (title, images, details, backlink, status, user_id) 
-VALUES ('Summer Sale', 'images/summer-sale.jpg', 'Products being sale up to 90% !', 'http://example.com/sale', 1, 1);
+-- Inserting blog categories
+INSERT INTO Blog_Category (blog_id, Category) VALUES 
+(1, 'Technology');
 GO
 
-INSERT INTO Slider (title, images, details, backlink, status, user_id) 
-VALUES ('Sudden Sale', 'images/sudden-sale.jpg', 'Some odd products is being saled ! How cool', 'http://example.com/sale', 1, 1);
+-- Inserting sliders
+INSERT INTO Slider (title, images, details, backlink, status, user_id) VALUES 
+('New Arrival', 'image/slider/new_arrival.jpg', 'Check out the latest laptops!', 'http://example.com', 1, 1);
 GO
 
--- Insert into Order table
-INSERT INTO [Order] (order_date, status, price, user_id) 
-VALUES 
-(GETDATE(), 1, 1500.00, 1),
-(GETDATE(), 1, 1300.00, 1),
-(GETDATE(), 1, 1100.00, 2),
-(GETDATE(), 1, 1200.00, 2),
-(GETDATE(), 1, 2400.00, 1);
-GO
-
--- Insert into Order_Item table
-INSERT INTO Order_Item (order_id, laptop_id, quantity, price) 
-VALUES 
-(1, 1, 2, 3000.00),
-(2, 2, 1, 1300.00),
-(3, 3, 1, 1100.00),
-(4, 4, 3, 3600.00),
-(5, 5, 2, 4800.00);
+-- Inserting scores
+INSERT INTO Score (score, user_id) VALUES 
+(100, 1);
 GO

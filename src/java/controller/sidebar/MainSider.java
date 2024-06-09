@@ -33,7 +33,7 @@ public class MainSider extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         BlogDAO blogList = new BlogDAO();
         request.setAttribute("blogLatestList", blogList.findLatest());
-        request.getRequestDispatcher("/view/Sidebar.jsp").include(request, response);
+        request.getRequestDispatcher("view/Sidebar.jsp").include(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

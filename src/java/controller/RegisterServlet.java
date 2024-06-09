@@ -15,6 +15,7 @@ import dao.TokenDAO;
 import model.User;
 import model.Token;
 import email.EmailService;
+import jakarta.servlet.annotation.WebServlet;
 import util.HashUtil;
 import util.RandomString;
 
@@ -22,7 +23,7 @@ import util.RandomString;
  *
  * @author phamn
  */
-
+@WebServlet(urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,6 +64,7 @@ public class RegisterServlet extends HttpServlet {
 
         if (userDao.checkIfUserExist(email)) {
             request.setAttribute("err", "Email already exist!");
+            System.out.println("Email already exist!");
             response.sendRedirect(referer);
         } else {
             User newUser = new User();
@@ -74,7 +76,7 @@ public class RegisterServlet extends HttpServlet {
             newUser.setEmail(email);
             newUser.setPhoneNumber(request.getParameter("phonenumber"));
             newUser.setPassword(hash.md5hash(request.getParameter("password")));
-            newUser.setState("Not Verified");
+            newUser.setState("unvertified");
             newUser.setRoleId(6);
 
             userDao.registerUser(newUser);
@@ -97,6 +99,8 @@ public class RegisterServlet extends HttpServlet {
             String link = generateVerificationLink(request, token);
 
             emailService.sendVerificationEmail(token, email, link);
+            
+            System.out.println(newUser);
 
             //TODO OPEN POP UP TELL USER TO CONFIRM EMAIL
             response.sendRedirect(referer);
@@ -104,22 +108,11 @@ public class RegisterServlet extends HttpServlet {
     }
 
     private String generateVerificationLink(HttpServletRequest request, String token) {
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int serverPort = request.getServerPort();
-        String contextPath = request.getContextPath();
+        StringBuffer url = request.getRequestURL();
 
         String verificationPath = "/verify?token=" + token;
 
-        StringBuilder url = new StringBuilder();
-        url.append(scheme).append("://").append(serverName);
-
-        // Append port if not default
-        if (serverPort != 80 && serverPort != 443) {
-            url.append(":").append(serverPort);
-        }
-
-        url.append(contextPath).append(verificationPath);
+        url.append(verificationPath);
 
         return url.toString();
     }

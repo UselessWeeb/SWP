@@ -55,12 +55,15 @@ public class Sidebar extends HttpServlet {
                         categoryMap.put(b.getCategory(), categoryMap.getOrDefault(b.getCategory(), 0) + 1);
                     }
                 }
+                
+                System.out.println(blogDAO.findLatest());
 
                 //lastly, show latest blogs
                 request.setAttribute("latestBlogs", blogDAO.findLatest());
                 break;
             case "/app-name/shop.jsp":
             case "/app-name/single-product.jsp":
+            case "/app-name/cart.jsp":
                 LaptopDAO laptopDAO = new LaptopDAO();
 
                 categoryMap = laptopDAO.getCategoryCounts();

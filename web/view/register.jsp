@@ -27,10 +27,6 @@
         <div class="form-group pb-3">
             <input type="password" minlength="2" name="password" placeholder="Your Password" class="form-control w-100 rounded-3 p-3" required>
         </div>
-        <label class="py-3">
-            <input type="checkbox" required="" class="d-inline">
-            <span class="label-body">I agree to the <a href="#" class="fw-bold">Privacy Policy</a></span>
-        </label>
         <button type="submit" name="submit" class="btn btn-dark w-100 my-3">Register</button>
     </form>
 </html>

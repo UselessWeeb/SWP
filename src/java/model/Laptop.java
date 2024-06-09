@@ -6,6 +6,7 @@ package model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -147,5 +148,18 @@ public class Laptop {
     @Override
     public String toString() {
         return "Laptop{" + "laptopId=" + laptopId + ", title=" + title + ", mainImage=" + mainImage + ", category=" + category + ", image=" + image + ", originalPrice=" + originalPrice + ", productsDetail=" + productsDetail + ", stock=" + stock + ", salePrice=" + salePrice + ", status=" + status + ", updatedDate=" + updatedDate + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(laptopId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Laptop laptop = (Laptop) obj;
+        return Objects.equals(laptopId, laptop.laptopId);
     }
 }
