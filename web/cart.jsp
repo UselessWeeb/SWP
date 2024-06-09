@@ -38,7 +38,7 @@
                             <h1>Cart</h1>
                             <div class="breadcrumbs">
                                 <span class="item">
-                                    <a href="index.html">Home > </a>
+                                    <a href="/app-name/">Home > </a>
                                 </span>
                                 <span class="item text-decoration-underline">Cart</span>
                             </div>
@@ -51,7 +51,7 @@
         <section class="cart padding-large">
             <div class="container">
                 <div class="row">
-                    <div class="cart-table">
+                    <div class="cart-table col-lg-9">
                         <div class="cart-header">
                             <div class="row d-flex text-uppercase">
                                 <h4 class="col-lg-4 pb-3">Product</h4>
@@ -89,34 +89,16 @@
                                             <div class="row d-flex">
                                                 <div class="col-md-6">
                                                     <div class="product-quantity my-2 my-2">
-                                                        <script>
-                                                            function updateQuantity(action) {
-                                                                event.preventDefault();
-                                                                var quantityInput = document.getElementById('quantity');
-                                                                var currentQuantity = parseInt(quantityInput.value);
-                                                                if (action === 'minus' && currentQuantity > 1) {
-                                                                    quantityInput.value = currentQuantity - 1;
-                                                                } else if (action === 'plus') {
-                                                                    quantityInput.value = currentQuantity + 1;
-                                                                }
-                                                                document.getElementById('cartForm').submit();
-                                                            }
-                                                            </script>
-                                                            
-                                                            <form id="cartForm" class="input-group product-qty align-items-center" style="max-width: 150px;" action="setcart">
-                                                                <input type="hidden" name="id" value="${cart.key.laptopId}">
-                                                                <span class="input-group-btn">
-                                                                    <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-minus" onclick="updateQuantity('minus')">
-                                                                        <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                                                    </button>
-                                                                </span>
-                                                                <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="${cart.value}" min="1" max="100" required>
-                                                                <span class="input-group-btn">
-                                                                    <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-right-plus" onclick="updateQuantity('plus')">
-                                                                        <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                                                    </button>
-                                                                </span>
-                                                            </form>
+                                                        <form id="cartForm" class="input-group product-qty align-items-center" style="max-width: 150px;" action="setcart">
+                                                            <input type="hidden" name="id" value="${cart.key.laptopId}">
+                                                            <span class="input-group-btn">
+                                                                <input type="submit" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" name = "action" value="-" />
+                                                            </span>
+                                                            <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="${cart.value}" min="1" max="100" required onchange="document.getElementById('cartForm').submit()">
+                                                            <span class="input-group-btn">
+                                                                <input type="submit" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" name = "action" value="+" />
+                                                            </span>
+                                                        </form>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -124,6 +106,14 @@
                                                         <span class="money fs-2 fw-light text-primary">${cart.key.salePrice * cart.value}</span>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 col-md-2">
+                                            <div class="cart-cross-outline">
+                                                <form action = "deletefromcart">
+                                                    <input type="hidden" name="id" value="${cart.key.laptopId}">
+                                                    <input type="submit" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" value="Delete" />
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -157,14 +147,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                        <div class="button-wrap d-flex flex-wrap gap-3">
-                            <button class="btn">Update Cart</button>
-                            <button class="btn">Continue Shopping</button>
-                            <button class="btn">Proceed to checkout</button>
+                            <div class="button-wrap d-flex flex-wrap gap-3">
+                                <button class="btn">Update Cart</button>
+                                <button class="btn">Continue Shopping</button>
+                                <button class="btn">Proceed to checkout</button>
+                            </div>
                         </div>
                     </div>
+                    <jsp:include page="/Sidebar" flush="true"/>
                 </div>
-            </div>
         </section>
         <%@include file = "view/footer.jsp" %>
 

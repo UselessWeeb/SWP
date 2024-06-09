@@ -63,6 +63,7 @@ public class Sidebar extends HttpServlet {
                 break;
             case "/app-name/shop.jsp":
             case "/app-name/single-product.jsp":
+            case "/app-name/cart.jsp":
                 LaptopDAO laptopDAO = new LaptopDAO();
 
                 categoryMap = laptopDAO.getCategoryCounts();
