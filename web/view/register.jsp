@@ -27,9 +27,12 @@
         <div class="form-group pb-3">
             <input type="password" minlength="2" name="password" placeholder="Your Password" class="form-control w-100 rounded-3 p-3" required>
         </div>
+<<<<<<< HEAD
         <div class="form-group pb-3">
             <input type="password" minlength="2" name="repassword" placeholder="Re-enter your password" class="form-control w-100 rounded-3 p-3" required>
         </div>
+=======
+>>>>>>> 0c6922c9d2c375acf193b965e0a808ac686b3865
         <button type="submit" name="submit" class="btn btn-dark w-100 my-3">Register</button>
     </form>
 </html>

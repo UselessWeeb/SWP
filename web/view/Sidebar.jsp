@@ -68,7 +68,7 @@
                         </div>
                         <ul class="product-categories mb-0 sidebar-list list-unstyled">
                             <c:forEach var="entry" items="${categoryMap}">
-                                <li class="cat-item ${entry.key == param.category ? 'bg-info text-white' : 'text-black'}">
+                                <li class="cat-item ${entry.key == param.category ? 'bg-info text-white ps-1 rounded-2 ' : 'text-black'}">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
                                     <c:set var="url" value="${uri}" />
                                             <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(url.contains('shop.jsp') || url.contains('single-product.jsp')) ? 'productList' : 'blog'}?category=${entry.key}">

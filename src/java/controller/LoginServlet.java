@@ -51,6 +51,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
+        HashUtil hash = new HashUtil();
         String password = request.getParameter("password");
         HashUtil hash = new HashUtil();
         //encoding password before finding it

@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,19 +12,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import model.Cart;
+import model.Laptop;
 import model.User;
-import service.RoleAuthorization;
-import service.URLfilter;
 
 /**
  *
  * @author M7510
  */
-@WebServlet(name = "showUserActionServlet", urlPatterns = {"/showaction"})
-public class showUserActionServlet extends HttpServlet {
+@WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
+public class CartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,24 +38,20 @@ public class showUserActionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //this is a list that will show what user can do right now
-        //using the userAuthorization, ofc
-        RoleAuthorization auth = new RoleAuthorization();
-        URLfilter filter = new URLfilter();
-        // Get the current user from the session
-        User currentUser = (User) request.getSession(false).getAttribute("user");
-        
-        // Filter the URLs to only include those that the current user can access
-        Set<String> allUrls = RoleAuthorization.currentMapping.keySet();
-        List<String> hiddenUrls = filter.hiddenUrls();
-        List<String> accessibleUrls = allUrls.stream()
-            .filter(url -> auth.isAllowToAccess(currentUser, url) && !hiddenUrls.contains(url)) // Filter out URLs that the user can't access
-            .collect(Collectors.toList());
-
-        // Store the list of accessible URLs in the request
-        request.setAttribute("accessibleUrls", accessibleUrls);
-        // Forward the request to a JSP page to display the list
-        request.getRequestDispatcher("/view/showAction.jsp").include(request, response);
+        //show the cart list to user
+//        CartDAO cartDAO = new CartDAO();
+//        LaptopDAO laptopDAO = new LaptopDAO(); // Assuming you have a DAO for laptops
+//        int userId = ((User) request.getSession(false).getAttribute("user")).getUserId();
+//        List<Cart> carts = cartDAO.getByUserId(userId);
+//        for (Cart cart : carts) {
+//            Laptop laptop = laptopDAO.getByID(String.valueOf(cart.getLaptopId())); // Fetch laptop details
+//            cart.setLaptop(laptop); // Assuming you have a setLaptop method in your Cart class
+//        }
+        HttpSession session = request.getSession(false);
+        //create a hashmap for storing easier
+        Cart carts = (Cart) session.getAttribute("cart");
+        request.setAttribute("carts", carts.getCart());
+        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
