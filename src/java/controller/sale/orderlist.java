@@ -2,11 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
-package controller;
+package controller.sale;
 
 import dao.OrderDAO;
-import dao.SliderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,46 +12,60 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.User;
+import java.util.List;
+import model.Order;
+import model.Role;
+import service.AccessRole;
 
 /**
  *
- * @author vudai
+ * @author ASUS
  */
-@WebServlet(urlPatterns = {"/myorder"})
-public class MyOrderServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+@WebServlet(name = "orderlist", urlPatterns = {"/orderlist"})
+//limit roles accessible to only sale/sale manager
+@AccessRole(roles = {
+    Role.Type.sale_manager,
+    Role.Type.sale,})
+
+public class orderlist extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(false);
-            
-            //Creat user u
-            User u = (User)session.getAttribute("user");
             OrderDAO dao = new OrderDAO();
-            
-            SliderDAO slDAO = new SliderDAO();
-            
-//            request.setAttribute("orderList", dao.getOrderUser(u.getUserId()));
-            request.setAttribute("sliderList", slDAO.findAll());
-            
-            request.getRequestDispatcher("displayOrder.jsp").forward(request, response);
+            final int TOTAL_PER_PAGE = 10;
+            int currentPage = 1;
+            if (request.getParameter("page") != null) {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+            }
 
+            int totalOrders = dao.count();
+            int totalPages = (int) Math.ceil((double) totalOrders / TOTAL_PER_PAGE);
+
+            List<Order> orderList = dao.getOrderPage(currentPage - 1, TOTAL_PER_PAGE, "", "");
+            System.out.println(orderList);
+            request.setAttribute("orderlist", orderList);
+            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("totalPages", totalPages);
+
+            request.getRequestDispatcher("orderlist.jsp").forward(request, response);
         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,12 +73,13 @@ public class MyOrderServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -74,12 +87,13 @@ public class MyOrderServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

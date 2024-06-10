@@ -74,7 +74,7 @@ public class EmailService {
            .append("<ul>");
 
     for (OrderInformation product : purchasedProducts) {
-        message.append("<li>").append(product.getOrder().getOrder_name()).append(" - ").append(product.getOrder().getTotal_price()).append("</li>");
+        message.append("<li>").append(product.getOrder().getOrder_name()).append(" - ").append(product.getOrder()).append("</li>");
     }
 
     message.append("</ul>")

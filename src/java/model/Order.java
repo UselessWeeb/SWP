@@ -14,11 +14,9 @@ public class Order {
     private int order_id;
     private Date order_date;
     private String order_name;
-    private float total_price;
-    private int quality;
+    private int quantity;
     private int status;
     private int user_id;
-    private int information_id;
     private int laptop_id;
     
     private Laptop laptop;
@@ -27,17 +25,16 @@ public class Order {
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, String order_name, float total_price, int quality, int status, int user_id, int information_id, int laptop_id, Laptop laptop) {
+    public Order(int order_id, Date order_date, String order_name, int quantity, int status, int user_id, int laptop_id) {
         this.order_id = order_id;
         this.order_date = order_date;
         this.order_name = order_name;
-        this.total_price = total_price;
-        this.quality = quality;
+        this.quantity = quantity;
         this.status = status;
         this.user_id = user_id;
-        this.information_id = information_id;
         this.laptop_id = laptop_id;
         this.laptop = laptop;
+        this.user = user;
     }
 
     public int getOrder_id() {
@@ -64,20 +61,12 @@ public class Order {
         this.order_name = order_name;
     }
 
-    public float getTotal_price() {
-        return total_price;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setTotal_price(float total_price) {
-        this.total_price = total_price;
-    }
-
-    public int getQuality() {
-        return quality;
-    }
-
-    public void setQuality(int quality) {
-        this.quality = quality;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getStatus() {
@@ -94,14 +83,6 @@ public class Order {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
-    }
-
-    public int getInformation_id() {
-        return information_id;
-    }
-
-    public void setInformation_id(int information_id) {
-        this.information_id = information_id;
     }
 
     public int getLaptop_id() {
@@ -127,12 +108,10 @@ public class Order {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", order_name=" + order_name + ", total_price=" + total_price + ", status=" + status + ", user_id=" + user_id + ", information_id=" + information_id + ", laptop_id=" + laptop_id + ", laptop=" + laptop + '}';
+        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", order_name=" + order_name + ", quantity=" + quantity + ", status=" + status + ", user_id=" + user_id + ", laptop_id=" + laptop_id + ", laptop=" + laptop + ", user=" + user + '}';
     }
 
 }

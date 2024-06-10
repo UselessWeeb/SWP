@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -25,90 +26,70 @@ import model.User;
  */
 public class OrderDAO extends EntityDAO {
 
-    public Vector<Order> getOrderUser(int id) {
-        Vector<Order> vector = new Vector<>();
-        String sql = "select o.order_id, o.order_date, l.title, l.original_price, o.quantity, o.status "
-                + "from [Order] o "
-                + "inner join [Laptop] l on l.laptop_id = o.laptop_id "
-                + "where o.user_id = ?";
+    public int count() {
         try {
-            stm = connection.prepareStatement(sql);
-            stm.setInt(1, id);
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                int orderid = rs.getInt(1);
-                Date orderdate = rs.getDate(2);
-                String product = rs.getString(3);
-                float price = rs.getFloat(4);
-                int quality = rs.getInt(5);
-                int status = rs.getInt(6);
-
-                Order o = new Order();
-                o.setOrder_id(orderid);
-                o.setOrder_date(orderdate);
-                o.setQuality(quality);
-                o.setStatus(status);
-
-                Laptop l = new Laptop();
-                l.setTitle(product);
-                l.setOriginalPrice(price);
-                o.setLaptop(l);
-
-                vector.add(o);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return vector;
-    }
-    
-    public List<Order> getOrderPage(int page, int totalPage, String order_by, String search_query){
-        try {
-            String sqlQuery = "select * from Order";
-            
-            
-            sqlQuery += " ORDER BY " + (order_by.isBlank() ? "updated_date" : order_by) + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            int count = 0;
+            String sqlQuery = "Select * from [Order]";
             stm = connection.prepareStatement(sqlQuery);
             rs = stm.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+            return count;
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return 0;//not found
     }
-      
+
+    public List<Order> getOrderPage(int page, int totalPerPage, String order_by, String search_query) {
+        List<Order> result = new ArrayList<>();
+        try {
+            String sqlQuery = "SELECT * \n"
+                    + "FROM   Laptop INNER JOIN\n"
+                    + "             [Order] ON Laptop.laptop_id = [Order].laptop_id INNER JOIN\n"
+                    + "             [User] ON [Order].user_id = [User].user_id";
+            //select the order_by, and default to updated_date is null
+            sqlQuery += " ORDER BY " + (order_by.isBlank() ? "order_date" : order_by);
+            sqlQuery += (!search_query.isBlank()) ? " WHERE [User].fullname LIKE ?" : "";
+            //lastly, adding pagination
+            sqlQuery += " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            System.out.println(sqlQuery);
+            stm = connection.prepareStatement(sqlQuery);
+            //adding param index
+            int paramIndex = 1;
+            if (!search_query.isBlank()) {
+                stm.setString(paramIndex, search_query);
+                paramIndex++;
+            }
+            //for default, both page and total page is the last
+            //limit how many record per pagination
+            stm.setInt(paramIndex, page * totalPerPage);
+            paramIndex++;
+            //showing skip how many records(stimulate pagination)
+            stm.setInt(paramIndex, totalPerPage);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Order order = (Order) this.createEntity(rs);
+                result.add(order);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
-        return new Slider(
-                rs.getInt("slider_id"),
-                rs.getString("title"),
-                rs.getString("details"),
-                rs.getString("images"),
-                rs.getString("backlink"),
+        return new Order(
+                rs.getInt("order_id"),
+                rs.getTimestamp("order_date"),
+                rs.getString("order_name"),
                 rs.getInt("status"),
-                rs.getInt("user_id")
+                rs.getInt("quantity"),
+                rs.getInt("user_id"),
+                rs.getInt("laptop_id")
         );
-    }
-    
-    
-    
-    public static void main(String[] args) {
-        // Assuming you have a UserDAO instance and a connection
-        OrderDAO userDAO = new OrderDAO();
-        // Assuming you have a user id
-        int userId = 1;
-
-        // Call the getOrderUser method
-        Vector<Order> orders = userDAO.getOrderUser(1);
-
-        // Print out the orders
-        for (Order order : orders) {
-            System.out.println("Order ID: " + order.getOrder_id());
-            System.out.println("Order Date: " + order.getOrder_date());
-            System.out.println("Order Name: " + order.getOrder_name());
-            System.out.println("Total Price: " + order.getTotal_price());
-            System.out.println("Status: " + order.getStatus());
-          
-            System.out.println();
-        }
+        
     }
 }
