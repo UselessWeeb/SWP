@@ -54,9 +54,10 @@
                     <div class="cart-table col-lg-9">
                         <div class="cart-header">
                             <div class="row d-flex text-uppercase">
-                                <h4 class="col-lg-4 pb-3">Product</h4>
-                                <h4 class="col-lg-3 pb-3">Quantity</h4>
-                                <h4 class="col-lg-4 pb-3">Subtotal</h4>
+                                <h4 class="col-lg-3 pb-3">Id</h4>
+                                <h4 class="col-lg-3 pb-3">Product</h4>
+                                <h4 class="col-lg-2 pb-3">Quantity</h4>
+                                <h4 class="col-lg-3 pb-3">Subtotal</h4>
                             </div>
                         </div>
                         <div class="slash-divider"></div>
@@ -68,24 +69,29 @@
                                 <c:set var="totalPrice" value="${totalPrice + (cart.key.salePrice * cart.value)}"/>
                                 <div class="cart-item border-bottom padding-small">
                                     <div class="row align-items-center">
-                                        <div class="col-lg-4 col-md-3">
+                                        <div class="col-lg-6 col-md-3">
                                             <div class="cart-info d-flex gap-2 flex-wrap align-items-center">
-                                                <div class="col-lg-5">
+                                                <div class="col-lg-3">
+                                                    <div class="card-detail">
+                                                        <h5 class="mt-2"><a href="single-product.html">${cart.key.laptopId}</a></h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
                                                     <div class="card-image">
                                                         <img src="${cart.key.image}" alt="cart-img" class="img-fluid border rounded-3">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-3">
                                                     <div class="card-detail">
                                                         <h5 class="mt-2"><a href="single-product.html">${cart.key.title}</a></h5>
                                                         <div class="card-price">
-                                                            <span class="price text-primary fw-light" data-currency-usd="${cart.key.originalPrice}">${cart.key.originalPrice}</span>
+                                                            <span class="price text-primary fw-light" data-currency-usd="${cart.key.salePrice}">${cart.key.salePrice}</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-7">
+                                        <div class="col-lg-4 col-md-7">
                                             <div class="row d-flex">
                                                 <div class="col-md-6">
                                                     <div class="product-quantity my-2 my-2">
@@ -148,9 +154,8 @@
                                 </table>
                             </div>
                             <div class="button-wrap d-flex flex-wrap gap-3">
-                                <button class="btn">Update Cart</button>
-                                <button class="btn">Continue Shopping</button>
-                                <button class="btn">Proceed to checkout</button>
+                                <a href = "productDetail" class = "btn">Continue Shopping</a>
+                                <a href = "checkout" class = "btn">Proceed to checkout</a>
                             </div>
                         </div>
                     </div>
