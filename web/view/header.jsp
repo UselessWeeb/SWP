@@ -286,7 +286,7 @@
                                     <c:set var="totalQuantity" value="${totalQuantity + entry.value}"/>
                                 </c:forEach>
                                 <li class="cart-dropdown dropdown">
-                                    <a href="cart.jsp" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                    <a href="cart" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                         <svg class="cart">
                                         <use xlink:href="#cart"></use>
                                         </svg><span class="fs-6 fw-light">(${totalQuantity})</span>

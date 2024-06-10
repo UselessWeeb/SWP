@@ -58,7 +58,8 @@ public class LoginServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         User u = userDAO.Login(email, password);
         if (u == null) {
-            request.setAttribute("err", "Incorrect Username/Password");
+            //if user is not found, redirect back to the page they send request with error message
+            request.getSession(false).setAttribute("err", "Incorrect Username/Password");
             response.sendRedirect(referer);
         } else {
             //create session for said user
