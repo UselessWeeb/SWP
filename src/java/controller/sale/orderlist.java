@@ -4,7 +4,9 @@
  */
 package controller.sale;
 
+import dao.LaptopDAO;
 import dao.OrderDAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,9 +14,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
+import model.Laptop;
 import model.Order;
 import model.Role;
+import model.User;
 import service.AccessRole;
 
 /**
@@ -43,6 +48,8 @@ public class orderlist extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             OrderDAO dao = new OrderDAO();
+            UserDAO userDAO = new UserDAO();
+            LaptopDAO laptopDAO = new LaptopDAO();
             final int TOTAL_PER_PAGE = 10;
             int currentPage = 1;
             if (request.getParameter("page") != null) {
@@ -54,7 +61,16 @@ public class orderlist extends HttpServlet {
 
             List<Order> orderList = dao.getOrderPage(currentPage - 1, TOTAL_PER_PAGE, "", "");
             System.out.println(orderList);
+            
+            //fetch the user's name
+            for(Order order : orderList){
+                order.setUser(userDAO.findById(String.valueOf(order.getUser_id())));
+                //fetch the laptop's name
+                order.setLaptop(laptopDAO.getByID(String.valueOf(order.getLaptop_id())));
+                
+            }
             request.setAttribute("orderlist", orderList);
+            
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("totalPages", totalPages);
 

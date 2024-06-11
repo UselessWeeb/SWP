@@ -33,8 +33,6 @@ public class Order {
         this.status = status;
         this.user_id = user_id;
         this.laptop_id = laptop_id;
-        this.laptop = laptop;
-        this.user = user;
     }
 
     public int getOrder_id() {
