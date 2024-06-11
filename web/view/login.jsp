@@ -37,5 +37,7 @@
             $('#exampleModal').modal('show'); // Show the modal
         });
     </script>
+    <!--remove it right after-->
+    <c:remove var="err" scope="session" />
 </c:if>
 </html>

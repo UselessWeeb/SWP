@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Cart;
+import model.CartList;
 
 /**
  *
@@ -32,7 +32,7 @@ public class Checkout extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //using the cart session here
-        Cart carts = (Cart) request.getSession(false).getAttribute("cart");
+        CartList carts = (CartList) request.getSession(false).getAttribute("cart");
         request.setAttribute("carts", carts.getCart());
         //this is the checkout page, so we just need to forward to the checkout.jsp
         request.getRequestDispatcher("checkout.jsp").forward(request, response);

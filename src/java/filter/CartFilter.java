@@ -17,7 +17,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import model.Cart;
+import model.CartList;
 
 /**
  *
@@ -33,7 +33,7 @@ public class CartFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
 
         if (session != null && session.getAttribute("cart") == null) {
-            session.setAttribute("cart", new Cart());
+            session.setAttribute("cart", new CartList());
         } 
 
         chain.doFilter(request, response);

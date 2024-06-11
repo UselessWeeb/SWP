@@ -13,7 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Cart;
+import model.CartList;
 import model.Laptop;
 
 /**
@@ -30,20 +30,29 @@ public class AddToCart extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        //this solve only one purpose, to search product by id, add said product to cart session 
-        //and redirect to the referer, aka product page
-        LaptopDAO laptopDAO = new LaptopDAO();
-        String id = request.getParameter("id");
-        Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
-        Cart cart = (Cart) request.getSession(false).getAttribute("cart");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession(false);
+    LaptopDAO laptopDAO = new LaptopDAO();
+    String id = request.getParameter("id");
+    Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
+    int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+    if (session != null && session.getAttribute("user") != null) {
+        // User is logged in, use CartDAO
+        User user = (User) session.getAttribute("user");
+        CartDAO cartDAO = new CartDAO(user);
+        cartDAO.addToCart(laptop, quantity);
+    } else {
+        // User is not logged in, use CartList
+        CartList cart = (CartList) session.getAttribute("cart");
         cart.addToCart(laptop, quantity);
-        System.out.println(cart.getCart());
-        response.sendRedirect(request.getHeader("referer"));
-    } 
+    }
+
+    System.out.println(cart.getCart());
+    response.sendRedirect(request.getHeader("referer"));
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

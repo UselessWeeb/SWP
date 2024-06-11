@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
-import model.Cart;
+import model.CartList;
 import model.Laptop;
 import model.User;
 
@@ -35,24 +35,28 @@ public class CartServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        //show the cart list to user
-//        CartDAO cartDAO = new CartDAO();
-//        LaptopDAO laptopDAO = new LaptopDAO(); // Assuming you have a DAO for laptops
-//        int userId = ((User) request.getSession(false).getAttribute("user")).getUserId();
-//        List<Cart> carts = cartDAO.getByUserId(userId);
-//        for (Cart cart : carts) {
-//            Laptop laptop = laptopDAO.getByID(String.valueOf(cart.getLaptopId())); // Fetch laptop details
-//            cart.setLaptop(laptop); // Assuming you have a setLaptop method in your Cart class
-//        }
-        HttpSession session = request.getSession(false);
-        //create a hashmap for storing easier
-        Cart carts = (Cart) session.getAttribute("cart");
+ protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession(false);
+    if (session != null && session.getAttribute("user") != null) {
+        // User is logged in, use CartDAO
+        CartDAO cartDAO = new CartDAO();
+        LaptopDAO laptopDAO = new LaptopDAO(); // Assuming you have a DAO for laptops
+        int userId = ((User) session.getAttribute("user")).getUserId();
+        List<Cart> carts = cartDAO.getByUserId(userId);
+        for (Cart cart : carts) {
+            Laptop laptop = laptopDAO.getByID(String.valueOf(cart.getLaptopId())); // Fetch laptop details
+            cart.setLaptop(laptop); // Assuming you have a setLaptop method in your Cart class
+        }
+        request.setAttribute("carts", carts);
+    } else {
+        // User is not logged in, use CartList
+        CartList carts = (CartList) session.getAttribute("cart");
         request.setAttribute("carts", carts.getCart());
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
+    request.getRequestDispatcher("cart.jsp").forward(request, response);
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

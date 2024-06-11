@@ -13,7 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Cart;
+import model.CartList;
 import model.Laptop;
 
 /**
@@ -30,28 +30,37 @@ public class SetCart extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        LaptopDAO laptopDAO = new LaptopDAO();
-        String id = request.getParameter("id");
-        Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
-        Cart cart = (Cart) request.getSession(false).getAttribute("cart");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String action = (request.getParameter("action") != null ? request.getParameter("action") : "");
-        switch (action){
-            case "+":
-               quantity++;
-               break;
-            case "-":
-                if (quantity > 1) quantity--;
-                break;
-        }  
-        System.out.println("SetCart.java: " + laptop.getTitle() + " " + quantity);
-        cart.overrideCart(laptop, quantity);
-        System.out.println(cart.getCart());
-        response.sendRedirect(request.getHeader("referer"));
-    } 
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession(false);
+    LaptopDAO laptopDAO = new LaptopDAO();
+    String id = request.getParameter("id");
+    Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
+    int quantity = Integer.parseInt(request.getParameter("quantity"));
+    String action = request.getParameter("action");
+
+    if (session != null && session.getAttribute("user") != null) {
+        // User is logged in, use CartDAO
+        User user = (User) session.getAttribute("user");
+        CartDAO cartDAO = new CartDAO(user);
+        if (action.equals("+")) {
+            cartDAO.addToCart(laptop, quantity);
+        } else if (action.equals("-")) {
+            cartDAO.subtractFromCart(laptop, quantity);
+        }
+    } else {
+        // User is not logged in, use CartList
+        CartList cart = (CartList) session.getAttribute("cart");
+        if (action.equals("+")) {
+            cart.addToCart(laptop, quantity);
+        } else if (action.equals("-")) {
+            cart.subtractFromCart(laptop, quantity);
+        }
+    }
+
+    response.sendRedirect(request.getHeader("referer"));
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

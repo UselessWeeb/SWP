@@ -15,22 +15,22 @@ INSERT INTO [User] (full_name, avatar, gender, address, email, phone_number, pas
 VALUES ('Loel', 'images/avatar/default.jpg' ,'Male', '123 Main St', 'longndhe181257@fpt.edu.vn', '123-456-7891', '123456', 'unvertified', 2);
 GO
 
-INSERT INTO Laptop (title, main_image, original_price, stock, products_detail, sale_price, status, updated_date) VALUES 
-('Laptop A', 'image/laptop/a.jpg', 1000.00, 10, 'Details of Laptop A', 900.00, 1, GETDATE()),
-('Laptop B', 'image/laptop/b.jpg', 1500.00, 5, 'Details of Laptop B', 1350.00, 1, GETDATE());
+INSERT INTO Laptop (title, main_image, original_price, stock, products_detail, sale_price, status, updated_date, brief_information, is_featured) VALUES 
+('Laptop A', 'images/product/1.jpg', 1000.00, 10, 'Details of Laptop A', 900.00, 1, GETDATE(), 'Newest Laptop from company A', 1),
+('Laptop B', 'images/product/2.jpg', 1500.00, 5, 'Details of Laptop B', 1350.00, 1, GETDATE(), 'Newest Laptop from company B', 0);
 GO
 
 -- Inserting laptop categories
 INSERT INTO Laptop_Category (laptop_id, Category) VALUES 
-(1, 'Gaming'),
-(2, 'Business');
+(3, 'Gaming'),
+(4, 'Business');
 GO
 
 -- Inserting laptop images
 INSERT INTO Laptop_Image (laptop_id, Image) VALUES 
-(1, 'image/laptop/a_1.jpg'),
-(1, 'image/laptop/a_2.jpg'),
-(2, 'image/laptop/b_1.jpg');
+(3, 'image/laptop/a_1.jpg'),
+(3, 'image/laptop/a_2.jpg'),
+(4, 'image/laptop/b_1.jpg');
 GO
 
 -- Inserting orders
@@ -52,10 +52,14 @@ INSERT INTO Order_Information (order_id, payment_method, user_id) VALUES
 GO
 
 -- Inserting carts
-INSERT INTO Cart (user_id,laptop_id, quantity) VALUES 
-(1, 1, 3),
-(1, 2, 4);
+INSERT INTO Carts(user_id) VALUES 
+(1),
+(2);
 GO
+
+INSERT INTO Cart_Item (cart_id, laptop_id, quantity) VALUES 
+(1, 1, 1),
+(2, 2, 1);
 
 -- Inserting tokens
 INSERT INTO Token (userid, tokenString, expireDate, purpose) VALUES 
@@ -69,7 +73,7 @@ INSERT INTO Feedback (user_id, order_id, rated_star, feedback, images, status) V
 GO
 
 -- Inserting blogs
-INSERT INTO Blog (thumbnail, title, updated_date, blog_content, is_featured, user_id) VALUES 
+INSERT INTO Blog (thumbnail, title, updated_date, blog_content, views, user_id) VALUES 
 ('image/blog/thumbnail.jpg', 'New Laptops of 2024', GETDATE(), 'Content of the blog post...', 1, 1);
 GO
 

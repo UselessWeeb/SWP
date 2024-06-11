@@ -42,6 +42,7 @@ CREATE TABLE Laptop
   stock INT NOT NULL,
   products_detail VARCHAR(MAX) NOT NULL,
   sale_price FLOAT NOT NULL,
+  is_featured INT NOT NULL,
   status INT NOT NULL,
   updated_date DATETIME NOT NULL,
 );
@@ -136,7 +137,7 @@ CREATE TABLE Blog
   title VARCHAR(200) NOT NULL,
   updated_date DATETIME NOT NULL,
   blog_content VARCHAR(MAX) NOT NULL,
-  is_featured INT NOT NULL,
+  views INT NOT NULL,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES [User]
 );

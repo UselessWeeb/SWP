@@ -50,7 +50,7 @@
             <div class="container">
                 <form class="form-group">
                     <div class="row d-flex flex-wrap">
-                        <div class="col-lg-6">
+                        <div class="col-lg-9">
                             <div class="cart-header">
                                 <div class="row d-flex text-uppercase">
                                     <h4 class="col-lg-2 pb-2">Id</h4>
@@ -107,6 +107,9 @@
                                         </div>
                                     </div>
                                 </c:forEach>
+                                <div class="button-wrap m-3">
+                                    <a href = "cart" class="btn">Change</a>
+                                </div>
                             </div>
                             <h3 class="mb-3">Billing Details</h3>
                             <div class="billing-details">
@@ -119,14 +122,15 @@
                                 <label for="email">Email address *</label>
                                 <input type="text" id="email" name="email" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.email}">
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <h3 class="mb-3">Additional Information</h3>
-                            <div class="billing-details">
-                                <label for="fname">Order notes (optional)</label>
-                                <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
+                            <div class="form-control">
+                                <h3 class="mb-3">Additional Information</h3>
+                                <div class="billing-details">
+                                    <label for="fname">Order notes (optional)</label>
+                                    <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
+                                </div>
                             </div>
                         </div>
+                        <jsp:include page="/Sidebar" flush="true"/>
                         <div class="cart-totals padding-medium pb-0">
                             <h3 class="mb-3">Cart Totals</h3>
                             <div class="total-price pb-3">
@@ -137,7 +141,7 @@
                                             <td data-title="Subtotal">
                                                 <span class="price-amount amount text-primary ps-5 fw-light">
                                                     <bdi>
-                                                        <span class="price-currency-symbol">$</span>2,400.00
+                                                        <span class="price-currency-symbol">$</span>${totalPrice}
                                                     </bdi>
                                                 </span>
                                             </td>
@@ -147,7 +151,7 @@
                                             <td data-title="Total">
                                                 <span class="price-amount amount text-primary ps-5 fw-light">
                                                     <bdi>
-                                                        <span class="price-currency-symbol">$</span>2,400.00</bdi>
+                                                        <span class="price-currency-symbol">$</span>${totalPrice}</bdi>
                                                 </span>
                                             </td>
                                         </tr>
@@ -200,5 +204,4 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
     </body>
-
 </html>
