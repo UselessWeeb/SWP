@@ -5,6 +5,7 @@
 
 package controller.cart;
 
+import dao.CartDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +14,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.CartList;
 import model.Laptop;
+import model.User;
 
 /**
  *
@@ -45,17 +48,17 @@ throws ServletException, IOException {
         User user = (User) session.getAttribute("user");
         CartDAO cartDAO = new CartDAO(user);
         if (action.equals("+")) {
-            cartDAO.addToCart(laptop, quantity);
+            cartDAO.overrideCart(laptop, quantity++);
         } else if (action.equals("-")) {
-            cartDAO.subtractFromCart(laptop, quantity);
+            cartDAO.overrideCart(laptop, quantity--);
         }
     } else {
         // User is not logged in, use CartList
         CartList cart = (CartList) session.getAttribute("cart");
         if (action.equals("+")) {
-            cart.addToCart(laptop, quantity);
+            cart.overrideCart(laptop, quantity++);
         } else if (action.equals("-")) {
-            cart.subtractFromCart(laptop, quantity);
+            cart.overrideCart(laptop, quantity--);
         }
     }
 
