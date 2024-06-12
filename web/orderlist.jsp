@@ -43,13 +43,19 @@
                 text-align: center;
                 vertical-align: middle;
             }
-            .pagination {
-                justify-content: center;
-            }
             footer {
                 text-align: center;
                 padding: 1rem;
                 background-color: #f8f9fa;
+            }
+            
+            th{
+                background: #ff6543 !important;
+            }
+            
+            th, td{
+                padding-top: 20px !important;
+                padding-bottom: 20px !important;
             }
         </style>
     </head>
@@ -83,7 +89,7 @@
             </table>
 
             <nav>
-                <ul class="pagination">
+                <ul class="pagination justify-content-center gap-4">
                     <c:if test="${currentPage > 1}">
                         <li class="page-item">
                             <a class="page-link" href="orderlist?page=${currentPage - 1}">Previous</a>
@@ -91,7 +97,7 @@
                     </c:if>
                     <c:forEach begin="1" end="${totalPages}" var="i">
                         <li class="page-item ${i == currentPage ? 'active' : ''}">
-                            <a class="page-link" href="orderlist?page=${i}">${i}</a>
+                            <a class="py-1 px-3 ${i == currentPage ? 'bg-primary text-white' : ''}" href="orderlist?page=${i}">${i}</a>
                         </li>
                     </c:forEach>
                     <c:if test="${currentPage < totalPages}">
