@@ -57,10 +57,11 @@ INSERT INTO Carts(user_id) VALUES
 (2);
 GO
 
-INSERT INTO Cart_Item (cart_id, laptop_id, quantity) VALUES 
-(1, 1, 1),
-(2, 2, 1);
+INSERT INTO cart_items (cart_id, laptop_id, quantity) VALUES 
+(1, 3, 1),
+(1, 4, 1);
 
+select * from Token
 -- Inserting tokens
 INSERT INTO Token (userid, tokenString, expireDate, purpose) VALUES 
 (1, 'token123', GETDATE() + 1, 0);

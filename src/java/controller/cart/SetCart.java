@@ -41,24 +41,37 @@ throws ServletException, IOException {
     String id = request.getParameter("id");
     Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
     int quantity = Integer.parseInt(request.getParameter("quantity"));
-    String action = request.getParameter("action");
+    String action = (request.getParameter("action") == null) ?  "" : request.getParameter("action");
 
     if (session != null && session.getAttribute("user") != null) {
         // User is logged in, use CartDAO
         User user = (User) session.getAttribute("user");
         CartDAO cartDAO = new CartDAO(user);
-        if (action.equals("+")) {
-            cartDAO.overrideCart(laptop, quantity++);
-        } else if (action.equals("-")) {
-            cartDAO.overrideCart(laptop, quantity--);
+        switch (action) {
+            case "+":
+                cartDAO.overrideCart(laptop, ++quantity);
+                break;
+            case "-":
+                cartDAO.overrideCart(laptop, --quantity);
+                break;
+            default:
+                cartDAO.overrideCart(laptop, quantity);
+                break;
         }
+        session.setAttribute("cart", new CartList(cartDAO.getCart()));
     } else {
         // User is not logged in, use CartList
         CartList cart = (CartList) session.getAttribute("cart");
-        if (action.equals("+")) {
-            cart.overrideCart(laptop, quantity++);
-        } else if (action.equals("-")) {
-            cart.overrideCart(laptop, quantity--);
+        switch (action) {
+            case "+":
+                cart.overrideCart(laptop, ++quantity);
+                break;
+            case "-":
+                cart.overrideCart(laptop, --quantity);
+                break;
+            default:
+                cart.overrideCart(laptop, quantity);
+                break;
         }
     }
 

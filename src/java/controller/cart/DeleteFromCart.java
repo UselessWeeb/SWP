@@ -46,6 +46,7 @@ throws ServletException, IOException {
         User user = (User) session.getAttribute("user");
         CartDAO cartDAO = new CartDAO(user);
         cartDAO.deleteFromCart(laptop);
+        session.setAttribute("cart", new CartList(cartDAO.getCart()));
     } else {
         // User is not logged in, use CartList
         CartList cart = (CartList) session.getAttribute("cart");

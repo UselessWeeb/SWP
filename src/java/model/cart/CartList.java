@@ -18,9 +18,14 @@ import service.CartStrategy;
 public class CartList implements CartStrategy{
 
     //a hash map to store product
-    HashMap<Laptop, Integer> cart = new HashMap<>();
+    HashMap<Laptop, Integer> cart;
 
     public CartList() {
+        this.cart = new HashMap<>();
+    }
+
+    public CartList(HashMap<Laptop, Integer> cart) {
+        this.cart = cart;
     }
 
     @Override

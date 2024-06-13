@@ -48,6 +48,7 @@ public class AddToCart extends HttpServlet {
             User user = (User) session.getAttribute("user");
             CartDAO cartDAO = new CartDAO(user);
             cartDAO.addToCart(laptop, quantity);
+            session.setAttribute("cart", new CartList(cartDAO.getCart()));
         } else {
             // User is not logged in, use CartList
             CartList cart = (CartList) session.getAttribute("cart");
