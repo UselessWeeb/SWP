@@ -344,6 +344,30 @@
                 </div>
             </div>
         </c:if>
+        <c:if test = "${not empty sessionScope.err}">
+            <div class="top-info border-bottom d-none d-md-block bg-danger">
+                <div class="container-fluid">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <p class="fs-6 my-2 text-center text-white">${sessionScope.err}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:remove var="err" scope="session"/>
+        </c:if>
+        <c:if test = "${not empty sessionScope.success}">
+            <div class="top-info border-bottom d-none d-md-block bg-success">
+                <div class="container-fluid">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <p class="fs-6 my-2 text-center text-white">${sessionScope.success}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:remove var="success" scope="session"/>
+        </c:if>
     </header>
 </body>
 </html>

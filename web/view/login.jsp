@@ -3,9 +3,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <form action = "login" method = "POST" class="tab-pane fade active show" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-sign-in-tab">
-    <div class="color-red">
-        <c:if test="${not empty sessionScope.err}">
-            <c:out value="${sessionScope.err}"/>
+    <div class="text-danger">
+        <c:if test="${not empty sessionScope.loginErr}">
+            <c:out value="${sessionScope.loginErr}"/>
         </c:if>
     </div>
     <div class="form-group py-3">
@@ -30,14 +30,16 @@
     </a>
 </form>
 <!--if session err found-->
-<c:if test="${not empty sessionScope.err}">
+<c:if test="${not empty sessionScope.loginErr}">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#exampleModal').modal('show'); // Show the modal
+            $('#nav-sign-in-tab').tab('show'); // Switch to the login tab
         });
     </script>
     <!--remove it right after-->
-    <c:remove var="err" scope="session" />
+    <c:remove var="loginErr" scope="session" />
 </c:if>
 </html>

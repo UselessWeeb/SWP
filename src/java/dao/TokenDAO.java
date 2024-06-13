@@ -6,6 +6,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import model.Token;
 
 /**
@@ -72,6 +73,32 @@ public class TokenDAO extends EntityDAO {
             rs = stm.executeQuery();
             
             return rs.next();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
+    
+    public boolean checkUserRequest(int userId) {
+        String sql = "SELECT * FROM [Token] WHERE userid = ?";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            rs = stm.executeQuery();
+
+            if (rs.next()) {
+                Token token = (Token) this.createEntity(rs);
+                LocalDateTime expireDate = token.getExpireDate();
+                LocalDateTime now = LocalDateTime.now();
+
+                if (expireDate.isAfter(now.minusMinutes(30))) {
+                    return true;
+                } else {
+                    deleteToken(token.getTokenString());
+                }
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }

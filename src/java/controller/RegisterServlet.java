@@ -16,13 +16,11 @@ import model.User;
 import model.Token;
 import email.EmailService;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpSession;
+import service.UserActivationService;
 import util.HashUtil;
 import util.RandomString;
 
-/**
- *
- * @author phamn
- */
 @WebServlet(urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
 
@@ -53,19 +51,23 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO userDao = new UserDAO();
-        TokenDAO tokenDao = new TokenDAO();
-        EmailService emailService = new EmailService();
         HashUtil hash = new HashUtil();
-        RandomString random = new RandomString();
+        HttpSession session = request.getSession(true);
+        
+        UserActivationService activate = new UserActivationService();
 
         String referer = request.getHeader("referer");
         String email = request.getParameter("username");
-        String token;
 
         if (userDao.checkIfUserExist(email)) {
-            request.setAttribute("err", "Email already exist!");
+            session.setAttribute("registerErr", "Email already exist!");
             System.out.println("Email already exist!");
             response.sendRedirect(referer);
+        }
+        if (userDao.checkIfPhoneNumberExist(request.getParameter("phonenumber"))) {
+            session.setAttribute("registerErr", "Phone number already exist!");
+            System.out.println("Phone number already exist!");
+            response.sendRedirect(referer); 
         } else {
             User newUser = new User();
 
@@ -76,32 +78,18 @@ public class RegisterServlet extends HttpServlet {
             newUser.setEmail(email);
             newUser.setPhoneNumber(request.getParameter("phonenumber"));
             newUser.setPassword(hash.md5hash(request.getParameter("password")));
-            newUser.setState("unvertified");
+            newUser.setState("unverified");
+            
+            //default, for customer
             newUser.setRoleId(6);
 
             userDao.registerUser(newUser);
 
-            while (true) {
-                token = random.generateRandomString(32);
-
-                if (!tokenDao.checkIfTokenExist(token)) {
-                    break;
-                }
-            }
-
-            tokenDao.addNewToken(new Token(
-                    token,
-                    userDao.getUserIdByEmail(email),
-                    LocalDateTime.now(),
-                    0
-            ));
-            
-            String link = generateVerificationLink(request, token);
-
-            emailService.sendVerificationEmail(token, email, link);
+            activate.activateUser(newUser, request);
             
             System.out.println(newUser);
-
+            
+            session.setAttribute("registerErr", "We have sent you a verification link, please click on that to proceed");
             //TODO OPEN POP UP TELL USER TO CONFIRM EMAIL
             response.sendRedirect(referer);
         }
