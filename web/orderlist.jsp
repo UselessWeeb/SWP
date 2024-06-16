@@ -57,6 +57,10 @@
                 padding-top: 20px !important;
                 padding-bottom: 20px !important;
             }
+            
+            .text-info:hover{
+                color: var(--primary-color) !important;
+            }
         </style>
     </head>
     <body>
@@ -77,7 +81,7 @@
                 <tbody>
                     <c:forEach var="order" items="${orderlist}">
                         <tr>
-                            <td>${order.order_id}</td>
+                            <td>${order.order_id}<br><a href = "orderdetails?id=${order.order_id}" class="text-info"><u>View</u></a></td>
                             <td>${order.user.fullName}</td>
                             <td><fmt:formatDate value="${order.order_date}" pattern="dd/MM/yyyy"/></td>
                             <td>${order.laptop.title}</td>
