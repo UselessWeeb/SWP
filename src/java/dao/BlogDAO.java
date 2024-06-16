@@ -184,7 +184,7 @@ public class BlogDAO extends EntityDAO {
         return count;
     }
 
-    public List<Blog> findFeatured() {
+    public List<Blog> findHotPosts() {
         List<Blog> blogs = new ArrayList<>();
         try {
             String strSelect = "SELECT TOP 4 * FROM Blog ORDER BY [view] DESC";
@@ -210,9 +210,8 @@ public class BlogDAO extends EntityDAO {
                 blog_cat.findById(rs.getInt("blog_id")),
                 rs.getTimestamp("updated_date"),
                 rs.getString("blog_content"),
-                rs.getInt("is_featured"),
                 rs.getInt("user_id"),
-                rs.getInt("view")
+                rs.getInt("views")
         );
     }
 }

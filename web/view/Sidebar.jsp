@@ -40,7 +40,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <form class="sidebar pe-lg-5 mb-3" role="search"
+                <form class="sidebar pe-lg-5 mb-3" role="search" id ="shopForm"
                       <c:choose>
                           <c:when test = '${uri.contains("blog.jsp") || uri.contains("single-post.jsp")}'>
                               action="blog"
@@ -94,8 +94,8 @@
                                     </div>
                                     <div class="range-container">
                                         <div class="slider-track"></div>
-                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${minPrice}" name="minPrice" id="slider-1" oninput="slideOne()">
-                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${maxPrice}" name="maxPrice" id="slider-2" oninput="slideTwo()">
+                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${minPrice}" name="minPrice" id="slider-1" oninput="slideOne()" onchange = "document.getElementById('shopForm').submit()">
+                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${maxPrice}" name="maxPrice" id="slider-2" oninput="slideTwo()" onchange = "document.getElementById('shopForm').submit()">
                                     </div>
                                 </div>
                             </div>

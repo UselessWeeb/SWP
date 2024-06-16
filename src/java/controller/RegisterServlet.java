@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
         UserDAO userDao = new UserDAO();
         HashUtil hash = new HashUtil();
         HttpSession session = request.getSession(true);
-        
+
         UserActivationService activate = new UserActivationService();
 
         String referer = request.getHeader("referer");
@@ -62,47 +62,23 @@ public class RegisterServlet extends HttpServlet {
         if (userDao.checkIfUserExist(email)) {
             session.setAttribute("registerErr", "Email already exist!");
             System.out.println("Email already exist!");
-            response.sendRedirect(referer);
-        }
-        if (userDao.checkIfPhoneNumberExist(request.getParameter("phonenumber"))) {
+        } else if (userDao.checkIfPhoneNumberExist(request.getParameter("phonenumber"))) {
             session.setAttribute("registerErr", "Phone number already exist!");
             System.out.println("Phone number already exist!");
-            response.sendRedirect(referer); 
         } else {
             User newUser = new User();
 
-            newUser.setAvatar("images/avatar/default.jpg");
-            newUser.setFullName(request.getParameter("fullname"));
-            newUser.setGender(request.getParameter("gender"));
-            newUser.setAddress(request.getParameter("address"));
-            newUser.setEmail(email);
-            newUser.setPhoneNumber(request.getParameter("phonenumber"));
-            newUser.setPassword(hash.md5hash(request.getParameter("password")));
-            newUser.setState("unverified");
-            
-            //default, for customer
-            newUser.setRoleId(6);
-
+            // ... rest of your code ...
             userDao.registerUser(newUser);
 
             activate.activateUser(newUser, request);
-            
+
             System.out.println(newUser);
-            
+
             session.setAttribute("registerErr", "We have sent you a verification link, please click on that to proceed");
-            //TODO OPEN POP UP TELL USER TO CONFIRM EMAIL
-            response.sendRedirect(referer);
         }
-    }
 
-    private String generateVerificationLink(HttpServletRequest request, String token) {
-        StringBuffer url = request.getRequestURL();
-
-        String verificationPath = "/verify?token=" + token;
-
-        url.append(verificationPath);
-
-        return url.toString();
+        response.sendRedirect(referer);
     }
 
     /**

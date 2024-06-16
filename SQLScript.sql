@@ -63,14 +63,24 @@ CREATE TABLE Laptop_Image(
 	FOREIGN KEY (laptop_id) REFERENCES [Laptop]
 )
 
+
+CREATE TABLE Order_User(
+	order_uid INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	fullname NVARCHAR(MAX),
+	address NVARCHAR(MAX),
+	phone_number NVARCHAR(50),
+	email NVARCHAR(MAX),
+	add_info NVARCHAR(MAX),
+)
+
 CREATE TABLE [Order]
 (
   order_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   order_date DATETIME NOT NULL,  
   status INT NOT NULL,
   price FLOAT NOT NULL,
-  user_id INT NOT NULL,  
-  FOREIGN KEY (user_id) REFERENCES [User],  
+  order_uid INT NOT NULL,  
+  FOREIGN KEY (order_uid) REFERENCES [Order_User],  
 );
 GO
 
@@ -137,26 +147,7 @@ CREATE TABLE Blog_Category(
 	blog_id INT NOT NULL,
 	Category NVARCHAR(100),
 	FOREIGN KEY (blog_id) REFERENCES [Blog]
-)
-
-CREATE TABLE Post(
-	post_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	post_header VARCHAR(200) NOT NULL,
-	post_content VARCHAR(MAX) NOT NULL,
-	thumbnail VARCHAR(200) NOT NULL,
-	is_featured INT NOT NULL,
-	info VARCHAR(200) NOT NULL,
-	status INT NOT NULL,
-	user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES [User]
-)
-
-CREATE TABLE Post_Category(
-	CPost INT NOT NULL IDENTITY(1,1),
-	post_id INT NOT NULL,
-	Category NVARCHAR(100),
-	FOREIGN KEY (post_id) REFERENCES [Post]
-)
+);
 
 CREATE TABLE Slider
 (

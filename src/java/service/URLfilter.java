@@ -47,7 +47,8 @@ public class URLfilter {
             "showaction",
             "userProfile",
             "google_login",
-            "profile"
+            "profile",
+            "addtocart"
             );
     }
 }

@@ -1273,7 +1273,7 @@ input[type="range"]{
     position: absolute;
     margin: auto;
     top: 0;
-    bottom: 0;
+    bottom: 15px;
     background-color: transparent;
     pointer-events: none;
 }

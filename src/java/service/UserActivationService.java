@@ -46,7 +46,7 @@ public class UserActivationService {
 
             String link = generateVerificationLink(request, token);
 
-            emailService.sendVerificationEmail(token, user.getEmail(), link);
+            emailService.sendVerificationEmail(user.getFullName(), user.getEmail(), link);
         }
     }
 

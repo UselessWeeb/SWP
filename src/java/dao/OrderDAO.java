@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,7 +62,20 @@ public class OrderDAO extends EntityDAO {
         }
         return vector;
     }
-      
+
+    public HashMap<Date, Integer> showSuccessOrder(Date start, Date end, User u) throws SQLException {
+        HashMap<Date, Integer> success = new HashMap<>();
+        String sql = "SELECT order_date, oi.state from [Order] o INNER JOIN Order_Information oi on o.order_id = oi.order_id WHERE oi.state = 1";
+//        sql += "AND order_date IN (" + start + "," + end + ")";
+
+        stm = connection.prepareStatement(sql);
+        rs = stm.executeQuery();
+        while (rs.next()) {
+            success.put(rs.getDate(1), success.getOrDefault(rs.getDate(1), 0) + rs.getInt(2));
+        }
+        return success;
+    }
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         return new Slider(
@@ -73,9 +88,7 @@ public class OrderDAO extends EntityDAO {
                 rs.getInt("user_id")
         );
     }
-    
-    
-    
+
     public static void main(String[] args) {
         // Assuming you have a UserDAO instance and a connection
         OrderDAO userDAO = new OrderDAO();
@@ -92,7 +105,7 @@ public class OrderDAO extends EntityDAO {
             System.out.println("Order Name: " + order.getOrder_name());
             System.out.println("Total Price: " + order.getTotal_price());
             System.out.println("Status: " + order.getStatus());
-          
+
             System.out.println();
         }
     }

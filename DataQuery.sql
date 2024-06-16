@@ -22,33 +22,34 @@ GO
 
 -- Inserting laptop categories
 INSERT INTO Laptop_Category (laptop_id, Category) VALUES 
-(3, 'Gaming'),
-(4, 'Business');
+(1, 'Gaming'),
+(2, 'Business');
 GO
 
 -- Inserting laptop images
 INSERT INTO Laptop_Image (laptop_id, Image) VALUES 
-(3, 'image/laptop/a_1.jpg'),
-(3, 'image/laptop/a_2.jpg'),
-(4, 'image/laptop/b_1.jpg');
+(1, 'image/laptop/a_1.jpg'),
+(1, 'image/laptop/a_2.jpg'),
+(2, 'image/laptop/b_1.jpg');
 GO
 
 -- Inserting orders
-INSERT INTO [Order] (order_date, status, user_id) VALUES 
-(GETDATE(), 1, 1),
-(GETDATE(), 2, 2);
+SELECT * FROM [Order]
+INSERT INTO [Order] (order_date, status, order_uid, price) VALUES 
+(GETDATE(), 1, 1 , 1000),
+(GETDATE(), 2, 2, 2000);
 GO
 
 -- Inserting order items
 INSERT INTO Order_Item (order_id, laptop_id, quantity, price) VALUES 
-(1, 1, 1, 900.00),
-(2, 2, 1, 1350.00);
+(2, 1, 1, 900.00),
+(3, 2, 1, 1350.00);
 GO
 
 -- Inserting order information
-INSERT INTO Order_Information (order_id, payment_method, user_id) VALUES 
-(1, 'Credit Card', 1),
-(2, 'PayPal', 2);
+INSERT INTO Order_Information (order_id, payment_method, state) VALUES 
+(2, 'Credit Card', 1),
+(3, 'PayPal', 2);
 GO
 
 -- Inserting carts
@@ -92,3 +93,10 @@ GO
 INSERT INTO Score (score, user_id) VALUES 
 (100, 1);
 GO
+
+SELECT * FROM Order_User
+
+INSERT INTO Order_User (fullname, address, phone_number, email, add_info)
+VALUES 
+('Loel', 'Somewhere', '0123456789', 'longndhe181257@fpt.edu', 'Pls go'),
+('Loel2', 'Somewhere', '01234567893', 'longndhe181257@fpt.edu', 'Pls go an')
