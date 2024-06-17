@@ -21,5 +21,6 @@
     <body>
         <h1>Oops! Something went wrong.</h1>
         <p>We're sorry for the inconvenience. Our team has been notified and will look into the issue.</p>
+        <a class = "btn btn-primary">return</a>
     </body>
 </html>

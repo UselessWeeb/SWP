@@ -48,7 +48,15 @@ public class URLfilter {
             "userProfile",
             "google_login",
             "profile",
-            "addtocart"
+            "addtocart",
+            "mainsider",
+            "getcart",
+            "deletefromcart",
+            "verify",
+            "blogdetails",
+            "changepassword",
+            "setcart",
+            "sidebar"
             );
     }
 }

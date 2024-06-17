@@ -48,7 +48,8 @@ public class showUserActionServlet extends HttpServlet {
         Set<String> allUrls = RoleAuthorization.currentMapping.keySet();
         List<String> hiddenUrls = filter.hiddenUrls();
         List<String> accessibleUrls = allUrls.stream()
-            .filter(url -> auth.isAllowToAccess(currentUser, url) && !hiddenUrls.contains(url)) // Filter out URLs that the user can't access
+            .filter(url -> auth.isAllowToAccess(currentUser, url) && !hiddenUrls.contains(url.toLowerCase()//makes sure it will be filered
+            )) // Filter out URLs that the user can't access
             .collect(Collectors.toList());
 
         // Store the list of accessible URLs in the request

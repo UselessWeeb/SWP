@@ -8,6 +8,9 @@
 <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
+<head>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <html>
     <body>
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
