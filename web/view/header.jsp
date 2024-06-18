@@ -9,6 +9,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
     <body>
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="search" xmlns="http://www.w3.org/2000/symbolsvg" viewBox="0 0 24 24">
