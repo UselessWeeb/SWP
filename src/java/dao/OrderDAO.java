@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -33,7 +34,7 @@ public class OrderDAO extends EntityDAO {
     public int count() {
         try {
             int count = 0;
-            String sqlQuery = "Select * from [Order]";
+            String sqlQuery = "Select 1 from [Order]";
             stm = connection.prepareStatement(sqlQuery);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -46,33 +47,79 @@ public class OrderDAO extends EntityDAO {
         return 0;//not found
     }
 
-    public List<Order> getOrderPage(int page, int totalPerPage, String order_by, String search_query) {
+    public Order getByOrderId(int orderId) {
+        try {
+            String sqlQuery = "SELECT * FROM [Order] WHERE order_id = ?";
+            stm = connection.prepareStatement(sqlQuery);
+            stm.setInt(1, orderId);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return (Order) this.createEntity(rs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;//not found
+    }
+
+    public List<Order> getOrderPage(int page, int totalPerPage, String order_by, String direction, String search_query, Date start, Date end, String status, String[] selectedLaptopId) {
         List<Order> result = new ArrayList<>();
         try {
-            String sqlQuery = "SELECT * \n"
-                    + "FROM   Laptop INNER JOIN\n"
-                    + "             [Order] ON Laptop.laptop_id = [Order].laptop_id INNER JOIN\n"
-                    + "             [User] ON [Order].user_id = [User].user_id";
-            //select the order_by, and default to updated_date is null
-            sqlQuery += " ORDER BY " + (order_by.isBlank() ? "order_date" : order_by);
-            sqlQuery += (!search_query.isBlank()) ? " WHERE [User].fullname LIKE ?" : "";
-            //lastly, adding pagination
-            sqlQuery += " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-            System.out.println(sqlQuery);
-            stm = connection.prepareStatement(sqlQuery);
-            //adding param index
-            int paramIndex = 1;
-            if (!search_query.isBlank()) {
-                stm.setString(paramIndex, search_query);
-                paramIndex++;
+            String sqlQuery = "SELECT * FROM [Order] INNER JOIN Order_User ON [Order].order_uid = Order_User.order_uid INNER JOIN [Order_Item] on [Order].order_id = Order_Item.order_id";
+            if (search_query != null && !search_query.isBlank()) {
+                try {
+                    int id = Integer.parseInt(search_query);
+                    sqlQuery += " AND order_id = ?";
+                } catch (NumberFormatException e) {
+                    sqlQuery += " AND Order_User.fullname LIKE ?";
+                }
             }
-            //for default, both page and total page is the last
-            //limit how many record per pagination
-            stm.setInt(paramIndex, page * totalPerPage);
-            paramIndex++;
-            //showing skip how many records(stimulate pagination)
-            stm.setInt(paramIndex, totalPerPage);
-            rs = stm.executeQuery();
+            if (start != null) {
+                sqlQuery += " AND order_date >= ?";
+            }
+            if (end != null) {
+                Calendar c = Calendar.getInstance();
+                c.setTime(end);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                end = c.getTime();
+                sqlQuery += " AND order_date < ?";
+            }
+            if (status != null && !status.isBlank()) {
+                sqlQuery += " AND status = ?";
+            }
+            if (selectedLaptopId != null && selectedLaptopId.length > 0) {
+                sqlQuery += " AND Order_Item.laptop_id IN (" + String.join(",", Collections.nCopies(selectedLaptopId.length, "?")) + ")";
+            }
+            sqlQuery += " ORDER BY " + ((order_by == null || order_by.isBlank()) ? "order_date" : order_by);
+            sqlQuery += " " + ((direction != null && direction.equalsIgnoreCase("desc")) ? "DESC" : "ASC");
+            sqlQuery += " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            PreparedStatement stm = connection.prepareStatement(sqlQuery);
+            int paramIndex = 1;
+            if (search_query != null && !search_query.isBlank()) {
+                try {
+                    int id = Integer.parseInt(search_query);
+                    stm.setInt(paramIndex++, id);
+                } catch (NumberFormatException e) {
+                    stm.setString(paramIndex++, "%" + search_query + "%");
+                }
+            }
+            if (start != null) {
+                stm.setDate(paramIndex++, new java.sql.Date(start.getTime()));
+            }
+            if (end != null) {
+                stm.setDate(paramIndex++, new java.sql.Date(end.getTime()));
+            }
+            if (status != null && !status.isBlank()) {
+                stm.setString(paramIndex++, status);
+            }
+            if (selectedLaptopId != null && selectedLaptopId.length > 0) {
+                for (String laptopId : selectedLaptopId) {
+                    stm.setString(paramIndex++, laptopId);
+                }
+            }
+            stm.setInt(paramIndex++, page * totalPerPage);
+            stm.setInt(paramIndex++, totalPerPage);
+            ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Order order = (Order) this.createEntity(rs);
                 result.add(order);
@@ -82,8 +129,8 @@ public class OrderDAO extends EntityDAO {
         }
         return result;
     }
-    
-        public HashMap<Date, Integer> showSuccessOrder(Date start, Date end, User u) throws SQLException {
+
+    public HashMap<Date, Integer> showSuccessOrder(Date start, Date end, User u) throws SQLException {
         HashMap<Date, Integer> success = new HashMap<>();
         String sql = "SELECT order_date, oi.state from [Order] o INNER JOIN Order_Information oi on o.order_id = oi.order_id WHERE oi.state = 1";
 //        sql += "AND order_date IN (" + start + "," + end + ")";
@@ -95,13 +142,13 @@ public class OrderDAO extends EntityDAO {
         }
         return success;
     }
-        
-            public Map<Date, Integer> getSuccessOrders(Date start, Date end, String sales_id) throws SQLException {
+
+    public Map<Date, Integer> getSuccessOrders(Date start, Date end, String sales_id) throws SQLException {
         Map<Date, Integer> successOrders = new LinkedHashMap<>();
 
         String sql = "SELECT order_date, COUNT(*) AS successOrders "
-                + "FROM [Order] o INNER JOIN Order_Information i on o.order_id = i.order_id "
-                + "WHERE status = 1 AND order_date BETWEEN ? AND ? ";      
+                + "FROM [Order] "
+                + "WHERE status = 1 AND order_date BETWEEN ? AND ? ";
         sql += (sales_id.isBlank()) ? "" : "AND sales_id = ?";
         sql += "GROUP BY order_date";
         try {
@@ -113,7 +160,7 @@ public class OrderDAO extends EntityDAO {
             java.sql.Date oneDayBeforeEnd = new java.sql.Date(cal.getTimeInMillis());
 
             stm.setDate(2, oneDayBeforeEnd);
-            if (!sales_id.isBlank()){
+            if (!sales_id.isBlank()) {
                 stm.setString(3, sales_id);
             }
 
@@ -135,7 +182,7 @@ public class OrderDAO extends EntityDAO {
         Map<Date, Integer> totalOrders = new LinkedHashMap<>();
 
         String sql = "SELECT order_date, COUNT(*) AS totalOrders "
-                + "FROM [Order] o INNER JOIN Order_Information i on o.order_id = i.order_id "
+                + "FROM [Order] "
                 + "WHERE order_date BETWEEN ? AND ? ";
         sql += (sales_id.isBlank()) ? "" : "AND sales_id = ?";
         sql += "GROUP BY order_date";
@@ -143,14 +190,14 @@ public class OrderDAO extends EntityDAO {
         try {
             stm = connection.prepareStatement(sql);
             stm.setDate(1, new java.sql.Date(start.getTime()));
-            
+
             Calendar cal = Calendar.getInstance();
             cal.setTime(end);
             cal.add(Calendar.DATE, +1);
             java.sql.Date oneDayBeforeEnd = new java.sql.Date(cal.getTimeInMillis());
-            
+
             stm.setDate(2, oneDayBeforeEnd);
-            if (!sales_id.isBlank()){
+            if (!sales_id.isBlank()) {
                 stm.setString(3, sales_id);
             }
             ResultSet rs = stm.executeQuery();
@@ -179,8 +226,13 @@ public class OrderDAO extends EntityDAO {
 
             // Set the parameters as java.sql.Date
             stm.setDate(1, new java.sql.Date(start.getTime()));
-            stm.setDate(2, new java.sql.Date(end.getTime()));
-            if (!sales_id.isBlank()){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(end);
+            cal.add(Calendar.DATE, +1);
+            java.sql.Date oneDayBeforeEnd = new java.sql.Date(cal.getTimeInMillis());
+
+            stm.setDate(2, oneDayBeforeEnd);
+            if (!sales_id.isBlank()) {
                 stm.setString(3, sales_id);
             }
             // Execute the query
@@ -206,12 +258,9 @@ public class OrderDAO extends EntityDAO {
         return new Order(
                 rs.getInt("order_id"),
                 rs.getTimestamp("order_date"),
-                rs.getString("order_name"),
+                rs.getInt("price"),
                 rs.getInt("status"),
-                rs.getInt("quantity"),
-                rs.getInt("user_id"),
-                rs.getInt("laptop_id")
+                rs.getInt("order_uid")
         );
-        
     }
 }

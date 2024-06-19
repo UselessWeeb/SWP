@@ -6,6 +6,8 @@ package controller.sale;
 
 import dao.LaptopDAO;
 import dao.OrderDAO;
+import dao.OrderItemDAO;
+import dao.OrderUserDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,10 +16,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Laptop;
 import model.Order;
+import model.OrderItem;
 import model.Role;
 import model.User;
 import service.AccessRole;
@@ -48,33 +57,80 @@ public class orderlist extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             OrderDAO dao = new OrderDAO();
-            UserDAO userDAO = new UserDAO();
+            OrderUserDAO userDAO = new OrderUserDAO();
+            OrderItemDAO itemDAO = new OrderItemDAO();
             LaptopDAO laptopDAO = new LaptopDAO();
             final int TOTAL_PER_PAGE = 10;
             int currentPage = 1;
             if (request.getParameter("page") != null) {
                 currentPage = Integer.parseInt(request.getParameter("page"));
             }
-
+            
+            String[] selectedLaptopId = request.getParameterValues("productCheck");
+            String sortField = request.getParameter("sortField");
+            String sortDirection = request.getParameter("sortDirection");
+            String searchQuery = request.getParameter("Search");
+            //format string to yyyy-MM-dd format
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = null;
+            if (request.getParameter("startDate") != null && !request.getParameter("startDate").isEmpty()) {
+                startDate = format.parse(request.getParameter("startDate"));
+            }
+            Date endDate = null;
+            if (request.getParameter("endDate") != null && !request.getParameter("endDate").isEmpty()) {
+                endDate = format.parse(request.getParameter("endDate"));
+            }
+            String status = request.getParameter("status");
+            
+            //showing total orders
             int totalOrders = dao.count();
+            //total page
             int totalPages = (int) Math.ceil((double) totalOrders / TOTAL_PER_PAGE);
 
-            List<Order> orderList = dao.getOrderPage(currentPage - 1, TOTAL_PER_PAGE, "", "");
+            List<Order> orderList = dao.getOrderPage(currentPage - 1, TOTAL_PER_PAGE, sortField, sortDirection, searchQuery, startDate, endDate, status, selectedLaptopId);
             System.out.println(orderList);
             
-            //fetch the user's name
-            for(Order order : orderList){
-                order.setUser(userDAO.findById(String.valueOf(order.getUser_id())));
-                //fetch the laptop's name
-                order.setLaptop(laptopDAO.getByID(String.valueOf(order.getLaptop_id())));
-                
-            }
-            request.setAttribute("orderlist", orderList);
+            List<List<OrderItem>> items = new ArrayList<>();
             
+            
+            List<Laptop> laptopOrdered = new ArrayList<>();
+            
+            for(Order order : orderList){
+                order.setUser(userDAO.getById(order.getUser_id()));
+                items.add(itemDAO.getByOrderId(order.getOrder_id()));
+            }
+            
+            System.out.println(items);
+            
+            request.setAttribute("startDate", startDate != null ? format.format(startDate) : "");
+            request.setAttribute("endDate", endDate != null ? format.format(endDate) : "");
+            
+            request.setAttribute("totalOrders", totalOrders);
+            request.setAttribute("totalPerPage", orderList.size());
+            
+            //search
+            request.setAttribute("Search", searchQuery);
+            //status
+            if(status != null && !status.isBlank()){
+                request.setAttribute("status", status);
+            }
+            
+            request.setAttribute("ordered", laptopDAO.findOrderedLaptop());
+            
+            request.setAttribute("laptops", laptopDAO.findAll());
+
+            request.setAttribute("selectedLaptopId", selectedLaptopId);
+            
+            request.setAttribute("sortField", sortField);
+            request.setAttribute("sortDirection", sortDirection);
+            request.setAttribute("orderlist", orderList);
+            request.setAttribute("items", items);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("totalPages", totalPages);
 
             request.getRequestDispatcher("orderlist.jsp").forward(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(orderlist.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

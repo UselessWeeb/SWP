@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -26,6 +28,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -47,7 +50,7 @@ import service.AccessRole;
 public class salesDashboard extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException{
         try {
             OrderDAO dao = new OrderDAO();
             UserDAO udao = new UserDAO();
@@ -57,43 +60,32 @@ public class salesDashboard extends HttpServlet {
             String endDateStr = request.getParameter("endDate");
             String userIdStr = request.getParameter("userId"); // Assuming the select input has name="userId"
 
-            LocalDate startDate;
-            LocalDate endDate;
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate;
+            Date endDate;
 
             if (startDateStr != null && endDateStr != null && !startDateStr.isBlank() && !endDateStr.isBlank()) {
                 // Parse the dates
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                startDate = LocalDate.parse(startDateStr, formatter);
-                endDate = LocalDate.parse(endDateStr, formatter);
-                System.out.println(startDate); // Output will be in Date format
+                startDate = formatter.parse(startDateStr);
+                endDate = formatter.parse(endDateStr);
             } else {
                 // Get the current date and the date 7 days ago
-                endDate = LocalDate.now().plusDays(1);
-                startDate = endDate.minusDays(7);
+                Calendar cal = Calendar.getInstance();
+                endDate = cal.getTime();
+                cal.add(Calendar.DATE, -7);
+                startDate = cal.getTime();
             }
-            
-            System.out.println(startDate.getDayOfMonth());
 
             // Convert the userId to an integer
             String userId = userIdStr != null ? userIdStr : "";
 
-            // Convert LocalDate to Date
-            Date start = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            Date end = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Map<Date, Integer> successOrders = dao.getSuccessOrders(startDate, endDate, userId);
+            Map<Date, Integer> totalOrders = dao.getTotalOrders(startDate, endDate, userId);
+            Map<Date, Float> revenue = dao.getPrice(startDate, endDate, userId);
 
-            Map<Date, Integer> successOrders = dao.getSuccessOrders(start, end, userId);
-            Map<Date, Integer> totalOrders = dao.getTotalOrders(start, end, userId);
-            Map<Date, Float> revenue = dao.getPrice(start, end, userId);
+            request.setAttribute("startDate", formatter.format(startDate));
+            request.setAttribute("endDate", formatter.format(endDate));
 
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedStartDate = startDate.format(outputFormatter);
-            String formattedEndDate = endDate.format(outputFormatter);
-            System.out.println(formattedStartDate);
-            request.setAttribute("startDate", formattedStartDate);
-            request.setAttribute("endDate", formattedEndDate);
-
-            System.out.println(revenue);
-            
             //return list of all existing sales/sales_manager
             request.setAttribute("sales", udao.getSales());
 
@@ -104,10 +96,7 @@ public class salesDashboard extends HttpServlet {
             request.setAttribute("totalOrders", new Gson().toJson(totalOrders));
             request.setAttribute("revenue", new Gson().toJson(revenue));
             request.getRequestDispatcher("dashboard.jsp").include(request, response);
-        } catch (DateTimeParseException ex) {
-            request.getSession(false).setAttribute("err", "Invalid date !");
-            response.sendRedirect(response.getHeader("referer"));
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(salesDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

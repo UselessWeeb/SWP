@@ -13,26 +13,29 @@ import java.util.Date;
 public class Order {
     private int order_id;
     private Date order_date;
-    private String order_name;
-    private int quantity;
-    private int status;
+    private int price;
+    private Status status; // Change the type to Status
     private int user_id;
-    private int laptop_id;
     
     private Laptop laptop;
-    private User user;
+    private Order_User user;
+
+    public enum Status {
+        Pending,
+        Shipped,
+        Delivered,
+        Cancelled,
+    }
 
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, String order_name, int quantity, int status, int user_id, int laptop_id) {
+    public Order(int order_id, Date order_date, int price, int status, int user_id) {
         this.order_id = order_id;
         this.order_date = order_date;
-        this.order_name = order_name;
-        this.quantity = quantity;
-        this.status = status;
+        this.price = price;
+        this.setStatus(status); // Use the setter to convert the int to Status
         this.user_id = user_id;
-        this.laptop_id = laptop_id;
     }
 
     public int getOrder_id() {
@@ -51,28 +54,23 @@ public class Order {
         this.order_date = order_date;
     }
 
-    public String getOrder_name() {
-        return order_name;
+    public int getPrice() {
+        return price;
     }
 
-    public void setOrder_name(String order_name) {
-        this.order_name = order_name;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getStatus() {
+    public Status getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
-        this.status = status;
+        if (status < 0 || status >= Status.values().length) {
+            throw new IllegalArgumentException("Invalid status value: " + status);
+        }
+        this.status = Status.values()[status];
     }
 
     public int getUser_id() {
@@ -83,14 +81,6 @@ public class Order {
         this.user_id = user_id;
     }
 
-    public int getLaptop_id() {
-        return laptop_id;
-    }
-
-    public void setLaptop_id(int laptop_id) {
-        this.laptop_id = laptop_id;
-    }
-
     public Laptop getLaptop() {
         return laptop;
     }
@@ -99,17 +89,16 @@ public class Order {
         this.laptop = laptop;
     }
 
-    public User getUser() {
+    public Order_User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Order_User user) {
         this.user = user;
     }
 
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", order_name=" + order_name + ", quantity=" + quantity + ", status=" + status + ", user_id=" + user_id + ", laptop_id=" + laptop_id + ", laptop=" + laptop + ", user=" + user + '}';
+        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", price=" + price + ", status=" + status + ", user_id=" + user_id + ", laptop=" + laptop + ", user=" + user + '}';
     }
-
 }

@@ -11,6 +11,7 @@
 <html>
     <head>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
     <body>
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
