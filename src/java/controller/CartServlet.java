@@ -17,14 +17,19 @@ import java.util.HashMap;
 import java.util.List;
 import model.CartList;
 import model.Laptop;
+import model.Role;
 import model.User;
 import model.cart.CartModel;
+import service.AccessRole;
 
 /**
  *
  * @author M7510
  */
 @WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
+@AccessRole(roles = {
+    Role.Type.customer,
+    Role.Type.guest})
 public class CartServlet extends HttpServlet {
 
     /**

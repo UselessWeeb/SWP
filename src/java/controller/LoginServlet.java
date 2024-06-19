@@ -81,6 +81,7 @@ public class LoginServlet extends HttpServlet {
             //if user choose "remember me, create a cookie and session for said user, otherwise, don't"
             HttpSession session = request.getSession(false);
             session.setAttribute("user", u);
+            session.setAttribute("userAuth", u);
             System.out.println("login success");
             //create cookie as well
             if (request.getParameter("session") != null) {

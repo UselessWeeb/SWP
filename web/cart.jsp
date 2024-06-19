@@ -30,24 +30,6 @@
 
     <body>
         <%@include file ="view/header.jsp" %>
-        <section class="hero-section position-relative bg-light-gray padding-medium">
-            <div class="hero-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="text-center">
-                            <h1>Cart</h1>
-                            <div class="breadcrumbs">
-                                <span class="item">
-                                    <a href="/app-name/">Home > </a>
-                                </span>
-                                <span class="item text-decoration-underline">Cart</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="cart padding-large">
             <div class="container">
                 <div class="row">
@@ -78,7 +60,7 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="card-image">
-                                                        <img src="${cart.key.image}" alt="cart-img" class="img-fluid border rounded-3">
+                                                        <img src="${cart.key.mainImage}" alt="cart-img" class="img-fluid border rounded-3">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">

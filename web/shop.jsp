@@ -9,7 +9,7 @@
 <html>
 
     <head>
-        <title>ShopLite - Simple eCommerce Website Template</title>
+        <title>Shop</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,25 +30,7 @@
         <%@include file = "view/header.jsp" %>
         <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-        <section class="hero-section position-relative bg-light-gray padding-medium">
-            <div class="hero-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="text-center">
-                            <h1>Shop</h1>
-                            <div class="breadcrumbs">
-                                <span class="item">
-                                    <a href="index.html">Home > </a>
-                                </span>
-                                <span class="item text-decoration-underline">Shop</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="shopify-grid padding-large">
+        <div class="shopify-grid">
             <div class="container">
                 <div class="row">
                     <main class="col-md-9">
@@ -75,7 +57,7 @@
                         <div class="row product-content product-store">
                             <c:forEach items="${laptopList}" var="laptop">
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="card position-relative text-center py-4 mb-4 border rounded-3">
+                                    <div class="card position-relative text-center py-4 border rounded-3">
                                         <img src="${laptop.mainImage}" class="p-3 img-fluid product-image" alt="${laptop.title}">
                                         <h5 class="mt-2"><a href="product?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
                                         <div class = "d-flex justify-content-between px-3">
@@ -117,7 +99,7 @@
                                     </c:if>
                             
                                     <c:if test="${totalPage > 0}">
-                                        <c:forEach var="i" begin="0" end="${totalPage - 1}">
+                                        <c:forEach var="i" begin="0" end="${(totalPage == 0) ? 0 : totalPage - 1}">
                                             <c:choose>
                                                 <c:when test="${i < 2 || (i > currentPage - 1 && i < currentPage + 1) || i > totalPage - 3}">
                                                     <li class="page-item ">

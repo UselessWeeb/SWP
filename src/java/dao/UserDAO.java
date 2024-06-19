@@ -112,6 +112,23 @@ public class UserDAO extends EntityDAO {
         }
         return n;
     }
+    
+    public List<User> getSales() {
+        List<User> sales = new ArrayList<>();
+        String sql = "SELECT * FROM [User] WHERE role_id IN (2,4)";
+        try {
+            stm = connection.prepareStatement(sql);
+            ResultSet resultSet = stm.executeQuery();
+
+            while (resultSet.next()) {
+                // User with the given email exists
+                sales.add((User)this.createEntity(resultSet));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return sales;
+    }
 
     public User findByEmail(String email) {
         String strSelect = "Select * from [User] where email = ?";

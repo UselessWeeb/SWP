@@ -20,6 +20,7 @@ public class Role {
         sale,
         marketing,
         customer,
+        guest,
     }
 
     public Role() {

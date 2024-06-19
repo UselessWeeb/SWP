@@ -187,7 +187,7 @@ public class BlogDAO extends EntityDAO {
     public List<Blog> findHotPosts() {
         List<Blog> blogs = new ArrayList<>();
         try {
-            String strSelect = "SELECT TOP 4 * FROM Blog ORDER BY [view] DESC";
+            String strSelect = "SELECT TOP 4 * FROM Blog ORDER BY [views] DESC";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {

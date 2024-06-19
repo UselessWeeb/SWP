@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ShopLite - Simple eCommerce Website Template</title>
+        <title>Error</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +19,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-        <h1>Oops! Something went wrong.</h1>
-        <p>We're sorry for the inconvenience. Our team has been notified and will look into the issue.</p>
-        <a class = "btn btn-primary">return</a>
+        <%@include file = "view/header.jsp" %>       
+        <h1 class="text-center">Oops! Something went wrong.</h1>
+        <p class="text-center">We're sorry for the inconvenience. Our team has been notified and will look into the issue.</p>
+        <a class = "btn btn-primary d-flex justify-content-center" href = "/app-name/">Return</a>
+        <%@include file = "view/footer.jsp" %>
     </body>
 </html>

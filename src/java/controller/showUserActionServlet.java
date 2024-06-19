@@ -42,7 +42,7 @@ public class showUserActionServlet extends HttpServlet {
         RoleAuthorization auth = new RoleAuthorization();
         URLfilter filter = new URLfilter();
         // Get the current user from the session
-        User currentUser = (User) request.getSession(false).getAttribute("user");
+        User currentUser = (User) request.getSession(false).getAttribute("userAuth");
         
         // Filter the URLs to only include those that the current user can access
         Set<String> allUrls = RoleAuthorization.currentMapping.keySet();

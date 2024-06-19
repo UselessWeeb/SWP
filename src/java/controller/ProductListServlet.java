@@ -16,12 +16,17 @@ import java.util.HashMap;
 import java.util.List;
 import model.Laptop;
 import model.Laptop_Category;
+import model.Role;
+import service.AccessRole;
 
 /**
  *
  * @author M7510
  */
 @WebServlet(urlPatterns = {"/productList"})
+@AccessRole(roles = {
+    Role.Type.customer,
+    Role.Type.guest})
 public class ProductListServlet extends HttpServlet {
 
     /**

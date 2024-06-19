@@ -13,12 +13,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Role;
+import service.AccessRole;
 
 /**
  *
  * @author ASUS
  */
 @WebServlet(urlPatterns = {"/product"})
+@AccessRole(roles = {
+    Role.Type.customer,
+    Role.Type.guest})
 public class Product extends HttpServlet {
    
     /** 

@@ -9,7 +9,7 @@
 <html>
 
     <head>
-        <title>ShopLite - Simple eCommerce Website Template</title>
+        <title>About</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,24 +28,6 @@
 
     <body>
     <%@include file = "view/header.jsp" %>
-    <section class="hero-section position-relative bg-light-gray padding-medium">
-        <div class="hero-content">
-            <div class="container">
-                <div class="row">
-                    <div class="text-center">
-                        <h1>About Us</h1>
-                        <div class="breadcrumbs">
-                            <span class="item">
-                                <a href="index.jsp">Home > </a>
-                            </span>
-                            <span class="item text-decoration-underline">About Us</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="company-services" class="padding-large">
         <div class="container">
             <div class="row">
