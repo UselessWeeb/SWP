@@ -215,7 +215,13 @@ INSERT INTO Score (score, user_id) VALUES
 (300, 3);
 GO
 
-
+INSERT INTO [User] (avatar, full_name, gender, address, email, phone_number, password, state, role_id) VALUES
+('avatar1.png', 'John Doe', 'Male', '123 Main St', 'v123@gmail.com', '1234567899', CONVERT(VARCHAR(32), HashBytes('MD5', '1234'), 2), 'active', 4)
 SELECT * FROM [Order]
 
 update [Order] set status = 3 where order_id between 6 and 8
+
+update [Order] set sales_id = 5 where order_id between 8 and 12
+
+INSERT INTO [Order_Item]
+VALUES (1, 3, 1, 900.00)
