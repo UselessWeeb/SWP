@@ -30,10 +30,26 @@
             <input type="text" minlength="2" name="address" placeholder="Your Address" class="form-control w-100 rounded-3 p-3" required>
         </div>
         <div class="form-group pb-3">
-            <input type="password" minlength="2" name="password" placeholder="Your Password" class="form-control w-100 rounded-3 p-3" required>
+            <input type="password" minlength="2" name="password" id ="password" placeholder="Your Password" class="form-control w-100 rounded-3 p-3" required>
+        </div>
+        <div class="form-group pb-3">
+            <input type="password" minlength="2" name="repassword" id = "repassword" placeholder="Re-enter your password" class="form-control w-100 rounded-3 p-3" required oninput="checkCorrect()">
+            <p id="err" style = "color: red"></p>
         </div>
         <button type="submit" name="submit" class="btn btn-dark w-100 my-3">Register</button>
     </form>
+    <script>
+        function checkCorrect(){
+            var password = document.getElementById("password").value;
+            var repassword = document.getElementById("repassword").value;
+            console.log(password + "" + repassword);
+            if (password != repassword){
+                document.getElementById("err").innerHTML = "The password does not match !";
+            }else{
+                document.getElementById("err").innerHTML = "";
+            }
+        }
+    </script>
     <c:if test="${not empty sessionScope.registerErr}">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

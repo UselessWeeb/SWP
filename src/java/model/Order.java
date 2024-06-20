@@ -13,31 +13,29 @@ import java.util.Date;
 public class Order {
     private int order_id;
     private Date order_date;
-    private String order_name;
-    private float total_price;
-    private int quality;
-    private int status;
+    private int price;
+    private Status status; // Change the type to Status
     private int user_id;
-    private int information_id;
-    private int laptop_id;
     
     private Laptop laptop;
-    private User user;
+    private Order_User user;
+
+    public enum Status {
+        Pending,
+        Shipped,
+        Delivered,
+        Cancelled,
+    }
 
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, String order_name, float total_price, int quality, int status, int user_id, int information_id, int laptop_id, Laptop laptop) {
+    public Order(int order_id, Date order_date, int price, int status, int user_id) {
         this.order_id = order_id;
         this.order_date = order_date;
-        this.order_name = order_name;
-        this.total_price = total_price;
-        this.quality = quality;
-        this.status = status;
+        this.price = price;
+        this.setStatus(status); // Use the setter to convert the int to Status
         this.user_id = user_id;
-        this.information_id = information_id;
-        this.laptop_id = laptop_id;
-        this.laptop = laptop;
     }
 
     public int getOrder_id() {
@@ -56,36 +54,23 @@ public class Order {
         this.order_date = order_date;
     }
 
-    public String getOrder_name() {
-        return order_name;
+    public int getPrice() {
+        return price;
     }
 
-    public void setOrder_name(String order_name) {
-        this.order_name = order_name;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public float getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(float total_price) {
-        this.total_price = total_price;
-    }
-
-    public int getQuality() {
-        return quality;
-    }
-
-    public void setQuality(int quality) {
-        this.quality = quality;
-    }
-
-    public int getStatus() {
+    public Status getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
-        this.status = status;
+        if (status < 0 || status >= Status.values().length) {
+            throw new IllegalArgumentException("Invalid status value: " + status);
+        }
+        this.status = Status.values()[status];
     }
 
     public int getUser_id() {
@@ -96,22 +81,6 @@ public class Order {
         this.user_id = user_id;
     }
 
-    public int getInformation_id() {
-        return information_id;
-    }
-
-    public void setInformation_id(int information_id) {
-        this.information_id = information_id;
-    }
-
-    public int getLaptop_id() {
-        return laptop_id;
-    }
-
-    public void setLaptop_id(int laptop_id) {
-        this.laptop_id = laptop_id;
-    }
-
     public Laptop getLaptop() {
         return laptop;
     }
@@ -120,19 +89,16 @@ public class Order {
         this.laptop = laptop;
     }
 
-    public User getUser() {
+    public Order_User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Order_User user) {
         this.user = user;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", order_name=" + order_name + ", total_price=" + total_price + ", status=" + status + ", user_id=" + user_id + ", information_id=" + information_id + ", laptop_id=" + laptop_id + ", laptop=" + laptop + '}';
+        return "Order{" + "order_id=" + order_id + ", order_date=" + order_date + ", price=" + price + ", status=" + status + ", user_id=" + user_id + ", laptop=" + laptop + ", user=" + user + '}';
     }
-
 }

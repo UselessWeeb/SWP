@@ -81,12 +81,9 @@ public class LaptopDAO extends EntityDAO {
         // Create a new list to hold the Laptop objects
         List<Laptop> laptops = new ArrayList<>();
         try {
-            //Limit 10 laptops to prevents overflow
-            String strSelect
-                    = "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date "
-                    + "FROM Laptop "
-                    + "WHERE is_featured = 1 "
-                    + "LIMIT 10";
+            String strSelect = 
+                "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
+                "FROM Laptop ";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -278,7 +275,22 @@ public class LaptopDAO extends EntityDAO {
         // Return the Laptop object, or null if no Laptop was found
         return laptop;
     }
-
+     
+    public List<Integer> findOrderedLaptop(){
+        List<Integer> laptopIDs = new ArrayList<>();
+        try {
+            String strSelect = "SELECT DISTINCT laptop_id FROM Order_Item";
+            stm = connection.prepareStatement(strSelect);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                laptopIDs.add(rs.getInt("laptop_id"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return laptopIDs;
+    }
+    
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         Laptop_CategoryDAO lap_cat = new Laptop_CategoryDAO();

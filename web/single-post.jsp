@@ -45,6 +45,7 @@
                                     <div class="hero-image">
                                         <img src="${blog.thumbnail}" alt="single-post" class="img-fluid">
                                     </div>
+                                    <c:set var = "user1" value ="${requestScope.user1}"/>
                                     <div class="post-meta mt-4">
                                         <span class="post-category"><fmt:formatDate value="${blog.updatedDate}" pattern="dd-MM-yyyy" /></span> 
                                         - <h1>${user2}</h1>
@@ -56,7 +57,7 @@
                                             </a>
                                         </span>
                                     </div>
-                                    <h1 class="post-title mt-4">${blog.title}</h1>
+                                    
                                     <div class="post-description review-item mt-4">
                                         ${blog.blogContent}
                                     </div>
