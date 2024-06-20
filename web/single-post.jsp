@@ -7,12 +7,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
 
     <head>
-        <title>ShopLite - Simple eCommerce Website Template</title>
+        <title>${blog.title}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +34,7 @@
 
         <%@include file = "view/header.jsp" %>
         <c:set var = "blog" value = "${requestScope.blog}" />
-        <div class="post-wrap padding-large overflow-hidden">
+        <div class="post-wrap overflow-hidden">
             <div class="container">
                 <div class="row">
                     <main class="post-grid">
@@ -46,13 +47,15 @@
                                     </div>
                                     <c:set var = "user1" value ="${requestScope.user1}"/>
                                     <div class="post-meta mt-4">
-                                        <div class ="d-flex justify-content-between">
-                                        <h1 class="post-title mt-4">${blog.title}</h1>
-                                        <p class = "pt-5"> - By ${user1.fullName} </p>
-                                        </div>
-                                        <span class="post-category">${blog.updatedDate}</span> - <span class="meta-date"><a href="blog.html"><c:forEach items = "${category}" var = "blog.category">
+                                        <span class="post-category"><fmt:formatDate value="${blog.updatedDate}" pattern="dd-MM-yyyy" /></span> 
+                                        - <h1>${user2}</h1>
+                                        <span class="meta-date">
+                                            <a href="blog.html">
+                                                <c:forEach items = "${category}" var = "blog.category">
                                                     ${category} 
-                                                </c:forEach></a></span>
+                                                </c:forEach>
+                                            </a>
+                                        </span>
                                     </div>
                                     
                                     <div class="post-description review-item mt-4">
@@ -77,11 +80,14 @@
                                 </div>
                             </article>
                             <%@include file = "view/footer.jsp"%>
-
-                            <script src="js/jquery-1.11.0.min.js"></script>
-                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-                            <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-                            <script type="text/javascript" src="js/script.js"></script>
-                            </body>
-
-                            </html>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>

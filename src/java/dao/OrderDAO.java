@@ -190,7 +190,7 @@ public class OrderDAO extends EntityDAO {
         try {
             stm = connection.prepareStatement(sql);
             stm.setDate(1, new java.sql.Date(start.getTime()));
-
+            
             Calendar cal = Calendar.getInstance();
             cal.setTime(end);
             cal.add(Calendar.DATE, +1);

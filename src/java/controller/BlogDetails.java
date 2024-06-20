@@ -42,9 +42,9 @@ public class BlogDetails extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         blogDAO.incrementViewCount(id);
         Blog blog = blogDAO.getByID(id);
-        request.setAttribute("blog", blog);
-        request.setAttribute("user1", userDAO.findById(String.valueOf(blog.getUserId())));
-            System.out.println(userDAO.findById(String.valueOf(blog.getUserId())));
+        request.setAttribute("blog", blogDAO.getByID(id));
+        System.out.println(userDAO.findById(String.valueOf(blog.getUserId())));
+        request.setAttribute("user", userDAO.findById(String.valueOf(blog.getUserId())));
         request.getRequestDispatcher("single-post.jsp").forward(request, response);
         }
     } 

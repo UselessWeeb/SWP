@@ -7,7 +7,6 @@ package controller.sidebar;
 import dao.BlogDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -64,6 +63,7 @@ public class Sidebar extends HttpServlet {
             case "/app-name/shop.jsp":
             case "/app-name/single-product.jsp":
             case "/app-name/cart.jsp":
+            case "/app-name/checkout.jsp":
                 LaptopDAO laptopDAO = new LaptopDAO();
 
                 categoryMap = laptopDAO.getCategoryCounts();

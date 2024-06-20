@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <div id="footer-bottom" class="mb-2">
+        <div id="footer-bottom" class="mb-2 pt-5">
             <footer id="footer" class="overflow-hidden">
                 <div class="container">
                     <div class="row">

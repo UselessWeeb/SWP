@@ -23,6 +23,8 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Role;
 import model.User;
 import service.RoleAuthorization;
 import service.URLfilter;
@@ -108,6 +110,14 @@ public class authUser implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         request.setCharacterEncoding("UTF-8");
 
+        HttpSession session = req.getSession(true);
+        //create a role "guest" for user who not login
+        if (session.getAttribute("userAuth") == null) {
+            User guest = new User();
+            guest.setRole(new Role(7, "guest"));
+            session.setAttribute("userAuth", guest);
+        }
+        
         String requestedResource = URLfilter.getResourceUrl(req.getRequestURI());
         requestedResource = requestedResource.substring(requestedResource.indexOf("/") + 1);
         boolean allowedAnyone = roleAuth.isAllowAnyOneToAccess(requestedResource);     
@@ -117,7 +127,8 @@ public class authUser implements Filter {
             return;
         }
 
-        User currentUser = (User) req.getSession(true).getAttribute("user");
+        User currentUser = (User) req.getSession(true).getAttribute("userAuth");
+        System.out.println(currentUser);
         if (currentUser != null) {
             boolean isAllowed = roleAuth.isAllowToAccess(currentUser, requestedResource);
             Logger.getLogger("Allow " + roleAuth.getRoleTypeById(currentUser.getRole().getRole_id())

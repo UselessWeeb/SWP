@@ -5,6 +5,7 @@
 
 package controller.cart;
 
+import dao.CartDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +14,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Cart;
+import jakarta.servlet.http.HttpSession;
+import model.CartList;
 import model.Laptop;
+import model.User;
 
 /**
  *
@@ -30,18 +33,28 @@ public class DeleteFromCart extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-        LaptopDAO laptopDAO = new LaptopDAO();
-        String id = request.getParameter("id");
-        Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
-        Cart cart = (Cart) request.getSession(false).getAttribute("cart");
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession(false);
+    LaptopDAO laptopDAO = new LaptopDAO();
+    String id = request.getParameter("id");
+    Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
+
+    if (session != null && session.getAttribute("user") != null) {
+        // User is logged in, use CartDAO
+        User user = (User) session.getAttribute("user");
+        CartDAO cartDAO = new CartDAO(user);
+        cartDAO.deleteFromCart(laptop);
+        session.setAttribute("cart", new CartList(cartDAO.getCart()));
+    } else {
+        // User is not logged in, use CartList
+        CartList cart = (CartList) session.getAttribute("cart");
         cart.deleteFromCart(laptop);
-        response.sendRedirect(request.getHeader("referer"));
-        }
-    } 
+    }
+
+    response.sendRedirect(request.getHeader("referer"));
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

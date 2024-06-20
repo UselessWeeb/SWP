@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <form action = "register" method = "POST" class="tab-pane fade" id="nav-register" role="tabpanel" aria-labelledby="nav-register-tab">
+        <div class="text-danger">
+            <c:if test="${not empty sessionScope.registerErr}">
+                <c:out value="${sessionScope.registerErr}"/>
+            </c:if>
+        </div>
         <div class="form-group py-3">
             <input type="text" minlength="2" name="username" placeholder="Email Address" class="form-control w-100 rounded-3 p-3" required>
         </div>
@@ -45,4 +50,16 @@
             }
         }
     </script>
+    <c:if test="${not empty sessionScope.registerErr}">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#exampleModal').modal('show'); // Show the modal
+                $('#nav-register-tab').tab('show'); // Switch to the register tab
+            });
+        </script>
+        <!--remove it right after-->
+        <c:remove var="registerErr" scope="session" />
+    </c:if>
 </html>

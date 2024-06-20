@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.cart;
 
-import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,18 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Role;
-import service.AccessRole;
+import model.CartList;
 
 /**
  *
- * @author ASUS
+ * @author M7510
  */
-@WebServlet(urlPatterns = {"/product"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
-public class Product extends HttpServlet {
+@WebServlet(name="Checkout", urlPatterns={"/checkout"})
+public class Checkout extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,14 +31,12 @@ public class Product extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String id = request.getParameter("laptopId");
-            System.out.println(id);
-            LaptopDAO ProductDAO = new LaptopDAO();
-            request.setAttribute("Product", ProductDAO.getByID(id));
-            System.out.println(ProductDAO.getByID(id));
-            request.getRequestDispatcher("single-product.jsp").forward(request, response);
-        }
+        //using the cart session here
+        CartList carts = (CartList) request.getSession(false).getAttribute("cart");
+        request.setAttribute("carts", carts.getCart());
+        //this is the checkout page, so we just need to forward to the checkout.jsp
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

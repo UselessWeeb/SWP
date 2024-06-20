@@ -15,13 +15,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
-import model.Cart;
 import model.Laptop;
+import model.Role;
+import service.AccessRole;
 /**
  *
  * @author M7510
  */
 @WebServlet(urlPatterns = {""})
+
 public class MainServlet extends HttpServlet {
 
     /**
@@ -38,14 +40,15 @@ public class MainServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //fetch sth sth
         BlogDAO blogList = new BlogDAO();
-        request.setAttribute("blogFeatured", blogList.findFeatured());
+        request.setAttribute("blogFeatured", blogList.findHotPosts());
         //
         LaptopDAO laptopList = new LaptopDAO();
-        request.setAttribute("laptopList", laptopList.findLatest());
+        request.setAttribute("laptopList", laptopList.findFeatured());
         
         //
         SliderDAO sliderList = new SliderDAO();
         request.setAttribute("sliderList", sliderList.findAll());
+   
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

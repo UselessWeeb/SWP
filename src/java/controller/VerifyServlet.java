@@ -8,15 +8,14 @@ import dao.TokenDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Token;
 
-/**
- *
- * @author phamn
- */
+@WebServlet(urlPatterns = {"/verify"})
 public class VerifyServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -33,28 +32,30 @@ public class VerifyServlet extends HttpServlet {
             throws ServletException, IOException {
         TokenDAO tokenDao = new TokenDAO();
         UserDAO userDao = new UserDAO();
+        HttpSession session = request.getSession(true);
 
         String token = request.getParameter("token");
 
         if (token == null || token.length() != 32) {
-            response.sendRedirect("index.jsp");
-            return;
+            session.setAttribute("err", "Invalid token, please try again.");
         } else {
             Token retrievedToken = tokenDao.getToken(token);
-
+            //check token
+            System.out.println(retrievedToken);
             if (retrievedToken != null && retrievedToken.getPurpose() == 0) {
                 if (!retrievedToken.isExpired()) {
-                    userDao.updateUserState(retrievedToken.getUserID(), "Verified");
-                    request.setAttribute("message", "Verification successful!");
+                    userDao.updateUserState(retrievedToken.getUserID(), "verified");
+                    session.setAttribute("success", "Verification successful!");
+                } else {
+                    session.setAttribute("err", "Expired token, please try again.");
                 }
-
                 tokenDao.deleteToken(token);
             } else {
-                request.setAttribute("message", "Invalid or expired token.");
+                session.setAttribute("err", "Expired token, please try again.");
             }
         }
 
-        request.getRequestDispatcher("verify.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath());
     }
 
     /**
