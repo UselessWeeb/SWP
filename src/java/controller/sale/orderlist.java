@@ -67,7 +67,13 @@ public class orderlist extends HttpServlet {
             }
             
             String[] selectedLaptopId = request.getParameterValues("productCheck");
-            String sortField = request.getParameter("sortField");
+            String sortField;
+            if ("Order.price".equals(request.getParameter("sortField"))){
+            //specifies to use '[Order]'
+                sortField = "[Order].price";
+            }else{
+                sortField = request.getParameter("sortField");
+            }
             String sortDirection = request.getParameter("sortDirection");
             String searchQuery = request.getParameter("Search");
             //format string to yyyy-MM-dd format
@@ -83,7 +89,7 @@ public class orderlist extends HttpServlet {
             String status = request.getParameter("status");
             
             //showing total orders
-            int totalOrders = dao.count();
+            int totalOrders = dao.countByCriteria(searchQuery, startDate, endDate, status, selectedLaptopId);
             //total page
             int totalPages = (int) Math.ceil((double) totalOrders / TOTAL_PER_PAGE);
 

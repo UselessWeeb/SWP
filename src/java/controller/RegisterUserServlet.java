@@ -19,7 +19,7 @@ import model.Token;
 import email.EmailService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
-import service.UserActivationService;
+import services.UserActivationService;
 import util.HashUtil;
 import util.RandomString;
 
@@ -67,9 +67,21 @@ public class RegisterUserServlet extends HttpServlet {
         } else if (userDao.checkIfPhoneNumberExist(request.getParameter("phonenumber"))) {
             session.setAttribute("registerErr", "Phone number already exist!");
             System.out.println("Phone number already exist!");
+        } else if (request.getParameter("phonenumber").length() != 10) {
+            session.setAttribute("registerErr", "Phone number should has 10 digits !");
+            System.out.println("Phone number already exist!");
         } else {
             User newUser = new User();
-            
+            newUser.setAvatar("images/avatar/default.jpg");
+            newUser.setFullName(request.getParameter("fullname"));
+            newUser.setGender(request.getParameter("gender"));
+            newUser.setAddress(request.getParameter("address"));
+            newUser.setEmail(email);
+            newUser.setPhoneNumber(request.getParameter("phonenumber"));
+            newUser.setPassword(hash.md5hash(request.getParameter("password")));
+            newUser.setState("unverified");
+            newUser.setRoleId(6);
+
             userDao.registerUser(newUser);
 
             activate.activateUser(newUser, request);

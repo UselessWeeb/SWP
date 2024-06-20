@@ -72,7 +72,7 @@ public class salesDashboard extends HttpServlet {
                 // Get the current date and the date 7 days ago
                 Calendar cal = Calendar.getInstance();
                 endDate = cal.getTime();
-                cal.add(Calendar.DATE, -7);
+                cal.add(Calendar.DATE, -6);
                 startDate = cal.getTime();
             }
 

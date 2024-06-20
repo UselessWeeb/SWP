@@ -107,6 +107,7 @@
                            value="${Search}">
                     <input type="submit" class="btn btn-primary pt-1" value="Filter" />
                 </div>
+
                 <table class="table table-bordered">
                     <thead class="table-dark">
                         <tr>
@@ -141,8 +142,8 @@
                                 </div>
                             </th>
                             <th>Total Cost<a
-                                    href="orderlist?page=${currentPage}&sortField=price&sortDirection=${sortField == 'price' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
-                                                       == 'price' && sortDirection == 'desc' ? '&#x25B2;' : '&#x25BC;'}</a></th>
+                                    href="orderlist?page=${currentPage}&sortField=Order.price&sortDirection=${sortField == '[Order].price' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
+                                                       == '[Order].price' && sortDirection == 'desc' ? '&#x25B2;' : '&#x25BC;'}</a></th>
                             <th>Status<a
                                     href="orderlist?page=${currentPage}&sortField=status&sortDirection=${sortField == 'status' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
                                                        == 'status' && sortDirection == 'desc' ? '&#x25B2;' : '&#x25BC;'}</a>
@@ -163,50 +164,57 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <c:forEach var="order" items="${orderlist}">
-                            <tr>
-                                <td>${order.order_id}<br><a href="orderdetails?id=${order.order_id}"
-                                                            class="text-info"><u>View</u></a></td>
-                                <td>${order.user.fullname}</td>
-                                <td>
-                                    <fmt:formatDate value="${order.order_date}" pattern="dd/MM/yyyy" />
-                                </td>
-                                <td>
-                                    <c:set var="displayed" value="false" />
-                                    <c:forEach var="item" items="${items}" varStatus="status">
-                                        <c:if test="${item[0].orderId.order_id == order.order_id and not displayed}">
-                                            ${item[0].laptopId.title} 
-                                            <c:if test="${fn:length(item) > 1}">
-                                                (${fn:length(item) - 1} more items)
-                                            </c:if>
-                                            <c:set var="displayed" value="true" />
-                                        </c:if>
-                                    </c:forEach>
-                                </td>
-                                <td>${order.price}</td>
-                                <td>${order.status}</td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+                    <c:choose>
+                        <c:when test = "${not empty orderlist}">
+                            <tbody>
+                                <c:forEach var="order" items="${orderlist}">
+                                    <tr>
+                                        <td>${order.order_id}<br><a href="orderdetails?id=${order.order_id}"
+                                                                    class="text-info"><u>View</u></a></td>
+                                        <td>${order.user.fullname}</td>
+                                        <td>
+                                            <fmt:formatDate value="${order.order_date}" pattern="dd/MM/yyyy" />
+                                        </td>
+                                        <td>
+                                            <c:set var="displayed" value="false" />
+                                            <c:forEach var="item" items="${items}" varStatus="status">
+                                                <c:if test="${item[0].orderId.order_id == order.order_id and not displayed}">
+                                                    ${item[0].laptopId.title} 
+                                                    <c:if test="${fn:length(item) > 1}">
+                                                        (${fn:length(item) - 1} more items)
+                                                    </c:if>
+                                                    <c:set var="displayed" value="true" />
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>${order.price}</td>
+                                        <td>${order.status}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </c:when>
+                        <c:otherwise>
+                            <p class ="text-center">No Order match your filter.</p>
+                        </c:otherwise>
+                    </c:choose>
                 </table>
             </form>
             <nav>
                 <ul class="pagination justify-content-center gap-4">
                     <c:if test="${currentPage > 1}">
                         <li class="page-item">
-                            <a class="page-link" href="orderlist?page=${currentPage - 1}">Previous</a>
+                            <a class="page-link" href="orderlist?page=${currentPage - 1}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">Previous</a>
                         </li>
                     </c:if>
                     <c:forEach begin="1" end="${totalPages}" var="i">
                         <li class="page-item ${i == currentPage ? 'active' : ''}">
                             <a class="py-1 px-3 ${i == currentPage ? 'bg-primary text-white' : ''}"
-                               href="orderlist?page=${i}">${i}</a>
+                               href="orderlist?page=${i}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${i}</a>
                         </li>
                     </c:forEach>
                     <c:if test="${currentPage < totalPages}">
                         <li class="page-item">
-                            <a class="page-link" href="orderlist?page=${currentPage + 1}">Next</a>
+                            <a class="page-link" href="orderlist?page=${currentPage + 1}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">Next</a>
                         </li>
                     </c:if>
                 </ul>

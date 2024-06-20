@@ -19,7 +19,7 @@ import model.Token;
 import email.EmailService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
-import service.UserActivationService;
+import services.UserActivationService;
 import util.HashUtil;
 import util.RandomString;
 

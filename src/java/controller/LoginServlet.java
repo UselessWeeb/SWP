@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import model.Token;
 import model.User;
-import service.UserActivationService;
+import services.UserActivationService;
 import util.HashUtil;
 import util.RandomString;
 

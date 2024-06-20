@@ -185,3 +185,5 @@ CREATE TABLE Score
   PRIMARY KEY (score_id),
   FOREIGN KEY (user_id) REFERENCES [User](user_id)
 );
+
+ALTER TABLE [Order] add sales_id INT
