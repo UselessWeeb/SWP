@@ -68,4 +68,8 @@ public class Token {
         this.purpose = purpose;
     }
 
+    @Override
+    public String toString() {
+        return "Token{" + "tokenString=" + tokenString + ", userID=" + userID + ", expireDate=" + expireDate + ", purpose=" + purpose + '}';
+    }
 }

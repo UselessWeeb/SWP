@@ -42,13 +42,14 @@ public class showUserActionServlet extends HttpServlet {
         RoleAuthorization auth = new RoleAuthorization();
         URLfilter filter = new URLfilter();
         // Get the current user from the session
-        User currentUser = (User) request.getSession(false).getAttribute("user");
+        User currentUser = (User) request.getSession(false).getAttribute("userAuth");
         
         // Filter the URLs to only include those that the current user can access
         Set<String> allUrls = RoleAuthorization.currentMapping.keySet();
         List<String> hiddenUrls = filter.hiddenUrls();
         List<String> accessibleUrls = allUrls.stream()
-            .filter(url -> auth.isAllowToAccess(currentUser, url) && !hiddenUrls.contains(url)) // Filter out URLs that the user can't access
+            .filter(url -> auth.isAllowToAccess(currentUser, url) && !hiddenUrls.contains(url.toLowerCase()//makes sure it will be filered
+            )) // Filter out URLs that the user can't access
             .collect(Collectors.toList());
 
         // Store the list of accessible URLs in the request

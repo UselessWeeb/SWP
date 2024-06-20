@@ -8,19 +8,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import service.CartStrategy;
 
 /**
  *
  * @author M7510
  */
-public class Cart {
+//temporarity cart for unlogged in user
+public class CartList implements CartStrategy{
 
     //a hash map to store product
-    HashMap<Laptop, Integer> cart = new HashMap<>();
+    HashMap<Laptop, Integer> cart;
 
-    public Cart() {
+    public CartList() {
+        this.cart = new HashMap<>();
     }
 
+    public CartList(HashMap<Laptop, Integer> cart) {
+        this.cart = cart;
+    }
+
+    @Override
     public HashMap<Laptop, Integer> getCart() {
         return cart;
     }
@@ -29,14 +37,17 @@ public class Cart {
         this.cart = cart;
     }
 
+    @Override
     public void addToCart(Laptop laptop, int quantity) {
         cart.put(laptop, cart.getOrDefault(laptop, 0) + quantity);
     }
     
+    @Override
     public void overrideCart(Laptop laptop, int quantity) {
         cart.put(laptop, quantity);
     }
 
+    @Override
     public void deleteFromCart(Laptop laptop) {
         cart.remove(laptop);
     }

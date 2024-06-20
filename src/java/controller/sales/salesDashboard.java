@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.sales;
 
-import dao.LaptopDAO;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,18 +13,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Role;
-import service.AccessRole;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.User;
 
 /**
  *
- * @author ASUS
+ * @author M7510
  */
-@WebServlet(urlPatterns = {"/product"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
-public class Product extends HttpServlet {
+@WebServlet(name="salesDashboard", urlPatterns={"/salesDashboard"})
+public class salesDashboard extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,12 +37,15 @@ public class Product extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String id = request.getParameter("laptopId");
-            System.out.println(id);
-            LaptopDAO ProductDAO = new LaptopDAO();
-            request.setAttribute("Product", ProductDAO.getByID(id));
-            System.out.println(ProductDAO.getByID(id));
-            request.getRequestDispatcher("single-product.jsp").forward(request, response);
+            OrderDAO dao = new OrderDAO();
+            //if start and end aren't mentioned, set start as 7 day before now and end is now
+            Date start = new Date(new Date().getTime() - 7*24*60*60*1000);
+            Date end = new Date();
+            User u = new User();
+            request.setAttribute("success", dao.showSuccessOrder(start, end, u));
+            request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(salesDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
 

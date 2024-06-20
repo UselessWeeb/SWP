@@ -57,6 +57,7 @@ public class loginGoogle extends HttpServlet {
             user.setRoleId(acc.getRoleId());
             user.setPassword("");
             user.setRole(roledao.getById(acc.getRoleId()));
+            user.setState("verified");
             dao.registerUser(user);
             int user_id = dao.getUserIdByEmail(acc.getEmail());
             user.setUserId(user_id);

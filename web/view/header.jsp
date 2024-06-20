@@ -8,6 +8,9 @@
 <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
+<head>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <html>
     <body>
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -80,8 +83,6 @@
     <symbol xmlns="http://www.w3.org/2000/svg" id="navbar-icon" viewBox="0 0 16 16">
         <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
     </symbol>
-    </svg>
-
     <%
         String uri = request.getRequestURI();
         request.setAttribute("uri", uri);
@@ -123,7 +124,7 @@
         </div>
     </div>
 
-    <header id="header" class="site-header">
+    <header id="header" class="site-header pb-5">
         <nav id="header-nav" class="navbar navbar-expand-lg py-3">
             <div class="container">
                 <a class="navbar-brand" href="index.jsp">
@@ -239,8 +240,10 @@
                                 <c:if test="${not empty user}">
                                     <li class="wishlist-dropdown dropdown pe-3">
                                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                            <svg class="wishlist">
-                                            <use xlink:href="#heart"></use>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                                <path d="M16 10a4 4 0 0 1-8 0"></path>
                                             </svg>
                                         </a>
                                         <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
@@ -286,7 +289,7 @@
                                     <c:set var="totalQuantity" value="${totalQuantity + entry.value}"/>
                                 </c:forEach>
                                 <li class="cart-dropdown dropdown">
-                                    <a href="cart.jsp" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                                    <a href="cart" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                         <svg class="cart">
                                         <use xlink:href="#cart"></use>
                                         </svg><span class="fs-6 fw-light">(${totalQuantity})</span>
@@ -343,6 +346,30 @@
                     </div>
                 </div>
             </div>
+        </c:if>
+        <c:if test = "${not empty sessionScope.err}">
+            <div class="top-info border-bottom d-none d-md-block bg-danger">
+                <div class="container-fluid">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <p class="fs-6 my-2 text-center text-white">${sessionScope.err}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:remove var="err" scope="session"/>
+        </c:if>
+        <c:if test = "${not empty sessionScope.success}">
+            <div class="top-info border-bottom d-none d-md-block bg-success">
+                <div class="container-fluid">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <p class="fs-6 my-2 text-center text-white">${sessionScope.success}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:remove var="success" scope="session"/>
         </c:if>
     </header>
 </body>

@@ -20,14 +20,14 @@ CREATE TABLE Role
 CREATE TABLE [User]
 (
   user_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-  avatar VARCHAR(100) NOT NULL,
-  full_name VARCHAR(100) NOT NULL,
-  gender VARCHAR(100) NOT NULL,
-  address VARCHAR(MAX) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
-  phone_number VARCHAR(20) NOT NULL UNIQUE,
-  password VARCHAR(100) NOT NULL,
-  state VARCHAR(100) NOT NULL,
+  avatar NVARCHAR(100) NOT NULL,
+  full_name NVARCHAR(100) NOT NULL,
+  gender NVARCHAR(100) NOT NULL,
+  address NVARCHAR(MAX) NOT NULL,
+  email NVARCHAR(100) NOT NULL UNIQUE,
+  phone_number NVARCHAR(20) NOT NULL UNIQUE,
+  password NVARCHAR(100) NOT NULL,
+  state NVARCHAR(100) NOT NULL,
   role_id INT NOT NULL,
   FOREIGN KEY (role_id) REFERENCES [Role]
 );
@@ -42,6 +42,8 @@ CREATE TABLE Laptop
   stock INT NOT NULL,
   products_detail VARCHAR(MAX) NOT NULL,
   sale_price FLOAT NOT NULL,
+  brief_information NVARCHAR(50) NOT NULL,
+  is_featured INT NOT NULL,
   status INT NOT NULL,
   updated_date DATETIME NOT NULL,
 );
@@ -61,16 +63,27 @@ CREATE TABLE Laptop_Image(
 	FOREIGN KEY (laptop_id) REFERENCES [Laptop]
 )
 
+
+CREATE TABLE Order_User(
+	order_uid INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	fullname NVARCHAR(MAX),
+	address NVARCHAR(MAX),
+	phone_number NVARCHAR(50),
+	email NVARCHAR(MAX),
+	add_info NVARCHAR(MAX),
+)
+
 CREATE TABLE [Order]
 (
   order_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
   order_date DATETIME NOT NULL,  
   status INT NOT NULL,
- price FLOAT NOT NULL,
- user_id INT NOT NULL,  
-  FOREIGN KEY (user_id) REFERENCES [User],  
+  price FLOAT NOT NULL,
+  order_uid INT NOT NULL,  
+  FOREIGN KEY (order_uid) REFERENCES [Order_User],  
 );
 GO
+
 CREATE TABLE Order_Item
 (
   order_item_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -89,19 +102,6 @@ CREATE TABLE Order_Information
   order_id INT NOT NULL,
   payment_method NVARCHAR(100) NOT NULL,
   state INT NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES [Order]
-);
-GO
-
-CREATE TABLE Cart
-(
-  cart_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-  title VARCHAR(100) NOT NULL,
-  price FLOAT NOT NULL,
-  quantity INT NOT NULL,
-  user_id INT NOT NULL,
-  order_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES [User],
   FOREIGN KEY (order_id) REFERENCES [Order]
 );
 GO
@@ -136,7 +136,7 @@ CREATE TABLE Blog
   title VARCHAR(200) NOT NULL,
   updated_date DATETIME NOT NULL,
   blog_content VARCHAR(MAX) NOT NULL,
-  is_featured INT NOT NULL,
+  views INT NOT NULL,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES [User]
 );
@@ -147,26 +147,7 @@ CREATE TABLE Blog_Category(
 	blog_id INT NOT NULL,
 	Category NVARCHAR(100),
 	FOREIGN KEY (blog_id) REFERENCES [Blog]
-)
-
-CREATE TABLE Post(
-	post_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	post_header VARCHAR(200) NOT NULL,
-	post_content VARCHAR(MAX) NOT NULL,
-	thumbnail VARCHAR(200) NOT NULL,
-	is_featured INT NOT NULL,
-	info VARCHAR(200) NOT NULL,
-	status INT NOT NULL,
-	user_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES [User]
-)
-
-CREATE TABLE Post_Category(
-	CPost INT NOT NULL IDENTITY(1,1),
-	post_id INT NOT NULL,
-	Category NVARCHAR(100),
-	FOREIGN KEY (post_id) REFERENCES [Post]
-)
+);
 
 CREATE TABLE Slider
 (
@@ -181,6 +162,21 @@ CREATE TABLE Slider
   FOREIGN KEY (user_id) REFERENCES [User](user_id)
 );
 
+CREATE TABLE Carts (
+    cart_id INT IDENTITY(1,1) PRIMARY KEY,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES [User](user_id)
+);
+
+CREATE TABLE cart_items (
+    item_id INT IDENTITY(1,1)  PRIMARY KEY,
+    cart_id INT NOT NULL,
+    laptop_id INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
+    FOREIGN KEY (laptop_id) REFERENCES [Laptop](laptop_id)
+);
+
 CREATE TABLE Score
 (
   score_id INT NOT NULL IDENTITY(1,1),
@@ -189,5 +185,3 @@ CREATE TABLE Score
   PRIMARY KEY (score_id),
   FOREIGN KEY (user_id) REFERENCES [User](user_id)
 );
-
-

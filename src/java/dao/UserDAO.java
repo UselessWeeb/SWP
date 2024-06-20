@@ -16,7 +16,7 @@ import model.User;
  * @author M7510
  */
 public class UserDAO extends EntityDAO {
-    
+
     RoleDAO r = new RoleDAO();
 
     public User Login(String email, String password) {
@@ -93,8 +93,8 @@ public class UserDAO extends EntityDAO {
         }
         return n;
     }
-    
-        public int checkUserPassword(int id, String password) {
+
+    public int checkUserPassword(int id, String password) {
         int n = 0;
         String sql = "SELECT * FROM [User] WHERE user_id = ? and password = ?";
         try {
@@ -112,17 +112,34 @@ public class UserDAO extends EntityDAO {
         }
         return n;
     }
-        
+    
+    public List<User> getSales() {
+        List<User> sales = new ArrayList<>();
+        String sql = "SELECT * FROM [User] WHERE role_id IN (2,4)";
+        try {
+            stm = connection.prepareStatement(sql);
+            ResultSet resultSet = stm.executeQuery();
+
+            while (resultSet.next()) {
+                // User with the given email exists
+                sales.add((User)this.createEntity(resultSet));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return sales;
+    }
+
     public User findByEmail(String email) {
         String strSelect = "Select * from [User] where email = ?";
         User u = null;
-        
+
         try {
             stm = connection.prepareStatement(strSelect);
             stm.setString(1, email);
-            
+
             rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 u = (User) this.createEntity(rs);
             }
@@ -139,9 +156,9 @@ public class UserDAO extends EntityDAO {
         try {
             stm = connection.prepareStatement(sql);
             stm.setString(1, email);
-            
+
             rs = stm.executeQuery();
-            
+
             if (rs.next()) {
                 userID = rs.getInt("user_id");
             }
@@ -150,25 +167,25 @@ public class UserDAO extends EntityDAO {
         }
         return userID;
     }
-    
+
     public List<User> getAllUser() {
         String sql = "Select * from [User]";
         List<User> userList = new ArrayList<>();
-        
+
         try {
             stm = connection.prepareStatement(sql);
-            
+
             rs = stm.executeQuery();
-            
+
             while (rs.next()) {
                 userList.add((User) this.createEntity(rs));
             }
-            
+
             return userList;
         } catch (SQLException e) {
             System.out.println(e);
         }
-        
+
         return null;
     }
 
@@ -187,7 +204,23 @@ public class UserDAO extends EntityDAO {
 
         return false;
     }
-    
+
+    public boolean checkIfPhoneNumberExist(String phoneNumber) {
+        String sql = "Select 1 from [User] where phone_number = ?";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, phoneNumber);
+
+            rs = stm.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
+
     public User findUserByEmail(String userEmail) {
         String sql = "Select * from [User] where email = ?";
         User u = null;
@@ -196,8 +229,8 @@ public class UserDAO extends EntityDAO {
             stm.setString(1, userEmail);
 
             rs = stm.executeQuery();
-            if(rs.next()){
-                u = (User)this.createEntity(rs);
+            if (rs.next()) {
+                u = (User) this.createEntity(rs);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -223,7 +256,7 @@ public class UserDAO extends EntityDAO {
 
             stm.executeUpdate();
         } catch (SQLException e) {
-           System.out.println(e);
+            System.out.println(e);
         }
     }
 
@@ -246,18 +279,17 @@ public class UserDAO extends EntityDAO {
 
         try {
             stm = connection.prepareStatement(sql);
-            stm.setInt(1, userID);
-            stm.setString(2, state);
-
+            stm.setString(1, state);
+            stm.setInt(2, userID);
             stm.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
-    }        
+    }
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
-        
+
         return new User(
                 rs.getInt("user_id"),
                 rs.getString("avatar"),

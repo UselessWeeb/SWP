@@ -68,6 +68,9 @@ public class SessionThirst implements Filter {
                     session = httpRequest.getSession(true);
                     session.setAttribute("user", user);
                 }
+                
+                //if cookie found, claim that user already registered, and recreate userAuth
+                session.setAttribute("userAuth", user);
             }
         }
 

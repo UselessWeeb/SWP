@@ -9,7 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,7 +66,112 @@ public class OrderDAO extends EntityDAO {
         }
         return vector;
     }
-      
+    
+    public Map<Date, Integer> getSuccessOrders(Date start, Date end, String sales_id) throws SQLException {
+        Map<Date, Integer> successOrders = new LinkedHashMap<>();
+
+        String sql = "SELECT order_date, COUNT(*) AS successOrders "
+                + "FROM [Order] o INNER JOIN Order_Information i on o.order_id = i.order_id "
+                + "WHERE status = 1 AND order_date BETWEEN ? AND ? ";      
+        sql += (sales_id.isBlank()) ? "" : "AND sales_id = ?";
+        sql += "GROUP BY order_date";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setDate(1, new java.sql.Date(start.getTime()));
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(end);
+            cal.add(Calendar.DATE, +1);
+            java.sql.Date oneDayBeforeEnd = new java.sql.Date(cal.getTimeInMillis());
+
+            stm.setDate(2, oneDayBeforeEnd);
+            if (!sales_id.isBlank()){
+                stm.setString(3, sales_id);
+            }
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Date date = rs.getDate("order_date");
+                int count = rs.getInt("successOrders");
+
+                successOrders.put(date, count);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return successOrders;
+    }
+
+    public Map<Date, Integer> getTotalOrders(Date start, Date end, String sales_id) throws SQLException {
+        Map<Date, Integer> totalOrders = new LinkedHashMap<>();
+
+        String sql = "SELECT order_date, COUNT(*) AS totalOrders "
+                + "FROM [Order] o INNER JOIN Order_Information i on o.order_id = i.order_id "
+                + "WHERE order_date BETWEEN ? AND ? ";
+        sql += (sales_id.isBlank()) ? "" : "AND sales_id = ?";
+        sql += "GROUP BY order_date";
+
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setDate(1, new java.sql.Date(start.getTime()));
+            
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(end);
+            cal.add(Calendar.DATE, +1);
+            java.sql.Date oneDayBeforeEnd = new java.sql.Date(cal.getTimeInMillis());
+            
+            stm.setDate(2, oneDayBeforeEnd);
+            if (!sales_id.isBlank()){
+                stm.setString(3, sales_id);
+            }
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Date date = rs.getDate("order_date");
+                int count = rs.getInt("totalOrders");
+
+                totalOrders.put(date, count);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return totalOrders;
+    }
+
+    public Map<Date, Float> getPrice(Date start, Date end, String sales_id) {
+        Map<Date, Float> prices = new HashMap<>();
+
+        String sql = "SELECT order_date, price FROM [Order] WHERE order_date BETWEEN ? AND ?";
+        sql += (sales_id.isBlank()) ? "" : "AND sales_id = ?";
+        try {
+            // Prepare the statement
+            stm = connection.prepareStatement(sql);
+
+            // Set the parameters as java.sql.Date
+            stm.setDate(1, new java.sql.Date(start.getTime()));
+            stm.setDate(2, new java.sql.Date(end.getTime()));
+            if (!sales_id.isBlank()){
+                stm.setString(3, sales_id);
+            }
+            // Execute the query
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                // Convert java.sql.Date back to java.util.Date
+                Date orderDate = rs.getDate("order_date");
+                Float price = rs.getFloat("price");
+
+                // Put the date and price into the map
+                prices.put(orderDate, price);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return prices;
+    }
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         return new Slider(
@@ -73,9 +184,7 @@ public class OrderDAO extends EntityDAO {
                 rs.getInt("user_id")
         );
     }
-    
-    
-    
+
     public static void main(String[] args) {
         // Assuming you have a UserDAO instance and a connection
         OrderDAO userDAO = new OrderDAO();
@@ -92,7 +201,7 @@ public class OrderDAO extends EntityDAO {
             System.out.println("Order Name: " + order.getOrder_name());
             System.out.println("Total Price: " + order.getTotal_price());
             System.out.println("Status: " + order.getStatus());
-          
+
             System.out.println();
         }
     }

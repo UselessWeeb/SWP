@@ -16,13 +16,17 @@ import java.util.HashMap;
 import java.util.List;
 import model.Blog;
 import model.Blog_Category;
+import model.Role;
+import service.AccessRole;
 
 /**
  *
  * @author ASUS
  */
 @WebServlet(urlPatterns = {"/blog"})
-
+@AccessRole(roles = {
+    Role.Type.customer,
+    Role.Type.guest})
 public class BlogList extends HttpServlet {
 
     /**

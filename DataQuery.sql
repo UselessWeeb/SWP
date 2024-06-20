@@ -15,9 +15,9 @@ INSERT INTO [User] (full_name, avatar, gender, address, email, phone_number, pas
 VALUES ('Loel', 'images/avatar/default.jpg' ,'Male', '123 Main St', 'longndhe181257@fpt.edu.vn', '123-456-7891', '123456', 'unvertified', 2);
 GO
 
-INSERT INTO Laptop (title, main_image, original_price, stock, products_detail, sale_price, status, updated_date) VALUES 
-('Laptop A', 'image/laptop/a.jpg', 1000.00, 10, 'Details of Laptop A', 900.00, 1, GETDATE()),
-('Laptop B', 'image/laptop/b.jpg', 1500.00, 5, 'Details of Laptop B', 1350.00, 1, GETDATE());
+INSERT INTO Laptop (title, main_image, original_price, stock, products_detail, sale_price, status, updated_date, brief_information, is_featured) VALUES 
+('Laptop A', 'images/product/1.jpg', 1000.00, 10, 'Details of Laptop A', 900.00, 1, GETDATE(), 'Newest Laptop from company A', 1),
+('Laptop B', 'images/product/2.jpg', 1500.00, 5, 'Details of Laptop B', 1350.00, 1, GETDATE(), 'Newest Laptop from company B', 0);
 GO
 
 -- Inserting laptop categories
@@ -34,29 +34,35 @@ INSERT INTO Laptop_Image (laptop_id, Image) VALUES
 GO
 
 -- Inserting orders
-INSERT INTO [Order] (order_date, status, user_id) VALUES 
-(GETDATE(), 1, 1),
-(GETDATE(), 2, 2);
+SELECT * FROM [Order]
+INSERT INTO [Order] (order_date, status, order_uid, price) VALUES 
+(GETDATE(), 1, 1 , 1000),
+(GETDATE(), 2, 2, 2000);
 GO
 
 -- Inserting order items
 INSERT INTO Order_Item (order_id, laptop_id, quantity, price) VALUES 
-(1, 1, 1, 900.00),
-(2, 2, 1, 1350.00);
+(2, 1, 1, 900.00),
+(3, 2, 1, 1350.00);
 GO
 
 -- Inserting order information
-INSERT INTO Order_Information (order_id, payment_method, user_id) VALUES 
-(1, 'Credit Card', 1),
-(2, 'PayPal', 2);
+INSERT INTO Order_Information (order_id, payment_method, state) VALUES 
+(2, 'Credit Card', 1),
+(3, 'PayPal', 2);
 GO
 
 -- Inserting carts
-INSERT INTO Cart (user_id,laptop_id, quantity) VALUES 
-(1, 1, 3),
-(1, 2, 4);
+INSERT INTO Carts(user_id) VALUES 
+(1),
+(2);
 GO
 
+INSERT INTO cart_items (cart_id, laptop_id, quantity) VALUES 
+(1, 3, 1),
+(1, 4, 1);
+
+select * from Token
 -- Inserting tokens
 INSERT INTO Token (userid, tokenString, expireDate, purpose) VALUES 
 (1, 'token123', GETDATE() + 1, 0);
@@ -69,7 +75,7 @@ INSERT INTO Feedback (user_id, order_id, rated_star, feedback, images, status) V
 GO
 
 -- Inserting blogs
-INSERT INTO Blog (thumbnail, title, updated_date, blog_content, is_featured, user_id) VALUES 
+INSERT INTO Blog (thumbnail, title, updated_date, blog_content, views, user_id) VALUES 
 ('image/blog/thumbnail.jpg', 'New Laptops of 2024', GETDATE(), 'Content of the blog post...', 1, 1);
 GO
 
@@ -87,3 +93,10 @@ GO
 INSERT INTO Score (score, user_id) VALUES 
 (100, 1);
 GO
+
+SELECT * FROM Order_User
+
+INSERT INTO Order_User (fullname, address, phone_number, email, add_info)
+VALUES 
+('Loel', 'Somewhere', '0123456789', 'longndhe181257@fpt.edu', 'Pls go'),
+('Loel2', 'Somewhere', '01234567893', 'longndhe181257@fpt.edu', 'Pls go an')
