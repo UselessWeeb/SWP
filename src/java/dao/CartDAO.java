@@ -8,9 +8,8 @@ import java.util.HashMap;
 import model.CartItemModel;
 import model.Laptop;
 import model.User;
-import service.CartStrategy;
 
-public class CartDAO extends EntityDAO implements CartStrategy {
+public class CartDAO extends EntityDAO {
 
     //because user should be here
     User u;
@@ -53,7 +52,6 @@ public class CartDAO extends EntityDAO implements CartStrategy {
         return new CartItemModel(itemId, cartId, laptopId, quantity);
     }
 
-    @Override
     public void addToCart(Laptop laptop, int quantity) {
         try {
             // Check if the product already exists in the cart
@@ -87,7 +85,6 @@ public class CartDAO extends EntityDAO implements CartStrategy {
         }
     }
 
-    @Override
     public void overrideCart(Laptop laptop, int quantity) {
         try {
             String query = "UPDATE cart_items SET quantity = ? WHERE cart_id = ? AND laptop_id = ?";
@@ -101,7 +98,6 @@ public class CartDAO extends EntityDAO implements CartStrategy {
         }
     }
 
-    @Override
     public void deleteFromCart(Laptop laptop) {
         try {
             String query = "DELETE FROM cart_items WHERE cart_id = ? AND laptop_id = ?";
@@ -114,7 +110,6 @@ public class CartDAO extends EntityDAO implements CartStrategy {
         }
     }
 
-    @Override
     public HashMap<Laptop, Integer> getCart() {
         HashMap<Laptop, Integer> cart = new HashMap<>();
         try {

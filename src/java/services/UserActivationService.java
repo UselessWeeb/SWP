@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package service;
+package services;
 
 import dao.TokenDAO;
 import dao.UserDAO;
@@ -43,6 +43,8 @@ public class UserActivationService {
                     LocalDateTime.now(),
                     0
             ));
+            
+            System.out.println(user.getEmail());
 
             String link = generateVerificationLink(request, token);
 

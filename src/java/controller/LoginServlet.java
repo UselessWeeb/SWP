@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import model.Token;
 import model.User;
-import service.UserActivationService;
+import services.UserActivationService;
 import util.HashUtil;
 import util.RandomString;
 
@@ -59,7 +59,8 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         HashUtil hash = new HashUtil();
         String password = request.getParameter("password");
-        password = hash.md5hash(request.getParameter("password"));
+        //encoding password before finding it
+        password = hash.md5hash(password);
         String referer = request.getHeader("referer");
         UserDAO userDAO = new UserDAO();
 

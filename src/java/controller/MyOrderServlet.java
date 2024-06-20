@@ -40,10 +40,10 @@ public class MyOrderServlet extends HttpServlet {
             //Creat user u
             User u = (User)session.getAttribute("user");
             OrderDAO dao = new OrderDAO();
-            System.out.println(dao.getOrderUser(u.getUserId()));
+            
             SliderDAO slDAO = new SliderDAO();
             
-            request.setAttribute("orderList", dao.getOrderUser(u.getUserId()));
+//            request.setAttribute("orderList", dao.getOrderUser(u.getUserId()));
             request.setAttribute("sliderList", slDAO.findAll());
             
             request.getRequestDispatcher("displayOrder.jsp").forward(request, response);
