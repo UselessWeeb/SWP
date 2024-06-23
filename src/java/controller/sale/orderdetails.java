@@ -6,6 +6,9 @@
 package controller.sale;
 
 import dao.OrderDAO;
+import dao.OrderItemDAO;
+import dao.OrderUserDAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -34,8 +37,14 @@ public class orderdetails extends HttpServlet {
         String id =  request.getParameter("id");
         OrderDAO dao = new OrderDAO();
         Order order = dao.getByOrderId(Integer.parseInt(id));
+        OrderItemDAO itemDAO= new OrderItemDAO();
+        OrderUserDAO uorderDAO = new OrderUserDAO();
+        UserDAO userDAO = new UserDAO();
         request.setAttribute("order", order);
-        request.getRequestDispatcher("orderdetail").forward(request, response);
+        request.setAttribute("orderItems", itemDAO.getByOrderId(order.getOrder_id()));
+        request.setAttribute("orderUser", uorderDAO.getById(order.getUser_id()));
+        request.setAttribute("sales", userDAO.findById(String.valueOf(order.getSales_id())));
+        request.getRequestDispatcher("orderdetails.jsp").forward(request, response);
         
     } 
 

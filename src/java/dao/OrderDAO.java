@@ -310,7 +310,8 @@ public class OrderDAO extends EntityDAO {
                 rs.getTimestamp("order_date"),
                 rs.getInt("price"),
                 rs.getInt("status"),
-                rs.getInt("order_uid")
+                rs.getInt("order_uid"),
+                rs.getInt("sales_id")
         );
     }
 }
