@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Blog;
+import model.Role;
+import service.AccessRole;
 
 
 /**
@@ -22,6 +24,9 @@ import model.Blog;
  * @author ASUS
  */
 @WebServlet(urlPatterns = {"/blogdetails"})
+@AccessRole(roles = {
+    Role.Type.customer,
+    Role.Type.guest})
 public class BlogDetails extends HttpServlet {
    
     /** 

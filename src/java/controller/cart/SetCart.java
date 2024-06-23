@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.cart;
 
 import dao.CartDAO;
@@ -18,69 +17,104 @@ import jakarta.servlet.http.HttpSession;
 import model.CartList;
 import model.Laptop;
 import model.User;
+import service.Validation;
 
 /**
  *
  * @author M7510
  */
-@WebServlet(name="SetCart", urlPatterns={"/setcart"})
+@WebServlet(name = "SetCart", urlPatterns = {"/setcart"})
 public class SetCart extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    HttpSession session = request.getSession(false);
-    LaptopDAO laptopDAO = new LaptopDAO();
-    String id = request.getParameter("id");
-    Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
-    int quantity = Integer.parseInt(request.getParameter("quantity"));
-    String action = (request.getParameter("action") == null) ?  "" : request.getParameter("action");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession(false);
+        LaptopDAO laptopDAO = new LaptopDAO();
+        String id = request.getParameter("id");
+        Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String action = (request.getParameter("action") == null) ? "" : request.getParameter("action");
 
-    if (session != null && session.getAttribute("user") != null) {
-        // User is logged in, use CartDAO
-        User user = (User) session.getAttribute("user");
-        CartDAO cartDAO = new CartDAO(user);
-        switch (action) {
-            case "+":
-                cartDAO.overrideCart(laptop, ++quantity);
-                break;
-            case "-":
-                cartDAO.overrideCart(laptop, --quantity);
-                break;
-            default:
-                cartDAO.overrideCart(laptop, quantity);
-                break;
+        Validation validation = new Validation();
+        if (validation.intValidator(quantity, 1, laptop.getStock() - 1)) {
+            if (session != null && session.getAttribute("user") != null) {
+                // User is logged in, use CartDAO
+                User user = (User) session.getAttribute("user");
+                CartDAO cartDAO = new CartDAO(user);
+                switch (action) {
+                    case "+":
+                        cartDAO.overrideCart(laptop, ++quantity);
+                        break;
+                    case "-":
+                        cartDAO.overrideCart(laptop, --quantity);
+                        break;
+                    default:
+                        cartDAO.overrideCart(laptop, quantity);
+                        break;
+                }
+                session.setAttribute("cart", new CartList(cartDAO.getCart()));
+            } else {
+                // User is not logged in, use CartList
+                CartList cart = (CartList) session.getAttribute("cart");
+                switch (action) {
+                    case "+":
+                        cart.overrideCart(laptop, ++quantity);
+                        break;
+                    case "-":
+                        cart.overrideCart(laptop, --quantity);
+                        break;
+                    default:
+                        cart.overrideCart(laptop, quantity);
+                        break;
+                }
+            }
+        } else {
+            if (session != null && session.getAttribute("user") != null) {
+                // User is logged in, use CartDAO
+                User user = (User) session.getAttribute("user");
+                CartDAO cartDAO = new CartDAO(user);
+                if (quantity == 0){
+                    session.setAttribute("noti", "The quantity is 0 means that system will remove it, do you want to continue ?");
+                    //set it to 1 as well because like what if they do not want to delete uwu
+                    cartDAO.overrideCart(laptop, 1);
+                } else {
+                    session.setAttribute("noti", "The current quantity is larger than the stock, please try again");
+                    //set the quantity to stock
+                    cartDAO.overrideCart(laptop, laptop.getStock());
+                }
+                session.setAttribute("cart", new CartList(cartDAO.getCart()));
+            } else {
+                // User is not logged in, use CartList
+                CartList cart = (CartList) session.getAttribute("cart");
+                if (quantity == 0){
+                    session.setAttribute("noti", "The quantity is 0 means that system will remove it, do you want to continue ?");
+                    //set it to 1 as well because like what if they do not want to delete uwu
+                    cart.overrideCart(laptop, 1);
+                } else {
+                    session.setAttribute("noti", "The current quantity is larger than the stock, please try again");
+                    //set the quantity to stock
+                    cart.overrideCart(laptop, laptop.getStock());
+                }
+            }
         }
-        session.setAttribute("cart", new CartList(cartDAO.getCart()));
-    } else {
-        // User is not logged in, use CartList
-        CartList cart = (CartList) session.getAttribute("cart");
-        switch (action) {
-            case "+":
-                cart.overrideCart(laptop, ++quantity);
-                break;
-            case "-":
-                cart.overrideCart(laptop, --quantity);
-                break;
-            default:
-                cart.overrideCart(laptop, quantity);
-                break;
-        }
+
+        response.sendRedirect(request.getHeader("referer"));
     }
 
-    response.sendRedirect(request.getHeader("referer"));
-}
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -88,12 +122,13 @@ throws ServletException, IOException {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -101,12 +136,13 @@ throws ServletException, IOException {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

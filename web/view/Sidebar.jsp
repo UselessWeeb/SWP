@@ -45,7 +45,7 @@
                           <c:when test = '${uri.contains("blog.jsp") || uri.contains("single-post.jsp")}'>
                               action="blog"
                           </c:when>
-                          <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp")}'>
+                          <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")}'>
                               action="productList"
                           </c:when>
                       </c:choose>
@@ -133,7 +133,7 @@
                                         </div>                  
                                     </c:forEach>
                                 </c:when>
-                                <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp")}'>
+                                <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")}'>
                                     <c:set var="latestProducts" value="${requestScope.latestProducts}" />
                                     <c:forEach items="${latestProducts}" var="laptop">
                                         <div class="position-relative text-left p-5 rounded-3">

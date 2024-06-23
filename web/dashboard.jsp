@@ -15,7 +15,7 @@
     <c:if test = "${not empty sessionScope.err}">
         <p> ${sessionScope.err}</p>
     </c:if>
-    <form id="filterForm" method="GET" class = "d-flex justify-content-center gap-1 pt-5 pb-2 ms-1 me-1">
+    <form id="filterForm" method="GET" class = "d-flex justify-content-center gap-1 pb-2 ms-1 me-1">
         <label class = "pt-3 font-bold">From:</label><input type="date" id="startDate" name="startDate" class= "form-control" value="${startDate}">
         <label class = "pt-3 font-bold">To:</label><input type="date" id="endDate" name="endDate" class= "form-control" value="${endDate}">
         <select class = "form-select" name = "userId">

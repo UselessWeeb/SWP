@@ -15,10 +15,12 @@ GO
 INSERT INTO [User] (avatar, full_name, gender, address, email, phone_number, password, state, role_id) VALUES
 ('avatar1.png', 'John Doe', 'Male', '123 Main St', 'john@example.com', '1234567890', CONVERT(VARCHAR(32), HashBytes('MD5', 'password1'), 2), 'active', 1),
 ('avatar2.png', 'Jane Smith', 'Female', '456 Oak St', 'jane@example.com', '0987654321', CONVERT(VARCHAR(32), HashBytes('MD5', 'password2'), 2), 'active', 2),
-('avatar3.png', 'Bob Johnson', 'Male', '789 Pine St', 'bob@example.com', '5555555555', CONVERT(VARCHAR(32), HashBytes('MD5', 'password3'), 2), 'active', 3);
+('avatar3.png', 'Bob Johnson', 'Male', '789 Pine St', 'bob@example.com', '5555555555', CONVERT(VARCHAR(32), HashBytes('MD5', 'password3'), 2), 'active', 3),
+('avatar3.png', 'Bob Johnson', 'Male', '789 Pine St', 'v123@gmail.com', '5555555555', CONVERT(VARCHAR(32), HashBytes('MD5', '1234'), 2), 'active', 2);
 GO
 
 -- Insert into Laptop
+SELECT * FROM Laptop
 INSERT INTO Laptop (title, main_image, original_price, stock, products_detail, sale_price, brief_information, is_featured, status, updated_date) VALUES
 ('Laptop 1', 'images/product/1.jpg', 1000.00, 50, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 900.00, 'Brief info about Laptop 1', 1, 1, GETDATE()),
 ('Laptop 2', 'images/product/2.jpg', 1200.00, 30, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 1100.00, 'Brief info about Laptop 2', 1, 1, GETDATE()),
@@ -120,18 +122,18 @@ GO
 
 -- Insert into [Order]
 INSERT INTO [Order] (order_date, status, price, order_uid) VALUES
-(GETDATE() - 30, 1, 900.00, 1),
-(GETDATE() - 25, 1, 1100.00, 2),
-(GETDATE() - 20, 1, 1400.00, 3),
+(GETDATE() - 30, 2, 900.00, 1),
+(GETDATE() - 25, 3, 1100.00, 2),
+(GETDATE() - 20, 0, 1400.00, 3),
 (GETDATE() - 18, 1, 2000.00, 4),
-(GETDATE() - 15, 1, 2200.00, 5),
+(GETDATE() - 15, 2, 2200.00, 5),
 (GETDATE() - 12, 1, 2500.00, 1),
-(GETDATE() - 10, 1, 2800.00, 2),
+(GETDATE() - 10, 3, 2800.00, 2),
 (GETDATE() - 8, 1, 3000.00, 3),
-(GETDATE() - 5, 1, 3200.00, 4),
+(GETDATE() - 5, 0, 3200.00, 4),
 (GETDATE() - 3, 1, 3500.00, 5),
-(GETDATE() - 2, 1, 3800.00, 1),
-(GETDATE() - 1, 1, 4000.00, 2);
+(GETDATE() - 2, 2, 3800.00, 1),
+(GETDATE() - 1, 3, 4000.00, 2);
 GO
 
 -- Insert into Order_Item
@@ -214,14 +216,13 @@ INSERT INTO Score (score, user_id) VALUES
 (200, 2),
 (300, 3);
 GO
-
+SELECT * FROM [Order]
 INSERT INTO [User] (avatar, full_name, gender, address, email, phone_number, password, state, role_id) VALUES
 ('avatar1.png', 'John Doe', 'Male', '123 Main St', 'v123@gmail.com', '1234567899', CONVERT(VARCHAR(32), HashBytes('MD5', '1234'), 2), 'active', 4)
 SELECT * FROM [Order]
 
 update [Order] set status = 3 where order_id between 6 and 8
 
-update [Order] set sales_id = 5 where order_id between 8 and 12
+update [Order] set sales_id = 2 where order_id between 1 and 7
 
-INSERT INTO [Order_Item]
-VALUES (1, 3, 1, 900.00)
+update [Order] set sales_id = 4 where order_id between 8 and 12

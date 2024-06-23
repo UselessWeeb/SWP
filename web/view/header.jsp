@@ -337,7 +337,7 @@
                                                                     <h5>
                                                                         <a href="single-product.jsp">${product.title}</a>
                                                                     </h5>
-                                                                    <small>${product.productsDetail}</small>
+                                                                    <small>${product.briefInfo}</small>
                                                                 </div>
                                                                 <span class="text-primary">${product.salePrice}</span>
                                                                 <span class="text-secondary">Quantity: ${quantity}</span>

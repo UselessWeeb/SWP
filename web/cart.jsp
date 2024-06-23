@@ -30,6 +30,38 @@
 
     <body>
         <%@include file ="view/header.jsp" %>
+        <%-- Check if "noti" session attribute exists --%>
+        <c:if test="${not empty sessionScope.noti}">
+            <%-- If it exists, trigger a modal to show up --%>
+            <script>
+                $(document).ready(function () {
+                    $('#notiModal').modal('show');
+                });
+            </script>
+
+            <%-- Remove "noti" attribute from the session --%>
+            <c:remove var="noti" scope="session"/>
+        </c:if>
+
+        <%-- Modal HTML --%>
+        <div class="modal fade" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="notiModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notiModalLabel">Notification</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ${sessionScope.noti}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <section class="cart padding-large">
             <div class="container">
                 <div class="row">
@@ -42,7 +74,6 @@
                                 <h4 class="col-lg-3 pb-3">Subtotal</h4>
                             </div>
                         </div>
-                        <div class="slash-divider"></div>
                         <div class="cart-table">
                             <c:set var="totalQuantity" value="0"/>
                             <c:set var="totalPrice" value="0"/>
@@ -98,10 +129,36 @@
                                         </div>
                                         <div class="col-lg-1 col-md-2">
                                             <div class="cart-cross-outline">
-                                                <form action = "deletefromcart">
+                                                <!-- Delete Confirmation Modal -->
+                                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure you want to delete this item from the cart?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                <button type="button" class="btn btn-primary" id="confirmDelete">Yes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Your form -->
+                                                <form id="deleteForm" action="deletefromcart">
                                                     <input type="hidden" name="id" value="${cart.key.laptopId}">
-                                                    <input type="submit" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" value="Delete" />
+                                                    <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" data-toggle="modal" data-target="#deleteModal">Delete</button>
                                                 </form>
+                                                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                                                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                                                <script>
+                                                                document.getElementById('confirmDelete').addEventListener('click', function () {
+                                                                    document.getElementById('deleteForm').submit();
+                                                                });
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -136,7 +193,7 @@
                                 </table>
                             </div>
                             <div class="button-wrap d-flex flex-wrap gap-3">
-                                <a href = "productDetail" class = "btn">Continue Shopping</a>
+                                <a href = "productList" class = "btn">Continue Shopping</a>
                                 <a href = "checkout" class = "btn">Proceed to checkout</a>
                             </div>
                         </div>
