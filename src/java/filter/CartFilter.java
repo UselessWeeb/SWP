@@ -12,11 +12,14 @@ import java.io.StringWriter;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,12 +33,27 @@ import model.User;
  */
 @WebFilter(filterName = "CartFilter", urlPatterns = {"/*"})
 public class CartFilter implements Filter {
-
+    private ObjectMapper objectMapper = new ObjectMapper();
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(true);
+
+        if (session.getAttribute("cart") == null) {
+            Cookie[] cookies = httpRequest.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("cart".equals(cookie.getName())) {
+                        String cartJson = cookie.getValue();
+                        CartList cart = objectMapper.readValue(cartJson, CartList.class);
+                        session.setAttribute("cart", cart);
+                        break;
+                    }
+                }
+            }
+        }
 
         if (session != null) {
             if (session.getAttribute("cart") == null) {
@@ -76,6 +94,17 @@ public class CartFilter implements Filter {
                 session.setAttribute("cartMerged", true);
             }
         }
+
+        CartList cart = (CartList) session.getAttribute("cart");
+        if (cart != null) {
+            String cartJson = objectMapper.writeValueAsString(cart);
+            Cookie cartCookie = new Cookie("cart", cartJson);
+            cartCookie.setPath("/");
+            cartCookie.setMaxAge(60 * 60 * 24); // Expires in 1 day
+            httpResponse.addCookie(cartCookie);
+        }
+
+        chain.doFilter(request, response);
 
         chain.doFilter(request, response);
     }
