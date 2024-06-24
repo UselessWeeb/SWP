@@ -29,16 +29,79 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     </head>
+    <style>
+        td{
+            padding: 0px 20px;
+        }
+    </style>
     <body>
         <%@include file = "view/header.jsp" %>
-        <p>Order ID: ${order.order_id}</p>
-        <p>Customer Fullname: ${orderUser.fullname}</p>
-        <p>Customer Email: ${orderUser.email}</p>
-        <p>Order Date: <fmt:formatDate value="${order.order_date}" pattern="dd-MM-yyyy" /></p>
-        <p>Gender: Male</p>
-        <!--TO DO ADD GENDER-->
-        <p>Status: ${order.status}</p>
-        <p>Sales Name: ${sales.fullName}</p>
+        <div class = "d-flex justify-content-between">
+            <div>
+                <h3>Order Information</h3>
+                <table>
+                    <tr>
+                        <td><b>Order ID:</b></td>
+                        <td>${order.order_id}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Customer Fullname:</b></td>
+                        <td>${orderUser.fullname}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Customer Email:</b></td>
+                        <td>${orderUser.email}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Order Date:</b></td>
+                        <td><fmt:formatDate value="${order.order_date}" pattern="dd-MM-yyyy" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Gender:</b></td>
+                        <td>Male</td>
+                    </tr>
+                    <tr>
+                        <td><b>Total Price:</b></td>
+                        <td>${order.price}</td>
+                    </tr>
+                    <!-- TO DO: ADD GENDER -->
+                    <tr>
+                        <td><b>Status:</b></td>
+                        <td>${order.status}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Sales Name:</b></td>
+                        <td>${sales.fullName}</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>User Information</h3>
+                <table>
+                    <tr>
+                        <td><b>Customer Fullname:</b></td>
+                        <td>${orderUser.fullname}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Customer Email:</b></td>
+                        <td>${orderUser.email}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Customer Phone:</b></td>
+                        <td>${orderUser.phoneNumber}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Gender:</b></td>
+                        <td>Male</td>
+                    </tr>
+                    <!-- TO DO: ADD GENDER -->
+                    <tr>
+                        <td><b>Address:</b></td>
+                        <td>${orderUser.address}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <table class="table table-striped mt-5">
             <thead class="bg-primary text-white">
                 <tr class="text-center">
