@@ -18,6 +18,10 @@ public class CartDAO extends EntityDAO {
         this.u = u;
     }
 
+    public CartDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     //cheack if user already has a cart. If yes, return the id, if not, create a new cart and return the id
     public int getCartId() {
         try {
@@ -52,13 +56,13 @@ public class CartDAO extends EntityDAO {
         return new CartItemModel(itemId, cartId, laptopId, quantity);
     }
 
-    public void addToCart(Laptop laptop, int quantity) {
+    public void addToCart(String LaptopId, int quantity) {
         try {
             // Check if the product already exists in the cart
             String checkQuery = "SELECT quantity FROM cart_items WHERE cart_id = ? AND laptop_id = ?";
             PreparedStatement checkStm = connection.prepareStatement(checkQuery);
             checkStm.setInt(1, this.getCartId());
-            checkStm.setInt(2, laptop.getLaptopId());
+            checkStm.setString(2, LaptopId);
 
             ResultSet rs = checkStm.executeQuery();
 
@@ -69,14 +73,14 @@ public class CartDAO extends EntityDAO {
                 PreparedStatement updateStm = connection.prepareStatement(updateQuery);
                 updateStm.setInt(1, existingQuantity + quantity);
                 updateStm.setInt(2, this.getCartId());
-                updateStm.setInt(3, laptop.getLaptopId());
+                updateStm.setString(3, LaptopId);
                 updateStm.executeUpdate();
             } else {
                 // If the product doesn't exist, insert a new row
                 String insertQuery = "INSERT INTO cart_items (cart_id, laptop_id, quantity) VALUES (?, ?, ?)";
                 PreparedStatement insertStm = connection.prepareStatement(insertQuery);
                 insertStm.setInt(1, this.getCartId());
-                insertStm.setInt(2, laptop.getLaptopId());
+                insertStm.setString(2, LaptopId);
                 insertStm.setInt(3, quantity);
                 insertStm.executeUpdate();
             }
@@ -85,33 +89,33 @@ public class CartDAO extends EntityDAO {
         }
     }
 
-    public void overrideCart(Laptop laptop, int quantity) {
+    public void overrideCart(String LaptopId, int quantity) {
         try {
             String query = "UPDATE cart_items SET quantity = ? WHERE cart_id = ? AND laptop_id = ?";
             PreparedStatement updateStm = connection.prepareStatement(query);
             updateStm.setInt(1, quantity);
             updateStm.setInt(2, this.getCartId()); // Assuming userId is available in this context
-            updateStm.setInt(3, laptop.getLaptopId());
+            updateStm.setString(3, LaptopId);
             updateStm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void deleteFromCart(Laptop laptop) {
+    public void deleteFromCart(String LaptopId) {
         try {
             String query = "DELETE FROM cart_items WHERE cart_id = ? AND laptop_id = ?";
             PreparedStatement deleteStm = connection.prepareStatement(query);
             deleteStm.setInt(1, this.getCartId()); // Assuming userId is available in this context
-            deleteStm.setInt(2, laptop.getLaptopId());
+            deleteStm.setString(2, LaptopId);
             deleteStm.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public HashMap<Laptop, Integer> getCart() {
-        HashMap<Laptop, Integer> cart = new HashMap<>();
+    public HashMap<String, Integer> getCart() {
+        HashMap<String, Integer> cart = new HashMap<>();
         try {
             String query = "SELECT * FROM cart_items WHERE cart_id = ?";
             PreparedStatement listStm = connection.prepareStatement(query);
@@ -119,7 +123,7 @@ public class CartDAO extends EntityDAO {
             ResultSet rs = listStm.executeQuery();
             while (rs.next()) {
                 System.out.println(rs.getString(3));
-                Laptop laptop = new LaptopDAO().getByID(rs.getString(3));
+                String laptop = rs.getString(3);
                 int quantity = rs.getInt("quantity");
                 cart.put(laptop, quantity);
             }

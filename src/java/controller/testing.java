@@ -10,6 +10,8 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author ASUS
  */
+@WebServlet(name = "testing", urlPatterns = {"/test"})
 public class testing extends HttpServlet {
    
     /** 
@@ -31,16 +34,15 @@ public class testing extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet testing</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet testing at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            //now using this to delete the cart cookie and session
+            request.getSession().removeAttribute("cart");
+            //delete the cookie
+            // delete the cookie
+            Cookie cookie = new Cookie("cart", "");
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            response.sendRedirect("/app-name/");
         }
     } 
 

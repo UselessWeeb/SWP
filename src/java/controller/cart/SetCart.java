@@ -4,16 +4,21 @@
  */
 package controller.cart;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.CartDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.Base64;
 import model.CartList;
 import model.Laptop;
 import model.User;
@@ -37,7 +42,8 @@ public class SetCart extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.setContentType("text/html;charset=UTF8");
         HttpSession session = request.getSession(false);
         LaptopDAO laptopDAO = new LaptopDAO();
         String id = request.getParameter("id");
@@ -46,67 +52,71 @@ public class SetCart extends HttpServlet {
         String action = (request.getParameter("action") == null) ? "" : request.getParameter("action");
 
         Validation validation = new Validation();
-        if (validation.intValidator(quantity, 1, laptop.getStock() - 1)) {
-            if (session != null && session.getAttribute("user") != null) {
-                // User is logged in, use CartDAO
-                User user = (User) session.getAttribute("user");
-                CartDAO cartDAO = new CartDAO(user);
-                switch (action) {
-                    case "+":
-                        cartDAO.overrideCart(laptop, ++quantity);
-                        break;
-                    case "-":
-                        cartDAO.overrideCart(laptop, --quantity);
-                        break;
-                    default:
-                        cartDAO.overrideCart(laptop, quantity);
-                        break;
-                }
-                session.setAttribute("cart", new CartList(cartDAO.getCart()));
-            } else {
-                // User is not logged in, use CartList
-                CartList cart = (CartList) session.getAttribute("cart");
-                switch (action) {
-                    case "+":
-                        cart.overrideCart(laptop, ++quantity);
-                        break;
-                    case "-":
-                        cart.overrideCart(laptop, --quantity);
-                        break;
-                    default:
-                        cart.overrideCart(laptop, quantity);
-                        break;
-                }
-            }
-        } else {
-            if (session != null && session.getAttribute("user") != null) {
-                // User is logged in, use CartDAO
-                User user = (User) session.getAttribute("user");
-                CartDAO cartDAO = new CartDAO(user);
-                if (quantity == 0){
-                    session.setAttribute("noti", "The quantity is 0 means that system will remove it, do you want to continue ?");
-                    //set it to 1 as well because like what if they do not want to delete uwu
-                    cartDAO.overrideCart(laptop, 1);
-                } else {
-                    session.setAttribute("noti", "The current quantity is larger than the stock, please try again");
-                    //set the quantity to stock
-                    cartDAO.overrideCart(laptop, laptop.getStock());
-                }
-                session.setAttribute("cart", new CartList(cartDAO.getCart()));
-            } else {
-                // User is not logged in, use CartList
-                CartList cart = (CartList) session.getAttribute("cart");
-                if (quantity == 0){
-                    session.setAttribute("noti", "The quantity is 0 means that system will remove it, do you want to continue ?");
-                    //set it to 1 as well because like what if they do not want to delete uwu
-                    cart.overrideCart(laptop, 1);
-                } else {
-                    session.setAttribute("noti", "The current quantity is larger than the stock, please try again");
-                    //set the quantity to stock
-                    cart.overrideCart(laptop, laptop.getStock());
-                }
+        CartList cart = null;
+
+        // Try to retrieve the cart from a cookie
+        Cookie[] cookies = request.getCookies();
+        Cookie cartCookie = Arrays.stream(cookies)
+                .filter(c -> "cart".equals(c.getName()))
+                .findFirst()
+                .orElse(null);
+
+        if (cartCookie != null) {
+            // Cart cookie exists, decode and deserialize it
+            byte[] decodedBytes = Base64.getDecoder().decode(cartCookie.getValue());
+            String cartJson = new String(decodedBytes);
+            try {
+                cart = objectMapper.readValue(cartJson, CartList.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle deserialization error
             }
         }
+
+        if (cart == null) {
+            cart = new CartList(); // Initialize a new cart if not found in cookies
+        }
+
+        // Update the cart based on action
+        if (validation.intValidator(quantity, 1, laptop.getStock())) {
+            System.out.println("Idk why was this still here");
+            switch (action) {
+                case "+":
+                    if (quantity < laptop.getStock()) { // Ensure quantity does not exceed stock
+                        cart.overrideCart(id, ++quantity);
+                    } else {
+                        session.setAttribute("noti", "The current quantity is larger than the stock, please try again");
+                        session.setAttribute("id", id);
+                    }
+                    break;
+                case "-":
+                    if (quantity > 1) { // Ensure quantity does not fall below 1
+                        cart.overrideCart(id, --quantity);
+                    }else {
+                        session.setAttribute("noti", "The quantity is 0 means that system will remove it, do you want to continue ?");
+                        session.setAttribute("choose", true);
+                        session.setAttribute("id", id);
+                    }
+                    break;
+                default:
+                    cart.overrideCart(id, quantity);
+                    break;
+            }
+        }
+
+        // Serialize and encode the updated cart
+        try {
+            String updatedCartJson = objectMapper.writeValueAsString(cart);
+            String encodedCart = Base64.getEncoder().encodeToString(updatedCartJson.getBytes());
+            Cookie updatedCartCookie = new Cookie("cart", encodedCart);
+            updatedCartCookie.setMaxAge(60 * 60 * 24); // Set cookie to expire in 24 hours
+            response.addCookie(updatedCartCookie);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            // Handle serialization error
+        }
+
+        session.setAttribute("cart", cart);
 
         response.sendRedirect(request.getHeader("referer"));
     }

@@ -4,15 +4,17 @@
  */
 package filter;
 
-import dao.CartDAO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -21,6 +23,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import model.CartList;
@@ -33,7 +36,14 @@ import model.User;
  */
 @WebFilter(filterName = "CartFilter", urlPatterns = {"/*"})
 public class CartFilter implements Filter {
+
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    public void init(FilterConfig filterConfig) throws ServletException {
+        objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        // Additional configuration or logic here
+    }
+
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
@@ -41,70 +51,57 @@ public class CartFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(true);
 
+        // Check if there's a cart in the session
         if (session.getAttribute("cart") == null) {
             Cookie[] cookies = httpRequest.getCookies();
+            boolean isCookieFound = false;
+
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if ("cart".equals(cookie.getName())) {
-                        String cartJson = cookie.getValue();
-                        CartList cart = objectMapper.readValue(cartJson, CartList.class);
+                        // Cart cookie found, decode it and use it to fill the session
+                        System.out.println("Yes cookie found yippeeee");
+                        isCookieFound = true;
+                        byte[] decodedBytes = Base64.getDecoder().decode(cookie.getValue());
+                        String cartJson = new String(decodedBytes);
+                        System.out.println(cartJson);
+
+                        // Deserialize the JSON to a HashMap
+                        Map<String, Map<String, Integer>> outerMap = objectMapper.readValue(cartJson, new TypeReference<Map<String, Map<String, Integer>>>() {
+                        });
+                        Map<String, Integer> cartMap = outerMap.get("cart");
+
+                        System.out.println(cartMap);
+                        CartList cart = new CartList((HashMap<String, Integer>) cartMap);
                         session.setAttribute("cart", cart);
                         break;
                     }
                 }
             }
-        }
 
-        if (session != null) {
-            if (session.getAttribute("cart") == null) {
-                session.setAttribute("cart", new CartList());
-            }
+            if (!isCookieFound) {
+                // No cart cookie found, create a new empty cart and add it to the session
+                System.out.println("No cookie found dumbass");
+                CartList newCart = new CartList(); // Assuming CartList is your cart object
+                session.setAttribute("cart", newCart);
 
-            // If user logged in while the cart has some items
-            User user = (User) session.getAttribute("user");
-            if (user != null && session.getAttribute("cartMerged") == null) {
-                CartDAO cartDAO = new CartDAO(user);
-                HashMap<Laptop, Integer> cartItems = cartDAO.getCart();
+                try {
+                    // Serialize the newCart to JSON
+                    String cartJson = objectMapper.writeValueAsString(newCart);
 
-                // Get the session cart items
-                CartList sessionCart = (CartList) session.getAttribute("cart");
-                HashMap<Laptop, Integer> sessionCartItems = sessionCart != null ? sessionCart.getCart(): new HashMap<>();
+                    // Base64 encode the JSON string
+                    String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
 
-                // Merge the session cart items into the user's cart items
-                for (Map.Entry<Laptop, Integer> entry : sessionCartItems.entrySet()) {
-                    Laptop laptop = entry.getKey();
-                    int quantity = entry.getValue();
-
-                    if (cartItems.containsKey(laptop)) {
-                        // If the laptop is already in the user's cart, add the quantities together
-                        cartItems.put(laptop, cartItems.get(laptop) + quantity);
-                    } else {
-                        // If the laptop is not in the user's cart, add it
-                        cartItems.put(laptop, quantity);
-                    }
-
-                    // Update the database with the new quantity
-                    cartDAO.overrideCart(laptop, cartItems.get(laptop));
+                    // Create a new cart cookie with the encoded JSON
+                    Cookie cartCookie = new Cookie("cart", encodedCartJson);
+                    cartCookie.setMaxAge(60 * 60 * 24); // Set cookie to expire in 24 hours
+                    httpResponse.addCookie(cartCookie);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                    // Handle the error (e.g., log it, send an error response, etc.)
                 }
-
-                // Update the session with the merged cart items
-                session.setAttribute("cart", new CartList(cartItems));
-
-                // Set the flag indicating that the carts have been merged
-                session.setAttribute("cartMerged", true);
             }
         }
-
-        CartList cart = (CartList) session.getAttribute("cart");
-        if (cart != null) {
-            String cartJson = objectMapper.writeValueAsString(cart);
-            Cookie cartCookie = new Cookie("cart", cartJson);
-            cartCookie.setPath("/");
-            cartCookie.setMaxAge(60 * 60 * 24); // Expires in 1 day
-            httpResponse.addCookie(cartCookie);
-        }
-
-        chain.doFilter(request, response);
 
         chain.doFilter(request, response);
     }

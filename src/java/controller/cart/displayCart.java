@@ -5,7 +5,6 @@
 
 package controller.cart;
 
-import dao.CartDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,16 +14,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import model.CartList;
 import model.Laptop;
-import model.User;
 
 /**
  *
  * @author M7510
  */
-@WebServlet(name="DeleteFromCart", urlPatterns={"/deletefromcart"})
-public class DeleteFromCart extends HttpServlet {
+@WebServlet(name="displayCart", urlPatterns={"/displayCart"})
+public class displayCart extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,28 +34,20 @@ public class DeleteFromCart extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    HttpSession session = request.getSession(false);
-    LaptopDAO laptopDAO = new LaptopDAO();
-    String id = request.getParameter("id");
-    Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
-
-    if (session != null && session.getAttribute("user") != null) {
-        // User is logged in, use CartDAO
-        User user = (User) session.getAttribute("user");
-        CartDAO cartDAO = new CartDAO(user);
-        cartDAO.deleteFromCart(id);
-        session.setAttribute("cart", new CartList(cartDAO.getCart()));
-    } else {
-        // User is not logged in, use CartList
-        CartList cart = (CartList) session.getAttribute("cart");
-        cart.deleteFromCart(id);
-    }
-
-    response.sendRedirect(request.getHeader("referer"));
-}
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        //fetch the cart session 
+        HttpSession session = request.getSession(false);
+        CartList cartList = (CartList)session.getAttribute("cart");
+        LaptopDAO lapdao = new LaptopDAO();
+        HashMap<String, Integer> cartMap = cartList.getCart();
+        HashMap<Laptop, Integer> cart = new HashMap<>();
+        cartMap.forEach( (k, v) -> { 
+            cart.put(lapdao.getByID(k), v);
+        } );    
+        request.setAttribute("cart", cart);
+        request.getRequestDispatcher("view/navcart.jsp").include(request, response);
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

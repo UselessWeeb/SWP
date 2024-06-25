@@ -26,6 +26,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -40,28 +42,46 @@
             </script>
 
             <%-- Remove "noti" attribute from the session --%>
-            <c:remove var="noti" scope="session"/>
-        </c:if>
 
-        <%-- Modal HTML --%>
-        <div class="modal fade" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="notiModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="notiModalLabel">Notification</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ${sessionScope.noti}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%-- Modal HTML --%>
+            <div class="modal fade" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="notiModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="notiModalLabel">Notification</h5>
+                        </div>
+                        <div class="modal-body">
+                            ${sessionScope.noti}
+                        </div>
+                        <c:choose>
+                            <c:when test = "${not empty choose}">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-primary" id="confirmDeleteCart">Yes</button>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- Your form -->
+            <form id="deleteFormCart" action="deletefromcart">
+                <input type="hidden" name="id" value="${sessionScope.id}">
+            </form>
+            <script>
+                document.getElementById('confirmDeleteCart').addEventListener('click', function () {
+                    document.getElementById('deleteFormCart').submit();
+                });
+            </script>
+            <c:remove var="noti" scope="session"/>
+            <c:remove var="id" scope="session"/>
+            <c:remove var="choose" scope="session"/>
+        </c:if>
         <section class="cart padding-large">
             <div class="container">
                 <div class="row">
@@ -77,7 +97,7 @@
                         <div class="cart-table">
                             <c:set var="totalQuantity" value="0"/>
                             <c:set var="totalPrice" value="0"/>
-                            <c:forEach var="cart" items="${carts}">
+                            <c:forEach var="cart" items="${carts}" varStatus="status">
                                 <c:set var="totalQuantity" value="${totalQuantity + cart.value}"/>
                                 <c:set var="totalPrice" value="${totalPrice + (cart.key.salePrice * cart.value)}"/>
                                 <div class="cart-item border-bottom padding-small">
@@ -130,14 +150,14 @@
                                         <div class="col-lg-1 col-md-2">
                                             <div class="cart-cross-outline">
                                                 <!-- Delete Confirmation Modal -->
-                                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="deleteModal${status.index}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                                                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete For ${cart.key.title}</h5>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Are you sure you want to delete this item from the cart?
+                                                                Are you sure you want to delete ${cart.key.title} from the cart?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -150,14 +170,12 @@
                                                 <!-- Your form -->
                                                 <form id="deleteForm" action="deletefromcart">
                                                     <input type="hidden" name="id" value="${cart.key.laptopId}">
-                                                    <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                                    <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" data-toggle="modal" data-target="#deleteModal${status.index}">Delete</button>
                                                 </form>
-                                                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                                                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
                                                 <script>
-                                                                document.getElementById('confirmDelete').addEventListener('click', function () {
-                                                                    document.getElementById('deleteForm').submit();
-                                                                });
+                                                    document.getElementById('confirmDelete').addEventListener('click', function () {
+                                                        document.getElementById('deleteForm').submit();
+                                                    });
                                                 </script>
                                             </div>
                                         </div>

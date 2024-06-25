@@ -45,17 +45,21 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
+        HashMap<String, Integer> cartMap;
         if (session != null && session.getAttribute("user") != null) {
             // User is logged in, use CartDAO
             CartDAO cartDAO = new CartDAO((User)session.getAttribute("user"));
-            LaptopDAO laptopDAO = new LaptopDAO(); // Assuming you have a DAO for laptops
-            HashMap<Laptop, Integer> carts = cartDAO.getCart();
-            request.setAttribute("carts", carts);
+            cartMap = cartDAO.getCart();
         } else {
-            // User is not logged in, use CartList
             CartList carts = (CartList) session.getAttribute("cart");
-            request.setAttribute("carts", carts.getCart());
+            cartMap = carts.getCart();
         }
+        LaptopDAO dao = new LaptopDAO();
+        HashMap<Laptop, Integer> cart = new HashMap<>();
+        cartMap.forEach( (k, v) -> { 
+            cart.put(dao.getByID(k), v);
+        } );    
+        request.setAttribute("carts", cart);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
