@@ -38,8 +38,10 @@
         <%@include file = "view/header.jsp" %>
         <div class = "d-flex justify-content-between">
             <div>
-                <h3>Order Information</h3>
                 <table>
+                    <tr>
+                        <td><h3 class = "bg-primary text-white rounded px-1">Order Information</h3></td>
+                    </tr>
                     <tr>
                         <td><b>Order ID:</b></td>
                         <td>${order.order_id}</td>
@@ -76,8 +78,14 @@
                 </table>
             </div>
             <div>
-                <h3>User Information</h3>
                 <table>
+                    <tr>
+                        <td><h3 class = "bg-primary text-white rounded px-1">User Information</h3></td>
+                    </tr>
+                    <tr>
+                        <td style = "visibility:hidden"> A </td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td><b>Customer Fullname:</b></td>
                         <td>${orderUser.fullname}</td>
@@ -105,20 +113,28 @@
         <table class="table table-striped mt-5">
             <thead class="bg-primary text-white">
                 <tr class="text-center">
-                    <th scope="col"><b>ID</b></th>
+                    <th scope="col"><b>Thumbnail</b></th>
                     <th scope="col"><b>Product Name</b></th>
+                    <th scope="col"><b>Category</b></th>
                     <th scope="col"><b>Price</b></th>
-                    <th scope="col"><b>Quantity</b></th>                       
+                    <th scope="col"><b>Quantity</b></th>
+                    <th scope="col"><b>Total Cost</b></th>
                 </tr>
             </thead>
             <tbody>
                 <c:set var="totalPrice" value="0"/>
                 <c:forEach items="${orderItems}" var="od">
                     <tr>
-                        <td>${od.orderItemId}</td>
+                        <td><img style ="max-width: 200px" src = "${od.laptopId.mainImage}"></td>
                         <td>${od.laptopId.title}</td>
+                        <td>
+                            <c:forEach items = "${od.laptopId.category}" var = "category">
+                                ${category.category}
+                            </c:forEach>
+                        </td>
                         <td>${od.price}</td>
                         <td>${od.quantity}</td>
+                        <td>${od.quantity * od.price}</td>
                         <c:set var="totalPrice" value="${totalPrice + (od.price * od.quantity)}"/>
                     </tr>
                 </c:forEach>
