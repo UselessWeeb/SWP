@@ -302,6 +302,25 @@ public class OrderDAO extends EntityDAO {
 
         return prices;
     }
+    
+    public boolean validateOrder(int uid, int orderid){
+        try {
+            String sql = "SELECT * FROM [Order] where order_id = ? and uid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, orderid);
+            stm.setInt(2, uid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()){
+                //if the query returns result
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //if it reaches here, return false
+        return false;
+    }
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
