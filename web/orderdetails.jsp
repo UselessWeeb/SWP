@@ -30,12 +30,22 @@
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     </head>
     <style>
-        td{
+        tr td:first-child{
             padding: 0px 20px;
+        }
+        
+        .table{
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
     <body>
         <%@include file = "view/header.jsp" %>
+        <!--Test-->
+        <c:if test = "${isAbleToEdit == true}">
+            <p>You might be able to edit this page</p>
+        </c:if>
         <div class = "d-flex justify-content-between">
             <div>
                 <table>
@@ -74,6 +84,10 @@
                     <tr>
                         <td><b>Sales Name:</b></td>
                         <td>${sales.fullName}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Notes:</b></td>
+                        <td><textarea style ="height:200%"  class="form-control" placeholder="Notes for the order"></textarea></td>
                     </tr>
                 </table>
             </div>

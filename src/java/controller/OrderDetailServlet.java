@@ -1,5 +1,6 @@
 package controller;
 
+import dao.AssinDAO;
 import dao.OrderDetailDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.OrderItem;
 import model.Order_Information;
+import model.User;
 
 @WebServlet(name = "OrderDetailServlet", urlPatterns = {"/orderdetail"})
 public class OrderDetailServlet extends HttpServlet {
@@ -22,13 +24,13 @@ public class OrderDetailServlet extends HttpServlet {
         
         String orderId_raw = request.getParameter("id");
         int orderId = Integer.parseInt(orderId_raw);
-
+        AssinDAO dao = new AssinDAO();
+        System.out.println(dao.checkAuth((User)session.getAttribute("user"), orderId));
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         List<OrderItem> orderDetail = orderDetailDAO.getOrderDetail(orderId);
-        
-        System.out.println(orderDetail);
-
+       
         request.setAttribute("orderDetail", orderDetail);
+        request.setAttribute("isAbleToEdit", dao.checkAuth((User)session.getAttribute("user"), orderId));
         request.getRequestDispatcher("orderdetail.jsp").forward(request, response);
     }
 

@@ -187,3 +187,12 @@ CREATE TABLE Score
 );
 
 ALTER TABLE [Order] add sales_id INT
+
+Create table SaleAssign(
+	--this is where the sale manager applied the authenticate to one sale member to be able to perform CRUD
+	assign_id int IDENTITY(1,1) PRIMARY KEY,
+	user_id int,
+	order_id int,
+	FOREIGN KEY (user_id) REFERENCES [User](user_id),
+	FOREIGN KEY (order_id) REFERENCES [Order](order_id)
+)
