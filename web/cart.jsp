@@ -161,20 +161,20 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                                <button type="button" class="btn btn-primary" id="confirmDelete">Yes</button>
+                                                                <button type="button" class="btn btn-primary" id="confirmDelete${status.index}">Yes</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <!-- Your form -->
-                                                <form id="deleteForm" action="deletefromcart">
+                                                <form id="deleteForm${status.index}" action="deletefromcart">
                                                     <input type="hidden" name="id" value="${cart.key.laptopId}">
                                                     <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" data-toggle="modal" data-target="#deleteModal${status.index}">Delete</button>
                                                 </form>
                                                 <script>
-                                                    document.getElementById('confirmDelete').addEventListener('click', function () {
-                                                        document.getElementById('deleteForm').submit();
+                                                    document.getElementById('confirmDelete${status.index}').addEventListener('click', function () {
+                                                        document.getElementById('deleteForm${status.index}').submit();
                                                     });
                                                 </script>
                                             </div>

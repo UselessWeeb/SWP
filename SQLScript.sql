@@ -187,3 +187,11 @@ CREATE TABLE Score
 );
 
 ALTER TABLE [Order] add sales_id INT
+
+--create table for user authorization
+create table [User_Authorization](
+	auth_id int primary key identity(1,1),
+	url NVARCHAR(MAX),
+	role_id int 
+	FOREIGN KEY (role_id) REFERENCES Role(role_id),
+)

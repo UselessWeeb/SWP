@@ -33,11 +33,17 @@ public class CartList {
 
     public void deleteFromCart(String laptop) {
         //delete from cart
+        System.out.println("And it delete here");
         cart.remove(laptop);
     }
 
     public void overrideCart(String id, int i) {
         //override cart
         cart.put(id, i);
+    }
+
+    @Override
+    public String toString() {
+        return "CartList{" + "cart=" + cart + '}';
     }
 }
