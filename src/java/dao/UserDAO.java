@@ -286,6 +286,23 @@ public class UserDAO extends EntityDAO {
             System.out.println(e);
         }
     }
+    
+    public List<User> getSalePaging(int page, int total_per_page){
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM [User] where role_id = 4 ORDER BY user_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, total_per_page * page);
+            stm.setInt(2, total_per_page);
+            rs = stm.executeQuery();
+            while(rs.next()){
+                users.add((User)this.createEntity(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return users;
+    }
 
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {

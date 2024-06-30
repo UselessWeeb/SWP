@@ -225,3 +225,10 @@ update [Order] set sales_id = 5 where order_id between 8 and 12
 
 INSERT INTO [Order_Item]
 VALUES (1, 3, 1, 900.00)
+
+--insert a new sale
+INSERT INTO [User] (avatar, full_name, gender, address, email, phone_number, password, state, role_id) VALUES
+('avatar1.png', 'John Doe2', 'Male', '123 Main St', 'v124@gmail.com', '1234567879', CONVERT(VARCHAR(32), HashBytes('MD5', '1234'), 2), 'active', 4)
+SELECT * FROM [User]
+--assign for the old sale 1 order, for example, 1
+INSERT INTO [SaleAssign] VALUES (5, 2)

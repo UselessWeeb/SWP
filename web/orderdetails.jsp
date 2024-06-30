@@ -33,7 +33,7 @@
         tr td:first-child{
             padding: 0px 20px;
         }
-        
+
         .table{
             max-width: 90%;
             margin-left: auto;
@@ -42,10 +42,55 @@
     </style>
     <body>
         <%@include file = "view/header.jsp" %>
-        <!--Test-->
-        <c:if test = "${isAbleToEdit == true}">
-            <p>You might be able to edit this page</p>
-        </c:if>
+
+        <div class="py-2 ps-2">
+            <button type="button" id="edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+                Assign Role
+            </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Assign Sale for Order :${order.order_id}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <c:choose>
+                            <c:when test = '${sessionScope.user.role.role_id != 2}'>
+                                <p> You can't access this page because your current role (${sessionScope.user.role.role_purpose}) is not able to view this</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p>Select one sale to assign this order to:</p>
+                                <c:forEach items = "${salesUser}" var = "sale">
+                                    <div>
+                                        <a href = "addAuth?user_id=${sale.userId}&order_id=${order.order_id}">${sale.fullName}</a>
+                                        <c:if test = "${currentEdit == sale.userId}">
+                                            test
+                                        </c:if>
+                                    </div>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            var myModal = document.getElementById('editModal');
+            var myInput = document.getElementById('edit');
+
+            myModal.addEventListener('shown.bs.modal', function () {
+                myInput.focus();
+            });
+        </script>
         <div class = "d-flex justify-content-between">
             <div>
                 <table>
@@ -80,6 +125,9 @@
                     <tr>
                         <td><b>Status:</b></td>
                         <td>${order.status}</td>
+                        <c:if test = "${isAbleToEdit == true}">
+                            
+                        </c:if>
                     </tr>
                     <tr>
                         <td><b>Sales Name:</b></td>

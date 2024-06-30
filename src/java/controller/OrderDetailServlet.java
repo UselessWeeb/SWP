@@ -19,19 +19,19 @@ public class OrderDetailServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         
         String orderId_raw = request.getParameter("id");
         int orderId = Integer.parseInt(orderId_raw);
         AssinDAO dao = new AssinDAO();
         System.out.println(dao.checkAuth((User)session.getAttribute("user"), orderId));
+        System.out.println("lorem ipsum");
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         List<OrderItem> orderDetail = orderDetailDAO.getOrderDetail(orderId);
        
         request.setAttribute("orderDetail", orderDetail);
         request.setAttribute("isAbleToEdit", dao.checkAuth((User)session.getAttribute("user"), orderId));
-        request.getRequestDispatcher("orderdetail.jsp").forward(request, response);
+        request.getRequestDispatcher("orderdetails.jsp").forward(request, response);
     }
 
     @Override
