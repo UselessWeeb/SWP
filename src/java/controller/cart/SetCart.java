@@ -79,7 +79,6 @@ public class SetCart extends HttpServlet {
 
         // Update the cart based on action
         if (validation.intValidator(quantity, 1, laptop.getStock())) {
-            System.out.println("Idk why was this still here");
             switch (action) {
                 case "+":
                     if (quantity < laptop.getStock()) { // Ensure quantity does not exceed stock

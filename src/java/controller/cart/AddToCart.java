@@ -74,9 +74,9 @@ public class AddToCart extends HttpServlet {
             String cartJson = objectMapper.writeValueAsString(cart);
             String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
             Cookie cartCookie = new Cookie("cart", encodedCartJson);
-            cartCookie.setPath("/");
             cartCookie.setMaxAge(60 * 60 * 24); // 1 day
             response.addCookie(cartCookie);
+            System.out.println("and it's supposed to go here");
         }
         response.sendRedirect(request.getHeader("referer"));
     }

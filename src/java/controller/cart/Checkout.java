@@ -5,6 +5,7 @@
 
 package controller.cart;
 
+import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,7 +13,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import model.CartList;
+import model.Laptop;
 
 /**
  *
@@ -32,11 +36,17 @@ public class Checkout extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //using the cart session here
-        CartList carts = (CartList) request.getSession(false).getAttribute("cart");
-        request.setAttribute("carts", carts.getCart());
+        HttpSession session = request.getSession();
+        CartList cartList = (CartList)session.getAttribute("cart");
+        LaptopDAO lapdao = new LaptopDAO();
+        HashMap<String, Integer> cartMap = cartList.getCart();
+        HashMap<Laptop, Integer> cart = new HashMap<>();
+        cartMap.forEach( (k, v) -> { 
+            cart.put(lapdao.getByID(k), v);
+        } );    
+        request.setAttribute("carts", cart);
         //this is the checkout page, so we just need to forward to the checkout.jsp
-        request.getRequestDispatcher("checkout.jsp").forward(request, response);
-        
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);     
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

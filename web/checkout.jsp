@@ -77,7 +77,7 @@
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <div class="card-image">
-                                                            <img src="${cart.key.image}" alt="cart-img" class="img-fluid border rounded-3">
+                                                            <img src="${cart.key.mainImage}" alt="cart-img" class="img-fluid border rounded-3">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3">

@@ -55,7 +55,6 @@ public class DeleteFromCart extends HttpServlet {
             String cartJson = objectMapper.writeValueAsString(updatedCart);
             String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
             Cookie cartCookie = new Cookie("cart", encodedCartJson);
-            cartCookie.setPath("/");
             cartCookie.setMaxAge(60 * 60 * 24); // 1 day
             response.addCookie(cartCookie);
         } else {
@@ -83,7 +82,6 @@ public class DeleteFromCart extends HttpServlet {
             String cartJson = objectMapper.writeValueAsString(cart);
             String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
             Cookie cartCookie = new Cookie("cart", encodedCartJson);
-            cartCookie.setPath("/");
             cartCookie.setMaxAge(60 * 60 * 24); // 1 day
             response.addCookie(cartCookie);
         }
