@@ -129,69 +129,69 @@ public class OrderDAO extends EntityDAO {
         }
         return result;
     }
-    
+
     public int countByCriteria(String search_query, Date start, Date end, String status, String[] selectedLaptopId) {
-       try {
+        try {
             String sqlQuery = "SELECT COUNT(*) FROM (SELECT DISTINCT [Order].order_id FROM [Order] INNER JOIN Order_User ON [Order].order_uid = Order_User.order_uid INNER JOIN (SELECT Order_Item.*, Order_Item.laptop_id as laptopId, MIN(Order_Item.order_item_id) OVER (PARTITION BY Order_Item.order_id) as min_order_item_id FROM Order_Item) as MinOrderItem ON [Order].order_id = MinOrderItem.order_id WHERE MinOrderItem.order_item_id = MinOrderItem.min_order_item_id";
-           if (search_query != null && !search_query.isBlank()) {
-               try {
-                   int id = Integer.parseInt(search_query);
-                   sqlQuery += " AND [Order].order_id = ?";
-               } catch (NumberFormatException e) {
-                   sqlQuery += " AND Order_User.fullname LIKE ?";
-               }
-           }
-           if (start != null) {
-               sqlQuery += " AND order_date >= ?";
-           }
-           if (end != null) {
-               Calendar c = Calendar.getInstance();
-               c.setTime(end);
-               c.add(Calendar.DAY_OF_MONTH, 1);
-               end = c.getTime();
-               sqlQuery += " AND order_date < ?";
-           }
-           if (status != null && !status.isBlank()) {
-               sqlQuery += " AND status = ?";
-           }
-           if (selectedLaptopId != null && selectedLaptopId.length > 0) {
-    sqlQuery += " AND MinOrderItem.laptopId IN (" + String.join(",", Collections.nCopies(selectedLaptopId.length, "?")) + ")";
-}
-           sqlQuery += ") as CountQuery";
-           PreparedStatement stm = connection.prepareStatement(sqlQuery);
-           int paramIndex = 1;
-           if (search_query != null && !search_query.isBlank()) {
-               try {
-                   int id = Integer.parseInt(search_query);
-                   stm.setInt(paramIndex++, id);
-               } catch (NumberFormatException e) {
-                   stm.setString(paramIndex++, "%" + search_query + "%");
-               }
-           }
-           if (start != null) {
-               stm.setDate(paramIndex++, new java.sql.Date(start.getTime()));
-           }
-           if (end != null) {
-               stm.setDate(paramIndex++, new java.sql.Date(end.getTime()));
-           }
-           if (status != null && !status.isBlank()) {
-               stm.setString(paramIndex++, status);
-           }
-           if (selectedLaptopId != null && selectedLaptopId.length > 0) {
-               for (String laptopId : selectedLaptopId) {
-                   stm.setString(paramIndex++, laptopId);
-               }
-           }
-           ResultSet rs = stm.executeQuery();
-           if (rs.next()) {
-               return rs.getInt(1);
-           }
-       } catch (SQLException ex) {
-           Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       return 0;
-   }
-    
+            if (search_query != null && !search_query.isBlank()) {
+                try {
+                    int id = Integer.parseInt(search_query);
+                    sqlQuery += " AND [Order].order_id = ?";
+                } catch (NumberFormatException e) {
+                    sqlQuery += " AND Order_User.fullname LIKE ?";
+                }
+            }
+            if (start != null) {
+                sqlQuery += " AND order_date >= ?";
+            }
+            if (end != null) {
+                Calendar c = Calendar.getInstance();
+                c.setTime(end);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                end = c.getTime();
+                sqlQuery += " AND order_date < ?";
+            }
+            if (status != null && !status.isBlank()) {
+                sqlQuery += " AND status = ?";
+            }
+            if (selectedLaptopId != null && selectedLaptopId.length > 0) {
+                sqlQuery += " AND MinOrderItem.laptopId IN (" + String.join(",", Collections.nCopies(selectedLaptopId.length, "?")) + ")";
+            }
+            sqlQuery += ") as CountQuery";
+            PreparedStatement stm = connection.prepareStatement(sqlQuery);
+            int paramIndex = 1;
+            if (search_query != null && !search_query.isBlank()) {
+                try {
+                    int id = Integer.parseInt(search_query);
+                    stm.setInt(paramIndex++, id);
+                } catch (NumberFormatException e) {
+                    stm.setString(paramIndex++, "%" + search_query + "%");
+                }
+            }
+            if (start != null) {
+                stm.setDate(paramIndex++, new java.sql.Date(start.getTime()));
+            }
+            if (end != null) {
+                stm.setDate(paramIndex++, new java.sql.Date(end.getTime()));
+            }
+            if (status != null && !status.isBlank()) {
+                stm.setString(paramIndex++, status);
+            }
+            if (selectedLaptopId != null && selectedLaptopId.length > 0) {
+                for (String laptopId : selectedLaptopId) {
+                    stm.setString(paramIndex++, laptopId);
+                }
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     public Map<Date, Integer> getSuccessOrders(Date start, Date end, String sales_id) throws SQLException {
         Map<Date, Integer> successOrders = new LinkedHashMap<>();
 
@@ -240,7 +240,7 @@ public class OrderDAO extends EntityDAO {
         try {
             stm = connection.prepareStatement(sql);
             stm.setDate(1, new java.sql.Date(start.getTime()));
-            
+
             Calendar cal = Calendar.getInstance();
             cal.setTime(end);
             cal.add(Calendar.DATE, +1);
@@ -302,15 +302,15 @@ public class OrderDAO extends EntityDAO {
 
         return prices;
     }
-    
-    public boolean validateOrder(int uid, int orderid){
+
+    public boolean validateOrder(int uid, int orderid) {
         try {
             String sql = "SELECT * FROM [Order] where order_id = ? and uid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, orderid);
             stm.setInt(2, uid);
             ResultSet rs = stm.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 //if the query returns result
                 return true;
             }
@@ -322,6 +322,20 @@ public class OrderDAO extends EntityDAO {
         return false;
     }
 
+    public void UpdateOrder(int sales_id, int status, String notes, int order_id) {
+        String sql = "UPDATE [Order] SET sales_id = ?, status = ?, notes = ? WHERE order_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, sales_id);
+            stm.setInt(2, status);
+            stm.setString(3, notes);
+            stm.setInt(4, order_id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         return new Order(
@@ -330,7 +344,8 @@ public class OrderDAO extends EntityDAO {
                 rs.getInt("price"),
                 rs.getInt("status"),
                 rs.getInt("order_uid"),
-                rs.getInt("sales_id")
+                rs.getInt("sales_id"),
+                rs.getString("notes")
         );
     }
 }

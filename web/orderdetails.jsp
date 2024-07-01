@@ -39,15 +39,25 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .btn{
+            padding: 10px !important;
+            font-size:20px !important;
+        }
+
+        .dropdown-toggle::after {
+            margin: 0 !important;
+            padding: 0  !important;
+        }
+
+        input{
+            border:none;
+            max-width:50%;
+        }
     </style>
     <body>
         <%@include file = "view/header.jsp" %>
 
-        <div class="py-2 ps-2">
-            <button type="button" id="edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-                Assign Role
-            </button>
-        </div>
         <!-- Modal -->
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -67,7 +77,7 @@
                                     <div>
                                         <a href = "addAuth?user_id=${sale.userId}&order_id=${order.order_id}">${sale.fullName}</a>
                                         <c:if test = "${currentEdit == sale.userId}">
-                                            test
+                                            <span>Current</span>
                                         </c:if>
                                     </div>
                                 </c:forEach>
@@ -92,10 +102,19 @@
             });
         </script>
         <div class = "d-flex justify-content-between">
-            <div>
+            <form action = "updateorder">
                 <table>
                     <tr>
-                        <td><h3 class = "bg-primary text-white rounded px-1">Order Information</h3></td>
+                        <td class="py-2">
+                            <button type="button" id="edit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+                                Assign Role
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3 class = "bg-primary text-white rounded px-1">Order Information</h3>
+                        </td>
                     </tr>
                     <tr>
                         <td><b>Order ID:</b></td>
@@ -124,10 +143,33 @@
                     <!-- TO DO: ADD GENDER -->
                     <tr>
                         <td><b>Status:</b></td>
-                        <td>${order.status}</td>
-                        <c:if test = "${isAbleToEdit == true}">
-                            
-                        </c:if>
+                        <td>
+                            <input type = "text" readonly id="orderStatus-${order.order_id}" name = "status" value = "${order.status}"></span>
+                            <c:if test="${isAbleToEdit == true}">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <c:if test="${order.status != 'Pending'}">
+                                        <a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.order_id}, 'Pending')">Pending</a>
+                                    </c:if>
+                                    <c:if test="${order.status != 'Delivered'}">
+                                        <a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.order_id}, 'Delivered')">Delivered</a>
+                                    </c:if>
+                                    <c:if test="${order.status != 'Shipped'}">
+                                        <a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.order_id}, 'Shipped')">Shipped</a>
+                                    </c:if>
+                                    <c:if test="${order.status != 'Cancelled'}">
+                                        <a class="dropdown-item" href="#" onclick="updateOrderStatus(${order.order_id}, 'Cancelled')">Cancelled</a>
+                                    </c:if>
+                                </div>                                                     
+                            </c:if>
+                        </td>
+                    <script>
+                        function updateOrderStatus(orderId, newStatus) {
+                            // Update the order status in the <td>
+                            document.getElementById('orderStatus-' + orderId).value = newStatus;
+                        }
+                    </script>
                     </tr>
                     <tr>
                         <td><b>Sales Name:</b></td>
@@ -135,12 +177,24 @@
                     </tr>
                     <tr>
                         <td><b>Notes:</b></td>
-                        <td><textarea style ="height:200%"  class="form-control" placeholder="Notes for the order"></textarea></td>
+                        <td><textarea style ="height:200%" name ="notes" class="form-control" placeholder="Notes for the order">${order.notes}</textarea></td>
+                    </tr>
+                    <tr>
+                        <td style = "visibility:hidden"><input type = "text" name ="order" hidden value = "${order.order_id}"</td>
+                        <td><input type = "submit" value = "save" class = "btn btn-primary"></td>
                     </tr>
                 </table>
-            </div>
+            </form>
             <div>
                 <table>
+                    <tr>
+                        <td style = "visibility:hidden"> A </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style = "visibility:hidden"> A </td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td><h3 class = "bg-primary text-white rounded px-1">User Information</h3></td>
                     </tr>

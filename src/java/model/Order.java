@@ -19,6 +19,8 @@ public class Order {
     
     private int sales_id;
     
+    private String notes;
+    
     private Laptop laptop;
     private Order_User user;
 
@@ -32,13 +34,22 @@ public class Order {
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, int price, int status, int user_id, int sales_id) {
+    public Order(int order_id, Date order_date, int price, int status, int user_id, int sales_id, String notes) {
         this.order_id = order_id;
         this.order_date = order_date;
         this.price = price;
         this.setStatus(status); // Use the setter to convert the int to Status
         this.user_id = user_id;
         this.sales_id = sales_id;
+        this.notes = notes;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public int getOrder_id() {
@@ -71,7 +82,7 @@ public class Order {
 
     public void setStatus(int status) {
         if (status < 0 || status >= Status.values().length) {
-            throw new IllegalArgumentException("Invalid status value: " + status);
+            status = 0;
         }
         this.status = Status.values()[status];
     }

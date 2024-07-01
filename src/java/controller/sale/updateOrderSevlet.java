@@ -4,12 +4,7 @@
  */
 package controller.sale;
 
-import dao.AssinDAO;
 import dao.OrderDAO;
-import dao.OrderDetailDAO;
-import dao.OrderItemDAO;
-import dao.OrderUserDAO;
-import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,17 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Order;
-import model.OrderItem;
 import model.User;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "orderdetails", urlPatterns = {"/orderdetails"})
-public class orderdetails extends HttpServlet {
+@WebServlet(name = "updateOrderSevlet", urlPatterns = {"/updateorder"})
+public class updateOrderSevlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,27 +33,17 @@ public class orderdetails extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
-        final int TOTAL_PER_PAGE = 10;
-        if (id != null || !id.contains("[a-zA-Z]")) {
-            OrderDAO orderdao = new OrderDAO();
-            Order order = orderdao.getByOrderId(Integer.parseInt(id));
-            OrderItemDAO itemDAO = new OrderItemDAO();
-            OrderUserDAO uorderDAO = new OrderUserDAO();
-            UserDAO userDAO = new UserDAO();
-            HttpSession session = request.getSession(true);
-            request.setAttribute("order", order);
-            request.setAttribute("orderItems", itemDAO.getByOrderId(order.getOrder_id()));
-            request.setAttribute("orderUser", uorderDAO.getById(order.getUser_id()));
-            AssinDAO assignDAO = new AssinDAO();
-            //manifest edit
-            request.setAttribute("currentEdit", assignDAO.SalesEditId(Integer.parseInt(id)));
-            request.setAttribute("isAbleToEdit", assignDAO.checkAuth((User) session.getAttribute("user"), Integer.parseInt(id)));
-            System.out.println(assignDAO.checkAuth((User) session.getAttribute("user"), Integer.parseInt(id)));
-            request.setAttribute("salesUser", userDAO.getSalePaging(0, TOTAL_PER_PAGE));
-            request.setAttribute("sales", userDAO.findById(String.valueOf(order.getSales_id())));
-            request.getRequestDispatcher("orderdetails.jsp").forward(request, response);
-        }
+        String order = request.getParameter("order");
+        String notes = request.getParameter("notes");
+        String statusString = request.getParameter("status");
+        System.out.println(statusString);
+        int status = getStatus(statusString);
+        OrderDAO dao = new OrderDAO();
+        HttpSession session = request.getSession();
+        dao.UpdateOrder(((User) session.getAttribute("user")).getUserId(), status, notes, Integer.parseInt(order));
+        System.out.println(response.getHeader("referer"));
+        session.setAttribute("success", "Update order information success !");
+        response.sendRedirect("/app-name/orderdetails?id=" + order);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -102,4 +84,19 @@ public class orderdetails extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public int getStatus(String status) {
+        return switch (status) {
+            case "Pending" ->
+                0;
+            case "Shipped" ->
+                1;
+            case "Delivered" ->
+                2;
+            case "Cancelled" ->
+                3;
+            default ->
+                -1;
+        }; //err
+    }
 }
