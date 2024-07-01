@@ -28,24 +28,6 @@
 
     <body>
         <%@include file = "view/header.jsp" %>
-        <section class="hero-section position-relative bg-light-gray padding-medium">
-            <div class="hero-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="text-center">
-                            <h1>Checkout</h1>
-                            <div class="breadcrumbs">
-                                <span class="item">
-                                    <a href="index.html">Home > </a>
-                                </span>
-                                <span class="item text-decoration-underline">Checkout</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="checkout-wrap padding-large">
             <div class="container">
                 <form class="form-group">

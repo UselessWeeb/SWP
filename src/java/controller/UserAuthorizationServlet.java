@@ -4,6 +4,8 @@
  */
 package controller;
 
+import dao.RoleDAO;
+import dao.UserAuthDAO;
 import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +20,8 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import service.URLfilter;
 
 /**
  *
@@ -42,12 +46,32 @@ public class UserAuthorizationServlet extends HttpServlet {
         List<String> urls = new ArrayList<>();
         // Get all servlet mappings
         Map<String, ? extends ServletRegistration> servletRegistrations = request.getServletContext().getServletRegistrations();
-
+        
+        UserAuthDAO authdao = new UserAuthDAO();
         // Iterate over the servlet mappings
         for (ServletRegistration servletRegistration : servletRegistrations.values()) {
             urls.addAll(servletRegistration.getMappings());
         }
-        System.out.println(urls);
+        URLfilter filter = new URLfilter();
+        List<String> hiddenUrls = filter.hiddenUrls();
+
+        //exclude all string from hiddenUrls
+        urls = urls.stream().filter(url -> !hiddenUrls.contains(url)).collect(Collectors.toList());
+
+        RoleDAO roledao = new RoleDAO();
+        
+        request.setAttribute("urls", urls);
+        request.setAttribute("roles", roledao.getAll());
+        
+        //specific, get 1 url
+        String url = request.getParameter("url");
+        //TO-DO: Get Auth here
+        if (url == null || url.isBlank()){
+            url = "/";//get default
+        }
+        request.setAttribute("url",url);
+        request.setAttribute("roleSelected", authdao.getRoleForURL(url));
+        request.getRequestDispatcher("userauth.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

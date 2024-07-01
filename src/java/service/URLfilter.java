@@ -39,24 +39,8 @@ public class URLfilter {
     //these are the hidden urls, change it as you wish
     public List<String> hiddenUrls(){
         return List.of(
-            "login", 
-            "logout", 
-            "register", 
-            "error", 
-            "view/error.jsp",
-            "showaction",
-            "userProfile",
-            "google_login",
-            "profile",
-            "addtocart",
-            "mainsider",
-            "getcart",
-            "deletefromcart",
-            "verify",
-            "blogdetails",
-            "changepassword",
-            "setcart",
-            "sidebar"
+                "*.jsp",
+                "*.jspx"
             );
     }
 }

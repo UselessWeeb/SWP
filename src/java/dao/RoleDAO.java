@@ -6,6 +6,8 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.Role;
 
 /**
@@ -27,6 +29,21 @@ public class RoleDAO extends EntityDAO{
             System.out.println(e);
         }
         return r;
+    }
+
+    public List<Role> getAll(){
+        List<Role> roles = new ArrayList<>();
+        try {
+            String strSelect = "Select * from [Role]";
+            stm = connection.prepareStatement(strSelect);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                roles.add((Role) this.createEntity(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return roles;
     }
 
     @Override

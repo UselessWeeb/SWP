@@ -4,6 +4,7 @@
  */
 package filter;
 
+import dao.UserAuthDAO;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -33,7 +34,7 @@ import service.URLfilter;
  *
  * @author M7510
  */
-@WebFilter(filterName = "authUser", urlPatterns = {"/*"})
+//@WebFilter(filterName = "authUser", urlPatterns = {"/*"})
 public class authUser implements Filter {
     
     private static final boolean debug = true;
@@ -99,7 +100,7 @@ public class authUser implements Filter {
          */
     }
     
-    protected RoleAuthorization roleAuth = new RoleAuthorization();
+    protected UserAuthDAO roleAuth = new UserAuthDAO();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -119,8 +120,9 @@ public class authUser implements Filter {
         }
         
         String requestedResource = URLfilter.getResourceUrl(req.getRequestURI());
-        requestedResource = requestedResource.substring(requestedResource.indexOf("/") + 1);
-        boolean allowedAnyone = roleAuth.isAllowAnyOneToAccess(requestedResource);     
+        requestedResource = requestedResource.substring(8, requestedResource.length());
+        System.out.println(requestedResource);
+        boolean allowedAnyone = roleAuth.isAllowedAnyOneToAccess(requestedResource);     
 
         if (allowedAnyone) {
             chain.doFilter(request, response);
@@ -128,18 +130,13 @@ public class authUser implements Filter {
         }
 
         User currentUser = (User) req.getSession(true).getAttribute("userAuth");
-        System.out.println(currentUser);
         if (currentUser != null) {
-            boolean isAllowed = roleAuth.isAllowToAccess(currentUser, requestedResource);
-            Logger.getLogger("Allow " + roleAuth.getRoleTypeById(currentUser.getRole().getRole_id())
-                    + " to access to" + req.getRequestURL() + ": " + isAllowed);
+            boolean isAllowed = roleAuth.checkIfCurrentUserAbleToAccess(requestedResource, currentUser.getRoleId());
 
             if (isAllowed) {
                 chain.doFilter(request, response);
                 return;
             }
-
-            Logger.getLogger("Not Allow " + roleAuth.getRoleTypeById(currentUser.getRole().getRole_id()) + " to access to" + req.getRequestURL());
         }
 
         Logger.getLogger("Requesting resource " + requestedResource + " Not allow to access");

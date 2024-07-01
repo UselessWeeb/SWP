@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<head>
+    <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <head>
         <title>${page == null ? "User Authorization" : page}</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,72 +18,108 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-        }
-        .sidebar {
-            background-color: #f8f8f8;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-        .sidebar .btn-modify, .sidebar .btn-visit {
-            background-color: #f90;
-            color: white;
-        }
-        .sidebar .btn-save {
-            background-color: black;
-            color: white;
-        }
-        .content {
-            background-color: #eee;
-            padding: 20px;
-            height: 100vh;
-        }
-        .content iframe {
-            width: 100%;
-            height: calc(100% - 40px);
-            border: none;
-            background-color: #ccc;
-        }
-        
-        button{
-            border-radius: 5px!important;
-        }
-    </style>
-</head>
-<body>
-    <div class="d-flex">
-        <div class="sidebar d-flex flex-column p-3">
-            <button class="btn btn-modify mb-2">Modify Role</button>
-           
-            <div class="mb-3">
-                <label class="d-block"><input type="checkbox"> Role 1</label>
-                <label class="d-block"><input type="checkbox"> Role 2</label>
-                <label class="d-block"><input type="checkbox"> Role 3</label>
-                <label class="d-block"><input type="checkbox"> Role 4</label>
-                <label class="d-block"><input type="checkbox"> Role 5</label>
-                <label class="d-block"><input type="checkbox"> Role 6</label>
-            </div>
-            <button class="btn btn-save mb-2">Save</button>
-            <button class="btn btn-visit">Visit Page</button>
-        </div>
-            
-        <div class="content flex-grow-1">
-            <select class="form-select mb-3">
-                <option selected>Site Select</option>
-            </select>
-            <iframe src="https://www.google.com" title="Site Content"></iframe>
-        </div>
-    </div>
+        <!-- Select2 CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+        <!-- jQuery (Select2 depends on it) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Select2 JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+        <style>
+            .content iframe {
+                width: 100%;
+                height: calc(100% - 40px);
+                border: none;
+                background-color: #ccc;
+            }
+            .iframe-cover {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+            }
+        </style>
+    </head>
+    <body>
+        <%@include file = "view/header.jsp" %>
+        <div class="d-flex">
+            <div class="sidebar d-flex flex-column p-3">
+                <button class="btn btn-modify mb-2">Modify Role</button>
+                <form action="updateauth">
+                    <div class="mb-3">
+                        <c:forEach var="role" items="${roles}">
+                            <label class="d-block">
+                                <input type="checkbox" value="${role.role_id}" name="role"
+                                    <c:if test="${roleSelected.contains(role.role_id)}">checked</c:if>>
+                                <c:set var="rolePurposeWithSpaces" value="${fn:replace(role.role_purpose, '_', ' ')}" />
+                                <c:set var="formattedText" value="" />
+                                <c:forEach var="word" items="${fn:split(fn:toLowerCase(rolePurposeWithSpaces), ' ')}">
+                                    <c:set var="formattedText" value="${formattedText} ${fn:toUpperCase(fn:substring(word,0,1))}${fn:substring(word,1,fn:length(word))}" />
+                                </c:forEach>
+                                <span class="ps-1">${formattedText}</span>
+                            </label>
+                        </c:forEach>
+                        <input type="text" name="url" value="${(url==null) ? '/' : url}" hidden>
+                    </div>
+                    <button type="submit" class="btn btn-save mb-2">Save</button>
+                    <c:choose>
+                    <c:when test="${not empty url}">
+                        <a class="btn btn-save mb-2" href="${(fn:startsWith(url, '/') ? fn:substring(url, 1, url.length()) : url)}">Visit Page</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="btn btn-save mb-2" href="http://localhost:9999/app-name/">Visit Page</a>
+                    </c:otherwise>
+                </c:choose>
+                </form>
+            </div>
+
+            <div class="content flex-grow-1">
+                <form action="userauthorization" method="GET"> <!-- Replace YourServletURL with the actual URL of your servlet -->
+                    <select class="form-select mb-3 searchable-select" name="url" onchange="this.form.submit()">
+                        <option value="http://localhost:9999/app-name/" ${url.equals("http://localhost:9999/app-name/") ? "selected" : ""}>Home</option>
+                        <option value="/" ${url.equals("/") ? "selected" : ""}>Home</option>
+                        <c:forEach var="urlItem" items="${urls}">
+                            <option value="${urlItem}" ${urlItem.equals(url) ? "selected" : ""}>${urlItem == '/' ? 'Home' : urlItem}</option>
+                        </c:forEach>
+                    </select>
+                </form>
+                <div style="position: relative;">
+                    <iframe id="contentIframe" src="${url == '/' ? 'http://localhost:9999/app-name/' : (fn:startsWith(url, '/') ? fn:substring(url, 1, url.length()) : url)}" title="${url == '/' ? 'Home' : url}" style="width: 100%; height: 500px; border: none;"></iframe>
+                    <div class="iframe-cover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent;"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var iframeCover = document.querySelector('.iframe-cover');
+                var iframe = document.getElementById('contentIframe');
+            
+                // Assuming the iframe content is from the same origin for this to work
+                iframeCover.addEventListener('wheel', function(e) {
+                    // Prevent the default wheel behavior (page scrolling)
+                    e.preventDefault();
+                    // Scroll the iframe content, adjust the 30 to control scroll speed
+                    var scrollAmount = e.deltaY > 0 ? 500 : -500;
+                    iframe.contentWindow.scrollBy(0, scrollAmount);
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('.searchable-select').select2({
+                    placeholder: "Select an option",
+                    allowClear: true
+                });
+            });
+        </script>
+        <%@include file = "view/footer.jsp" %>
+    </body>
 </html>
 
