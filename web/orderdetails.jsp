@@ -54,6 +54,26 @@
             border:none;
             max-width:50%;
         }
+
+        .table-container {
+            margin: 2rem;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table th {
+            background: #ff6543 !important;
+        }
+
+        .table th,
+        .table td {
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+        }
     </style>
     <body>
         <%@include file = "view/header.jsp" %>
@@ -143,7 +163,7 @@
                     <!-- TO DO: ADD GENDER -->
                     <tr>
                         <td><b>Status:</b></td>
-                        <td>
+                        <td style = "max-width:200px;">
                             <input type = "text" readonly id="orderStatus-${order.order_id}" name = "status" value = "${order.status}"></span>
                             <c:if test="${isAbleToEdit == true}">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -226,8 +246,8 @@
                 </table>
             </div>
         </div>
-        <table class="table table-striped mt-5">
-            <thead class="bg-primary text-white">
+        <table class="table table-bordered mt-5">
+            <thead class="table-dark">
                 <tr class="text-center">
                     <th scope="col"><b>Thumbnail</b></th>
                     <th scope="col"><b>Product Name</b></th>
