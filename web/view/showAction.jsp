@@ -9,15 +9,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
-    <c:set var="urls" value="${requestScope.accessibleUrls}" />
-    <li class="nav-item dropdown">
-        <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
-        <ul class="dropdown-menu animate slide border">
-            <c:forEach var="url" items="${urls}">
-                <li>
-                    <a href="${url}" class="dropdown-item fw-light">${url}</a>
-                </li>
-            </c:forEach>
-        </ul>
-    </li>
+    <c:forEach var="url" items="${accessibleurls}">
+        <li class="nav-item">
+            <a class="nav-link me-4 ${(url != '/' && fn:contains(pageContext.request.requestURI, fn:substringAfter(url, '/'))) ? 'active' : ''}" href="${url == '/' ? '/app-name/' : fn:substringAfter(url, '/')}">
+                <c:choose>
+                    <c:when test="${url == '/'}">Home</c:when>
+                    <c:otherwise>${fn:substringAfter(url, '/')}</c:otherwise>
+                </c:choose>
+            </a>
+        </li>
+    </c:forEach>
 </html>

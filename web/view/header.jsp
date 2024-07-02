@@ -148,36 +148,6 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul id="navbar" class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link me-4 <c:if test='${uri.contains("index.jsp")}'>active</c:if>" href="/app-name/">
-                                    <c:choose>
-                                        <c:when test="${sessionScope.user.role.role_id == 2 || sessionScope.user.role.role_id == 4}">
-                                            Dashboard
-                                        </c:when>
-                                        <c:otherwise>
-                                            Home
-                                        </c:otherwise>
-                                    </c:choose> 
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link me-4 <c:if test='${uri.contains("about.jsp")}'>active</c:if>" href="about.jsp">About</a>
-                                </li>
-                            <c:choose>
-                                <c:when test="${sessionScope.user.role.role_id == 2 || sessionScope.user.role.role_id == 4}">
-                                    <li class="nav-item">
-                                        <a class="nav-link me-4 <c:if test='${uri.contains("orderlist.jsp")}'>active</c:if>" href="orderlist">Order</a>
-                                        </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="nav-item">
-                                        <a class="nav-link me-4 <c:if test='${uri.contains("shop.jsp")}'>active</c:if>" href="productList">Shop</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link me-4 <c:if test='${uri.contains("blog.jsp")}'>active</c:if>" href="blog">Blogs</a>
-                                        </li>     
-                                </c:otherwise>
-                            </c:choose>
                             <jsp:include page="/showaction" />
                             <li class="nav-item">
                                 <a class="nav-link me-4 <c:if test='${uri.contains("contact.jsp")}'>active</c:if>" href="contact.jsp">Contact</a>

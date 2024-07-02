@@ -20,10 +20,7 @@ import service.AccessRole;
  *
  * @author ASUS
  */
-@WebServlet(urlPatterns = {"/product"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
+@WebServlet(urlPatterns = {"/productdetails"})
 public class Product extends HttpServlet {
    
     /** 

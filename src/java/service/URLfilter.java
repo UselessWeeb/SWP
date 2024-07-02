@@ -37,10 +37,13 @@ public class URLfilter {
     
     //some url must let user in, but can't show in the table
     //these are the hidden urls, change it as you wish
-    public List<String> hiddenUrls(){
+    public static List<String> hiddenUrls(){
         return List.of(
                 "*.jsp",
-                "*.jspx"
+                "*.jspx",
+                "/login",
+                "/style.css",
+                "/js/script.js"
             );
     }
 }

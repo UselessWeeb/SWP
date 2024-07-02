@@ -24,9 +24,6 @@ import service.AccessRole;
  * @author ASUS
  */
 @WebServlet(urlPatterns = {"/blog"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
 public class BlogList extends HttpServlet {
 
     /**

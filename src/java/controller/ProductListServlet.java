@@ -23,10 +23,7 @@ import service.AccessRole;
  *
  * @author M7510
  */
-@WebServlet(urlPatterns = {"/productList"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
+@WebServlet(urlPatterns = {"/product"})
 public class ProductListServlet extends HttpServlet {
 
     /**
@@ -92,7 +89,7 @@ public class ProductListServlet extends HttpServlet {
 
             request.setAttribute("selectedCategories", selectedCategories);
 
-            request.getRequestDispatcher("shop.jsp").forward(request, response);
+            request.getRequestDispatcher("shop-product.jsp").forward(request, response);
         }
     }
 

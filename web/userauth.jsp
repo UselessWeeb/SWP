@@ -41,19 +41,23 @@
                 height: 100%;
                 z-index: 10;
             }
+            
+            .select2{
+                width:100%!important;
+            }
         </style>
     </head>
     <body>
         <%@include file = "view/header.jsp" %>
         <div class="d-flex">
-            <div class="sidebar d-flex flex-column p-3">
-                <button class="btn btn-modify mb-2">Modify Role</button>
-                <form action="updateauth">
+            <div class="sidebar d-flex flex-column px-3">       
+                <form action="updateauth" class ="card px-3 py-3 mb-3">
+                    <h5 class="btn btn-modify mb-2">Modify Role</h5>
                     <div class="mb-3">
                         <c:forEach var="role" items="${roles}">
                             <label class="d-block">
                                 <input type="checkbox" value="${role.role_id}" name="role"
-                                    <c:if test="${roleSelected.contains(role.role_id)}">checked</c:if>>
+                                       <c:if test="${roleSelected.contains(role.role_id)}">checked</c:if>>
                                 <c:set var="rolePurposeWithSpaces" value="${fn:replace(role.role_purpose, '_', ' ')}" />
                                 <c:set var="formattedText" value="" />
                                 <c:forEach var="word" items="${fn:split(fn:toLowerCase(rolePurposeWithSpaces), ' ')}">
@@ -66,14 +70,39 @@
                     </div>
                     <button type="submit" class="btn btn-save mb-2">Save</button>
                     <c:choose>
-                    <c:when test="${not empty url}">
-                        <a class="btn btn-save mb-2" href="${(fn:startsWith(url, '/') ? fn:substring(url, 1, url.length()) : url)}">Visit Page</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a class="btn btn-save mb-2" href="http://localhost:9999/app-name/">Visit Page</a>
-                    </c:otherwise>
-                </c:choose>
+                        <c:when test="${not empty url}">
+                            <a class="btn btn-save mb-2" href="${(fn:startsWith(url, '/') ? fn:substring(url, 1, url.length()) : url)}">Visit Page</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="btn btn-save mb-2" href="http://localhost:9999/app-name/">Visit Page</a>
+                        </c:otherwise>
+                    </c:choose>
                 </form>
+                <div class = "card px-3 py-3">
+                    <h5 class="btn btn-modify mb-2 align-center">Modify Hidden Urls</h5>
+                    <!--a div page to select url via checkbox, with search and a div for user to see which page has been choosed. user can also remove by pressing the letter "x" in each choosed elements-->
+                    <!--assume 2 has been choosed-->
+                    <div class="mb-3">
+                        <div class="d-flex flex-grow-1">
+                            <div class="me-2 w-100">
+                                <select class="form-select searchable-select" id="hiddenUrlSelect">
+                                    <option value="">Select an option</option>
+                                    <c:forEach var="urlItem" items="${urls}">
+                                        <option value="${urlItem}" ${urlItem.equals(url) ? "selected" : ""}>${urlItem == '/' ? 'Home' : urlItem}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap mt-2" id="hiddenUrlContainer">
+                            <c:forEach var="url" items="${hiddenUrlsSelected}">
+                                <div class="me-2 mb-2">
+                                    <span>${url == '/' ? 'Home' : url}</span>
+                                    <button class="btn btn-remove" data-url="${url}">x</button>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="content flex-grow-1">
@@ -96,23 +125,23 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var iframeCover = document.querySelector('.iframe-cover');
-                var iframe = document.getElementById('contentIframe');
-            
-                // Assuming the iframe content is from the same origin for this to work
-                iframeCover.addEventListener('wheel', function(e) {
-                    // Prevent the default wheel behavior (page scrolling)
-                    e.preventDefault();
-                    // Scroll the iframe content, adjust the 30 to control scroll speed
-                    var scrollAmount = e.deltaY > 0 ? 500 : -500;
-                    iframe.contentWindow.scrollBy(0, scrollAmount);
-                });
-            });
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var iframeCover = document.querySelector('.iframe-cover');
+                            var iframe = document.getElementById('contentIframe');
+
+                            // Assuming the iframe content is from the same origin for this to work
+                            iframeCover.addEventListener('wheel', function (e) {
+                                // Prevent the default wheel behavior (page scrolling)
+                                e.preventDefault();
+                                // Scroll the iframe content, adjust the 30 to control scroll speed
+                                var scrollAmount = e.deltaY > 0 ? 500 : -500;
+                                iframe.contentWindow.scrollBy(0, scrollAmount);
+                            });
+                        });
         </script>
 
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('.searchable-select').select2({
                     placeholder: "Select an option",
                     allowClear: true

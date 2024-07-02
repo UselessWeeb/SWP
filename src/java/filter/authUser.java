@@ -34,7 +34,7 @@ import service.URLfilter;
  *
  * @author M7510
  */
-//@WebFilter(filterName = "authUser", urlPatterns = {"/*"})
+@WebFilter(filterName = "authUser", urlPatterns = {"/*"})
 public class authUser implements Filter {
     
     private static final boolean debug = true;
@@ -115,10 +115,10 @@ public class authUser implements Filter {
         //create a role "guest" for user who not login
         if (session.getAttribute("userAuth") == null) {
             User guest = new User();
-            guest.setRole(new Role(7, "guest"));
+            guest.setRole(new Role(6, "guest"));
             session.setAttribute("userAuth", guest);
         }
-        
+        //if not admin role
         String requestedResource = URLfilter.getResourceUrl(req.getRequestURI());
         requestedResource = requestedResource.substring(8, requestedResource.length());
         System.out.println(requestedResource);
@@ -131,7 +131,12 @@ public class authUser implements Filter {
 
         User currentUser = (User) req.getSession(true).getAttribute("userAuth");
         if (currentUser != null) {
-            boolean isAllowed = roleAuth.checkIfCurrentUserAbleToAccess(requestedResource, currentUser.getRoleId());
+            boolean isAllowed;
+            if (currentUser.getRole().getRole_id() != 1){
+                isAllowed = roleAuth.checkIfCurrentUserAbleToAccess(requestedResource, currentUser.getRoleId());
+            } else {
+                isAllowed = true;
+            }
 
             if (isAllowed) {
                 chain.doFilter(request, response);

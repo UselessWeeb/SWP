@@ -226,3 +226,8 @@ update [Order] set status = 3 where order_id between 6 and 8
 update [Order] set sales_id = 2 where order_id between 1 and 7
 
 update [Order] set sales_id = 4 where order_id between 8 and 12
+
+SELECT * FROM User_Authorization
+insert into User_Authorization VALUES 
+('/blog', 6),
+('/blog', 5),

@@ -107,13 +107,18 @@ public class UserAuthDAO extends EntityDAO{
 
     public boolean checkIfCurrentUserAbleToAccess(String url, int role_id) {
         //check if current user is able to access url
-        String sql = "SELECT * FROM User_Authorization WHERE url = ? AND role_id = ?";
+        String sql = "SELECT url FROM User_Authorization WHERE role_id = ?";
         try {
             stm = connection.prepareStatement(sql);
-            stm.setString(1, url);
-            stm.setInt(2, role_id);
+            stm.setInt(1, role_id);
             rs = stm.executeQuery();
-            return rs.next();
+            while (rs.next()) {
+                String authorizedUrl = rs.getString("url");
+                // Check if the accessed URL starts with the authorized URL
+                if (url.startsWith(authorizedUrl)) {
+                    return true;
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -165,6 +170,23 @@ public class UserAuthDAO extends EntityDAO{
             e.printStackTrace();
         }
         return roles;
+    }
+
+    public List<String> getURLForRole(int role_id){
+        //get url for role
+        List<String> urls = new ArrayList<>();
+        String sql = "SELECT url FROM User_Authorization WHERE role_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, role_id);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                urls.add(rs.getString("url"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return urls;
     }
 
 
