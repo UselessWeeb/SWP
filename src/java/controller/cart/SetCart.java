@@ -84,7 +84,7 @@ public class SetCart extends HttpServlet {
                     if (quantity < laptop.getStock()) { // Ensure quantity does not exceed stock
                         cart.overrideCart(id, ++quantity);
                     } else {
-                        session.setAttribute("noti", "The current quantity is larger than the stock, please try again");
+                        session.setAttribute("noti", "The " + laptop.getTitle() +" current quantity is larger than the stock, please try again");
                         session.setAttribute("id", id);
                     }
                     break;
@@ -92,7 +92,7 @@ public class SetCart extends HttpServlet {
                     if (quantity > 1) { // Ensure quantity does not fall below 1
                         cart.overrideCart(id, --quantity);
                     }else {
-                        session.setAttribute("noti", "The quantity is 0 means that system will remove it, do you want to continue ?");
+                        session.setAttribute("noti", "The " + laptop.getTitle() +" quantity is 0 means that system will remove it, do you want to continue ?");
                         session.setAttribute("choose", true);
                         session.setAttribute("id", id);
                     }

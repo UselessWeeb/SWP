@@ -88,8 +88,8 @@
                                         <c:forEach items="${laptopList}" var="laptop">
                                             <div class="swiper-slide">
                                                 <div class="card position-relative text-center py-4 border rounded-3">
-                                                    <img src="${laptop.mainImage}" class="img-fluid product-image" alt="product item" style="max-height: 350px; width: 100%;">
-                                                    <h5 class="mt-2"><a href="/app-name/product?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
+                                                    <img src="${laptop.mainImage}" class="img-fluid productdetails-image" alt="productdetails item" style="max-height: 350px; width: 100%;">
+                                                    <h5 class="mt-2"><a href="/app-name/productdetails?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
                                                     <span class="price text-primary fw-light mb-2">
                                                         <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                                             <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>
@@ -121,7 +121,7 @@
                                                        </c:forEach> 
                                                        &minPrice=0&maxPrice=" class="btn rounded-0 py-0 px-2">
                                                     </a>
-                                                    <img src="${blog.thumbnail}" alt="post image product-image" class="img-fluid">
+                                                    <img src="${blog.thumbnail}" alt="post image productdetails-image" class="img-fluid">
                                                     <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
                                                         <a href="blogdetails?id=${blog.blogId}">${blog.title}</a>
                                                     </h4>
