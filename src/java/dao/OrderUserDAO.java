@@ -32,12 +32,44 @@ public class OrderUserDAO extends EntityDAO {
             stm = connection.prepareStatement(query);
             stm.setInt(1, orderUid);
             rs = stm.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 return (Order_User) createEntity(rs);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public void create(Order_User orderUser) {
+        String query = "INSERT INTO Order_User (fullname, address, phone_number, email, add_info) VALUES (?, ?, ?, ?, ?)";
+        try {
+            stm = connection.prepareStatement(query);
+            stm.setString(1, orderUser.getFullname());
+            stm.setString(2, orderUser.getAddress());
+            stm.setString(3, orderUser.getPhoneNumber());
+            stm.setString(4, orderUser.getEmail());
+            stm.setString(5, orderUser.getAddInfo());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public boolean checkUser(String email) {
+        String query = "SELECT * FROM Order_User WHERE email = ?";
+        try {
+            stm = connection.prepareStatement(query);
+            stm.setString(1, email);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                //found user, no needs to add
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //new user
+        return false;
     }
 }

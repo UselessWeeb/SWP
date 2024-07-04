@@ -291,6 +291,22 @@ public class LaptopDAO extends EntityDAO {
         return laptopIDs;
     }
     
+    public void reducedQuantity(Laptop laptop, int quantity) {
+        try {
+            // SQL statement to decrease the quantity of a specific laptop
+            String strSelect = "UPDATE Laptop SET Quantity = Quantity - ? WHERE LaptopID = ?";
+            stm = connection.prepareStatement(strSelect);
+            // Set the quantity to decrease
+            stm.setInt(1, quantity);
+            // Set the laptop ID
+            stm.setInt(2, laptop.getLaptopId()); // Assuming Laptop has a getLaptopID() method to get its ID
+            // Execute the update
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }    
+    }
+    
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
         Laptop_CategoryDAO lap_cat = new Laptop_CategoryDAO();
