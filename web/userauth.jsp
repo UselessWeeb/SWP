@@ -94,12 +94,14 @@
                             </div>
                         </div>
                         <div class="d-flex flex-wrap mt-2" id="hiddenUrlContainer">
+                            <p>Here contains all urls that will not be displayed on the header, which caused by the fact that they do not display anything, only serve as a bridge for other's action</p>
                             <c:forEach var="url" items="${hiddenUrlsSelected}">
                                 <div class="me-2 mb-2">
                                     <span>${url == '/' ? 'Home' : url}</span>
                                     <button class="btn btn-remove" data-url="${url}">x</button>
                                 </div>
                             </c:forEach>
+                            
                         </div>
                     </div>
                 </div>

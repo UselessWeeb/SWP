@@ -195,3 +195,8 @@ create table [User_Authorization](
 	role_id int 
 	FOREIGN KEY (role_id) REFERENCES Role(role_id),
 )
+
+create table hiddenUrl(
+	urlid int primary key identity(1,1),
+	url NVARCHAR(MAX)
+)

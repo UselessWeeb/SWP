@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.HiddenUrlDAO;
 import dao.RoleDAO;
 import dao.UserAuthDAO;
 import jakarta.servlet.ServletContext;
@@ -52,8 +53,9 @@ public class UserAuthorizationServlet extends HttpServlet {
         for (ServletRegistration servletRegistration : servletRegistrations.values()) {
             urls.addAll(servletRegistration.getMappings());
         }
-        URLfilter filter = new URLfilter();
-        List<String> hiddenUrls = filter.hiddenUrls();
+        HiddenUrlDAO hiddenUrlDAO = new HiddenUrlDAO();
+        
+        List<String> hiddenUrls = hiddenUrlDAO.getAllUrls();
 
         //exclude all string from hiddenUrls
         urls = urls.stream().filter(url -> !hiddenUrls.contains(url)).collect(Collectors.toList());
@@ -71,6 +73,8 @@ public class UserAuthorizationServlet extends HttpServlet {
         }
         request.setAttribute("url",url);
         request.setAttribute("roleSelected", authdao.getRoleForURL(url));
+        request.setAttribute("hiddenUrlsSelected", hiddenUrls);
+        
         request.getRequestDispatcher("userauth.jsp").forward(request, response);
     }
 

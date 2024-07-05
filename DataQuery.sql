@@ -231,3 +231,6 @@ SELECT * FROM User_Authorization
 insert into User_Authorization VALUES 
 ('/blog', 6),
 ('/blog', 5),
+('/userauthorization', 1),
+('/login', 6),
+('/style.css', 
