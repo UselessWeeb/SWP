@@ -75,7 +75,7 @@ public class orderCompletionServlet extends HttpServlet {
             Order_User user = currentOrder.getUser();
             if (!orderUserDAO.checkUser(user.getEmail())){
                 //new user
-                orderUserDAO.
+                orderUserDAO.create(user);
             }
             //send emails to user
             EmailService service = new EmailService();
