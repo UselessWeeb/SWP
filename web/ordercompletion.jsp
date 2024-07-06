@@ -1,117 +1,67 @@
-<%-- 
-    Document   : ordercompletion
-    Created on : Jul 5, 2024, 11:32:48 PM
-    Author     : ASUS
---%>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
+        <title>ShopLite - Simple eCommerce Website Template</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cart Completion</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                min-height: 100vh;
-                flex-direction: column;
-            }
-            header, footer {
-                background-color: #f8f8f8;
-                padding: 10px;
-                text-align: center;
-            }
-            main {
-                display: flex;
-                flex: 1;
-            }
-            .sidebar {
-                width: 250px;
-                background-color: #f0f0f0;
-                padding: 15px;
-                box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            }
-            .content {
-                flex: 1;
-                padding: 20px;
-            }
-            .order-confirmation, .payment-info {
-                margin-bottom: 20px;
-            }
-            .notification {
-                background-color: #e7f3fe;
-                border-left: 4px solid #2196F3;
-                padding: 10px;
-                margin-bottom: 20px;
-            }
-            .search-box, .categories, .latest-products, .contacts {
-                margin-bottom: 20px;
-            }
-        </style>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="author" content="">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-
-        <header>
-            <h1>Order Completed</h1>
-        </header>
-
-        <main>
-            <div class="sidebar">
-                <div class="search-box">
-                    <h2>Product Search</h2>
-                    <input type="text" placeholder="Search for products...">
-                </div>
-                <div class="categories">
-                    <h2>Product Categories</h2>
-                    <ul>
-                        <li>Category 1</li>
-                        <li>Category 2</li>
-                        <li>Category 3</li>
-                    </ul>
-                </div>
-                <div class="latest-products">
-                    <h2>Latest Products</h2>
-                    <ul>
-                        <li>Product 1</li>
-                        <li>Product 2</li>
-                        <li>Product 3</li>
-                    </ul>
-                </div>
-                <div class="contacts">
-                    <h2>Contacts/Links</h2>
-                    <p>Phone: 123-456-7890</p>
-                    <p>Email: info@example.com</p>
-                    <p><a href="#">Terms and Conditions</a></p>
+        <%@include file = "view/header.jsp" %>
+        <section class="single-product padding-large">
+            <div class="container">
+                <div class="row">
+                    <jsp:include page = "/Sidebar" />
+                    <div class="col-lg-9">
+                        <div class="gap-3 product-preview">
+                            <div class="thumbnail">
+                                <div class="hero-image">
+                                    <div style = "width: 800px; height: 600px; background-color:#ff6543">
+                                        <h3>Notification</h3>
+                                        <h5>Order successfully</h5>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="content">
-                <div class="notification">
-                    Your order has been submitted successfully!
-                </div>
-                <div class="order-confirmation">
-                    <h2>Order Confirmation</h2>
-                    <p>Order Number: <%= request.getAttribute("orderNumber") %></p>
-                    <p>Thank you for your purchase! You will receive an order confirmation email shortly.</p>
-                </div>
-                <div class="payment-info">
-                    <h2>Payment Information</h2>
-                    <p>Please transfer the total amount to the following bank account:</p>
-                    <p>Bank: <%= request.getAttribute("bankName") %></p>
-                    <p>Account Number: <%= request.getAttribute("accountNumber") %></p>
-                    <p>Account Name: <%= request.getAttribute("accountName") %></p>
-                </div>
-            </div>
-        </main>
+        <%@include file = "view/footer.jsp" %>
 
-        <footer>
-            <p>&copy; 2024 Example Store. All rights reserved.</p>
-        </footer>
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script>
+            document.querySelector('.quantity-left-minus').addEventListener('click', function () {
+                let quantity = document.getElementById('quantity');
+                updateQuantities(quantity.value);
+            });
 
+            document.querySelector('.quantity-right-plus').addEventListener('click', function () {
+                let quantity = document.getElementById('quantity');
+                updateQuantities(quantity.value);
+            });
+
+            function updateQuantities(value) {
+                let numericValue = Number(value);
+                document.getElementById('orderQuantity').value = numericValue + 1;
+                document.getElementById('cartQuantity').value = numericValue + 1;
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
     </body>
 </html>
 
