@@ -5,9 +5,6 @@
 
 package controller.auth;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import dao.HiddenUrlDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,14 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author M7510
  */
-@WebServlet(name="showHiddenUrl", urlPatterns={"/showhiddenurl"})
-public class showHiddenUrl extends HttpServlet {
+@WebServlet(name="removeHiddenUrl", urlPatterns={"/removehiddenurl"})
+public class removeHiddenUrl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,23 +29,19 @@ public class showHiddenUrl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {     
-        int page = Integer.parseInt(request.getParameter("page"));
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-
-        // Fetch paginated data based on page and pageSize
-        HiddenUrlDAO urlDAO = new HiddenUrlDAO();
-        List<String> paginatedUrls = urlDAO.fetchPaginatedUrls(page, pageSize);
-        int totalUrls = urlDAO.getTotalUrlsCount();
-
-        // Prepare JSON response
-        JsonObject jsonResponse = new JsonObject();
-        jsonResponse.addProperty("totalPages", (int) Math.ceil((double) totalUrls / pageSize));
-        jsonResponse.add("urls", new Gson().toJsonTree(paginatedUrls));
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(jsonResponse.toString());
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String url = request.getParameter("url");
+        //basic validation
+        if(url == null || url.isEmpty()) {
+            session.setAttribute("err", "URL " + url + " is not exist, please try again");
+            return;
+        }
+        dao.HiddenUrlDAO urlDAO = new dao.HiddenUrlDAO();
+        urlDAO.deleteUrl(url);
+        response.setStatus(HttpServletResponse.SC_OK);       
+        session.setAttribute("success", "URL " + url + " Remove Successfully !");
+        response.sendRedirect(request.getHeader("referer"));
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

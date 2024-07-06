@@ -10,5 +10,7 @@ package dao;
  */
 public class testing {
     public static void main(String[] args) {
+        HiddenUrlDAO dao = new HiddenUrlDAO();
+        System.out.println(dao.fetchPaginatedUrls(0, 10));
     }
 }

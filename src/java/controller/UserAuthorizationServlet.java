@@ -58,6 +58,7 @@ public class UserAuthorizationServlet extends HttpServlet {
         List<String> hiddenUrls = hiddenUrlDAO.getAllUrls();
 
         //exclude all string from hiddenUrls
+        List<String> FullUrls = urls;
         urls = urls.stream().filter(url -> !hiddenUrls.contains(url)).collect(Collectors.toList());
 
         RoleDAO roledao = new RoleDAO();
@@ -73,7 +74,9 @@ public class UserAuthorizationServlet extends HttpServlet {
         }
         request.setAttribute("url",url);
         request.setAttribute("roleSelected", authdao.getRoleForURL(url));
+        request.setAttribute("fullUrls", FullUrls);
         request.setAttribute("hiddenUrlsSelected", hiddenUrls);
+        System.out.println(hiddenUrls);
         
         request.getRequestDispatcher("userauth.jsp").forward(request, response);
     }

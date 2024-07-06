@@ -33,22 +33,18 @@ public class addHiddenUrl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int page = Integer.parseInt(request.getParameter("page"));
-        int pageSize = Integer.parseInt(request.getParameter("pageSize"));
-
-        // Fetch paginated data based on page and pageSize
+        String[] selectedUrls = request.getParameterValues("hiddenUrl");
+        //validate this
+        if(selectedUrls == null || selectedUrls.length == 0) {
+            request.getSession().setAttribute("err", "Please select at least one URL to hide");
+            response.sendRedirect(request.getHeader("referer"));
+            return;
+        }
         HiddenUrlDAO urlDAO = new HiddenUrlDAO();
-        List<String> paginatedUrls = urlDAO.fetchPaginatedUrls(page, pageSize);
-        int totalUrls = urlDAO.getTotalUrlsCount();
-
-        // Prepare JSON response
-        JsonObject jsonResponse = new JsonObject();
-        jsonResponse.addProperty("totalPages", (int) Math.ceil((double) totalUrls / pageSize));
-        jsonResponse.add("urls", new Gson().toJsonTree(paginatedUrls));
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(jsonResponse.toString());
+        urlDAO.UpdateListUrls(selectedUrls);
+        response.setStatus(HttpServletResponse.SC_OK);
+        request.getSession().setAttribute("success", selectedUrls.length + " URLs added successfully !");
+        response.sendRedirect(request.getHeader("referer"));
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
