@@ -124,19 +124,21 @@ public class authUser implements Filter {
         System.out.println(requestedResource);
         boolean allowedAnyone = roleAuth.isAllowedAnyOneToAccess(requestedResource);     
 
-        if (allowedAnyone) {
+        if (!allowedAnyone) {
             chain.doFilter(request, response);
             return;
         }
 
         User currentUser = (User) req.getSession(true).getAttribute("userAuth");
         if (currentUser != null) {
+            System.out.println("User not null, id =" + currentUser.getRole().getRole_id());
             boolean isAllowed;
             if (currentUser.getRole().getRole_id() != 1){
-                isAllowed = roleAuth.checkIfCurrentUserAbleToAccess(requestedResource, currentUser.getRoleId());
+                isAllowed = roleAuth.checkIfCurrentUserAbleToAccess(requestedResource, currentUser.getRole().getRole_id());
             } else {
                 isAllowed = true;
             }
+            System.out.println(isAllowed);
 
             if (isAllowed) {
                 chain.doFilter(request, response);
@@ -145,7 +147,15 @@ public class authUser implements Filter {
         }
 
         Logger.getLogger("Requesting resource " + requestedResource + " Not allow to access");
-        res.sendRedirect(req.getContextPath());
+        UserAuthDAO authDAO = new UserAuthDAO();
+        String startUrl = authDAO.getURLForRole(currentUser.getRole().getRole_id()).get(0);
+        //if the start url = / then replace with /app-name/ otherwise delete the trail /
+        if (startUrl.equals("/")) {
+            startUrl = req.getContextPath() + startUrl;
+        } else {
+            startUrl = req.getContextPath() + startUrl.substring(0, startUrl.length());
+        }
+        res.sendRedirect(startUrl);
     }
 
 

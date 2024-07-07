@@ -4,6 +4,7 @@
  */
 package controller.auth;
 
+import dao.HiddenUrlDAO;
 import dao.UserAuthDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,15 +45,14 @@ public class showUserActionServlet extends HttpServlet {
         UserAuthDAO userAuthDAO = new UserAuthDAO();
         HttpSession session = request.getSession();
         if (session != null && session.getAttribute("userAuth") != null) {
+            HiddenUrlDAO hiddenUrls = new HiddenUrlDAO();
             List<String> urls = userAuthDAO.getURLForRole(((User) session.getAttribute("userAuth")).getRole().getRole_id());
-            List<String> hiddenUrl = URLfilter.hiddenUrls();
+            List<String> hiddenUrl = hiddenUrls.getAllUrls();
             // Initialize accessibleUrl as a LinkedHashSet to maintain insertion order
-            Set<String> accessibleUrl = new LinkedHashSet<>();
-            // Add "/" first to ensure it's at the beginning of the list
-            accessibleUrl.add("/");
-            // Add the rest of the URLs, excluding the hidden ones
-            accessibleUrl.addAll(urls.stream().filter(url -> !hiddenUrl.contains(url) && !url.equals("/")).collect(Collectors.toSet()));
-            System.out.println(urls);
+            List<String> accessibleUrl = new ArrayList<>();
+            accessibleUrl.addAll(urls.stream().filter(url -> !hiddenUrl.contains(url)).collect(Collectors.toSet()));
+            Collections.sort(accessibleUrl);
+            System.out.println(accessibleUrl);
             request.setAttribute("accessibleurls", accessibleUrl);
             request.getRequestDispatcher("/view/showAction.jsp").include(request, response);
         }

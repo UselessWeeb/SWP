@@ -78,7 +78,7 @@ public class UserAuthorizationServlet extends HttpServlet {
         request.setAttribute("hiddenUrlsSelected", hiddenUrls);
         System.out.println(hiddenUrls);
         
-        request.getRequestDispatcher("userauth.jsp").forward(request, response);
+        request.getRequestDispatcher("userauthorization.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

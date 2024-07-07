@@ -1,9 +1,3 @@
-<%-- 
-    Document   : cart
-    Created on : May 16, 2024, 3:33:46 PM
-    Author     : M7510
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix= "c" uri= "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -86,9 +80,11 @@
             <div class="container">
                 <div class="row">
                     <div class="cart-table col-lg-9">
-                        <div class="cart-header">
+                        <input type="text" id="search-input" class="form-control mb-1" placeholder="Search for products..." onchange="searchProducts()">
+                        <div class="cart-header pt-3">
                             <div class="row d-flex text-uppercase">
-                                <h4 class="col-lg-3 pb-3">Id</h4>
+                                <div class = "col-lg-1"></div>
+                                <h4 class="col-lg-2 pb-3">Id</h4>
                                 <h4 class="col-lg-3 pb-3">Product</h4>
                                 <h4 class="col-lg-2 pb-3">Quantity</h4>
                                 <h4 class="col-lg-3 pb-3">Subtotal</h4>
@@ -97,16 +93,20 @@
                         <div class="cart-table">
                             <c:set var="totalQuantity" value="0"/>
                             <c:set var="totalPrice" value="0"/>
+                            <div class ="item-list">
                             <c:forEach var="cart" items="${carts}" varStatus="status">
                                 <c:set var="totalQuantity" value="${totalQuantity + cart.value}"/>
                                 <c:set var="totalPrice" value="${totalPrice + (cart.key.salePrice * cart.value)}"/>
-                                <div class="cart-item border-bottom padding-small">
+                                <div class="cart-item border-bottom padding-small item" id = "item" data-name = "${cart.key.title}">
                                     <div class="row align-items-center">
                                         <div class="col-lg-6 col-md-3">
                                             <div class="cart-info d-flex gap-2 flex-wrap align-items-center">
-                                                <div class="col-lg-3">
+                                                <div class = "col-lg-1">
+                                                    <input type="checkbox" data-id = "${cart.key.laptopId}" class="item-checkbox" data-price="${cart.key.salePrice * cart.value}" onchange="updateTotalPrice()" checked>
+                                                </div>
+                                                <div class="col-lg-2">
                                                     <div class="card-detail">
-                                                        <h5 class="mt-2"><a href="single-product.html">${cart.key.laptopId}</a></h5>
+                                                        <h5 class="mt-2"><a href="productdetails?id=${cart.key.laptopId}">${cart.key.laptopId}</a></h5>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -116,9 +116,9 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="card-detail">
-                                                        <h5 class="mt-2"><a href="single-product.html">${cart.key.title}</a></h5>
+                                                        <h5 class="mt-2"><a href="productdetails?id=${cart.key.laptopId}">${cart.key.title}</a></h5>
                                                         <div class="card-price">
-                                                            <span class="price text-primary fw-light" data-currency-usd="${cart.key.salePrice}">${cart.key.salePrice}</span>
+                                                            <span class="price text-primary fw-light" data-currency-usd="${cart.key.salePrice}">$${cart.key.salePrice}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,7 +142,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="total-price">
-                                                        <span class="money fs-2 fw-light text-primary">${cart.key.salePrice * cart.value}</span>
+                                                        <span class="money fs-2 fw-light text-primary">$${cart.key.salePrice * cart.value}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,13 +183,133 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <div class="cart-totals padding-medium pb-0">
+                            <div class="pagination-controls mt-3">
+                                <button class="btn btn-secondary" onclick="prevPage()">Previous</button>
+                                <span id="page-info"></span>
+                                <button class="btn btn-secondary" onclick="nextPage()">Next</button>
+                            </div>
+                            <script>
+                                let currentPage = 1;
+                                let itemsPerPage = 5;
+                            
+                                function searchProducts() {
+                                    let searchInput = document.getElementById('search-input').value.toLowerCase();
+                                    let items = document.querySelectorAll('.item');
+                            
+                                    items.forEach(function(item) {
+                                        let itemName = item.getAttribute('data-name').toLowerCase();
+                                        if (itemName.includes(searchInput)) {
+                                            item.style.display = '';
+                                        } else {
+                                            item.style.display = 'none';
+                                        }
+                                    });
+                            
+                                    // Reset to first page after search
+                                    currentPage = 1;
+                                    paginateItems();
+                                }
+                            
+                                function paginateItems() {
+                                    let items = document.querySelectorAll('.item');
+                                    let visibleItems = Array.from(items).filter(item => item.style.display !== 'none');
+                                    let totalPages = Math.ceil(visibleItems.length / itemsPerPage);
+                            
+                                    visibleItems.forEach((item, index) => {
+                                        item.style.display = (index >= (currentPage - 1) * itemsPerPage && index < currentPage * itemsPerPage) ? '' : 'none';
+                                    });
+                                }
+                            
+                                function prevPage() {
+                                    if (currentPage > 1) {
+                                        currentPage--;
+                                        paginateItems();
+                                    }
+                                }
+                            
+                                function nextPage() {
+                                    let items = document.querySelectorAll('.item');
+                                    let visibleItems = Array.from(items).filter(item => item.style.display !== 'none');
+                                    let totalPages = Math.ceil(visibleItems.length / itemsPerPage);
+                            
+                                    if (currentPage < totalPages) {
+                                        currentPage++;
+                                        paginateItems();
+                                    }
+                                }
+                            
+                                // Initial call to paginate items
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    paginateItems();
+                                });
+                            
+                                // Event listener for search input
+                                document.getElementById('search-input').addEventListener('input', searchProducts);
+                            </script>
+                        </div>
+                        <div class="padding-small">
+                            <!-- "Select All" checkbox -->
+                            <div class="d-flex align-items-center gap-3">
+                                <input type="checkbox" id="select-all" class="select-all-checkbox" onchange="toggleSelectAll()" checked>
+                                <label for="select-all">Select all</label>
+                            </div>
+                            <!-- Script to handle "Select All" functionality -->
+                            <script>
+                                function toggleSelectAll() {
+                                    let selectAllCheckbox = document.querySelector('.select-all-checkbox');
+                                    let itemCheckboxes = document.querySelectorAll('.item-checkbox');
+                                    let allChecked = true;
+                        
+                                    if (selectAllCheckbox.checked) {
+                                        itemCheckboxes.forEach(function(checkbox) {
+                                            checkbox.checked = true;
+                                        });
+                                    } else {
+                                        itemCheckboxes.forEach(function(checkbox) {
+                                            checkbox.checked = false;
+                                        });
+                                    }
+                        
+                                    updateTotalPrice();
+                                }
+                            </script>
+                        </div>
+                        <script>
+                            function updateTotalPrice() {
+                                let checkboxes = document.querySelectorAll('.item-checkbox');
+                                let totalPrice = 0;
+                                checkboxes.forEach(function(checkbox) {
+                                    if (checkbox.checked) {
+                                        totalPrice += parseFloat(checkbox.getAttribute('data-price'));
+                                    }
+                                });
+                                //check if all checkboxes are checked
+                                let selectAllCheckbox = document.querySelector('.select-all-checkbox');
+                                let allChecked = true;
+                                checkboxes.forEach(function(checkbox) {
+                                    if (!checkbox.checked) {
+                                        allChecked = false;
+                                    }
+                                });
+                                if (allChecked) {
+                                    selectAllCheckbox.checked = true;
+                                } else {
+                                    selectAllCheckbox.checked = false;
+                                }
+                                // Update the total price in the cart totals section
+                                document.querySelector('.total-price .amount').textContent = '$' + totalPrice;
+                            }
+                            
+                            // Initial calculation in case some boxes are checked by default
+                            document.addEventListener('DOMContentLoaded', updateTotalPrice);
+                            </script>
+                        <div class="cart-totals padding-small pb-0">
                             <h3 class="mb-3">Cart Totals</h3>
                             <div class="total-price pb-3">
                                 <table cellspacing="0" class="table text-uppercase">
                                     <tbody>
                                         <tr class="subtotal pt-2 pb-2 border-top border-bottom">
-                                            <th>Subtotal</th>
+                                            <th>Selected Total</th>
                                             <td data-title="Subtotal">
                                                 <span class="price-amount amount text-primary ps-5 fw-light">
                                                     <bdi>
@@ -199,7 +319,7 @@
                                             </td>
                                         </tr>
                                         <tr class="order-total pt-2 pb-2 border-bottom">
-                                            <th>Total</th>
+                                            <th>Cart Total</th>
                                             <td data-title="Total">
                                                 <span class="price-amount amount text-primary ps-5 fw-light">
                                                     <bdi>
@@ -210,9 +330,42 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <!--a modal to warn user that they haven't select any products to checkout-->
+                            <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="checkoutModalLabel">Warning</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            Please select at least one item to checkout
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="button-wrap d-flex flex-wrap gap-3">
                                 <a href = "productList" class = "btn">Continue Shopping</a>
-                                <a href = "checkout" class = "btn">Proceed to checkout</a>
+                                <button href = "checkout" class = "btn" onclick = "checkout()">Proceed to checkout</button>
+                                <script>
+                                    function checkout() {
+                                        let checkboxes = document.querySelectorAll('.item-checkbox');
+                                        let ids = [];
+                                        checkboxes.forEach(function(checkbox) {
+                                            if (checkbox.checked) {
+                                                ids.push(checkbox.getAttribute('data-id'));
+                                            }
+                                        });
+                                        if (ids.length === 0) {
+                                            //invoke the modal to warn user that they haven't select any products to checkout
+                                            $('#checkoutModal').modal('show');
+                                        } else {
+                                            window.location.href = 'checkout?ids=' + ids.join(',');
+                                        }
+                                    }
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -226,5 +379,4 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
         <script type="text/javascript" src="js/script.js"></script>
     </body>
-
 </html>

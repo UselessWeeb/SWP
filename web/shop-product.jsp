@@ -59,7 +59,7 @@
                                 <div class="col-lg-3 col-md-4">
                                     <div class="card position-relative text-center py-4 border rounded-3">
                                         <img src="${laptop.mainImage}" class="p-3 img-fluid product-image" alt="${laptop.title}">
-                                        <h5 class="mt-2"><a href="product?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
+                                        <h5 class="mt-2"><a href="productdetails?laptopId=${laptop.laptopId}">${laptop.title}</a></h5>
                                         <div class = "d-flex justify-content-between px-3">
                                             <c:if test = "${laptop.salePrice != laptop.originalPrice}">
                                                 <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>

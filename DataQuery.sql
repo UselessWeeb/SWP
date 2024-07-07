@@ -233,4 +233,13 @@ insert into User_Authorization VALUES
 ('/blog', 5),
 ('/userauthorization', 1),
 ('/login', 6),
-('/style.css', 
+('/productdetails', 5),
+('/productdetails', 6)
+
+INSERT INTO hiddenUrl VALUES('/login')
+INSERT INTO hiddenUrl VALUES('/logout')
+INSERT INTO hiddenUrl VALUES('/login')
+INSERT INTO hiddenUrl VALUES('/addtocart')
+INSERT INTO hiddenUrl VALUES('/setcart')
+INSERT INTO hiddenUrl VALUES('/deletefromcart')
+SELECT * FROM hiddenUrl ORDER BY urlid OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY

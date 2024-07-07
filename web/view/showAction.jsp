@@ -11,7 +11,7 @@
 <html>
     <c:forEach var="url" items="${accessibleurls}">
         <li class="nav-item">
-            <a class="nav-link me-4 ${(url != '/' && fn:contains(pageContext.request.requestURI, fn:substringAfter(url, '/'))) ? 'active' : ''}" href="${url == '/' ? '/app-name/' : fn:substringAfter(url, '/')}">
+            <a class="nav-link me-4 ${(url != '/' && fn:contains(pageContext.request.requestURI, fn:substringAfter(url, '/'))) || (url == '/' && fn:contains(pageContext.request.requestURI, 'index.jsp')) ? 'active' : ''}" href="${url == '/' ? '/app-name/' : fn:substringAfter(url, '/')}">
                 <c:choose>
                     <c:when test="${url == '/'}">Home</c:when>
                     <c:otherwise>${fn:substringAfter(url, '/')}</c:otherwise>
