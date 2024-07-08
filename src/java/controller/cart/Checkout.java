@@ -69,12 +69,28 @@ public class Checkout extends HttpServlet {
                 }
             });
             request.setAttribute("carts", cart);
+            int shipMethod;
+            //if the number of product along with their quantity is greater than 3, set shipMethod to 2(heavy ship)
+            if (this.getTotalQuantity(cart) > 3){
+                shipMethod = 2;
+            } else {
+                shipMethod = 1;
+            }
+            request.setAttribute("shipMethod", shipMethod);
             //this is the checkout page, so we just need to forward to the checkout.jsp
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             response.sendRedirect("cart");
             return;
         }
+    }
+
+    public static int getTotalQuantity(HashMap<Laptop, Integer> cart) {
+        int totalQuantity = 0;
+        for (int quantity : cart.values()) {
+            totalQuantity += quantity;
+        }
+        return totalQuantity;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

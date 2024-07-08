@@ -1,9 +1,3 @@
-<%-- 
-    Document   : checkout
-    Created on : May 16, 2024, 3:32:20 PM
-    Author     : M7510
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -96,22 +90,99 @@
                             <h3 class="mb-3">Billing Details</h3>
                             <div class="billing-details">
                                 <label for="fname">Full name*</label>
-                                <input type="text" id="fname" name="firstname" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.fullName}">
+                                <input type="text" id="fname" name="fullName" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.fullName}" required>
                                 <label for="cname">Address*</label>
-                                <input type="text" id="cname" name="companyname" class="form-control mt-2 mb-4" value="${sessionScope.user.address}">
+                                <input type="text" name="userAddress" id = "userAddress" class="form-control mt-2 mb-4" value="${sessionScope.user.address}" onchange = "calculateDistance()" required>
                                 <label for="phone">Phone *</label>
-                                <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.phoneNumber}">
+                                <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.phoneNumber}" required>
                                 <label for="email">Email address *</label>
-                                <input type="text" id="email" name="email" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.email}">
+                                <input type="text" id="email" name="email" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.email}" required>
+                                <label for="method">Shipping method *</label>
+                                <!--a button to open the dropdown-->
+                                <button class="btn dropdown-toggle" type="button" name = "method" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Shipping Method
+                                </button>
+                                <!--the dropdown menu-->
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <div class="dropdown-item" value="1">
+                                            <div class = "d-flex justify-content-between">
+                                                <h5>Standard Delivery</h5>
+                                                <c:if test = "${shipMethod == 1}">
+                                                    <p>Recommended</p>
+                                                </c:if>
+                                            </div>
+                                            <p>Most suitable for smaller orders. Fast and secure</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-item" value="2">
+                                            <div class = "d-flex justify-content-between">
+                                                <h5>Heavy Delivery</h5>
+                                                <c:if test = "${shipMethod == 2}">
+                                                    <p>Recommended</p>
+                                                </c:if>
+                                                </div>
+                                            <p>Suitable for heavy order. More expensive, but keep the fast and secure</p>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="form-control">
+                            <div class="form-control mt-3">
                                 <h3 class="mb-3">Additional Information</h3>
                                 <div class="billing-details">
                                     <label for="fname">Order notes (optional)</label>
                                     <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
                                 </div>
                             </div>
-                        </div>
+                            <p id="result" hidden></p>
+                            <script>
+                                async function getCoordinatesFromAddress(address) {
+                                    const response = await fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address));
+                                    const data = await response.json();
+                                    if (data.length > 0) {
+                                        const location = data[0];
+                                        return { lat: parseFloat(location.lat), lon: parseFloat(location.lon) };
+                                    } else {
+                                        throw new Error('Address not found');
+                                    }
+                                }
+                        
+                                async function calculateDistance() {
+                                    try {
+                                        const staticAddress = { lat: 21.001770, lon: 105.521470 }; // Current location of the store
+                                        const userAddress = document.getElementById('userAddress').value;
+                        
+                                        const userCoordinates = await getCoordinatesFromAddress(userAddress);
+                                        const distance = getDistanceInMeters(staticAddress.lat, staticAddress.lon, userCoordinates.lat, userCoordinates.lon);
+                                        console.log(distance);
+                        
+                                        document.getElementById('result').textContent = distance.toFixed(2);
+
+                                        calculateShippingFee();
+                                        calculateTotalPrice();
+                                    } catch (error) {
+                                        document.getElementById('result').textContent = 'Error: Address not found or invalid.';
+                                    }
+                                }
+                        
+                                function getDistanceInMeters(lat1, lon1, lat2, lon2) {
+                                    const R = 6371e3; // Earth's radius in meters
+                                    const φ1 = lat1 * Math.PI / 180;
+                                    const φ2 = lat2 * Math.PI / 180;
+                                    const Δφ = (lat2 - lat1) * Math.PI / 180;
+                                    const Δλ = (lon2 - lon1) * Math.PI / 180;
+                        
+                                    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                                              Math.cos(φ1) * Math.cos(φ2) *
+                                              Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+                                    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        
+                                    const distance = R * c;
+                                    return distance;
+                                }
+                            </script>
+                        </div>                     
                         <jsp:include page="/Sidebar" flush="true"/>
                         <div class="cart-totals padding-medium pb-0">
                             <h3 class="mb-3">Cart Totals</h3>
@@ -123,20 +194,112 @@
                                             <td data-title="Subtotal">
                                                 <span class="price-amount amount text-primary ps-5 fw-light">
                                                     <bdi>
-                                                        <span class="price-currency-symbol">$</span>${totalPrice}
+                                                        <span class="price-currency-symbol" id = 'subtotal'>$${totalPrice}</span>
                                                     </bdi>
                                                 </span>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <th>Shipping Method</th>
+                                            <td data-title="Shipping Method">
+                                                <span class="price-amount amount text-primary ps-5 fw-light">
+                                                    <bdi>
+                                                        <span class="price-currency-symbol" id = "ship"></span>
+                                                    </bdi>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <script>
+                                            function calculateShippingMethod(i) {                                                
+                                                var ship;
+                                                if (i == 1) {
+                                                    ship = 'Standard Delivery';
+                                                } else if (i == 2) {
+                                                    ship = 'Heavy Delivery';
+                                                } else {
+                                                    ship = 'None';
+                                                }
+                                                document.getElementById('ship').textContent = ship;
+                                                document.getElementById('dropdownMenuButton').innerHTML = ship;
+                                                calculateShippingFee();
+                                            }
+                                            document.addEventListener('DOMContentLoaded', function(){
+                                                var options = document.querySelectorAll('.dropdown-item');
+                                                options.forEach(option => {
+                                                    option.addEventListener('click', function(e){
+                                                        e.stopPropagation();
+                                                        e.preventDefault();
+                                                        calculateShippingMethod(option.getAttribute('value'));
+                                                    });
+                                                });
+                                            });
+                                            calculateShippingMethod();
+                                        </script>
+                                        <tr>
+                                            <th>Shipping</th>
+                                            <td data-title="Shipping">
+                                                <span class="price-amount amount text-primary ps-5 fw-light">
+                                                    <bdi>
+                                                        <span class="price-currency-symbol" id = "shipping">$</span>
+                                                    </bdi>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <script>
+                                            function calculateShippingFee() {
+                                                var distance = document.getElementById('result').textContent;
+                                                var feePerKm;
+                                                if (isNaN(distance)) feePerKm = 0;
+                                                else {
+                                                    var method = document.getElementById('shippingMethod').value;
+                                                    var methodFee;
+                                                    switch (method){
+                                                        case "1":
+                                                            methodFee = 0.3;
+                                                            break;
+                                                        case "2":
+                                                            methodFee = 0.6;
+                                                            break;
+                                                        default:
+                                                            methodFee = 0;
+                                                    }
+                                                    if (distance < 10000) {
+                                                        feePerKm = 0.5 + methodFee;
+                                                    } else if (distance < 30000) {
+                                                        feePerKm = 1 + methodFee;
+                                                    } else {
+                                                        feePerKm = 1.5 + methodFee;
+                                                    }
+                                                    console.log("distance: " + distance);
+                                                    console.log("feePerKm: " + feePerKm);
+                                                    console.log("methodFee: " + methodFee);
+                                                }
+                                                document.getElementById('shipping').textContent = '$' + (feePerKm * (distance / 1000)).toFixed(2);
+                                            }
+                                            calculateShippingFee(); 
+                                        </script>
                                         <tr class="order-total pt-2 pb-2 border-bottom">
                                             <th>Total</th>
                                             <td data-title="Total">
                                                 <span class="price-amount amount text-primary ps-5 fw-light">
                                                     <bdi>
-                                                        <span class="price-currency-symbol">$</span>${totalPrice}</bdi>
+                                                        <span class="price-currency-symbol" id = "totalPrice">$</span>
+                                                    </bdi>
                                                 </span>
                                             </td>
                                         </tr>
+                                        <script>
+                                            function calculateTotalPrice() {
+                                                var totalPrice = parseFloat(document.getElementById('subtotal').textContent.split('$')[1]);
+                                                var shippingFee = parseFloat(document.getElementById('shipping').textContent.split('$')[1]);
+                                                if (isNaN(shippingFee)) shippingFee = 0;
+                                                var total = totalPrice + shippingFee;
+                                                console.log(total);
+                                                document.getElementById('totalPrice').textContent = '$' + total.toFixed(2); // Format to 2 decimal places
+                                            }
+
+                                            calculateTotalPrice();
+                                        </script>
                                     </tbody>
                                 </table>
                             </div>
