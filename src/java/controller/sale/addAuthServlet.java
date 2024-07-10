@@ -3,10 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.sale;
 
-import dao.OrderDAO;
-import dao.SliderDAO;
+import dao.AssinDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.User;
 
 /**
  *
- * @author vudai
+ * @author ASUS
  */
-@WebServlet(urlPatterns = {"/myorder"})
-public class MyOrderServlet extends HttpServlet {
+@WebServlet(name="addAuthServlet", urlPatterns={"/addAuth"})
+public class addAuthServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,23 +30,12 @@ public class MyOrderServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(false);
-            
-            //Creat user u
-            User u = (User)session.getAttribute("user");
-            OrderDAO dao = new OrderDAO();
-            
-            SliderDAO slDAO = new SliderDAO();
-            
-//            request.setAttribute("orderList", dao.getOrderUser(u.getUserId()));
-            request.setAttribute("sliderList", slDAO.findAll());
-            
-            request.getRequestDispatcher("displayOrder.jsp").forward(request, response);
-
-        }
-    }
+        String user_id = request.getParameter("user_id");
+        String order_id = request.getParameter("order_id");
+        AssinDAO adao = new AssinDAO();
+        adao.addAuth(Integer.parseInt(order_id), Integer.parseInt(user_id));
+        response.sendRedirect(request.getHeader("referer"));
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

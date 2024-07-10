@@ -319,28 +319,34 @@ public class OrderDAO extends EntityDAO {
         return -1; //no user matched
     }
 
-    public void createOrder(Order order) {
-        String sql = "INSERT INTO [Order] (order_date, price, status, order_uid, sales_id) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stm.setTimestamp(1, new java.sql.Timestamp(order.getOrder_date().getTime()));
-            stm.setFloat(2, order.getPrice());
-            stm.setInt(3, order.getStatus());
-            stm.setInt(4, order.getUser_id());
-            stm.setInt(5, order.getSales_id());
-
-            int affectedRows = stm.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating order failed, no rows affected.");
+    public boolean validateOrder(int uid, int orderid) {
+        try {
+            String sql = "SELECT * FROM [Order] where order_id = ? and uid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, orderid);
+            stm.setInt(2, uid);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                //if the query returns result
+                return true;
             }
+            return false;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //if it reaches here, return false
+        return false;
+    }
 
-            try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    order.setOrder_id(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating order failed, no ID obtained.");
-                }
-            }
+    public void UpdateOrder(int sales_id, int status, String notes, int order_id) {
+        String sql = "UPDATE [Order] SET sales_id = ?, status = ?, notes = ? WHERE order_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, sales_id);
+            stm.setInt(2, status);
+            stm.setString(3, notes);
+            stm.setInt(4, order_id);
+            stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -392,6 +398,34 @@ public class OrderDAO extends EntityDAO {
             stm = connection.prepareStatement(sql);
             stm.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
             stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void createOrder(Order order) {
+        String sql = "INSERT INTO [Order] (order_date, price, status, order_uid, sales_id) VALUES (?, ?, ?, ?, ?)";
+        try {
+            stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stm.setTimestamp(1, new java.sql.Timestamp(order.getOrder_date().getTime()));
+            stm.setFloat(2, order.getPrice());
+            stm.setInt(3, order.getStatus());
+            stm.setInt(4, order.getUser_id());
+            stm.setInt(5, order.getSales_id());
+
+            int affectedRows = stm.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    order.setOrder_id(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Creating order failed, no ID obtained.");
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

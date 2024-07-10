@@ -15,7 +15,8 @@ public class Order_User {
     private String phoneNumber;
     private String email;
     private String addInfo;
-    public String gender;
+    private String gender;
+    
 
     public Order_User() {
     }

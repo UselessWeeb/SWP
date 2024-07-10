@@ -65,5 +65,4 @@ public class OrderItemDAO extends EntityDAO {
         orderItem.setPrice(rs.getFloat("price"));
         return orderItem;
     }
-    
 }

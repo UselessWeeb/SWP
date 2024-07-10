@@ -15,6 +15,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import model.User;
  *
  * @author M7510
  */
+@WebFilter(filterName = "SessionThirst", urlPatterns = {"/*"})
 public class SessionThirst implements Filter {
 
     public SessionThirst() {
