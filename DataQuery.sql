@@ -20,43 +20,34 @@ INSERT INTO [User] (avatar, full_name, gender, address, email, phone_number, pas
 GO
 
 -- Insert into Laptop
-SELECT * FROM Laptop
 INSERT INTO Laptop (title, main_image, original_price, stock, products_detail, sale_price, brief_information, is_featured, status, updated_date) VALUES
-('Asus Vivobook OLED 2020', 'images/product/Asus/Asus1.jpg', 1000.00, 50, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 900.00, 'Brief info about Laptop 1', 1, 1, GETDATE()),
-('Asus Vivobook 2018', 'images/product/Asus/Asus2.jpg', 1200.00, 30, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 1100.00, 'Brief info about Laptop 2', 1, 1, GETDATE()),
-('Dell Inspiron 2020', 'images/product/Dell/Dell1,jpg', 1500.00, 20, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 1400.00, 'Brief info about Laptop 3', 1, 1, GETDATE()),
-('Lenovo Thinkpad 2024', 'images/product/Lenovo/Lenovo1.jpg', 1800.00, 10, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 1700.00, 'Brief info about Laptop 4', 1, 1, GETDATE()),
-('Dell Precision 2021', 'images/product/Dell/Dell2.png', 2000.00, 15, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 1900.00, 'Brief info about Laptop 5', 1, 1, GETDATE()),
-('Lenovo Gaming 2020', 'images/product/Lenovo/Lenovo2.jpg', 2200.00, 5, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 2100.00, 'Brief info about Laptop 6', 1, 1, GETDATE()),
-('Asus Vivobook 2023', 'images/product/Asus/Asus3.jpg', 2500.00, 25, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 2400.00, 'Brief info about Laptop 7', 1, 1, GETDATE()),
-('Asus Expertbook 2024', 'images/product/Asus/Asus4.jpg', 2800.00, 12, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 2700.00, 'Brief info about Laptop 8', 1, 1, GETDATE()),
-('Dell Notebook 2023', 'images/product/Dell/Dell3.jpg', 3000.00, 18, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 2900.00, 'Brief info about Laptop 9', 1, 1, GETDATE()),
-('Lenovo Ultrabook 2024', 'images/product/Lonovo/Lenovo3.jpg', 3200.00, 22, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 3100.00, 'Brief info about Laptop 10', 1, 1, GETDATE()),
-('Dell Notebook 2024', 'images/product/Dell/Dell4.jpg', 3400.00, 14, '<table class="product-detail"><tr><td>Feature 1</td><td>Detail 1</td></tr><tr><td>Feature 2</td><td>Detail 2</td></tr></table>', 3300.00, 'Brief info about Laptop 11', 1, 1, GETDATE()),
+('Asus Vivobook OLED 2020', 'images/product/Asus/Asus1.jpg', 1000.00, 50, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i5-1135G7</td></tr><tr><td>RAM</td><td>8GB DDR4</td></tr><tr><td>Storage</td><td>512GB SSD</td></tr><tr><td>Display</td><td>14" FHD OLED</td></tr></table>', 900.00, 'The laptop of the future with an OLED display for stunning visuals.', 1, 1, GETDATE()),
+('Asus Vivobook 2018', 'images/product/Asus/Asus2.jpg', 1200.00, 30, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i7-8550U</td></tr><tr><td>RAM</td><td>16GB DDR4</td></tr><tr><td>Storage</td><td>1TB HDD</td></tr><tr><td>Display</td><td>15.6" FHD</td></tr></table>', 1100.00, 'Reliable performance for everyday tasks.', 1, 1, GETDATE()),
+('Dell Inspiron 2020', 'images/product/Dell/Dell1.jpg', 1500.00, 20, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i7-10750H</td></tr><tr><td>RAM</td><td>16GB DDR4</td></tr><tr><td>Storage</td><td>512GB SSD</td></tr><tr><td>Display</td><td>15.6" FHD</td></tr></table>', 1400.00, 'Thin, yet unbreakable.', 1, 1, GETDATE()),
+('Lenovo Thinkpad 2024', 'images/product/Lenovo/Lenovo1.jpg', 1800.00, 10, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i7-1260P</td></tr><tr><td>RAM</td><td>32GB DDR4</td></tr><tr><td>Storage</td><td>1TB SSD</td></tr><tr><td>Display</td><td>14" FHD</td></tr></table>', 1700.00, 'The ultimate business laptop.', 1, 1, GETDATE()),
+('Dell Precision 2021', 'images/product/Dell/Dell2.png', 2000.00, 15, '<table class="product-detail"><tr><td>Processor</td><td>Intel Xeon W-10855M</td></tr><tr><td>RAM</td><td>32GB DDR4</td></tr><tr><td>Storage</td><td>1TB SSD</td></tr><tr><td>Display</td><td>15.6" 4K UHD</td></tr></table>', 1900.00, 'A powerful workstation for demanding tasks.', 1, 1, GETDATE()),
+('Lenovo Gaming 2020', 'images/product/Lenovo/Lenovo2.jpg', 2200.00, 5, '<table class="product-detail"><tr><td>Processor</td><td>AMD Ryzen 7 4800H</td></tr><tr><td>RAM</td><td>16GB DDR4</td></tr><tr><td>Storage</td><td>1TB SSD</td></tr><tr><td>Display</td><td>15.6" FHD 144Hz</td></tr></table>', 2100.00, 'A powerful gaming laptop with high refresh rate display.', 1, 1, GETDATE()),
+('Asus Vivobook 2023', 'images/product/Asus/Asus3.jpg', 2500.00, 25, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i9-11900H</td></tr><tr><td>RAM</td><td>32GB DDR4</td></tr><tr><td>Storage</td><td>2TB SSD</td></tr><tr><td>Display</td><td>16" FHD OLED</td></tr></table>', 2400.00, 'A premium laptop for professionals.', 1, 1, GETDATE()),
+('Asus Expertbook 2024', 'images/product/Asus/Asus4.jpg', 2800.00, 12, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i7-13700H</td></tr><tr><td>RAM</td><td>16GB DDR4</td></tr><tr><td>Storage</td><td>1TB SSD</td></tr><tr><td>Display</td><td>14" FHD</td></tr></table>', 2700.00, 'An expert"s choice for business and productivity.', 1, 1, GETDATE()),
+('Dell Notebook 2023', 'images/product/Dell/Dell3.jpg', 3000.00, 18, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i9-11980HK</td></tr><tr><td>RAM</td><td>64GB DDR4</td></tr><tr><td>Storage</td><td>2TB SSD</td></tr><tr><td>Display</td><td>17" 4K UHD</td></tr></table>', 2900.00, 'A high-end notebook with top-tier specifications.', 1, 1, GETDATE()),
+('Lenovo Ultrabook 2024', 'images/product/Lenovo/Lenovo3.jpg', 3200.00, 22, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i7-1260P</td></tr><tr><td>RAM</td><td>32GB LPDDR4X</td></tr><tr><td>Storage</td><td>1TB SSD</td></tr><tr><td>Display</td><td>13.3" FHD</td></tr></table>', 3100.00, 'A lightweight yet powerful ultrabook.', 1, 1, GETDATE()),
+('Dell Notebook 2024', 'images/product/Dell/Dell4.jpg', 3400.00, 14, '<table class="product-detail"><tr><td>Processor</td><td>Intel Core i9-12900HK</td></tr><tr><td>RAM</td><td>64GB DDR5</td></tr><tr><td>Storage</td><td>2TB SSD</td></tr><tr><td>Display</td><td>17" 4K UHD</td></tr></table>', 3300.00, 'Top-of-the-line notebook for professionals.', 1, 1, GETDATE()),
+
 GO
 
 -- Insert into Laptop_Category
-INSERT INTO Laptop_Category (laptop_id, Category) VALUES
-(1, 'Gaming'),
-(2, 'Business'),
-(3, 'Ultrabook'),
-(4, 'Convertible'),
+INSERT INTO Laptop_Category (laptop_id, category) VALUES
+(1, 'Business'),
+(2, 'Everyday Use'),
+(3, 'High Performance'),
+(4, 'Business'),
 (5, 'Workstation'),
 (6, 'Gaming'),
 (7, 'Business'),
-(8, 'Ultrabook'),
-(9, 'Convertible'),
-(10, 'Workstation'),
-(11, 'Gaming'),
-(12, 'Business'),
-(13, 'Ultrabook'),
-(14, 'Convertible'),
-(15, 'Workstation'),
-(16, 'Gaming'),
-(17, 'Business'),
-(18, 'Ultrabook'),
-(19, 'Convertible'),
-(20, 'Workstation');
+(8, 'Business'),
+(9, 'High Performance'),
+(10, 'Business'),
+(11, 'High Performance');
 GO
 
 -- Insert into Laptop_Image
