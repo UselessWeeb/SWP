@@ -35,7 +35,7 @@ import service.AccessRole;
  *
  * @author ASUS
  */
-@WebServlet(name = "orderlist", urlPatterns = {"/orderlist"})
+@WebServlet(name = "orderlist", urlPatterns = {"/salesorderlist"})
 //limit roles accessible to only sale/sale manager
 @AccessRole(roles = {
     Role.Type.sale_manager,

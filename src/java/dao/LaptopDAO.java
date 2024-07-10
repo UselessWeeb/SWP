@@ -290,6 +290,18 @@ public class LaptopDAO extends EntityDAO {
         }
         return laptopIDs;
     }
+
+    public void UpdateQuantity(int laptopID, int quantity) {
+        try {
+            String query = "UPDATE Laptop SET stock = ? WHERE laptop_id = ?";
+            stm = connection.prepareStatement(query);
+            stm.setInt(1, quantity);
+            stm.setInt(2, laptopID);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {

@@ -18,10 +18,6 @@ public class CartDAO extends EntityDAO {
         this.u = u;
     }
 
-    public CartDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     //cheack if user already has a cart. If yes, return the id, if not, create a new cart and return the id
     public int getCartId() {
         try {

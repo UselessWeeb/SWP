@@ -13,16 +13,17 @@ import java.util.Date;
 public class Order {
     private int order_id;
     private Date order_date;
-    private int price;
+    private float price;
     private Status status; // Change the type to Status
     private int user_id;
+    private int sales_id;
     
     private Laptop laptop;
     private Order_User user;
 
     public enum Status {
         Pending,
-        Shipped,
+        Submitted,
         Delivered,
         Cancelled,
     }
@@ -30,12 +31,13 @@ public class Order {
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, int price, int status, int user_id) {
+    public Order(int order_id, Date order_date, float price, int status, int user_id, int sales_id) {
         this.order_id = order_id;
         this.order_date = order_date;
         this.price = price;
         this.setStatus(status); // Use the setter to convert the int to Status
         this.user_id = user_id;
+        this.sales_id = sales_id;
     }
 
     public int getOrder_id() {
@@ -54,16 +56,16 @@ public class Order {
         this.order_date = order_date;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public Status getStatus() {
-        return status;
+    public int getStatus() {
+        return status.ordinal();
     }
 
     public void setStatus(int status) {
@@ -95,6 +97,14 @@ public class Order {
 
     public void setUser(Order_User user) {
         this.user = user;
+    }
+
+    public int getSales_id() {
+        return sales_id;
+    }
+
+    public void setSales_id(int sales_id) {
+        this.sales_id = sales_id;
     }
 
     @Override

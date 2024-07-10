@@ -77,6 +77,7 @@ public class Checkout extends HttpServlet {
                 shipMethod = 1;
             }
             request.setAttribute("shipMethod", shipMethod);
+            request.setAttribute("selectedItems", ids);
             //this is the checkout page, so we just need to forward to the checkout.jsp
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
         } catch (NumberFormatException e) {

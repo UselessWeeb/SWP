@@ -285,7 +285,7 @@
                     </select>
                 </form>
                 <div style="position: relative;">
-                    <iframe id="contentIframe" src="${url == '/' ? 'http://localhost:9999/app-name/' : (fn:startsWith(url, '/') ? fn:substring(url, 1, url.length()) : url)}" title="${url == '/' ? 'Home' : url}" style="width: 100%; height: 500px; border: none;"></iframe>
+                    <iframe id="contentIframe" src="${url == '/' ? 'http://localhost:9999/app-name/' : (fn:startsWith(url, '/') ? fn:substring(url, 1, url.length()) : url)}" title="${url == '/' ? 'Home' : url}" style="width: 100%; height: 800px; border: none;"></iframe>
                     <div class="iframe-cover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent;"></div>
                 </div>
             </div>

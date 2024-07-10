@@ -1,19 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Filter.java to edit this template
- */
 package filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -23,16 +15,16 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import model.CartList;
-import model.Laptop;
 import model.User;
+import dao.CartDAO;
 
 /**
- *
- * @author M7510
+ * CartFilter checks and manages the cart stored in cookies and session.
  */
 @WebFilter(filterName = "CartFilter", urlPatterns = {"/*"})
 public class CartFilter implements Filter {
@@ -60,18 +52,14 @@ public class CartFilter implements Filter {
                 for (Cookie cookie : cookies) {
                     if ("cart".equals(cookie.getName())) {
                         // Cart cookie found, decode it and use it to fill the session
-                        System.out.println("Yes cookie found yippeeee");
                         isCookieFound = true;
                         byte[] decodedBytes = Base64.getDecoder().decode(cookie.getValue());
                         String cartJson = new String(decodedBytes);
-                        System.out.println(cartJson);
 
                         // Deserialize the JSON to a HashMap
-                        Map<String, Map<String, Integer>> outerMap = objectMapper.readValue(cartJson, new TypeReference<Map<String, Map<String, Integer>>>() {
-                        });
+                        Map<String, Map<String, Integer>> outerMap = objectMapper.readValue(cartJson, new TypeReference<Map<String, Map<String, Integer>>>() {});
                         Map<String, Integer> cartMap = outerMap.get("cart");
 
-                        System.out.println(cartMap);
                         CartList cart = new CartList((HashMap<String, Integer>) cartMap);
                         session.setAttribute("cart", cart);
                         break;
@@ -81,7 +69,6 @@ public class CartFilter implements Filter {
 
             if (!isCookieFound) {
                 // No cart cookie found, create a new empty cart and add it to the session
-                System.out.println("No cookie found dumbass");
                 CartList newCart = new CartList(); // Assuming CartList is your cart object
                 session.setAttribute("cart", newCart);
 
@@ -103,6 +90,41 @@ public class CartFilter implements Filter {
             }
         }
 
+        // Check if user is logged in
+        User user = (User) session.getAttribute("user");
+        Boolean cartTransferred = (Boolean) session.getAttribute("cartTransferred");
+        
+        if (user != null && (cartTransferred == null || !cartTransferred)) {
+            // User is logged in and cart hasn't been transferred yet
+            CartList cart = (CartList) session.getAttribute("cart");
+            if (cart != null) {
+                CartDAO cartDAO = new CartDAO(user);
+
+                // Transfer items from session cart to database
+                HashMap<String, Integer> cartItems = cart.getCart(); // Assuming getItems() returns the HashMap<String, Integer>
+                for (Map.Entry<String, Integer> entry : cartItems.entrySet()) {
+                    String laptopId = entry.getKey();
+                    int quantity = entry.getValue();
+                    cartDAO.addToCart(laptopId, quantity);
+                }
+
+                // Remove the cart cookie
+                Cookie cartCookie = new Cookie("cart", "");
+                cartCookie.setMaxAge(0); // Set cookie to expire immediately
+                httpResponse.addCookie(cartCookie);
+                
+                //set the session back
+                session.setAttribute("cart", new CartList(cartDAO.getCart()));
+
+                // Mark the cart as transferred
+                session.setAttribute("cartTransferred", true);
+            }
+        }
+
         chain.doFilter(request, response);
+    }
+
+    public void destroy() {
+        // Cleanup code if needed
     }
 }

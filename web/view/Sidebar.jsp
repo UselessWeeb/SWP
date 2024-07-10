@@ -45,8 +45,8 @@
                           <c:when test = '${uri.contains("blog.jsp") || uri.contains("single-post.jsp")}'>
                               action="blog"
                           </c:when>
-                          <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")}'>
-                              action="productList"
+                          <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")|| uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
+                              action="product"
                           </c:when>
                       </c:choose>
                       >
@@ -71,7 +71,7 @@
                                 <li class="cat-item ${entry.key == param.category ? 'bg-info text-white ps-1 rounded-2 ' : 'text-black'}">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
                                     <c:set var="url" value="${uri}" />
-                                            <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(url.contains('shop.jsp') || url.contains('single-product.jsp')) ? 'productList' : 'blog'}?category=${entry.key}">
+                                            <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(url.contains('shop.jsp') || url.contains('single-product.jsp')|| url.contains('cart.jsp') || url.contains('checkout.jsp')) ? 'productList' : 'blog'}?category=${entry.key}">
                                         <label>${entry.key} (${entry.value})</label>
                                     </a>
                                 </li>
@@ -133,13 +133,13 @@
                                         </div>                  
                                     </c:forEach>
                                 </c:when>
-                                <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")}'>
+                                <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp") || uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
                                     <c:set var="latestProducts" value="${requestScope.latestProducts}" />
                                     <c:forEach items="${latestProducts}" var="laptop">
                                         <div class="position-relative text-left p-5 rounded-3">
                                             <img src="${laptop.mainImage}" class="mw-100 img-fluid" alt="${laptop.title}">
                                             <h5 class="mt-2">
-                                                <a href="product?laptopId=${laptop.laptopId}">${laptop.title}</a>
+                                                <a href="productdetails?laptopId=${laptop.laptopId}">${laptop.title}</a>
                                             </h5>
                                                 <c:if test="${laptop.salePrice != laptop.originalPrice}">
                                                 <s class="fs-5 fw-lighter text-muted">$${laptop.originalPrice}</s>

@@ -25,6 +25,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.List;
 import model.Role;
 import model.User;
 import service.RoleAuthorization;
@@ -148,7 +150,9 @@ public class authUser implements Filter {
 
         Logger.getLogger("Requesting resource " + requestedResource + " Not allow to access");
         UserAuthDAO authDAO = new UserAuthDAO();
-        String startUrl = authDAO.getURLForRole(currentUser.getRole().getRole_id()).get(0);
+        List<String> url = authDAO.getURLForRole(currentUser.getRole().getRole_id());
+        Collections.sort(url);
+        String startUrl = url.get(0);
         //if the start url = / then replace with /app-name/ otherwise delete the trail /
         if (startUrl.equals("/")) {
             startUrl = req.getContextPath() + startUrl;

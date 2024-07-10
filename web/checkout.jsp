@@ -24,7 +24,7 @@
         <%@include file = "view/header.jsp" %>
         <section class="checkout-wrap padding-large">
             <div class="container">
-                <form class="form-group">
+                <form class="form-group" action = "completion" method = "POST">
                     <div class="row d-flex flex-wrap">
                         <div class="col-lg-9">
                             <div class="cart-header">
@@ -42,13 +42,16 @@
                                 <c:forEach var="cart" items="${carts}">
                                     <c:set var="totalQuantity" value="${totalQuantity + cart.value}"/>
                                     <c:set var="totalPrice" value="${totalPrice + (cart.key.salePrice * cart.value)}"/>
+                                    <input type ="text" name = "selectedCart" value = "${selectedItems}" hidden/>
                                     <div class="cart-item border-bottom padding-small">
                                         <div class="row align-items-center">
                                             <div class="col-lg-6 col-md-3">
                                                 <div class="cart-info d-flex gap-2 flex-wrap align-items-center">
                                                     <div class="col-lg-3">
                                                         <div class="card-detail">
-                                                            <h5 class="mt-2"><a href="single-product.html">${cart.key.laptopId}</a></h5>
+                                                            <h5 class="mt-2">
+                                                                <a href="productdetails?laptopId=${cart.key.laptopId}">${cart.key.laptopId}</a>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3">
@@ -58,7 +61,7 @@
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <div class="card-detail">
-                                                            <h5 class="mt-2"><a href="single-product.html">${cart.key.title}</a></h5>
+                                                            <h5 class="mt-2"><a href="productdetails?laptopId=${cart.key.laptopId}">${cart.key.title}</a></h5>
                                                             <div class="card-price">
                                                                 <span class="price text-primary fw-light" data-currency-usd="${cart.key.salePrice}">${cart.key.salePrice}</span>
                                                             </div>
@@ -97,6 +100,12 @@
                                 <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.phoneNumber}" required>
                                 <label for="email">Email address *</label>
                                 <input type="text" id="email" name="email" class="form-control mt-2 mb-4 ps-3" value="${sessionScope.user.email}" required>
+                                <label for ="gender">Gender *</label>
+                                <select class = "form-select" name = "gender">
+                                    <option value ="Male" "${sessionScope.user.gender == 'Male' ? checked : ''}">Male</option>
+                                    <option value ="Female" "${sessionScope.user.gender == 'Female' ? checked : ''}">Female</option>
+                                    <option value ="Other" "${sessionScope.user.gender == 'Other' ? checked : ''}">Other</option>
+                                </select>
                                 <label for="method">Shipping method *</label>
                                 <!--a button to open the dropdown-->
                                 <button class="btn dropdown-toggle" type="button" name = "method" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -132,7 +141,7 @@
                                 <h3 class="mb-3">Additional Information</h3>
                                 <div class="billing-details">
                                     <label for="fname">Order notes (optional)</label>
-                                    <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
+                                    <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery." name = "add-info"></textarea>
                                 </div>
                             </div>
                             <p id="result" hidden></p>
@@ -158,6 +167,7 @@
                                         console.log(distance);
                         
                                         document.getElementById('result').textContent = distance.toFixed(2);
+                                        document.getElementById('distance').value = distance.toFixed(2);
 
                                         calculateShippingFee();
                                         calculateTotalPrice();
@@ -209,6 +219,9 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                    <p id = "shippingType" hidden></p>
+                                    <input type ="hidden" name = "inputShippingType" id ="inputShippingType" />
+                                    <input type ="hidden" name = "distance" id = "distance"/>
                                         <script>
                                             function calculateShippingMethod(i) {                                                
                                                 var ship;
@@ -221,6 +234,8 @@
                                                 }
                                                 document.getElementById('ship').textContent = ship;
                                                 document.getElementById('dropdownMenuButton').innerHTML = ship;
+                                                document.getElementById('shippingType').innerHTML = i;
+                                                document.getElementById('inputShippingType').value = i;
                                                 calculateShippingFee();
                                             }
                                             document.addEventListener('DOMContentLoaded', function(){
@@ -251,7 +266,7 @@
                                                 var feePerKm;
                                                 if (isNaN(distance)) feePerKm = 0;
                                                 else {
-                                                    var method = document.getElementById('shippingMethod').value;
+                                                    var method = document.getElementById('shippingType').innerHTML;
                                                     var methodFee;
                                                     switch (method){
                                                         case "1":
@@ -275,6 +290,7 @@
                                                     console.log("methodFee: " + methodFee);
                                                 }
                                                 document.getElementById('shipping').textContent = '$' + (feePerKm * (distance / 1000)).toFixed(2);
+                                                calculateTotalPrice();
                                             }
                                             calculateShippingFee(); 
                                         </script>
@@ -286,6 +302,7 @@
                                                         <span class="price-currency-symbol" id = "totalPrice">$</span>
                                                     </bdi>
                                                 </span>
+                                                <input id ="input-total" name = "input-total" hidden/>
                                             </td>
                                         </tr>
                                         <script>
@@ -296,8 +313,8 @@
                                                 var total = totalPrice + shippingFee;
                                                 console.log(total);
                                                 document.getElementById('totalPrice').textContent = '$' + total.toFixed(2); // Format to 2 decimal places
+                                                document.getElementById('input-total').value = total.toFixed(2);
                                             }
-
                                             calculateTotalPrice();
                                         </script>
                                     </tbody>
@@ -305,31 +322,17 @@
                             </div>
                             <div class="list-group">
                                 <label class="list-group-item d-flex gap-2 border-0">
-                                    <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios1" value="" checked>
+                                    <input class="form-check-input flex-shrink-0" type="radio" name="paymentMethod" value="online" checked>
                                     <span>
                                         <p class="mb-1">Direct bank transfer</p>
                                         <small>Make your payment directly into our bank account. Please use your Order ID. Your order will shipped after funds have cleared in our account.</small>
                                     </span>
                                 </label>
                                 <label class="list-group-item d-flex gap-2 border-0">
-                                    <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios2" value="">
-                                    <span>
-                                        <p class="mb-1">Check payments</p>
-                                        <small>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</small>
-                                    </span>
-                                </label>
-                                <label class="list-group-item d-flex gap-2 border-0">
-                                    <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios3" value="">
+                                    <input class="form-check-input flex-shrink-0" type="radio" name="paymentMethod" value="direct">
                                     <span>
                                         <p class="mb-1">Cash on delivery</p>
                                         <small>Pay with cash upon delivery.</small>
-                                    </span>
-                                </label>
-                                <label class="list-group-item d-flex gap-2 border-0">
-                                    <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios3" value="">
-                                    <span>
-                                        <p class="mb-1">Paypal</p>
-                                        <small>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</small>
                                     </span>
                                 </label>
                             </div>

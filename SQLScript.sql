@@ -200,3 +200,21 @@ create table hiddenUrl(
 	urlid int primary key identity(1,1),
 	url NVARCHAR(MAX)
 )
+
+alter table Order_User add Gender nvarchar(10)
+Select * from [Order]
+ALTER TABLE [Order]
+ALTER COLUMN status NVARCHAR(200)
+UPDATE [Order] SET status = '0' WHERE status = 'Submitted';
+UPDATE [Order] SET status = '1' WHERE status = 'Pending';
+UPDATE [Order] SET status = '2' WHERE status = 'Delivering';
+UPDATE [Order] SET status = '3' WHERE status = 'Received';
+
+SELECT TOP 1 user_id as sales_id, COUNT([Order].order_id) FROM [User] JOIN [Order] ON [User].user_id = [Order].sales_id GROUP BY [User].user_id ORDER BY COUNT([Order].order_id) ASC
+
+select * from Order_User
+select * from [Order]
+INSERT INTO [Order] (order_date, price, status, order_uid, sales_id) VALUES (getDATE(), 100, 1, 6, 4)
+SELECT * FROM dbo.Order_User
+update [Order_User] set gender = 'Male'
+select * from Laptop
