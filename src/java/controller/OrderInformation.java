@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.*;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,24 +13,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import model.CartList;
-import model.Laptop;
-import model.Role;
+import model.Order;
 import model.User;
-import model.cart.CartModel;
-import service.AccessRole;
 
 /**
  *
- * @author M7510
+ * @author ASUS
  */
-@WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
-public class CartServlet extends HttpServlet {
+@WebServlet(name = "OrderInformation", urlPatterns = {"/orderinformation"})
+public class OrderInformation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,23 +35,37 @@ public class CartServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        HashMap<String, Integer> cartMap;
-        if (session != null && session.getAttribute("user") != null) {
-            // User is logged in, use CartDAO
-            CartDAO cartDAO = new CartDAO((User)session.getAttribute("user"));
-            cartMap = cartDAO.getCart();
-        } else {
-            CartList carts = (CartList) session.getAttribute("cart");
-            cartMap = carts.getCart();
+        try (PrintWriter out = response.getWriter()) {
+            //suppose the id is being sended via id parameter
+            String id = request.getParameter("id");
+            HttpSession session = request.getSession();
+            //prepare header for response
+            String referer = response.getHeader("referer");
+            //handle if id is null
+            if (id == null || id.isBlank() || isAlphabetic(id)) {
+                //resend user back with an error
+                session.setAttribute("err", "id is not exist, please try again");
+                response.sendRedirect(referer);
+            }
+            //find user with session
+            User u = (User) session.getAttribute("user");
+            //validate if the current order id is belong to the user
+            OrderDAO odao = new OrderDAO();
+            if (odao.validateOrder(u.getUserId(), Integer.parseInt(id))) {
+                Order o = odao.getByOrderId(Integer.parseInt(id));
+                //return this to user
+                request.setAttribute("order", o);
+                request.getRequestDispatcher("orderinformation.jsp").forward(request, response);
+            } else {
+                //otherwise, display that user order not found and return an error:
+                session.setAttribute("err", "no order found, please try again");
+                response.sendRedirect(referer);
+            }
         }
-        LaptopDAO dao = new LaptopDAO();
-        HashMap<Laptop, Integer> cart = new HashMap<>();
-        cartMap.forEach( (k, v) -> { 
-            cart.put(dao.getByID(k), v);
-        } );    
-        request.setAttribute("carts", cart);
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+    }
+
+    public static boolean isAlphabetic(String str) {
+        return str != null && str.chars().allMatch(Character::isLetter);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

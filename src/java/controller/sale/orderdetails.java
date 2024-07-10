@@ -2,9 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.sale;
 
-import dao.*;
+import dao.AssinDAO;
+import dao.OrderDAO;
+import dao.OrderDetailDAO;
+import dao.OrderItemDAO;
+import dao.OrderUserDAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,24 +18,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import model.CartList;
-import model.Laptop;
-import model.Role;
+import model.Order;
+import model.OrderItem;
 import model.User;
-import model.cart.CartModel;
-import service.AccessRole;
 
 /**
  *
- * @author M7510
+ * @author ASUS
  */
-@WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
-public class CartServlet extends HttpServlet {
+@WebServlet(name = "orderdetails", urlPatterns = {"/orderdetails"})
+public class orderdetails extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,24 +41,27 @@ public class CartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        HashMap<String, Integer> cartMap;
-        if (session != null && session.getAttribute("user") != null) {
-            // User is logged in, use CartDAO
-            CartDAO cartDAO = new CartDAO((User)session.getAttribute("user"));
-            cartMap = cartDAO.getCart();
-        } else {
-            CartList carts = (CartList) session.getAttribute("cart");
-            cartMap = carts.getCart();
+        String id = request.getParameter("id");
+        final int TOTAL_PER_PAGE = 10;
+        if (id != null || !id.contains("[a-zA-Z]")) {
+            OrderDAO orderdao = new OrderDAO();
+            Order order = orderdao.getByOrderId(Integer.parseInt(id));
+            OrderItemDAO itemDAO = new OrderItemDAO();
+            OrderUserDAO uorderDAO = new OrderUserDAO();
+            UserDAO userDAO = new UserDAO();
+            HttpSession session = request.getSession(true);
+            request.setAttribute("order", order);
+            request.setAttribute("orderItems", itemDAO.getByOrderId(order.getOrder_id()));
+            request.setAttribute("orderUser", uorderDAO.getById(order.getUser_id()));
+            AssinDAO assignDAO = new AssinDAO();
+            //manifest edit
+            request.setAttribute("currentEdit", assignDAO.SalesEditId(Integer.parseInt(id)));
+            request.setAttribute("isAbleToEdit", assignDAO.checkAuth((User) session.getAttribute("user"), Integer.parseInt(id)));
+            System.out.println(assignDAO.checkAuth((User) session.getAttribute("user"), Integer.parseInt(id)));
+            request.setAttribute("salesUser", userDAO.getSalePaging(0, TOTAL_PER_PAGE));
+            request.setAttribute("sales", userDAO.findById(String.valueOf(order.getSales_id())));
+            request.getRequestDispatcher("orderdetails.jsp").forward(request, response);
         }
-        LaptopDAO dao = new LaptopDAO();
-        HashMap<Laptop, Integer> cart = new HashMap<>();
-        cartMap.forEach( (k, v) -> { 
-            cart.put(dao.getByID(k), v);
-        } );    
-        request.setAttribute("carts", cart);
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -101,5 +102,4 @@ public class CartServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

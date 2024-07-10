@@ -35,6 +35,5 @@ public class RoleDAO extends EntityDAO{
         rs.getInt(1),
         rs.getString(2)
         );
-    }
-    
+    }    
 }

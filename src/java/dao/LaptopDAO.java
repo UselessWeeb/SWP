@@ -23,7 +23,7 @@ public class LaptopDAO extends EntityDAO {
 
             // Create a SQL query to select the latest 2 featured laptops
             String strSelect
-                    = "SELECT TOP 2 laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date "
+                    = "SELECT TOP 2 laptop_id, title, main_image, original_price, stock, products_detail, brief_information, sale_price, status, updated_date "
                     + "FROM Laptop "
                     + "WHERE is_featured = 1";
             stm = connection.prepareStatement(strSelect);
@@ -42,7 +42,7 @@ public class LaptopDAO extends EntityDAO {
         List<Laptop> laptops = new ArrayList<>();
         try {
             String strSelect
-                    = "SELECT TOP 2 laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date "
+                    = "SELECT TOP 2 laptop_id, title, main_image, original_price, stock, products_detail, sale_price, brief_information, status, updated_date "
                     + "FROM Laptop "
                     + "ORDER BY updated_date DESC";
             stm = connection.prepareStatement(strSelect);
@@ -62,7 +62,7 @@ public class LaptopDAO extends EntityDAO {
         try {
             // Create a SQL query to select a Laptop by its ID
             String strSelect
-                    = "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date "
+                    = "SELECT laptop_id, title, main_image, original_price, stock, brief_information, products_detail, sale_price, status, updated_date "
                     + "FROM Laptop "
                     + "WHERE laptop_id = ?";
             stm = connection.prepareStatement(strSelect);
@@ -82,7 +82,7 @@ public class LaptopDAO extends EntityDAO {
         List<Laptop> laptops = new ArrayList<>();
         try {
             String strSelect = 
-                "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date " +
+                "SELECT laptop_id, title, main_image, original_price, brief_information, stock, products_detail, sale_price, status, updated_date " +
                 "FROM Laptop ";
             stm = connection.prepareStatement(strSelect);
             rs = stm.executeQuery();
@@ -173,7 +173,7 @@ public class LaptopDAO extends EntityDAO {
         try {
             StringBuilder strSelect = new StringBuilder(
                     "SELECT DISTINCT Laptop.laptop_id, Laptop.title, Laptop.main_image, Laptop.original_price, "
-                    + "Laptop.stock, Laptop.products_detail, Laptop.sale_price, Laptop.status, Laptop.updated_date "
+                    + "Laptop.stock, Laptop.products_detail, Laptop.sale_price, Laptop.brief_information, Laptop.status, Laptop.updated_date "
                     + "FROM Laptop INNER JOIN Laptop_Category ON Laptop.laptop_id = Laptop_Category.laptop_id WHERE 1=1 "
             );
 
@@ -210,7 +210,7 @@ public class LaptopDAO extends EntityDAO {
                 order = "Laptop.updated_date";
             }
             strSelect.append("GROUP BY Laptop.laptop_id, Laptop.title, Laptop.main_image, Laptop.original_price, "
-                    + "Laptop.stock, Laptop.products_detail, Laptop.sale_price, Laptop.status, Laptop.updated_date "
+                    + "Laptop.stock, Laptop.products_detail, Laptop.sale_price, Laptop.status, Laptop.updated_date, Laptop.brief_information "
                     + "ORDER BY ").append(order).append(" OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
             //skip ammount of rows to stimulate pagination
             params.add(page * totalPerPage);
@@ -259,7 +259,7 @@ public class LaptopDAO extends EntityDAO {
     public Laptop getLaptopById(int laptopID) {
         Laptop laptop = null;
         try {
-            String strSelect = "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, status, updated_date "
+            String strSelect = "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, brief_information, status, updated_date "
                     + "FROM Laptop "
                     + "WHERE laptop_id = ?";
             stm = connection.prepareStatement(strSelect);
@@ -290,6 +290,18 @@ public class LaptopDAO extends EntityDAO {
         }
         return laptopIDs;
     }
+
+    public void UpdateQuantity(int laptopID, int quantity) {
+        try {
+            String query = "UPDATE Laptop SET stock = ? WHERE laptop_id = ?";
+            stm = connection.prepareStatement(query);
+            stm.setInt(1, quantity);
+            stm.setInt(2, laptopID);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
@@ -306,6 +318,7 @@ public class LaptopDAO extends EntityDAO {
                 rs.getFloat("sale_price"),
                 rs.getInt("stock"),
                 rs.getInt("status"),
+                rs.getString("brief_information"),
                 rs.getTimestamp("updated_date")
         );
     }

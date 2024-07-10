@@ -7,7 +7,10 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import model.Laptop;
 import model.OrderItem;
 
 /**
@@ -43,5 +46,24 @@ public class OrderItemDAO extends EntityDAO {
         orderItem.setPrice(rs.getFloat("price"));
         return orderItem;
     }
-    
+
+
+    public void insertOrderItem(HashMap<Laptop, Integer> item, int orderId) {
+        try {
+            String query = "INSERT INTO [Order_Item] (order_id, laptop_id, quantity, price) VALUES (?, ?, ?, ?)";
+            stm = connection.prepareStatement(query);
+            for (Map.Entry<Laptop, Integer> entry : item.entrySet()) {
+                Laptop laptop = entry.getKey();
+                int quantity = entry.getValue();
+                stm.setInt(1, orderId);
+                stm.setInt(2, laptop.getLaptopId());
+                stm.setInt(3, quantity);
+                stm.setFloat(4, laptop.getSalePrice());
+                stm.addBatch();
+            }
+            stm.executeBatch();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }  
 }

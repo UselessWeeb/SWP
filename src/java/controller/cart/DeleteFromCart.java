@@ -5,16 +5,19 @@
 
 package controller.cart;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.CartDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Base64;
 import model.CartList;
 import model.Laptop;
 import model.User;
@@ -33,28 +36,57 @@ public class DeleteFromCart extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    HttpSession session = request.getSession(false);
-    LaptopDAO laptopDAO = new LaptopDAO();
-    String id = request.getParameter("id");
-    Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession(false);
+        String id = request.getParameter("id");
+        ObjectMapper objectMapper = new ObjectMapper();
 
-    if (session != null && session.getAttribute("user") != null) {
-        // User is logged in, use CartDAO
-        User user = (User) session.getAttribute("user");
-        CartDAO cartDAO = new CartDAO(user);
-        cartDAO.deleteFromCart(laptop);
-        session.setAttribute("cart", new CartList(cartDAO.getCart()));
-    } else {
-        // User is not logged in, use CartList
-        CartList cart = (CartList) session.getAttribute("cart");
-        cart.deleteFromCart(laptop);
+        if (session != null && session.getAttribute("user") != null) {
+            // User is logged in
+            User user = (User) session.getAttribute("user");
+            CartDAO cartDAO = new CartDAO(user);
+            cartDAO.deleteFromCart(id); // Assuming deleteFromCart method updates the DB
+            CartList updatedCart = new CartList(cartDAO.getCart()); // Fetch the updated cart
+            session.setAttribute("cart", updatedCart); // Update session
+
+            // Optionally, synchronize session cart with cookie
+            String cartJson = objectMapper.writeValueAsString(updatedCart);
+            String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
+            Cookie cartCookie = new Cookie("cart", encodedCartJson);
+            cartCookie.setMaxAge(60 * 60 * 24); // 1 day
+            response.addCookie(cartCookie);
+        } else {
+            // User is not logged in
+            System.out.println("Delete without user logged in");
+            CartList cart = null;
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cookie : cookies) {
+                if ("cart".equals(cookie.getName())) {
+                    String decodedCartJson = new String(Base64.getDecoder().decode(cookie.getValue()));
+                    cart = objectMapper.readValue(decodedCartJson, CartList.class);
+                    break;
+                }
+            }
+
+            if (cart == null) {
+                cart = new CartList();
+            }
+            System.out.println("it goes here");
+            cart.deleteFromCart(id); // Update cart in session
+            System.out.println(cart);
+            session.setAttribute("cart", cart); // Update session
+
+            // Encode cart and store in cookie
+            String cartJson = objectMapper.writeValueAsString(cart);
+            String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
+            Cookie cartCookie = new Cookie("cart", encodedCartJson);
+            cartCookie.setMaxAge(60 * 60 * 24); // 1 day
+            response.addCookie(cartCookie);
+        }
+        response.sendRedirect(request.getHeader("referer"));
     }
-
-    response.sendRedirect(request.getHeader("referer"));
-}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

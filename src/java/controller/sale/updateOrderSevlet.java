@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.sale;
 
-import dao.*;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,24 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import model.CartList;
-import model.Laptop;
-import model.Role;
 import model.User;
-import model.cart.CartModel;
-import service.AccessRole;
 
 /**
  *
- * @author M7510
+ * @author ASUS
  */
-@WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
-public class CartServlet extends HttpServlet {
+@WebServlet(name = "updateOrderSevlet", urlPatterns = {"/updateorder"})
+public class updateOrderSevlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,24 +33,17 @@ public class CartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        HashMap<String, Integer> cartMap;
-        if (session != null && session.getAttribute("user") != null) {
-            // User is logged in, use CartDAO
-            CartDAO cartDAO = new CartDAO((User)session.getAttribute("user"));
-            cartMap = cartDAO.getCart();
-        } else {
-            CartList carts = (CartList) session.getAttribute("cart");
-            cartMap = carts.getCart();
-        }
-        LaptopDAO dao = new LaptopDAO();
-        HashMap<Laptop, Integer> cart = new HashMap<>();
-        cartMap.forEach( (k, v) -> { 
-            cart.put(dao.getByID(k), v);
-        } );    
-        request.setAttribute("carts", cart);
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
+        String order = request.getParameter("order");
+        String notes = request.getParameter("notes");
+        String statusString = request.getParameter("status");
+        System.out.println(statusString);
+        int status = getStatus(statusString);
+        OrderDAO dao = new OrderDAO();
+        HttpSession session = request.getSession();
+        dao.UpdateOrder(((User) session.getAttribute("user")).getUserId(), status, notes, Integer.parseInt(order));
+        System.out.println(response.getHeader("referer"));
+        session.setAttribute("success", "Update order information success !");
+        response.sendRedirect("/app-name/orderdetails?id=" + order);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -102,4 +85,18 @@ public class CartServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public int getStatus(String status) {
+        return switch (status) {
+            case "Pending" ->
+                0;
+            case "Shipped" ->
+                1;
+            case "Delivered" ->
+                2;
+            case "Cancelled" ->
+                3;
+            default ->
+                -1;
+        }; //err
+    }
 }
