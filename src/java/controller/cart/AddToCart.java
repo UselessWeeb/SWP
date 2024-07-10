@@ -4,16 +4,19 @@
  */
 package controller.cart;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.CartDAO;
 import dao.LaptopDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Base64;
 import model.CartList;
 import model.Laptop;
 import model.User;
@@ -40,19 +43,40 @@ public class AddToCart extends HttpServlet {
         HttpSession session = request.getSession(false);
         LaptopDAO laptopDAO = new LaptopDAO();
         String id = request.getParameter("id");
-        Laptop laptop = laptopDAO.getLaptopById(Integer.parseInt(id));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
+        ObjectMapper objectMapper = new ObjectMapper();
 
         if (session != null && session.getAttribute("user") != null) {
-            // User is logged in, use CartDAO
+            // User is logged in
             User user = (User) session.getAttribute("user");
             CartDAO cartDAO = new CartDAO(user);
-            cartDAO.addToCart(laptop, quantity);
-            session.setAttribute("cart", new CartList(cartDAO.getCart()));
+            cartDAO.addToCart(id, quantity); // Assuming addToCart method updates the DB
+            CartList updatedCart = new CartList(cartDAO.getCart()); // Fetch the updated cart
+            session.setAttribute("cart", updatedCart); // Update session
+            
+            // Optionally, synchronize session cart with cookie
+            String cartJson = objectMapper.writeValueAsString(updatedCart);
+            String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
+            Cookie cartCookie = new Cookie("cart", encodedCartJson);
+            cartCookie.setPath("/");
+            cartCookie.setMaxAge(60 * 60 * 24); // 1 day
+            response.addCookie(cartCookie);
         } else {
-            // User is not logged in, use CartList
+            // User is not logged in
             CartList cart = (CartList) session.getAttribute("cart");
-            cart.addToCart(laptop, quantity);
+            if (cart == null) {
+                cart = new CartList();
+            }
+            cart.addToCart(id, quantity); // Update cart in session
+            session.setAttribute("cart", cart); // Update session
+            
+            // Encode cart and store in cookie
+            String cartJson = objectMapper.writeValueAsString(cart);
+            String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
+            Cookie cartCookie = new Cookie("cart", encodedCartJson);
+            cartCookie.setMaxAge(60 * 60 * 24); // 1 day
+            response.addCookie(cartCookie);
+            System.out.println("and it's supposed to go here");
         }
         response.sendRedirect(request.getHeader("referer"));
     }

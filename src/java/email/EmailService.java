@@ -4,10 +4,13 @@
  */
 package email;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import model.Laptop;
 import model.Order;
 import model.OrderInformation;
-import model.OrderItem;
+import model.Order_User;
 import org.simplejavamail.api.email.Email;
 import org.simplejavamail.api.mailer.Mailer;
 import org.simplejavamail.api.mailer.config.TransportStrategy;
@@ -69,28 +72,43 @@ public class EmailService {
         mailer.sendMail(email);
     }
 
-    public void sendPurchaseConfirmationEmail(String name, String userMail, List<OrderItem> items, String deliveryDate) {
+    public void sendPurchaseConfirmationEmail(Order_User orderUser, HashMap<Laptop, Integer> purchasedProducts, String deliveryDate, String paymentMethod) {
         StringBuilder message = new StringBuilder();
-        message.append("<p>Xin chào ").append(name).append(",</p>")
+        message.append("<p>Xin chào ")
+                .append((orderUser.getGender().equals("Male"))? "ông ": "bà ")
+                .append(orderUser.getFullname()).append(",</p>")
                 .append("<p>Cảm ơn quý khách đã mua hàng! Dưới đây là thông tin đơn hàng của quý khách:</p>")
-                .append("<table style='border-collapse: collapse; width: 100%;' border='1'><thead><tr><th>Laptop ID</th><th>Quantity</th><th>Price</th></tr></thead><tbody>");
+                .append("<ul>");
 
-        for (OrderItem item : items) {
-            message.append("<tr>")
-                   .append("<td>").append(item.getLaptopId().getTitle()).append("</td>")
-                   .append("<td>").append(item.getQuantity()).append("</td>")
-                   .append("<td>").append(item.getPrice()).append("</td>")
-                   .append("</tr>");
+        for (Map.Entry<Laptop, Integer> entry : purchasedProducts.entrySet()) {
+            Laptop laptop = entry.getKey();
+            int quantity = entry.getValue();
+            message.append("<li>").append(laptop.getTitle()).append(" x").append(quantity).append("</li>");
         }
 
         message.append("</ul>")
-                .append("<p>Đơn hàng sẽ được giao vào ngày: ").append(deliveryDate).append("</p>")
+                .append("<p>Đơn hàng sẽ được giao vào ngày: ").append(deliveryDate).append("</p>");
+                //if the payment is direct, tell user to wait for a call from the store to confirm the order, as well a reminder to prepare the money
+                if (paymentMethod.equals("direct")) {
+                                message
+                                .append("<p>Quý khách vui lòng chờ điện thoại xác nhận đơn hàng từ cửa hàng. Đồng thời, hãy vui lòng chú ý điện thoại để thanh toán cho đơn hàng.</p>")
+                                .append("<p>Chúng tôi sẽ giao hàng đến địa chỉ mà quý khách đã cung cấp trong thời gian sớm nhất.</p>");
+                }
+                else {
+                //tell user that this order only last for 24 hours, if user refused to pay, the order will be canceled
+                //guide the user on how to pay
+                //tell user that the order will be delivered to the address provided as soon as possible
+                        message
+                        .append("<p>Đơn hàng của quý khách sẽ được giữ trong vòng 24 giờ. Nếu quý khách không thanh toán trong thời gian này, đơn hàng sẽ bị hủy.</p>")
+                        .append("<p>Để thanh toán, quý khách có thể trở lại trang và nhấn vào nút 'Purchase', hoặc tới phần myOrder, chọn đơn hàng và làm tương tự</p>");
+                }
+                message
                 .append("<p>Nếu quý khách có bất kỳ câu hỏi hoặc lo lắng nào, xin đừng ngần ngại liên hệ với chúng tôi.</p>")
                 .append("<p>Cảm ơn quý khách đã mua sắm tại cửa hàng của chúng tôi!</p>");
 
         Email email = EmailBuilder.startingBlank()
                 .from(SENDER_NAME, SENDER_EMAIL)
-                .to(userMail)
+                .to(orderUser.getEmail())
                 .withSubject("Xác nhận đơn hàng")
                 .withHTMLText(message.toString())
                 .buildEmail();

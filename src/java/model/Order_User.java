@@ -15,17 +15,20 @@ public class Order_User {
     private String phoneNumber;
     private String email;
     private String addInfo;
+    private String gender;
+    
 
     public Order_User() {
     }
 
-    public Order_User(int orderUid, String fullname, String address, String phoneNumber, String email, String addInfo) {
+    public Order_User(String fullname, String address, String phoneNumber, String email, String addInfo, String gender) {
         this.orderUid = orderUid;
         this.fullname = fullname;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.addInfo = addInfo;
+        this.gender = gender;
     }
 
     public int getOrderUid() {
@@ -74,5 +77,13 @@ public class Order_User {
 
     public void setAddInfo(String addInfo) {
         this.addInfo = addInfo;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

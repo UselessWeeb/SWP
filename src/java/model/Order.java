@@ -13,7 +13,7 @@ import java.util.Date;
 public class Order {
     private int order_id;
     private Date order_date;
-    private int price;
+    private float price;
     private Status status; // Change the type to Status
     private int user_id;
     
@@ -34,14 +34,13 @@ public class Order {
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, int price, int status, int user_id, int sales_id, String notes) {
+    public Order(int order_id, Date order_date, float price, int status, int user_id, int sales_id) {
         this.order_id = order_id;
         this.order_date = order_date;
         this.price = price;
         this.setStatus(status); // Use the setter to convert the int to Status
         this.user_id = user_id;
         this.sales_id = sales_id;
-        this.notes = notes;
     }
 
     public String getNotes() {
@@ -68,11 +67,11 @@ public class Order {
         this.order_date = order_date;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

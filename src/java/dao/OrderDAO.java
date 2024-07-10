@@ -341,11 +341,66 @@ public class OrderDAO extends EntityDAO {
         return new Order(
                 rs.getInt("order_id"),
                 rs.getTimestamp("order_date"),
-                rs.getInt("price"),
+                rs.getFloat("price"),
                 rs.getInt("status"),
                 rs.getInt("order_uid"),
-                rs.getInt("sales_id"),
-                rs.getString("notes")
+                rs.getInt("sales_id")
         );
+    }
+
+    
+    public int selectSales() {
+        //this method find the sales to handle this order by selecting the first one with lowest order count
+        try {
+            String sql = "SELECT TOP 1 user_id as sales_id, COUNT([Order].order_id) FROM [User] JOIN [Order] ON [User].user_id = [Order].sales_id GROUP BY [User].user_id ORDER BY COUNT([Order].order_id) ASC";
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("sales_id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1; //no user matched
+    }
+
+    public void createOrder(Order order) {
+        String sql = "INSERT INTO [Order] (order_date, price, status, order_uid, sales_id) VALUES (?, ?, ?, ?, ?)";
+        try {
+            stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stm.setTimestamp(1, new java.sql.Timestamp(order.getOrder_date().getTime()));
+            stm.setFloat(2, order.getPrice());
+            stm.setInt(3, order.getStatus().ordinal());
+            stm.setInt(4, order.getUser_id());
+            stm.setInt(5, order.getSales_id());
+
+            int affectedRows = stm.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    order.setOrder_id(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Creating order failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateOrder(Order order) {
+        try {
+            String sql = "UPDATE [Order] SET status = ? WHERE order_id = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, order.getStatus().ordinal());
+            stm.setInt(2, order.getOrder_id());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

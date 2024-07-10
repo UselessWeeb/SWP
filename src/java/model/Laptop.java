@@ -25,7 +25,7 @@ public class Laptop {
     private float salePrice;
     private int status;
     private Date updatedDate;
-    private int is_featured;
+    private String briefInfo;
     
     public Laptop() {
     }
@@ -42,6 +42,7 @@ public class Laptop {
             float salePrice, 
             int stock, 
             int status,
+            String briefInfo,
             Date updatedDate) {
         this.laptopId = laptopId;
         this.title = title;
@@ -54,7 +55,7 @@ public class Laptop {
         this.stock = stock;
         this.status = status;
         this.updatedDate = updatedDate;
-        this.is_featured = is_featured;
+        this.briefInfo = briefInfo;
     }
 
     public int getLaptopId() {
@@ -143,6 +144,14 @@ public class Laptop {
 
     public void setImage(List<Laptop_Image> image) {
         this.image = image;
+    }
+
+    public String getBriefInfo() {
+        return briefInfo;
+    }
+
+    public void setBriefInfo(String briefInfo) {
+        this.briefInfo = briefInfo;
     }
 
     @Override

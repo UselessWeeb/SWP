@@ -6,6 +6,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import model.Order_User;
 
 /**
@@ -23,6 +24,8 @@ public class OrderUserDAO extends EntityDAO {
         orderUser.setPhoneNumber(rs.getString("phone_number"));
         orderUser.setEmail(rs.getString("email"));
         orderUser.setAddInfo(rs.getString("add_info"));
+        orderUser.setGender(rs.getString("gender"));
+
         return orderUser;
     }
 
@@ -41,35 +44,47 @@ public class OrderUserDAO extends EntityDAO {
         return null;
     }
 
-    public void create(Order_User orderUser) {
-        String query = "INSERT INTO Order_User (fullname, address, phone_number, email, add_info) VALUES (?, ?, ?, ?, ?)";
-        try {
-            stm = connection.prepareStatement(query);
-            stm.setString(1, orderUser.getFullname());
-            stm.setString(2, orderUser.getAddress());
-            stm.setString(3, orderUser.getPhoneNumber());
-            stm.setString(4, orderUser.getEmail());
-            stm.setString(5, orderUser.getAddInfo());
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public boolean checkUser(String email) {
+    public Order_User getUserByEmail(String email) {
         String query = "SELECT * FROM Order_User WHERE email = ?";
         try {
             stm = connection.prepareStatement(query);
             stm.setString(1, email);
             rs = stm.executeQuery();
             if (rs.next()) {
-                //found user, no needs to add
-                return true;
+                return (Order_User) createEntity(rs);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        //new user
-        return false;
+        return null;
+    }
+
+    public void insertOrderUser(Order_User orderUser) {
+        String query = "INSERT INTO Order_User (fullname, address, phone_number, email, add_info, gender) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            stm = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            stm.setString(1, orderUser.getFullname());
+            stm.setString(2, orderUser.getAddress());
+            stm.setString(3, orderUser.getPhoneNumber());
+            stm.setString(4, orderUser.getEmail());
+            stm.setString(5, orderUser.getAddInfo());
+            stm.setString(6, orderUser.getGender());
+
+            int affectedRows = stm.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    orderUser.setOrderUid(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Creating order user failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
