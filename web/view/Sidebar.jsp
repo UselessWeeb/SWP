@@ -40,12 +40,12 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <form class="sidebar pe-lg-5 mb-3" role="search" id ="shopForm"
+                <form class="sidebar pe-lg-5 mb-3" role="search" id ="shop-productForm"
                       <c:choose>
                           <c:when test = '${uri.contains("blog.jsp") || uri.contains("single-post.jsp")}'>
                               action="blog"
                           </c:when>
-                          <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")|| uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
+                          <c:when test = '${uri.contains("shop-product.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")|| uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
                               action="product"
                           </c:when>
                       </c:choose>
@@ -71,13 +71,13 @@
                                 <li class="cat-item ${entry.key == param.category ? 'bg-info text-white ps-1 rounded-2 ' : 'text-black'}">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
                                     <c:set var="url" value="${uri}" />
-                                            <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(url.contains('shop.jsp') || url.contains('single-product.jsp')|| url.contains('cart.jsp') || url.contains('checkout.jsp')) ? 'productList' : 'blog'}?category=${entry.key}">
+                                            <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(url.contains('shop-product.jsp') || url.contains('single-product.jsp')|| url.contains('cart.jsp') || url.contains('checkout.jsp')) ? 'productList' : 'blog'}?category=${entry.key}">
                                         <label>${entry.key} (${entry.value})</label>
                                     </a>
                                 </li>
                             </c:forEach>
                         </ul>
-                        <c:if test = '${uri.contains("shop.jsp")}'>
+                        <c:if test = '${uri.contains("shop-product.jsp")}'>
                             <div class="widget-product-categories pt-5">
                                 <div class="section-title overflow-hidden mb-2">
                                     <h4 class="d-flex flex-column mb-0 side-content py-1">Find by Prices</h4>
@@ -94,8 +94,8 @@
                                     </div>
                                     <div class="range-container">
                                         <div class="slider-track"></div>
-                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${minPrice}" name="minPrice" id="slider-1" oninput="slideOne()" onchange = "document.getElementById('shopForm').submit()">
-                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${maxPrice}" name="maxPrice" id="slider-2" oninput="slideTwo()" onchange = "document.getElementById('shopForm').submit()">
+                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${minPrice}" name="minPrice" id="slider-1" oninput="slideOne()" onchange = "document.getElementById('shop-productForm').submit()">
+                                        <input type="range" min="0" max="${maxPriceFromDB}" value="${maxPrice}" name="maxPrice" id="slider-2" oninput="slideTwo()" onchange = "document.getElementById('shop-productForm').submit()">
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                                         </div>                  
                                     </c:forEach>
                                 </c:when>
-                                <c:when test = '${uri.contains("shop.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp") || uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
+                                <c:when test = '${uri.contains("shop-product.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp") || uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
                                     <c:set var="latestProducts" value="${requestScope.latestProducts}" />
                                     <c:forEach items="${latestProducts}" var="laptop">
                                         <div class="position-relative text-left p-5 rounded-3">

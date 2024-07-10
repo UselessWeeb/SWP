@@ -119,7 +119,7 @@
                                                </c:forEach> 
                                                &minPrice=0&maxPrice=" class="btn rounded-0 py-0 px-2">
                                             </a>
-                                            <img src="${blog.thumbnail}" alt="post image productdetails-image" class="img-fluid">
+                                            <img src="${blog.thumbnail}" alt="post image productdetails-image" style="height:150px; width:242px" class="img-fluid">
                                             <h4 class="card-title mt-3 mb-2 text-uppercase text-dark">
                                                 <a href="blogdetails?id=${blog.blogId}">${blog.title}</a>
                                             </h4>
