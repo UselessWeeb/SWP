@@ -5,7 +5,14 @@
 <html>
 
     <head>
-        <title>Cart</title>
+        <c:choose>
+            <c:when test = "${not empty orderId}">
+                <title>Order Edit</title>
+            </c:when>
+            <c:otherwise>
+                <title>Cart</title>
+            </c:otherwise>
+        </c:choose>       
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,6 +73,9 @@
             <!-- Your form -->
             <form id="deleteFormCart" action="deletefromcart">
                 <input type="hidden" name="id" value="${sessionScope.id}">
+                <c:if test = "${not empty orderId}">
+                    <input type="hidden" name="orderId" value="${orderId}">
+                </c:if>
             </form>
             <script>
                 document.getElementById('confirmDeleteCart').addEventListener('click', function () {
@@ -76,7 +86,7 @@
             <c:remove var="id" scope="session"/>
             <c:remove var="choose" scope="session"/>
         </c:if>
-        <section class="cart padding-large">
+        <section class="cart">
             <div class="container">
                 <div class="row">
                     <div class="cart-table col-lg-9">
@@ -91,7 +101,7 @@
                                         <h4 class="col-lg-2 pb-3">Quantity</h4>
                                         <h4 class="col-lg-3 pb-3">Subtotal</h4>
                                     </div>
-                                </div>
+                                </div>                             
                                 <div class="cart-table">
                                     <c:set var="totalQuantity" value="0"/>
                                     <c:set var="totalPrice" value="0"/>
@@ -108,7 +118,7 @@
                                                             </div>
                                                             <div class="col-lg-2">
                                                                 <div class="card-detail">
-                                                                    <h5 class="mt-2"><a href="productdetails?laptopId=${cart.key.laptopId}">${cart.key.laptopId}</a></h5>
+                                                                    <h5 class="mt-2"><a href="productdetails?laptopId=${cart.key.laptopId}${orderId == null ? '' : '&orderId='}${orderId}">${cart.key.laptopId}</a></h5>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">
@@ -130,15 +140,18 @@
                                                         <div class="row d-flex">
                                                             <div class="col-md-6">
                                                                 <div class="product-quantity my-2 my-2">
-                                                                    <form id="cartForm" class="input-group product-qty align-items-center" style="max-width: 150px;" action="setcart">
+                                                                    <form id="cartForm-${status.index}" class="input-group product-qty align-items-center" style="max-width: 150px;" action="setcart">
                                                                         <input type="hidden" name="id" value="${cart.key.laptopId}">
                                                                         <span class="input-group-btn">
                                                                             <input type="submit" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" name = "action" value="-" />
                                                                         </span>
-                                                                        <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="${cart.value}" min="1" max="100" required onchange="document.getElementById('cartForm').submit()">
+                                                                        <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="${cart.value}" min="1" max="100" required onchange="document.getElementById('cartForm-${status.index}').submit()">
                                                                         <span class="input-group-btn">
                                                                             <input type="submit" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" name = "action" value="+" />
                                                                         </span>
+                                                                        <c:if test = "${not empty orderId}">
+                                                                            <input type="hidden" name="orderId" value="${orderId}">
+                                                                        </c:if>
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -172,6 +185,9 @@
                                                             <!-- Your form -->
                                                             <form id="deleteForm${status.index}" action="deletefromcart">
                                                                 <input type="hidden" name="id" value="${cart.key.laptopId}">
+                                                                <c:if test = "${not empty orderId}">
+                                                                    <input type="hidden" name="orderId" value="${orderId}">
+                                                                </c:if>
                                                                 <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-plus" data-toggle="modal" data-target="#deleteModal${status.index}">Delete</button>
                                                             </form>
                                                             <script>
@@ -187,67 +203,58 @@
                                     </div>
 
                                     <div class="pagination-controls mt-3">
-                                        <button class="btn btn-secondary" onclick="prevPage()">Previous</button>
+                                        <button class="btn btn-secondary" id = "prevPage" onclick="prevPage()">Previous</button>
                                         <span id="page-info"></span>
-                                        <button class="btn btn-secondary" onclick="nextPage()">Next</button>
+                                        <button class="btn btn-secondary" id = "nextPage" onclick="nextPage()">Next</button>
                                     </div>
                                     <script>
+                                        const itemsPerPage = 3; // Number of items per page
                                         let currentPage = 1;
-                                        let itemsPerPage = 5;
+                                        const items = document.querySelectorAll('.cart-item'); // Select all cart items
 
-                                        function searchProducts() {
-                                            let searchInput = document.getElementById('search-input').value.toLowerCase();
-                                            let items = document.querySelectorAll('.item');
+                                        function displayItems() {
+                                            const start = (currentPage - 1) * itemsPerPage;
+                                            const end = start + itemsPerPage;
 
-                                            items.forEach(function (item) {
-                                                let itemName = item.getAttribute('data-name').toLowerCase();
-                                                if (itemName.includes(searchInput)) {
-                                                    item.style.display = '';
+                                            items.forEach((item, index) => {
+                                                if (index >= start && index < end) {
+                                                    item.style.display = 'block';
                                                 } else {
                                                     item.style.display = 'none';
                                                 }
                                             });
 
-                                            // Reset to first page after search
-                                            currentPage = 1;
-                                            paginateItems();
+                                            if (currentPage === 1) {
+                                                document.getElementById('prevPage').disabled = true;
+                                            } else {
+                                                document.getElementById('prevPage').disabled = false;
+                                            }
+
+                                            if (currentPage * itemsPerPage >= items.length) {
+                                                document.getElementById('nextPage').disabled = true;
+                                            } else {
+                                                document.getElementById('nextPage').disabled = false;
+                                            }
+
+                                            document.getElementById('page-info').innerText = 'Page ' + currentPage + ' of ' + Math.ceil(items.length / itemsPerPage);
                                         }
 
-                                        function paginateItems() {
-                                            let items = document.querySelectorAll('.item');
-                                            let visibleItems = Array.from(items).filter(item => item.style.display !== 'none');
-                                            let totalPages = Math.ceil(visibleItems.length / itemsPerPage);
-
-                                            visibleItems.forEach((item, index) => {
-                                                item.style.display = (index >= (currentPage - 1) * itemsPerPage && index < currentPage * itemsPerPage) ? '' : 'none';
-                                            });
+                                        function nextPage() {
+                                            if (currentPage * itemsPerPage < items.length) {
+                                                currentPage++;
+                                                displayItems();
+                                            }
                                         }
 
                                         function prevPage() {
                                             if (currentPage > 1) {
                                                 currentPage--;
-                                                paginateItems();
+                                                displayItems();
                                             }
                                         }
 
-                                        function nextPage() {
-                                            let items = document.querySelectorAll('.item');
-                                            let visibleItems = Array.from(items).filter(item => item.style.display !== 'none');
-                                            let totalPages = Math.ceil(visibleItems.length / itemsPerPage);
-
-                                            if (currentPage < totalPages) {
-                                                currentPage++;
-                                                paginateItems();
-                                            }
-                                        }
-
-                                        // Initial call to paginate items
-                                        document.addEventListener('DOMContentLoaded', function () {
-                                            paginateItems();
-                                        });
-
-                                        // Event listener for search input
-                                        document.getElementById('search-input').addEventListener('input', searchProducts);
+                                        // Initialize the display
+                                        displayItems();
                                     </script>
                                 </div>
                                 <div class="padding-small">
@@ -306,71 +313,78 @@
                                     // Initial calculation in case some boxes are checked by default
                                     document.addEventListener('DOMContentLoaded', updateTotalPrice);
                                 </script>
-                                <div class="cart-totals padding-small pb-0">
-                                    <h3 class="mb-3">Cart Totals</h3>
-                                    <div class="total-price pb-3">
-                                        <table cellspacing="0" class="table text-uppercase">
-                                            <tbody>
-                                                <tr class="subtotal pt-2 pb-2 border-top border-bottom">
-                                                    <th>Selected Total</th>
-                                                    <td data-title="Subtotal">
-                                                        <span class="price-amount amount text-primary ps-5 fw-light">
-                                                            <bdi>
-                                                                <span class="price-currency-symbol">$</span>${totalPrice}
-                                                            </bdi>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="order-total pt-2 pb-2 border-bottom">
-                                                    <th>Cart Total</th>
-                                                    <td data-title="Total">
-                                                        <span class="price-amount amount text-primary ps-5 fw-light">
-                                                            <bdi>
-                                                                <span class="price-currency-symbol">$</span>${totalPrice}</bdi>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!--a modal to warn user that they haven't select any products to checkout-->
-                                    <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="checkoutModalLabel">Warning</h5>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Please select at least one item to checkout
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                                <c:choose>
+                                    <c:when test = "${not empty orderId}">
+                                        <a href = "orderinfo?orderId=${orderId}"class="btn">Return</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="cart-totals padding-small pb-0">
+                                            <h3 class="mb-3">Cart Totals</h3>
+                                            <div class="total-price pb-3">
+                                                <table cellspacing="0" class="table text-uppercase">
+                                                    <tbody>
+                                                        <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                                                            <th>Selected Total</th>
+                                                            <td data-title="Subtotal">
+                                                                <span class="price-amount amount text-primary ps-5 fw-light">
+                                                                    <bdi>
+                                                                        <span class="price-currency-symbol">$</span>${totalPrice}
+                                                                    </bdi>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="order-total pt-2 pb-2 border-bottom">
+                                                            <th>Cart Total</th>
+                                                            <td data-title="Total">
+                                                                <span class="price-amount amount text-primary ps-5 fw-light">
+                                                                    <bdi>
+                                                                        <span class="price-currency-symbol">$</span>${totalPrice}</bdi>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!--a modal to warn user that they haven't select any products to checkout-->
+                                            <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="checkoutModalLabel">Warning</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Please select at least one item to checkout
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="button-wrap d-flex flex-wrap gap-3">
-                                        <a href = "productList" class = "btn">Continue Shopping</a>
-                                        <button href = "checkout" class = "btn" onclick = "checkout()">Proceed to checkout</button>
-                                        <script>
-                                            function checkout() {
-                                                let checkboxes = document.querySelectorAll('.item-checkbox');
-                                                let ids = [];
-                                                checkboxes.forEach(function (checkbox) {
-                                                    if (checkbox.checked) {
-                                                        ids.push(checkbox.getAttribute('data-id'));
+                                            <div class="button-wrap d-flex flex-wrap gap-3">
+                                                <a href = "productList" class = "btn">Continue Shopping</a>
+                                                <button href = "checkout" class = "btn" onclick = "checkout()">Proceed to checkout</button>
+                                                <script>
+                                                    function checkout() {
+                                                        let checkboxes = document.querySelectorAll('.item-checkbox');
+                                                        let ids = [];
+                                                        checkboxes.forEach(function (checkbox) {
+                                                            if (checkbox.checked) {
+                                                                ids.push(checkbox.getAttribute('data-id'));
+                                                            }
+                                                        });
+                                                        if (ids.length === 0) {
+                                                            //invoke the modal to warn user that they haven't select any products to checkout
+                                                            $('#checkoutModal').modal('show');
+                                                        } else {
+                                                            window.location.href = 'checkout?ids=' + ids.join(',');
+                                                        }
                                                     }
-                                                });
-                                                if (ids.length === 0) {
-                                                    //invoke the modal to warn user that they haven't select any products to checkout
-                                                    $('#checkoutModal').modal('show');
-                                                } else {
-                                                    window.location.href = 'checkout?ids=' + ids.join(',');
-                                                }
-                                            }
-                                        </script>
-                                    </div>
-                                </div>
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>     
                             </c:when>
                             <c:otherwise>
                                 <p>The cart is empty, Visit <a href = "product">Product</a> to find the product that you might like</p>

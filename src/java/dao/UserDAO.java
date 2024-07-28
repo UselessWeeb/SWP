@@ -304,6 +304,20 @@ public class UserDAO extends EntityDAO {
         return users;
     }
 
+    public boolean validateSales(int userId){
+        // Check if the user is a sales(id == 2 or 4)
+        String sql = "SELECT * FROM [User] WHERE user_id = ? AND role_id IN (2, 4)";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, userId);
+            rs = stm.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     @Override
     public Object createEntity(ResultSet rs) throws SQLException {
 

@@ -3,11 +3,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <form action = "login" method = "POST" class="tab-pane fade active show" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-sign-in-tab">
-    <div class="text-danger">
+    <p class="text-danger" id = "results" name = "results">
         <c:if test="${not empty sessionScope.loginErr}">
             <c:out value="${sessionScope.loginErr}"/>
         </c:if>
-    </div>
+    </p>
     <div class="form-group py-3">
         <input type="text" minlength="2" name="email" placeholder="Email address" class="form-control w-100 rounded-3 p-3" required>
     </div>
@@ -34,12 +34,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#exampleModal').modal('show'); // Show the modal
             $('#nav-sign-in-tab').tab('show'); // Switch to the login tab
         });
     </script>
     <!--remove it right after-->
+    <c:remove var="loginSucc" scope="session" />
     <c:remove var="loginErr" scope="session" />
 </c:if>
 </html>

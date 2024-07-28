@@ -166,7 +166,7 @@
                                     <c:set var = "user" value = "${sessionScope.user}"/>
                                     <c:choose>
                                         <c:when test="${empty user}">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <a href="#" data-bs-toggle="modal" id = "loginButton" data-bs-target="#exampleModal">
                                                 <svg class="user">
                                                 <use xlink:href="#user"></use>
                                                 </svg>

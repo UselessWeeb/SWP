@@ -121,13 +121,12 @@ GO
 CREATE TABLE Feedback
 (
   feedback_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-  user_id INT NOT NULL,
+  order_uid INT NOT NULL,
   order_id INT NOT NULL,
   rated_star FLOAT NOT NULL,
   feedback VARCHAR(MAX) NOT NULL,
-  images VARCHAR(MAX) NOT NULL,
   status INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES [User],
+  FOREIGN KEY (order_uid) REFERENCES [Order_User],
   FOREIGN KEY (order_id) REFERENCES [Order]
 );
 GO
@@ -200,13 +199,23 @@ create table [User_Authorization](
 create table hiddenUrl(
 	urlid int primary key identity(1,1),
 	url NVARCHAR(MAX)
-ALTER TABLE [Order] add sales_id INT
+	)
 
 Create table SaleAssign(
 	--this is where the sale manager applied the authenticate to one sale member to be able to perform CRUD
 	assign_id int IDENTITY(1,1) PRIMARY KEY,
 	user_id int,
 	order_id int,
-	FOREIGN KEY (user_id) REFERENCES [User](user_id),
+	FOREIGN KEY (user_id) REFERENCES 
+	[User](user_id),
 	FOREIGN KEY (order_id) REFERENCES [Order](order_id)
 )
+
+alter table [Order] add lastUpdate DATETIME NULL
+Create table Feedback_Image(
+	fimages int IDENTITY(1,1) PRIMARY KEY,
+	image NVARCHAR(MAX),
+	feedback_id int foreign key references Feedback(feedback_id) 
+)
+
+alter table Feedback add laptop_id int

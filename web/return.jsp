@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <head>
         <title>Payment Result</title>
         <meta charset="UTF-8">
@@ -36,7 +37,7 @@
                 border-radius: 50%;
                 display: inline-block;
                 position: relative;
-                border: 5px solid #28a745;
+                border: 5px solid #28a745; /* Green border for success */
                 animation: pop 0.3s ease-in-out;
             }
             .checkmark:before {
@@ -44,13 +45,40 @@
                 position: absolute;
                 width: 40px;
                 height: 20px;
-                border: 5px solid #28a745;
+                border: 5px solid #28a745; /* Green checkmark for success */
                 border-top: none;
                 border-right: none;
                 top: 25px;
                 left: 14px;
                 transform: rotate(-45deg);
             }
+            
+            .error-x {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                display: inline-block;
+                position: relative;
+                border: 5px solid #dc3545; /* Red border for error */
+                animation: pop 0.3s ease-in-out;
+            }
+
+            .error-x:before,
+            .error-x:after {
+                content: "";
+                position: absolute;
+                width: 40px;
+                height: 20px;
+                background-color: #dc3545; /* Red color for the "X" */
+                top: 25px;
+                left: 14px;
+                transform: rotate(45deg);
+            }
+
+            .error-x:before {
+                transform: rotate(-45deg);
+            }
+
             @keyframes pop {
                 0% {
                     transform: scale(0);
@@ -68,9 +96,18 @@
     </head>
     <body>
         <div class="result-container">
-            <div class="checkmark"></div>
+            <div class="
+                 ${state == "failed" ? "error-x" : "checkmark" }
+                 "></div>
             <h1>${message}</h1>
-            <p>You will be redirected to the home page shortly.</p>
+            <c:choose>
+                <c:when test='${state != "failed"}'>
+                    <p>You will be redirected to the home page shortly.</p>
+                </c:when>
+                <c:otherwise>
+                    <p>Please try again later</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </body>
 </html>

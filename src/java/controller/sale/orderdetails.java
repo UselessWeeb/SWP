@@ -55,7 +55,7 @@ public class orderdetails extends HttpServlet {
             request.setAttribute("orderUser", uorderDAO.getById(order.getUser_id()));
             AssinDAO assignDAO = new AssinDAO();
             //manifest edit
-            request.setAttribute("currentEdit", assignDAO.SalesEditId(Integer.parseInt(id)));
+            request.setAttribute("currentEdit", order.getSales_id());
             request.setAttribute("isAbleToEdit", assignDAO.checkAuth((User) session.getAttribute("user"), Integer.parseInt(id)));
             System.out.println(assignDAO.checkAuth((User) session.getAttribute("user"), Integer.parseInt(id)));
             request.setAttribute("salesUser", userDAO.getSalePaging(0, TOTAL_PER_PAGE));

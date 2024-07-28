@@ -6,6 +6,8 @@
 package controller.sale;
 
 import dao.AssinDAO;
+import dao.OrderDAO;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +15,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -32,8 +36,34 @@ public class addAuthServlet extends HttpServlet {
     throws ServletException, IOException {
         String user_id = request.getParameter("user_id");
         String order_id = request.getParameter("order_id");
+        HttpSession session = request.getSession();
+        //basic validate
+        if(user_id == null || order_id == null){
+            session.setAttribute("err", "Both sales id and order id can't be null");
+            response.sendRedirect(request.getHeader("referer"));
+            return;
+        }
+        //makes sure both is number
+        try{
+            Integer.parseInt(user_id);
+            Integer.parseInt(order_id);
+        }catch(NumberFormatException e){
+            System.out.println(e);
+            session.setAttribute("err", "Invalid input: both is not number");
+            response.sendRedirect(request.getHeader("referer"));
+            return;
+        }
+        //advanced validate(method getById order returns null, vallidate sales from user return false)
+        UserDAO udao = new UserDAO();
         AssinDAO adao = new AssinDAO();
+        OrderDAO odao = new OrderDAO();
+        if (udao.findById(user_id) == null || odao.getByOrderId(Integer.parseInt(order_id)) == null || !udao.validateSales(Integer.parseInt(user_id))){
+            session.setAttribute("err", "Invalid input: user inputted is not sales");
+            response.sendRedirect(request.getHeader("referer"));
+            return;
+        }
         adao.addAuth(Integer.parseInt(order_id), Integer.parseInt(user_id));
+        odao.UpdateSalesId(Integer.parseInt(user_id), Integer.parseInt(order_id));
         response.sendRedirect(request.getHeader("referer"));
     } 
 

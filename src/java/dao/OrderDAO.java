@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import model.Laptop;
 import model.Order;
 import model.OrderItem;
+import model.Order_User;
 import model.Slider;
 import model.User;
 
@@ -120,6 +121,7 @@ public class OrderDAO extends EntityDAO {
             }
             stm.setInt(paramIndex++, page * totalPerPage);
             stm.setInt(paramIndex++, totalPerPage);
+            System.out.println(sqlQuery);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Order order = (Order) this.createEntity(rs);
@@ -307,7 +309,12 @@ public class OrderDAO extends EntityDAO {
     public int selectSales() {
         //this method find the sales to handle this order by selecting the first one with lowest order count
         try {
-            String sql = "SELECT TOP 1 user_id as sales_id, COUNT([Order].order_id) FROM [User] JOIN [Order] ON [User].user_id = [Order].sales_id GROUP BY [User].user_id ORDER BY COUNT([Order].order_id) ASC";
+            String sql = "SELECT TOP 1 u.user_id AS sales_id, COUNT(o.order_id) AS order_count\n"
+                    + "FROM [User] u\n"
+                    + "LEFT JOIN [Order] o ON u.user_id = o.sales_id\n"
+                    + "WHERE u.role_id = (SELECT role_id where role_id = 4)\n"
+                    + "GROUP BY u.user_id\n"
+                    + "ORDER BY COUNT(o.order_id) ASC";
             stm = connection.prepareStatement(sql);
             rs = stm.executeQuery();
             if (rs.next()) {
@@ -338,14 +345,25 @@ public class OrderDAO extends EntityDAO {
         return false;
     }
 
-    public void UpdateOrder(int sales_id, int status, String notes, int order_id) {
-        String sql = "UPDATE [Order] SET sales_id = ?, status = ?, notes = ? WHERE order_id = ?";
+    public void UpdateOrder(int status, String notes, int order_id) {
+        String sql = "UPDATE [Order] SET status = ?, add_info = ? WHERE order_id = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, status);
+            stm.setString(2, notes);
+            stm.setInt(3, order_id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void UpdateSalesId(int sales_id, int order_id) {
+        String sql = "UPDATE [Order] SET sales_id = ? WHERE order_id = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, sales_id);
-            stm.setInt(2, status);
-            stm.setString(3, notes);
-            stm.setInt(4, order_id);
+            stm.setInt(2, order_id);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -360,7 +378,9 @@ public class OrderDAO extends EntityDAO {
                 rs.getFloat("price"),
                 rs.getInt("status"),
                 rs.getInt("order_uid"),
-                rs.getInt("sales_id")
+                rs.getInt("sales_id"),
+                rs.getString("add_info"),
+                rs.getTimestamp("lastUpdate")
         );
     }
 
@@ -404,15 +424,15 @@ public class OrderDAO extends EntityDAO {
     }
 
     public void createOrder(Order order) {
-        String sql = "INSERT INTO [Order] (order_date, price, status, order_uid, sales_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO [Order] (order_date, price, status, order_uid, sales_id, add_info) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stm.setTimestamp(1, new java.sql.Timestamp(order.getOrder_date().getTime()));
             stm.setFloat(2, order.getPrice());
-            stm.setInt(3, order.getStatus());
+            stm.setInt(3, order.getStatus().ordinal());
             stm.setInt(4, order.getUser_id());
             stm.setInt(5, order.getSales_id());
-
+            stm.setString(6, order.getNotes());
             int affectedRows = stm.executeUpdate();
 
             if (affectedRows == 0) {
@@ -435,11 +455,73 @@ public class OrderDAO extends EntityDAO {
         try {
             String sql = "UPDATE [Order] SET status = ? WHERE order_id = ?";
             stm = connection.prepareStatement(sql);
-            stm.setInt(1, order.getStatus());
+            stm.setInt(1, order.getStatus().ordinal());
             stm.setInt(2, order.getOrder_id());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public boolean deleteOrder(int orderId) {
+        try {
+            String imagesql = "DELETE FROM [Order_Item] WHERE order_id = ?";
+            stm = connection.prepareStatement(imagesql);
+            stm.setInt(1, orderId);
+            stm.executeUpdate();
+            
+            String sql = "DELETE FROM [Order] WHERE order_id = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, orderId);
+            int rowsAffected = stm.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public void editLastUpdate(Date date, int order_id) {
+        try {
+            String sql = "UPDATE [Order] SET lastUpdate = ? WHERE order_id = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
+            stm.setInt(2, order_id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public List<Order> getByOrderUser(Order_User orderuser) {
+        List<Order> orders = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Order] WHERE order_uid = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, orderuser.getOrderUid());
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                orders.add((Order) this.createEntity(rs));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orders;
+    }
+
+    public List<Order> getByCompletedOrderUser(Order_User orderUser) {
+        List<Order> orders = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Order] WHERE order_uid = ? and status = 3";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, orderUser.getOrderUid());
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                orders.add((Order) this.createEntity(rs));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orders;
     }
 }

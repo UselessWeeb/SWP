@@ -291,6 +291,49 @@ public class LaptopDAO extends EntityDAO {
         return laptopIDs;
     }
 
+    public List<Laptop> getPaginated(int page, int totalPerPage, String titleSearch) {
+        List<Laptop> laptops = new ArrayList<>();
+        try {
+            String strSelect = "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, brief_information, status, updated_date "
+                    + "FROM Laptop ";
+            strSelect += "ORDER BY updated_date DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            stm = connection.prepareStatement(strSelect);
+            stm.setInt(1, page * totalPerPage);
+            stm.setInt(2, totalPerPage);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Laptop laptop = (Laptop) createEntity(rs);
+                laptops.add(laptop);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return laptops;
+    }
+
+    public int findByTitle(String title) {
+        List<Laptop> laptops = new ArrayList<>();
+        try {
+            String strSelect = "SELECT laptop_id, title, main_image, original_price, stock, products_detail, sale_price, brief_information, status, updated_date "
+                    + "FROM Laptop ";
+            if (title != null && !title.equals("undefined")) {
+                strSelect += "WHERE title LIKE ?";
+            }
+            stm = connection.prepareStatement(strSelect);
+            if (title != null && !title.equals("undefined")) {
+                stm.setString(1, "%" + title + "%");
+            }
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Laptop laptop = (Laptop) createEntity(rs);
+                laptops.add(laptop);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return laptops.size();
+    }
+
     public void UpdateQuantity(int laptopID, int quantity) {
         try {
             String query = "UPDATE Laptop SET stock = ? WHERE laptop_id = ?";

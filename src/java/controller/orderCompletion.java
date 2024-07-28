@@ -4,8 +4,6 @@ package controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
-
 import dao.LaptopDAO;
 import dao.OrderDAO;
 import dao.OrderItemDAO;
@@ -37,18 +35,20 @@ import service.CurrencyConverter;
  *
  * @author M7510
  */
-@WebServlet(urlPatterns={"/completion"})
+@WebServlet(urlPatterns = {"/completion"})
 public class orderCompletion extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
         String fullName = request.getParameter("fullName");
         String userAddress = request.getParameter("userAddress");
@@ -59,7 +59,7 @@ public class orderCompletion extends HttpServlet {
         String add_info = request.getParameter("add-info");
         int shippingMethod = Integer.parseInt(request.getParameter("inputShippingType"));
         float totalPrice = Float.parseFloat(request.getParameter("input-total"));
-        
+
         System.out.println(add_info);
 
         // Validate user details
@@ -97,11 +97,14 @@ public class orderCompletion extends HttpServlet {
         }
 
         // Validate product quantity in the cart
-        String ids = request.getParameter("selectedCart");
-        if (ids == null || ids.isEmpty()) {
-            System.out.println("6");
-            response.sendRedirect("cart");
-            return;
+        String ids = null;
+        if (session.getAttribute("directorder") == null) {
+            ids = request.getParameter("selectedCart");
+            if (ids == null || ids.isEmpty()) {
+                System.out.println("6");
+                response.sendRedirect("cart");
+                return;
+            }
         }
 
         LaptopDAO lapdao = new LaptopDAO();
@@ -109,22 +112,27 @@ public class orderCompletion extends HttpServlet {
         OrderUserDAO orderUserdao = new OrderUserDAO();
 
         try {
-            String[] idList = ids.split(",");
-            List<Integer> idIntList = new ArrayList<>();
-            for (String id : idList) {
-                idIntList.add(Integer.parseInt(id));
-            }
-            CartList cartList = (CartList) session.getAttribute("cart");
-            HashMap<String, Integer> cartMap = cartList.getCart();
             HashMap<Laptop, Integer> cart = new HashMap<>();
-            cartMap.forEach((k, v) -> {
-                for (int id : idIntList) {
-                    if (Integer.parseInt(k) == id) {
+            CartList cartList = (CartList) session.getAttribute("cart");
+
+            if (session.getAttribute("directorder") == null && cartList != null) {
+                String[] idList = ids.split(",");
+                List<Integer> idIntList = new ArrayList<>();
+                for (String id : idList) {
+                    idIntList.add(Integer.parseInt(id));
+                }
+
+                HashMap<String, Integer> cartMap = cartList.getCart();
+                for (Map.Entry<String, Integer> entry : cartMap.entrySet()) {
+                    int id = Integer.parseInt(entry.getKey());
+                    if (idIntList.contains(id)) {
                         Laptop lap = lapdao.getLaptopById(id);
-                        cart.put(lap, v);
+                        cart.put(lap, entry.getValue());
                     }
                 }
-            });
+            } else if (session.getAttribute("cartsItem") != null) {
+                cart = (HashMap<Laptop, Integer>) session.getAttribute("cartsItem");
+            }
             for (Map.Entry<Laptop, Integer> entry : cart.entrySet()) {
                 Laptop lap = lapdao.getLaptopById(entry.getKey().getLaptopId());
                 int quantity = entry.getValue();
@@ -150,16 +158,16 @@ public class orderCompletion extends HttpServlet {
             } else {
                 orderUser = existingUser;
             }
-            
+
             System.out.println(orderUser.getGender());
 
             int salesPersonId = orderdao.selectSales();
             int status = paymentMethod.equals("direct") ? 1 : 0;
             Date order_date = new Date();
             //int order_id, Date order_date, int price, int status, int user_id, int sales_id, String notes
-            Order order = new Order(0, order_date, totalPrice, status, orderUser.getOrderUid(),  salesPersonId);
+            Order order = new Order(0, order_date, totalPrice, status, orderUser.getOrderUid(), salesPersonId, add_info);
             orderdao.createOrder(order);
-            
+
             System.out.println(order.getOrder_id());
             OrderItemDAO orderItemdao = new OrderItemDAO();
             orderItemdao.insertOrderItem(cart, order.getOrder_id());
@@ -196,7 +204,8 @@ public class orderCompletion extends HttpServlet {
             //fourth, the payment method
             request.setAttribute("paymentMethod", paymentMethod);
             //fifth, the total price
-            request.setAttribute("totalPrice", currencyConverter.convertUsdToVnd(totalPrice));
+            request.setAttribute("totalPrice", totalPrice);
+            request.setAttribute("totalPriceInVND", currencyConverter.convertUsdToVnd(totalPrice));
             //sixth, the order id
             request.setAttribute("orderId", order.getOrder_id());
             //send to the completion.jsp
@@ -228,9 +237,11 @@ public class orderCompletion extends HttpServlet {
         }
         return 0; // Default case
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -238,12 +249,13 @@ public class orderCompletion extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -251,12 +263,13 @@ public class orderCompletion extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

@@ -60,11 +60,7 @@ public class Sidebar extends HttpServlet {
                 //lastly, show latest blogs
                 request.setAttribute("latestBlogs", blogDAO.findLatest());
                 break;
-            case "/app-name/shop.jsp":
-            case "/app-name/single-product.jsp":
-            case "/app-name/cart.jsp":
-            case "/app-name/checkout.jsp":
-            case "/app-name/completion.jsp":
+            default:
                 LaptopDAO laptopDAO = new LaptopDAO();
 
                 categoryMap = laptopDAO.getCategoryCounts();

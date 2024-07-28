@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,15 +45,13 @@ import service.AccessRole;
  *
  * @author M7510
  */
-@WebServlet(name = "salesDashboard", urlPatterns = {"/salesDashboard"})
-@AccessRole(roles = {
-    Role.Type.sale_manager,
-    Role.Type.sale})
+@WebServlet(name = "salesDashboard", urlPatterns = {"/salesdashboard"})
 public class salesDashboard extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException{
+            throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession();
             OrderDAO dao = new OrderDAO();
             UserDAO udao = new UserDAO();
 
@@ -87,7 +87,13 @@ public class salesDashboard extends HttpServlet {
             request.setAttribute("endDate", formatter.format(endDate));
 
             //return list of all existing sales/sales_manager
-            request.setAttribute("sales", udao.getSales());
+            if (((User) session.getAttribute("user")).getRole().getRole_id() != 2) {
+                List<User> sales = new ArrayList<>();
+                sales.add(((User) session.getAttribute("user")));
+                request.setAttribute("sales", sales);
+            } else {
+                request.setAttribute("sales", udao.getSales());
+            }
 
             // Set the selected user in the request
             request.setAttribute("selectedUser", userId);
@@ -113,4 +119,3 @@ public class salesDashboard extends HttpServlet {
         processRequest(request, response);
     }
 }
-

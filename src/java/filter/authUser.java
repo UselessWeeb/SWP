@@ -153,6 +153,9 @@ public class authUser implements Filter {
         List<String> url = authDAO.getURLForRole(currentUser.getRole().getRole_id());
         Collections.sort(url);
         String startUrl = url.get(0);
+        if (currentUser.getRole().getRole_id() == 2 || currentUser.getRole().getRole_id() == 4){
+            startUrl = "/salesdashboard";
+        }
         //if the start url = / then replace with /app-name/ otherwise delete the trail /
         if (startUrl.equals("/")) {
             startUrl = req.getContextPath() + startUrl;

@@ -1,5 +1,3 @@
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -60,25 +58,48 @@ public class RegisterUserServlet extends HttpServlet {
 
         String referer = request.getHeader("referer");
         String email = request.getParameter("username");
+        String fullName = request.getParameter("fullname");
+        String gender = request.getParameter("gender");
+        String address = request.getParameter("address");
+        String phoneNumber = request.getParameter("phonenumber");
+        String password = request.getParameter("password");
+        String reEnterPassword = request.getParameter("repassword");
 
-        if (userDao.checkIfUserExist(email)) {
-            session.setAttribute("registerErr", "Email already exist!");
-            System.out.println("Email already exist!");
-        } else if (userDao.checkIfPhoneNumberExist(request.getParameter("phonenumber"))) {
-            session.setAttribute("registerErr", "Phone number already exist!");
-            System.out.println("Phone number already exist!");
-        } else if (request.getParameter("phonenumber").length() != 10) {
-            session.setAttribute("registerErr", "Phone number should has 10 digits !");
-            System.out.println("Phone number already exist!");
+        // Save input data in session
+        session.setAttribute("inputEmail", email);
+        session.setAttribute("inputFullName", fullName);
+        session.setAttribute("inputGender", gender);
+        session.setAttribute("inputAddress", address);
+        session.setAttribute("inputPhoneNumber", phoneNumber);
+
+        // Validation checks
+        if (fullName.length() < 3 || fullName.length() > 30) {
+            session.setAttribute("registerErr", "Name must be between 3 and 30 characters!");
+        } else if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$") || email.length() < 5 || email.length() > 99) {
+            session.setAttribute("registerErr", "Invalid email format!");
+        } else if (address.length() < 20 || address.length() > 255) {
+            session.setAttribute("registerErr", "Address must be between 20 and 255 characters!");
+        } else if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d{10}")) {
+            session.setAttribute("registerErr", "Phone number should have 10 digits!");
+        } else if (password.length() < 4 || password.length() > 100) {
+            session.setAttribute("registerErr", "Password must be between 4 and 100 characters!");
+        } else if (!password.equals(reEnterPassword)) {
+            session.setAttribute("registerErr", "Passwords do not match!");
+        } else if (!gender.equalsIgnoreCase("Male") && !gender.equalsIgnoreCase("Female") && !gender.equalsIgnoreCase("Other")) {
+            session.setAttribute("registerErr", "Invalid gender! Gender must be Male, Female, or Other.");
+        } else if (userDao.checkIfUserExist(email)) {
+            session.setAttribute("registerErr", "Email already exists!");
+        } else if (userDao.checkIfPhoneNumberExist(phoneNumber)) {
+            session.setAttribute("registerErr", "Phone number already exists!");
         } else {
             User newUser = new User();
             newUser.setAvatar("images/avatar/default.jpg");
-            newUser.setFullName(request.getParameter("fullname"));
-            newUser.setGender(request.getParameter("gender"));
-            newUser.setAddress(request.getParameter("address"));
+            newUser.setFullName(fullName);
+            newUser.setGender(gender);
+            newUser.setAddress(address);
             newUser.setEmail(email);
-            newUser.setPhoneNumber(request.getParameter("phonenumber"));
-            newUser.setPassword(hash.md5hash(request.getParameter("password")));
+            newUser.setPhoneNumber(phoneNumber);
+            newUser.setPassword(hash.md5hash(password));
             newUser.setState("unverified");
             newUser.setRoleId(6);
 
@@ -88,7 +109,7 @@ public class RegisterUserServlet extends HttpServlet {
 
             System.out.println(newUser);
 
-            session.setAttribute("registerErr", "We have sent you a verification link, please click on that to proceed");
+            session.setAttribute("registerSucc", "We have sent you a verification link, please click on that to proceed");
         }
 
         response.sendRedirect(referer);

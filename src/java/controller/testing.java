@@ -34,15 +34,7 @@ public class testing extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            //now using this to delete the cart cookie and session
-            request.getSession().removeAttribute("cart");
-            //delete the cookie
-            // delete the cookie
-            Cookie cookie = new Cookie("cart", "");
-            cookie.setMaxAge(0);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            response.sendRedirect("/app-name/");
+            
         }
     } 
 

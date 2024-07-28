@@ -69,7 +69,7 @@
                                                         <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
                                                     </button>
                                                 </span>
-                                                <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required>
+                                                <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" onchange ="updateQuantities(document.getElementById('quantity').value)" required>
                                                 <span class="input-group-btn">
                                                     <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-right-plus" data-type="plus" data-field="">
                                                         <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                                 <div class="action-buttons my-3 d-flex flex-wrap gap-3">
-                                    <form action="someAction" method="post">
+                                    <form action="ordernow" method="post">
                                         <input type="hidden" id="orderQuantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required>
                                         <input type="hidden" name="id" value="${Product.laptopId}">
                                         <button type="submit" class="btn">Order now</button>
@@ -131,20 +131,7 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row">
-                    <div class="tabs-listing">
-                        <div class="tab-content border-bottom py-4" id="nav-tabContent" >
-                            <div>
-                                <h2 class="tab-pane fade active show" aria-labelledby="nav-home-tab">
-                                    User A
-                                </h2>
-                            </div>
-                            <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                               Really cool, would love to see !
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <jsp:include page="/productFeedback?laptopId=${Product.laptopId}" />
             </div>
         </section>
 

@@ -24,6 +24,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import service.CurrencyConverter;
 import service.PaymentConfig;
 
 /**
@@ -87,7 +90,15 @@ public class payment extends HttpServlet {
             response.sendRedirect(request.getHeader("referer"));
             return;
         }
-        redirectToVNPay(request, response, Float.parseFloat(totalPrice), Integer.parseInt(orderId));
+        String VndPrice = null;
+        try {
+            // Remove commas before converting
+            VndPrice = CurrencyConverter.convertUsdToVnd(Float.parseFloat(totalPrice));
+            VndPrice = VndPrice.replace(",", "");  // Fixing this line to correctly replace commas
+        } catch (Exception ex) {
+            Logger.getLogger(payment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        redirectToVNPay(request, response, Float.parseFloat(VndPrice), Integer.parseInt(orderId));
     }
 
     /**
@@ -100,7 +111,7 @@ public class payment extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+
     }
 
     private void redirectToVNPay(HttpServletRequest request, HttpServletResponse response, Float totalPrice, int orderID) throws IOException {

@@ -29,7 +29,7 @@ public class AssinDAO extends EntityDAO {
         }
         try {
             //otherwise, perform if current user has being assigned or not
-            String sql = "SELECT * FROM [SaleAssign] where user_id = ? and order_id = ?";
+            String sql = "SELECT * FROM [Order] where sales_id = ? and order_id = ?";
             stm = connection.prepareStatement(sql);
             stm.setInt(1, u.getUserId());
             stm.setInt(2, order_id);

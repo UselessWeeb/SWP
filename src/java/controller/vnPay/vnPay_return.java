@@ -89,7 +89,8 @@ public class vnPay_return extends HttpServlet {
                 o.updateOrder(order);
             } else {
                 // Payment failed
-                request.setAttribute("message", "Payment failed: " + vnp_ResponseCode);
+                request.setAttribute("message", "Payment failed");
+                request.setAttribute("state", "failed");
             }
         } else {
             request.setAttribute("message", "Invalid signature");

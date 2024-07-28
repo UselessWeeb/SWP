@@ -26,7 +26,6 @@ import model.User;
  *
  * @author M7510
  */
-@WebFilter(filterName = "SessionThirst", urlPatterns = {"/*"})
 public class SessionThirst implements Filter {
 
     public SessionThirst() {
@@ -44,6 +43,11 @@ public class SessionThirst implements Filter {
 
         // Attempt to retrieve the session and the user attribute
         HttpSession session = httpRequest.getSession(false);
+
+        if (session == null) {
+        // Create a new session if one doesn't exist
+            session = httpRequest.getSession(true);
+        }
         User user = (session != null) ? (User) session.getAttribute("user") : null;
 
         // If session is null or doesn't have the user, try to find the cookie

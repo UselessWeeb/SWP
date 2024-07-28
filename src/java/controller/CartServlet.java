@@ -17,7 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import model.CartList;
 import model.Laptop;
-import model.Role;
+import model.Order;
+import model.OrderItem;
 import model.User;
 import model.cart.CartModel;
 import service.AccessRole;
@@ -27,9 +28,6 @@ import service.AccessRole;
  * @author M7510
  */
 @WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
-@AccessRole(roles = {
-    Role.Type.customer,
-    Role.Type.guest})
 public class CartServlet extends HttpServlet {
 
     /**
@@ -44,22 +42,41 @@ public class CartServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        HashMap<String, Integer> cartMap;
-        if (session != null && session.getAttribute("user") != null) {
-            // User is logged in, use CartDAO
-            CartDAO cartDAO = new CartDAO((User)session.getAttribute("user"));
-            cartMap = cartDAO.getCart();
+        //act differently if orderId is present
+        if (request.getParameter("orderId") == null) {
+            HttpSession session = request.getSession(false);
+            HashMap<String, Integer> cartMap;
+            if (session != null && session.getAttribute("user") != null) {
+                // User is logged in, use CartDAO
+                CartDAO cartDAO = new CartDAO((User) session.getAttribute("user"));
+                cartMap = cartDAO.getCart();
+            } else {
+                CartList carts = (CartList) session.getAttribute("cart");
+                cartMap = carts.getCart();
+            }
+            LaptopDAO dao = new LaptopDAO();
+            HashMap<Laptop, Integer> cart = new HashMap<>();
+            cartMap.forEach((k, v) -> {
+                cart.put(dao.getByID(k), v);
+            });
+            request.setAttribute("carts", cart);
         } else {
-            CartList carts = (CartList) session.getAttribute("cart");
-            cartMap = carts.getCart();
+            //edit this to get the order details
+            OrderDAO orderDAO = new OrderDAO();
+            try {
+                Order order = orderDAO.getByOrderId(Integer.parseInt(request.getParameter("orderId")));
+                OrderItemDAO orderItemDAO = new OrderItemDAO();
+                List<OrderItem> orderItems = orderItemDAO.getByOrderId(order.getOrder_id());
+                HashMap<Laptop, Integer> items = new HashMap<>();
+                for (OrderItem orderItem : orderItems) {
+                    items.put(orderItem.getLaptopId(), orderItem.getQuantity());
+                }
+                request.setAttribute("carts", items);
+                request.setAttribute("orderId", request.getParameter("orderId"));
+            } catch (Exception e) {
+                request.setAttribute("err", "Order does not exist");
+            }
         }
-        LaptopDAO dao = new LaptopDAO();
-        HashMap<Laptop, Integer> cart = new HashMap<>();
-        cartMap.forEach( (k, v) -> { 
-            cart.put(dao.getByID(k), v);
-        } );    
-        request.setAttribute("carts", cart);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 

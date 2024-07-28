@@ -45,9 +45,9 @@
                           <c:when test = '${uri.contains("blog.jsp") || uri.contains("single-post.jsp")}'>
                               action="blog"
                           </c:when>
-                          <c:when test = '${uri.contains("shop-product.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp")|| uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
+                          <c:otherwise>
                               action="product"
-                          </c:when>
+                          </c:otherwise>
                       </c:choose>
                       >
                     <div class="widget-menu">
@@ -71,7 +71,7 @@
                                 <li class="cat-item ${entry.key == param.category ? 'bg-info text-white ps-1 rounded-2 ' : 'text-black'}">
                                     <c:set var="selectedCategoriesString" value="${fn:join(selectedCategories, ',')}" />
                                     <c:set var="url" value="${uri}" />
-                                            <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(url.contains('shop-product.jsp') || url.contains('single-product.jsp')|| url.contains('cart.jsp') || url.contains('checkout.jsp')) ? 'productList' : 'blog'}?category=${entry.key}">
+                                            <a class ="${entry.key == param.category ? 'text-white' : 'text-black'}" href="${(uri.contains("blog.jsp") || uri.contains("single-post.jsp")) ? 'blog' : 'product'}?category=${entry.key}">
                                         <label>${entry.key} (${entry.value})</label>
                                     </a>
                                 </li>
@@ -133,10 +133,11 @@
                                         </div>                  
                                     </c:forEach>
                                 </c:when>
-                                <c:when test = '${uri.contains("shop-product.jsp") || uri.contains("single-product.jsp") || uri.contains("cart.jsp") || uri.contains("checkout.jsp")|| uri.contains("completion.jsp")}'>
+                                <c:otherwise>
                                     <c:set var="latestProducts" value="${requestScope.latestProducts}" />
                                     <c:forEach items="${latestProducts}" var="laptop">
                                         <div class="position-relative text-left p-5 rounded-3">
+                                            <span class="btn rounded-2 py-0 px-2 btn bg-info text-white py-0 px-2 position-absolute top-5 end-10 translate-middle">New</span>
                                             <img src="${laptop.mainImage}" class="mw-100 img-fluid" alt="${laptop.title}">
                                             <h5 class="mt-2">
                                                 <a href="productdetails?laptopId=${laptop.laptopId}">${laptop.title}</a>
@@ -149,7 +150,7 @@
                                             </div>
                                         </div>
                                     </c:forEach>
-                                </c:when>
+                                </c:otherwise>
                             </c:choose>
                         </section>
                     </div>

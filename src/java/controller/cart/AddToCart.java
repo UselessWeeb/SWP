@@ -43,40 +43,51 @@ public class AddToCart extends HttpServlet {
         HttpSession session = request.getSession(false);
         LaptopDAO laptopDAO = new LaptopDAO();
         String id = request.getParameter("id");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
         ObjectMapper objectMapper = new ObjectMapper();
-
-        if (session != null && session.getAttribute("user") != null) {
-            // User is logged in
-            User user = (User) session.getAttribute("user");
-            CartDAO cartDAO = new CartDAO(user);
-            cartDAO.addToCart(id, quantity); // Assuming addToCart method updates the DB
-            CartList updatedCart = new CartList(cartDAO.getCart()); // Fetch the updated cart
-            session.setAttribute("cart", updatedCart); // Update session
-            
-            // Optionally, synchronize session cart with cookie
-            String cartJson = objectMapper.writeValueAsString(updatedCart);
-            String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
-            Cookie cartCookie = new Cookie("cart", encodedCartJson);
-            cartCookie.setPath("/");
-            cartCookie.setMaxAge(60 * 60 * 24); // 1 day
-            response.addCookie(cartCookie);
+        try {
+            Integer.parseInt(request.getParameter("quantity"));
+        } catch (Exception e) {
+            session.setAttribute("err", "The number you want is invalid, please try again");
+            response.sendRedirect(request.getHeader("referer"));
+            return;
+        }
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        if (quantity <= 0 || quantity >= laptopDAO.getByID(id).getStock()) {           
+            session.setAttribute("err", "The number you want is invalid, please try again");
         } else {
-            // User is not logged in
-            CartList cart = (CartList) session.getAttribute("cart");
-            if (cart == null) {
-                cart = new CartList();
+
+            if (session != null && session.getAttribute("user") != null) {
+                // User is logged in
+                User user = (User) session.getAttribute("user");
+                CartDAO cartDAO = new CartDAO(user);
+                cartDAO.addToCart(id, quantity); // Assuming addToCart method updates the DB
+                CartList updatedCart = new CartList(cartDAO.getCart()); // Fetch the updated cart
+                session.setAttribute("cart", updatedCart); // Update session
+
+                // Optionally, synchronize session cart with cookie
+                String cartJson = objectMapper.writeValueAsString(updatedCart);
+                String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
+                Cookie cartCookie = new Cookie("cart", encodedCartJson);
+                cartCookie.setPath("/");
+                cartCookie.setMaxAge(60 * 60 * 24); // 1 day
+                response.addCookie(cartCookie);
+            } else {
+                // User is not logged in
+                CartList cart = (CartList) session.getAttribute("cart");
+                if (cart == null) {
+                    cart = new CartList();
+                }
+                cart.addToCart(id, quantity); // Update cart in session
+                session.setAttribute("cart", cart); // Update session
+
+                // Encode cart and store in cookie
+                String cartJson = objectMapper.writeValueAsString(cart);
+                String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
+                Cookie cartCookie = new Cookie("cart", encodedCartJson);
+                cartCookie.setMaxAge(60 * 60 * 24); // 1 day
+                response.addCookie(cartCookie);
+                System.out.println("and it's supposed to go here");
             }
-            cart.addToCart(id, quantity); // Update cart in session
-            session.setAttribute("cart", cart); // Update session
-            
-            // Encode cart and store in cookie
-            String cartJson = objectMapper.writeValueAsString(cart);
-            String encodedCartJson = Base64.getEncoder().encodeToString(cartJson.getBytes());
-            Cookie cartCookie = new Cookie("cart", encodedCartJson);
-            cartCookie.setMaxAge(60 * 60 * 24); // 1 day
-            response.addCookie(cartCookie);
-            System.out.println("and it's supposed to go here");
         }
         response.sendRedirect(request.getHeader("referer"));
     }

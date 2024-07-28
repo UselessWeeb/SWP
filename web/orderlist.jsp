@@ -113,10 +113,10 @@
                         <tr>
                             <th>ID</th>
                             <th>Customer Name<a
-                                    href="orderlist?page=${currentPage}&sortField=fullname&sortDirection=${sortField == 'fullname' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
+                                    href="salesorderlist?page=${currentPage}&sortField=fullname&sortDirection=${sortField == 'fullname' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
                                                        == 'fullname' && sortDirection == 'desc' ? '&#x25B2;' : '&#x25BC;'}</a></th>
                             <th>Order Date<a
-                                    href="orderlist?page=${currentPage}&sortField=order_date&sortDirection=${sortField == 'order_date' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
+                                    href="salesorderlist?page=${currentPage}&sortField=order_date&sortDirection=${sortField == 'order_date' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
                                                        == 'order_date' && sortDirection == 'desc' ? '&#x25B2;' : '&#x25BC;'}</a>
                             </th>
                             <th>Product
@@ -124,28 +124,48 @@
                                     <i class="fas fa-filter"></i>
                                 </a>
                                 <div class="dropdown-menu p-3 animate slider" data-bs-popper="static">
-                                    <c:forEach var="laptop" items="${laptops}">
-                                        <div class="form-check">
-                                            <c:set var="isChecked" value="false" />
-                                            <c:forEach var="selectedLaptopId" items="${selectedLaptopId}">
-                                                <c:if test="${selectedLaptopId == laptop.laptopId}">
-                                                    <c:set var="isChecked" value="true" />
-                                                </c:if>
-                                            </c:forEach>
-                                            <input class="form-check-input" type="checkbox" value="${laptop.laptopId}"
-                                                   id="productCheck${laptop.laptopId}" name="productCheck" <c:if test="${isChecked}">checked</c:if> >
-                                            <label class="form-check-label" for="productCheck${laptop.laptopId}">
-                                                ${laptop.title}
-                                            </label>
-                                        </div>
-                                    </c:forEach>
+                                    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search laptops..." onkeyup="filterLaptops()">
+                                    <div id="laptopList">
+                                        <c:forEach var="laptop" items="${laptops}">
+                                            <div class="form-check laptop-item">
+                                                <c:set var="isChecked" value="false" />
+                                                <c:forEach var="selectedLaptopId" items="${selectedLaptopId}">
+                                                    <c:if test="${selectedLaptopId == laptop.laptopId}">
+                                                        <c:set var="isChecked" value="true" />
+                                                    </c:if>
+                                                </c:forEach>
+                                                <input class="form-check-input" type="checkbox" value="${laptop.laptopId}"
+                                                       id="productCheck${laptop.laptopId}" name="productCheck" <c:if test="${isChecked}">checked</c:if> >
+                                                <label class="form-check-label" for="productCheck${laptop.laptopId}">
+                                                    ${laptop.title}
+                                                </label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
                                 </div>
+                                <script>
+                                    function filterLaptops() {
+                                        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+                                        const laptopItems = document.getElementsByClassName('laptop-item');
+
+                                        for (let i = 0; i < laptopItems.length; i++) {
+                                            const label = laptopItems[i].getElementsByTagName('label')[0];
+                                            const textValue = label.textContent || label.innerText;
+                                            
+                                            if (textValue.toLowerCase().indexOf(searchInput) > -1) {
+                                                laptopItems[i].style.display = "";
+                                            } else {
+                                                laptopItems[i].style.display = "none";
+                                            }
+                                        }
+                                    }
+                                </script>
                             </th>
                             <th>Total Cost<a
-                                    href="orderlist?page=${currentPage}&sortField=Order.price&sortDirection=${sortField == '[Order].price' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
+                                    href="salesorderlist?page=${currentPage}&sortField=Order.price&sortDirection=${sortField == '[Order].price' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
                                                        == '[Order].price' && sortDirection == 'desc' ? '&#x25B2;' : '&#x25BC;'}</a></th>
                             <th>Status<a
-                                    href="orderlist?page=${currentPage}&sortField=status&sortDirection=${sortField == 'status' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
+                                    href="salesorderlist?page=${currentPage}&sortField=status&sortDirection=${sortField == 'status' && sortDirection == 'desc' ? 'asc' : 'desc'}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${sortField
                                                        == 'status' && sortDirection == 'desc' ? '&#x25B2;' : '&#x25BC;'}</a>
                                 <a href="#" data-bs-toggle="dropdown" role="button"
                                    aria-expanded="false">
@@ -156,9 +176,11 @@
                                     <select name="status" class="form-select">
                                         <option value="">All</option>
                                         <option value="0" ${status==0 ? 'selected' : '' }>Pending</option>
-                                        <option value="1" ${status==1 ? 'selected' : '' }>Shipped</option>
-                                        <option value="2" ${status==2 ? 'selected' : '' }>Delivered</option>
-                                        <option value="3" ${status==3 ? 'selected' : '' }>Cancelled</option>
+                                        <option value="0" ${status==1 ? 'selected' : '' }>Submitted</option>
+                                        <option value="1" ${status==2 ? 'selected' : '' }>Shipping</option>
+                                        <option value="2" ${status==3 ? 'selected' : '' }>Delivered</option>
+                                        <option value="3" ${status==4 ? 'selected' : '' }>Cancelled</option>
+                                        <option value="3" ${status==5 ? 'selected' : '' }>Refunded</option>
                                     </select>
                                 </div>
                             </th>
@@ -203,18 +225,18 @@
                 <ul class="pagination justify-content-center gap-4">
                     <c:if test="${currentPage > 1}">
                         <li class="page-item">
-                            <a class="page-link" href="orderlist?page=${currentPage - 1}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">Previous</a>
+                            <a class="page-link" href="salesorderlist?page=${currentPage - 1}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">Previous</a>
                         </li>
                     </c:if>
                     <c:forEach begin="1" end="${totalPages}" var="i">
                         <li class="page-item ${i == currentPage ? 'active' : ''}">
                             <a class="py-1 px-3 ${i == currentPage ? 'bg-primary text-white' : ''}"
-                               href="orderlist?page=${i}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${i}</a>
+                               href="salesorderlist?page=${i}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">${i}</a>
                         </li>
                     </c:forEach>
                     <c:if test="${currentPage < totalPages}">
                         <li class="page-item">
-                            <a class="page-link" href="orderlist?page=${currentPage + 1}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">Next</a>
+                            <a class="page-link" href="salesorderlist?page=${currentPage + 1}&sortField=${sortField == "[Order].price" ? "Order.price" : sortField}&sortDirection=${sortDirection}&startDate=${startDate}&endDate=${endDate}&status=${status}&search=${search}">Next</a>
                         </li>
                     </c:if>
                 </ul>

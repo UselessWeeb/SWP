@@ -42,13 +42,13 @@
                 </c:choose>
             </ul>
             <c:set var="ids" value="" />
-            <c:forEach begin="1" end="${fn:length(cart)}" var="i">
-                <c:set var="ids" value="${ids}${i}${i < fn:length(cart) ? ',' : ''}" />
+            <c:forEach var="entry" items="${cart}" varStatus="status">
+                <c:set var="ids" value="${ids}${entry.key.laptopId}${status.last ? '' : ','}" />
             </c:forEach>
             <div class="d-flex flex-wrap justify-content-center">
                 <a href="cart" class="w-100 btn btn-dark mb-1" type="submit">View Cart</a>
                 <a href="checkout?ids=${ids}" class="w-100 btn btn-primary" type="submit">Go to checkout</a>
-            </div>  
+            </div>
         </div>
     </li>
 </c:if>

@@ -5,6 +5,9 @@
 package controller.sale;
 
 import dao.OrderDAO;
+import dao.OrderItemDAO;
+import dao.OrderUserDAO;
+import email.EmailService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +16,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
+import model.Order;
+import model.OrderItem;
+import model.Order_User;
 import model.User;
 
 /**
@@ -36,14 +44,29 @@ public class updateOrderSevlet extends HttpServlet {
         String order = request.getParameter("order");
         String notes = request.getParameter("notes");
         String statusString = request.getParameter("status");
-        System.out.println(statusString);
-        int status = getStatus(statusString);
-        OrderDAO dao = new OrderDAO();
-        HttpSession session = request.getSession();
-        dao.UpdateOrder(((User) session.getAttribute("user")).getUserId(), status, notes, Integer.parseInt(order));
-        System.out.println(response.getHeader("referer"));
-        session.setAttribute("success", "Update order information success !");
-        response.sendRedirect("/app-name/orderdetails?id=" + order);
+        try {
+            int orderId = Integer.parseInt(order);
+            int status = getStatus(statusString);
+            OrderDAO dao = new OrderDAO();
+            HttpSession session = request.getSession();
+            dao.UpdateOrder(status, notes, Integer.parseInt(order));
+            if (status == 3) {
+                //complete, send a feedback mail for user
+                EmailService mailService = new EmailService();
+                Order currentOrder = dao.getByOrderId(orderId);
+                OrderItemDAO itemDAO = new OrderItemDAO();
+                List<OrderItem> items = itemDAO.getByOrderId(orderId);
+                OrderUserDAO userDAO = new OrderUserDAO();
+                Order_User user = userDAO.getById(currentOrder.getUser_id());
+                mailService.sendFeedbackRequestMail(items, user);
+            }
+            //get current date
+            dao.editLastUpdate(new Date(), orderId);
+            session.setAttribute("success", "Update order information success !");
+            response.sendRedirect("/app-name/orderdetails?id=" + order);
+        } catch (Exception e) {
+            //
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,12 +112,16 @@ public class updateOrderSevlet extends HttpServlet {
         return switch (status) {
             case "Pending" ->
                 0;
-            case "Shipped" ->
+            case "Submitted" ->
                 1;
-            case "Delivered" ->
+            case "Shipping" ->
                 2;
-            case "Cancelled" ->
+            case "Delivered" ->
                 3;
+            case "Cancelled" ->
+                4;
+            case "Refunded" ->
+                5;
             default ->
                 -1;
         }; //err

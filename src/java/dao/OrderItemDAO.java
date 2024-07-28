@@ -18,6 +18,7 @@ import model.OrderItem;
  * @author M7510
  */
 public class OrderItemDAO extends EntityDAO {
+
     public List<OrderItem> getByOrderId(int orderId) {
         List<OrderItem> orderItems = new ArrayList<>();
         try {
@@ -27,7 +28,7 @@ public class OrderItemDAO extends EntityDAO {
             rs = stm.executeQuery();
             while (rs.next()) {
                 orderItems.add((OrderItem) this.createEntity(rs));
-            }         
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -48,6 +49,32 @@ public class OrderItemDAO extends EntityDAO {
                 stm.addBatch();
             }
             stm.executeBatch();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void updateOrderItem(Laptop laptop, int quantity, int orderId) {
+        try {
+            String query = "UPDATE [Order_Item] SET quantity =?, price =? WHERE order_id =? AND laptop_id =?";
+            stm = connection.prepareStatement(query);
+            stm.setInt(1, quantity);
+            stm.setFloat(2, laptop.getSalePrice());
+            stm.setInt(3, orderId);
+            stm.setInt(4, laptop.getLaptopId());
+            stm.addBatch();
+            stm.executeBatch();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void deleteOrderItem(int orderItemId) {
+        try {
+            String query = "DELETE FROM [Order_Item] WHERE order_item_id =?";
+            stm = connection.prepareStatement(query);
+            stm.setInt(1, orderItemId);
+            stm.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

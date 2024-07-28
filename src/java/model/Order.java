@@ -5,42 +5,67 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author vudai
  */
 public class Order {
+
     private int order_id;
     private Date order_date;
     private float price;
     private Status status; // Change the type to Status
     private int user_id;
     private int sales_id;
-    
+
     private String notes;
-    
+
     private Laptop laptop;
     private Order_User user;
+    private Date lastUpdate;
 
     public enum Status {
         Pending,
         Submitted,
+        Shipping,
         Delivered,
         Cancelled,
+        Refunded;
+        
+        @Override
+        public String toString() {
+            // Return the name of the enum in the desired format
+            return name();
+        }
     }
 
     public Order() {
     }
 
-    public Order(int order_id, Date order_date, float price, int status, int user_id, int sales_id) {
+    public Order(int order_id, Date order_date, float price, int status, int user_id, int sales_id, String notes) {
         this.order_id = order_id;
         this.order_date = order_date;
         this.price = price;
         this.setStatus(status); // Use the setter to convert the int to Status
         this.user_id = user_id;
         this.sales_id = sales_id;
+        this.notes = notes;
     }
+
+    public Order(int order_id, Date order_date, float price, int status, int user_id, int sales_id, String notes, Date lastUpdate) {
+        this.order_id = order_id;
+        this.order_date = order_date;
+        this.price = price;
+        this.setStatus(status);
+        this.user_id = user_id;
+        this.sales_id = sales_id;
+        this.notes = notes;
+        this.lastUpdate = lastUpdate;
+    }
+    
+    
 
     public String getNotes() {
         return notes;
@@ -74,8 +99,8 @@ public class Order {
         this.price = price;
     }
 
-    public int getStatus() {
-        return status.ordinal();
+    public Status getStatus() {
+        return status;
     }
 
     public void setStatus(int status) {
@@ -115,6 +140,14 @@ public class Order {
 
     public void setSales_id(int sales_id) {
         this.sales_id = sales_id;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     @Override

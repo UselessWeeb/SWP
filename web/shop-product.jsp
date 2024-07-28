@@ -67,16 +67,11 @@
                                             <span class="price text-primary fw-light mb-2">$${laptop.salePrice}</span>
                                         </div>
                                         <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                                            <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
+                                            <a href = "addtocart?id=${laptop.laptopId}&quantity=1" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Cart">
                                                 <svg class="cart">
                                                 <use xlink:href="#cart"></use>
                                                 </svg>
-                                            </button>
-                                            <button type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wishlist">
-                                                <svg class="wishlist">
-                                                <use xlink:href="#heart"></use>
-                                                </svg>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -97,19 +92,19 @@
                                             <span class="page-link">Prev</span>
                                         </li>
                                     </c:if>
-                            
+
                                     <c:if test="${totalPage > 0}">
                                         <c:forEach var="i" begin="0" end="${(totalPage == 0) ? 0 : totalPage - 1}">
                                             <c:choose>
                                                 <c:when test="${i < 2 || (i > currentPage - 1 && i < currentPage + 1) || i > totalPage - 3}">
                                                     <li class="page-item ">
                                                         <a class="px-3 page-link page-item ${i == currentPage ? 'bg-primary text-white' : ''}" href="productList?page=${i}&search=${searchQuery.trim() != '' ? searchQuery : ''}
-                                                            <c:forEach var="category" items="${selectedCategories}">
-                                                                <c:if test="${!empty category}">
-                                                                    &category=${category}
-                                                                </c:if>
-                                                            </c:forEach>
-                                                            ">${i + 1}
+                                                           <c:forEach var="category" items="${selectedCategories}">
+                                                               <c:if test="${!empty category}">
+                                                                   &category=${category}
+                                                               </c:if>
+                                                           </c:forEach>
+                                                           ">${i + 1}
                                                         </a>
                                                     </li>
                                                 </c:when>
@@ -123,15 +118,15 @@
                                             </c:choose>
                                         </c:forEach>
                                     </c:if>
-                            
+
                                     <c:if test="${currentPage < totalPage - 1}">
                                         <li class="page-item">
                                             <a class="page-link" href="productList?page=${currentPage + 1}&search=${searchQuery}
-                                           <c:forEach var="category" items="${selectedCategories}">
-                                               &category=${category}
-                                           </c:forEach>
-                                           ">Next
-                                        </a>
+                                               <c:forEach var="category" items="${selectedCategories}">
+                                                   &category=${category}
+                                               </c:forEach>
+                                               ">Next
+                                            </a>
                                         </li>
                                     </c:if>
                                     <c:if test="${currentPage >= totalPage - 1}">
@@ -142,6 +137,7 @@
                                 </ul>
                             </nav>
                         </div>
+                        <jsp:include page="/generalFeedback" flush="true"/>     
                     </main>
                     <jsp:include page="/Sidebar" flush="true"/>
                 </div>
