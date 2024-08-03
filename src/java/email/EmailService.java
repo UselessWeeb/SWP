@@ -24,9 +24,9 @@ import org.simplejavamail.mailer.MailerBuilder;
  */
 public class EmailService {
 
-    private static final String SENDER_EMAIL = "phamnguyenquocanh833@gmail.com";
+    private static final String SENDER_EMAIL = "mail";
     private static final String SENDER_NAME = "Shop laptop";
-    private static final String SENDER_PASSWORD = "prao mgzs zbfp qhxf ";
+    private static final String SENDER_PASSWORD = "sth";
 
     private final Mailer mailer = MailerBuilder.withSMTPServer("smtp.gmail.com", 587, SENDER_EMAIL, SENDER_PASSWORD)
             .withTransportStrategy(TransportStrategy.SMTP_TLS)
